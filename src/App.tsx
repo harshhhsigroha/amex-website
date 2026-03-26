@@ -19,6 +19,9 @@ import Process from "./pages/Process";
 import EmploymentStatus from "./pages/services/EmploymentStatus";
 import PayrollServices from "./pages/services/PayrollServices";
 import HRServices from "./pages/services/HRServices";
+import Construction from "./pages/industries/Construction";
+import Healthcare from "./pages/industries/Healthcare";
+import Hospitality from "./pages/industries/Hospitality";
 
 import ClockInOut from "./pages/ClockInOut";
 import NotFound from "./pages/NotFound";
@@ -78,6 +81,9 @@ function AppRoutes() {
       <Route path="/services/employment-status" element={<EmploymentStatus />} />
       <Route path="/services/payroll-services" element={<PayrollServices />} />
       <Route path="/services/hr-services" element={<HRServices />} />
+      <Route path="/industries/construction" element={<Construction />} />
+      <Route path="/industries/healthcare" element={<Healthcare />} />
+      <Route path="/industries/hospitality" element={<Hospitality />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
       <Route path="*" element={<NotFound />} />
