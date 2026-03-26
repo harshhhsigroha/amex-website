@@ -32,7 +32,7 @@ export const DEFAULT_CONFIG: InvoiceConfig = {
 export const DEFAULT_BRANDING: InvoiceBranding = {
   companyName: 'AMEX Outsourcing',
   tagline: 'Professional Payroll Services',
-  primaryColor: [59, 130, 246], // Blue
+  primaryColor: [220, 38, 38], // Red
 };
 
 // Legacy export for backwards compatibility
