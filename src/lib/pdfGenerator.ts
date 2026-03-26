@@ -244,9 +244,9 @@ export function generateInvoicePDF(
   // Set document properties (read-only)
   doc.setProperties({
     title: `Invoice ${invoiceNumber}`,
-    subject: 'PayCore by FirmFlow Invoice',
-    author: 'PayCore by FirmFlow',
-    creator: 'PayCore Admin Payroll System',
+    subject: 'AMEX Outsourcing Invoice',
+    author: 'AMEX Outsourcing',
+    creator: 'AMEX Admin Payroll System',
   });
 
   // Generate filename per naming convention

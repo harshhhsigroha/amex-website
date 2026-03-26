@@ -69,7 +69,7 @@ export default function ClockInOut() {
           try {
             const resp = await fetch(
               `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`,
-              { headers: { 'User-Agent': 'PayCoreTimesheets/1.0' } }
+              { headers: { 'User-Agent': 'AMEX OutsourcingTimesheets/1.0' } }
             );
             const data = await resp.json();
             address = data.display_name || null;

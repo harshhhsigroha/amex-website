@@ -27,7 +27,7 @@ const priorityColors: Record<string, string> = {
   urgent: 'bg-red-500/10 text-red-600',
 };
 
-export function PayCoreSupportPanel() {
+export function AMEX OutsourcingSupportPanel() {
   const { user } = useAuth();
   const { clients } = useClients();
   const qc = useQueryClient();

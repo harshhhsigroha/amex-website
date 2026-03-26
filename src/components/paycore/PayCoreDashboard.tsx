@@ -14,7 +14,7 @@ import { PRICING_PLANS } from './ClientManager';
 
 const COLORS = ['hsl(221,83%,53%)', 'hsl(262,80%,58%)', 'hsl(38,92%,50%)', 'hsl(160,60%,45%)'];
 
-export function PayCoreDashboard() {
+export function AMEX OutsourcingDashboard() {
   const { clients } = useClients();
 
   const { data: plans = [] } = useQuery({
@@ -129,7 +129,7 @@ export function PayCoreDashboard() {
       {/* Page header */}
       <div>
         <h2 className="text-2xl font-bold text-foreground tracking-tight">Overview</h2>
-        <p className="text-muted-foreground text-sm mt-1">PayCore platform health at a glance</p>
+        <p className="text-muted-foreground text-sm mt-1">AMEX Outsourcing platform health at a glance</p>
       </div>
 
       {/* KPI Row */}

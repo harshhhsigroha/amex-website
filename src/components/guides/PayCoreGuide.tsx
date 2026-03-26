@@ -38,15 +38,15 @@ const sections: GuideSection[] = [
     border: 'border-blue-200',
     steps: [
       {
-        title: 'What is PayCore?',
+        title: 'What is AMEX Outsourcing?',
         content:
-          'PayCore is a multi-tenant payroll, invoicing, and timesheet platform built for recruitment agencies. The PayCore Team Portal (/paycore) is your internal command centre for managing all client agencies and platform health.',
+          'AMEX Outsourcing is a multi-tenant payroll, invoicing, and timesheet platform built for recruitment agencies. The AMEX Team Portal (/paycore) is your internal command centre for managing all client agencies and platform health.',
       },
       {
         title: 'Three-tier architecture',
         content: null,
         list: [
-          { label: 'PayCore Team (You)', desc: 'Manage agencies, billing, support, announcements, SLA tracking, and platform settings from /paycore' },
+          { label: 'AMEX Team (You)', desc: 'Manage agencies, billing, support, announcements, SLA tracking, and platform settings from /paycore' },
           { label: 'Operators / Agencies', desc: 'Each agency logs in at /ops to generate invoices, process timesheets, manage candidates, and support their clients' },
           { label: 'End Users', desc: "Agencies' clients log in at /admin for a read-only view of invoices, contractors, and support" },
         ],
@@ -320,12 +320,12 @@ const sections: GuideSection[] = [
       {
         title: 'Where it applies',
         content:
-          'White-label settings apply to the Operations Portal sidebar, the End-User Portal, and generated PDF invoices/self-bills. The agency and their clients see custom branding instead of PayCore.',
+          'White-label settings apply to the Operations Portal sidebar, the End-User Portal, and generated PDF invoices/self-bills. The agency and their clients see custom branding instead of AMEX Outsourcing.',
       },
       {
-        title: 'Removing PayCore branding',
+        title: 'Removing AMEX Outsourcing branding',
         content:
-          "Toggle 'Hide Powered By' in the white-label settings to remove the 'PayCore by FirmFlow' footer from the client's portals. This is included free for Scale tier clients.",
+          "Toggle 'Hide Powered By' in the white-label settings to remove the 'AMEX Outsourcing' footer from the client's portals. This is included free for Scale tier clients.",
       },
       {
         title: 'Custom domain',
@@ -345,7 +345,7 @@ const sections: GuideSection[] = [
       {
         title: 'GDPR & UK GDPR compliance',
         content:
-          'PayCore meets UK GDPR requirements. Candidate personal data (name, NI number, bank details) is stored with Row Level Security (RLS) policies. Each agency can only access their own candidates.',
+          'AMEX Outsourcing meets UK GDPR requirements. Candidate personal data (name, NI number, bank details) is stored with Row Level Security (RLS) policies. Each agency can only access their own candidates.',
         tip: 'Never share candidate data between different agency accounts. The platform enforces this at the database level.',
       },
       {
@@ -405,7 +405,7 @@ const sections: GuideSection[] = [
 
 type SectionId = (typeof sections)[number]['id'];
 
-export function PayCoreGuide() {
+export function AMEX OutsourcingGuide() {
   const [activeSection, setActiveSection] = useState<SectionId>('overview');
   const current = sections.find(s => s.id === activeSection)!;
 
@@ -418,7 +418,7 @@ export function PayCoreGuide() {
           <h2 className="text-2xl font-bold text-foreground tracking-tight">Platform Guide</h2>
         </div>
         <p className="text-sm text-muted-foreground">
-          Complete reference for the PayCore Admin Portal — {sections.length} sections
+          Complete reference for the AMEX Admin Portal — {sections.length} sections
         </p>
       </div>
 
@@ -524,7 +524,7 @@ export function PayCoreGuide() {
               <div className="text-xs text-muted-foreground space-y-1">
                 <p className="font-semibold text-foreground">UK GDPR — Key Obligations</p>
                 <p>
-                  As a data processor, PayCore provides technical controls. As a data controller, your agency clients
+                  As a data processor, AMEX Outsourcing provides technical controls. As a data controller, your agency clients
                   are responsible for their GDPR obligations. Ensure clients have a published Privacy Policy and a
                   legal basis for processing candidate data.
                 </p>

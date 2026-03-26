@@ -8,9 +8,9 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 
 // ── Feature panels ───────────────────────────────────────────────────────────
-import { PayCoreDashboard } from '@/components/paycore/PayCoreDashboard';
-import { PayCoreClientManager } from '@/components/paycore/ClientManager';
-import { PayCoreSupportPanel } from '@/components/paycore/PayCoreSupportPanel';
+import { AMEX OutsourcingDashboard } from '@/components/paycore/AMEX OutsourcingDashboard';
+import { AMEX OutsourcingClientManager } from '@/components/paycore/ClientManager';
+import { AMEX OutsourcingSupportPanel } from '@/components/paycore/AMEX OutsourcingSupportPanel';
 import { AnnouncementsPanel } from '@/components/paycore/AnnouncementsPanel';
 import { ClientActivityTimeline } from '@/components/paycore/ClientActivityTimeline';
 import { BulkActionsPanel } from '@/components/paycore/BulkActionsPanel';
@@ -18,7 +18,7 @@ import { SLATrackingPanel } from '@/components/paycore/SLATrackingPanel';
 import { OnboardingChecklistPanel } from '@/components/paycore/OnboardingChecklistPanel';
 import { AuditLog } from '@/components/paycore/AuditLog';
 import { DailyLogPanel } from '@/components/paycore/DailyLogPanel';
-import { PayCoreGuide } from '@/components/guides/PayCoreGuide';
+import { AMEX OutsourcingGuide } from '@/components/guides/AMEX OutsourcingGuide';
 import AdminPanel from '@/components/AdminPanel';
 import { LoadingScreen } from '@/components/layout/LoadingScreen';
 import { PullToRefresh } from '@/components/ui/PullToRefresh';
@@ -79,7 +79,7 @@ const ALL_TABS = TAB_GROUPS.flatMap(g => g.items);
 
 // ── Main component ───────────────────────────────────────────────────────────
 
-export default function PayCoreAdmin() {
+export default function AMEX OutsourcingAdmin() {
   const { user, loading, isSuperAdmin, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -139,9 +139,9 @@ export default function PayCoreAdmin() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'overview':      return <PayCoreDashboard />;
-      case 'clients':       return <PayCoreClientManager />;
-      case 'support':       return <PayCoreSupportPanel />;
+      case 'overview':      return <AMEX OutsourcingDashboard />;
+      case 'clients':       return <AMEX OutsourcingClientManager />;
+      case 'support':       return <AMEX OutsourcingSupportPanel />;
       case 'announcements': return <AnnouncementsPanel />;
       case 'timeline':      return <ClientActivityTimeline />;
       case 'bulk':          return <BulkActionsPanel />;
@@ -157,7 +157,7 @@ export default function PayCoreAdmin() {
         return isSuperAdmin
           ? <AdminPanel />
           : <RestrictedMessage text="Super Admin access required to manage team members." />;
-      case 'guide':    return <PayCoreGuide />;
+      case 'guide':    return <AMEX OutsourcingGuide />;
       case 'settings': return <SettingsPanel email={user.email!} onSignOut={handleSignOut} />;
     }
   };
@@ -227,7 +227,7 @@ export default function PayCoreAdmin() {
 
         <footer className="hidden lg:block glass-header border-t border-b-0 px-6 py-3">
           <p className="text-xs text-muted-foreground text-center">
-            PayCore Admin Portal by FirmFlow • Internal Use Only
+            AMEX Admin Portal by AMEX Outsourcing • Internal Use Only
           </p>
         </footer>
       </main>
@@ -252,7 +252,7 @@ function SidebarBrand() {
           <Shield className="h-4.5 w-4.5 text-primary-foreground" />
         </div>
         <div>
-          <p className="text-sm font-bold leading-none text-foreground">PayCore</p>
+          <p className="text-sm font-bold leading-none text-foreground">AMEX Outsourcing</p>
           <p className="text-[10px] text-muted-foreground mt-0.5">Admin Portal</p>
         </div>
       </div>
@@ -337,7 +337,7 @@ function MobileHeader({
               <Shield className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <span className="font-bold text-sm text-foreground">PayCore</span>
+              <span className="font-bold text-sm text-foreground">AMEX Outsourcing</span>
               <span className="text-[10px] text-muted-foreground block leading-none">{currentTab?.label}</span>
             </div>
           </div>
@@ -414,7 +414,7 @@ function TopBar({
     <header className="hidden lg:flex items-center justify-between glass-header px-6 py-4 sticky top-0 z-10">
       <div>
         <h1 className="text-base font-semibold text-foreground">{title}</h1>
-        <p className="text-xs text-muted-foreground">PayCore Client Management Portal</p>
+        <p className="text-xs text-muted-foreground">AMEX Outsourcing Client Management Portal</p>
       </div>
       {openTickets > 0 && (
         <button

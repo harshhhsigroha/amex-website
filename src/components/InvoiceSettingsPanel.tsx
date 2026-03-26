@@ -74,7 +74,7 @@ export function InvoiceSettingsPanel() {
                 id="bank_name"
                 value={form.bank_name}
                 onChange={e => update('bank_name', e.target.value)}
-                placeholder="PayCore by FirmFlow"
+                placeholder="AMEX Outsourcing"
               />
             </div>
             <div className="space-y-2">
@@ -111,7 +111,7 @@ export function InvoiceSettingsPanel() {
                 type="email"
                 value={form.remittance_email}
                 onChange={e => update('remittance_email', e.target.value)}
-                placeholder="accounts@firmflow.com"
+                placeholder="accounts@amexoutsourcing.com"
               />
             </div>
           </div>
@@ -134,7 +134,7 @@ export function InvoiceSettingsPanel() {
                 id="self_bill_company_name"
                 value={form.self_bill_company_name}
                 onChange={e => update('self_bill_company_name', e.target.value)}
-                placeholder="PayCore by FirmFlow"
+                placeholder="AMEX Outsourcing"
               />
             </div>
             <div className="space-y-2 md:col-span-2">

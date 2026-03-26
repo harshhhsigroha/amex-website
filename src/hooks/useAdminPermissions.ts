@@ -48,7 +48,7 @@ export function useAdminPermissions() {
       return;
     }
 
-    // PayCore team admins — fetch from admin_permissions
+    // AMEX team admins — fetch from admin_permissions
     if (isAdmin) {
       const { data, error } = await supabase
         .from('admin_permissions')
@@ -76,7 +76,7 @@ export function useAdminPermissions() {
       return;
     }
 
-    // PayCore clients — fetch from client_permissions via their client_id
+    // AMEX Outsourcing clients — fetch from client_permissions via their client_id
     if (isClient) {
       // First get the client_id for this user
       const { data: clientLink } = await supabase

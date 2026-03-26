@@ -185,7 +185,7 @@ export default function Landing() {
   ];
 
   const processSteps = [
-    { n: '01', icon: Upload, title: 'Upload Timesheets', desc: 'Import contractor timesheet data from Excel. PayCore parses every row, maps pay rates, and flags anomalies.' },
+    { n: '01', icon: Upload, title: 'Upload Timesheets', desc: 'Import contractor timesheet data from Excel. AMEX Outsourcing parses every row, maps pay rates, and flags anomalies.' },
     { n: '02', icon: Calculator, title: 'Auto-Calculate', desc: 'Applies pay rates, calculates gross pay, VAT at 20%, and employer costs — all in seconds.' },
     { n: '03', icon: Zap, title: 'Generate Invoices', desc: 'One click generates HMRC-compliant master invoices and individual self-billed remittances.' },
     { n: '04', icon: Download, title: 'Download & File', desc: 'Professional PDFs auto-filed by UK financial year and week. Send or download in bulk.' },
@@ -208,10 +208,10 @@ export default function Landing() {
       >
         <div className="max-w-7xl mx-auto px-5 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="PayCore" className="w-8 h-8 rounded-lg object-contain" />
+            <img src="/logo.png" alt="AMEX Outsourcing" className="w-8 h-8 rounded-lg object-contain" />
             <div className="leading-none">
-              <span className="font-bold text-sm text-foreground tracking-tight">PayCore</span>
-              <span className="text-[9px] text-muted-foreground block mt-0.5 tracking-widest uppercase">by FirmFlow</span>
+              <span className="font-bold text-sm text-foreground tracking-tight">AMEX Outsourcing</span>
+              <span className="text-[9px] text-muted-foreground block mt-0.5 tracking-widest uppercase">by AMEX Outsourcing</span>
             </div>
           </div>
           <div className="hidden md:flex items-center gap-1">
@@ -352,7 +352,7 @@ export default function Landing() {
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="text-muted-foreground max-w-lg leading-relaxed text-lg mb-10"
               >
-                PayCore automates the entire UK contractor payment cycle — timesheets in, HMRC-compliant invoices and self-billed remittances out. Built for <Accent className="text-lg">recruitment agencies</Accent>.
+                AMEX Outsourcing automates the entire UK contractor payment cycle — timesheets in, HMRC-compliant invoices and self-billed remittances out. Built for <Accent className="text-lg">recruitment agencies</Accent>.
               </motion.p>
               <motion.div
                 initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
@@ -408,7 +408,7 @@ export default function Landing() {
                   <div className="flex-1 mx-6">
                     <div className="h-6 bg-muted/30 rounded-full flex items-center px-3">
                       <Lock className="w-2.5 h-2.5 text-muted-foreground/40 mr-1.5" />
-                      <span className="text-[10px] text-muted-foreground/50 font-medium">app.paycore.io/dashboard</span>
+                      <span className="text-[10px] text-muted-foreground/50 font-medium">app.amexoutsourcing.com/dashboard</span>
                     </div>
                   </div>
                 </div>
@@ -543,7 +543,7 @@ export default function Landing() {
               Everything your<br />agency <Accent>needs.</Accent>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto text-base leading-relaxed">
-              From first timesheet upload to final payment reconciliation — PayCore covers every step of the contractor payroll process.
+              From first timesheet upload to final payment reconciliation — AMEX Outsourcing covers every step of the contractor payroll process.
             </p>
           </Reveal>
 
@@ -586,7 +586,7 @@ export default function Landing() {
               Five steps.<br /><Accent>Fully automated.</Accent>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto text-base leading-relaxed">
-              PayCore replaces a week of manual payroll work with a five-step automated pipeline that runs in under two minutes.
+              AMEX Outsourcing replaces a week of manual payroll work with a five-step automated pipeline that runs in under two minutes.
             </p>
           </Reveal>
 
@@ -616,7 +616,7 @@ export default function Landing() {
             <div className="rounded-3xl overflow-hidden glass-premium grid md:grid-cols-2">
               <div className="p-8 md:p-10 border-b md:border-b-0 md:border-r border-border/15">
                 <p className="text-[10px] font-bold text-muted-foreground/60 uppercase tracking-[0.18em] mb-5 flex items-center gap-2">
-                  <span className="w-4 h-px bg-muted-foreground/30 inline-block" /> Without PayCore
+                  <span className="w-4 h-px bg-muted-foreground/30 inline-block" /> Without AMEX Outsourcing
                 </p>
                 <ul className="space-y-3.5">
                   {[
@@ -636,7 +636,7 @@ export default function Landing() {
               </div>
               <div className="p-8 md:p-10">
                 <p className="text-[10px] font-bold text-primary uppercase tracking-[0.18em] mb-5 flex items-center gap-2">
-                  <span className="w-4 h-px bg-primary inline-block" /> With PayCore
+                  <span className="w-4 h-px bg-primary inline-block" /> With AMEX Outsourcing
                 </p>
                 <ul className="space-y-3.5">
                   {[
@@ -667,7 +667,7 @@ export default function Landing() {
               Custom.<br /><Accent>By design.</Accent>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto text-base leading-relaxed">
-              PayCore isn't one-size-fits-all. We tailor the platform to your exact workflows, branding, and compliance requirements.
+              AMEX Outsourcing isn't one-size-fits-all. We tailor the platform to your exact workflows, branding, and compliance requirements.
             </p>
           </Reveal>
 
@@ -827,14 +827,14 @@ export default function Landing() {
             </Reveal>
             <div className="grid md:grid-cols-3 gap-4">
               {[
-                { icon: Palette, label: 'White-Label Infrastructure', desc: 'Your logo, domain, and branding — fully custom environment.', subject: 'White-Label Infrastructure Enquiry – PayCore', axis: 'left' as const },
-                { icon: PhoneCall, label: 'Priority Support', desc: 'Dedicated account manager, direct phone access, priority SLAs.', subject: 'Priority Support Enquiry – PayCore', axis: 'y' as const },
-                { icon: FileCheck, label: 'Managed Payroll Service', desc: 'We run your entire payroll operation end-to-end.', subject: 'Managed Payroll Service Enquiry – PayCore', axis: 'right' as const },
+                { icon: Palette, label: 'White-Label Infrastructure', desc: 'Your logo, domain, and branding — fully custom environment.', subject: 'White-Label Infrastructure Enquiry – AMEX Outsourcing', axis: 'left' as const },
+                { icon: PhoneCall, label: 'Priority Support', desc: 'Dedicated account manager, direct phone access, priority SLAs.', subject: 'Priority Support Enquiry – AMEX Outsourcing', axis: 'y' as const },
+                { icon: FileCheck, label: 'Managed Payroll Service', desc: 'We run your entire payroll operation end-to-end.', subject: 'Managed Payroll Service Enquiry – AMEX Outsourcing', axis: 'right' as const },
               ].map((a) => (
                 <Reveal key={a.label} axis={a.axis}>
                   <div
                     className="group flex items-start gap-4 p-6 rounded-2xl glass-premium cursor-pointer hover:glow-ring transition-all duration-500"
-                    onClick={() => window.location.href = `mailto:harsh@firmflow.app?subject=${a.subject}`}
+                    onClick={() => window.location.href = `mailto:harsh@amexoutsourcing.app?subject=${a.subject}`}
                   >
                     <div className="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300">
                       <a.icon className="w-5 h-5 text-primary" />
@@ -871,7 +871,7 @@ export default function Landing() {
             <Reveal axis="left">
               <div className="space-y-6 mb-10">
                 {[
-                  { icon: CheckCircle2, label: 'Free demo — no commitment', sub: 'See PayCore live with your own data' },
+                  { icon: CheckCircle2, label: 'Free demo — no commitment', sub: 'See AMEX Outsourcing live with your own data' },
                   { icon: Clock, label: 'Setup in under one hour', sub: 'Our team onboards you start to finish' },
                   { icon: ShieldCheck, label: 'HMRC-compliant from day one', sub: 'Built around UK financial year standards' },
                   { icon: Sparkles, label: 'Custom to your agency', sub: 'We adapt to your workflow, not the other way' },
@@ -890,7 +890,7 @@ export default function Landing() {
 
               <div className="space-y-3 pt-6 border-t border-border/20">
                 {[
-                  { icon: Mail, label: 'harsh@firmflow.app', href: 'mailto:harsh@firmflow.app' },
+                  { icon: Mail, label: 'harsh@amexoutsourcing.app', href: 'mailto:harsh@amexoutsourcing.app' },
                   { icon: MapPin, label: 'London, United Kingdom', href: null },
                 ].map(({ icon: Ic, label, href }) => (
                   <a key={label} href={href ?? undefined}
@@ -1016,7 +1016,7 @@ export default function Landing() {
             <div className="absolute inset-0 hero-mesh pointer-events-none" />
             <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none">
               <span className="text-[clamp(6rem,18vw,16rem)] font-black text-primary/[0.03] leading-none whitespace-nowrap tracking-tighter">
-                PayCore
+                AMEX Outsourcing
               </span>
             </div>
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-10">
@@ -1047,10 +1047,10 @@ export default function Landing() {
       <footer className="py-12 px-6 border-t border-border/20 bg-background">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
-            <img src="/logo.png" alt="PayCore" className="w-7 h-7 rounded-md object-contain" />
+            <img src="/logo.png" alt="AMEX Outsourcing" className="w-7 h-7 rounded-md object-contain" />
             <div className="leading-none">
-              <span className="font-bold text-sm text-foreground">PayCore</span>
-              <span className="text-muted-foreground text-xs ml-1.5 tracking-widest uppercase">by FirmFlow</span>
+              <span className="font-bold text-sm text-foreground">AMEX Outsourcing</span>
+              <span className="text-muted-foreground text-xs ml-1.5 tracking-widest uppercase">by AMEX Outsourcing</span>
             </div>
           </div>
           <div className="flex items-center gap-6 text-xs text-muted-foreground">
@@ -1065,7 +1065,7 @@ export default function Landing() {
             <a href="/terms" className="hover:text-foreground transition-colors">Terms of Service</a>
             
             <span className="hidden md:inline">·</span>
-            <span>© {new Date().getFullYear()} FirmFlow Ltd</span>
+            <span>© {new Date().getFullYear()} AMEX Outsourcing Ltd</span>
           </div>
         </div>
       </footer>

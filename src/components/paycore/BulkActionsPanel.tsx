@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useClients } from '@/hooks/useClients';
-import { useClientPlans } from '@/hooks/usePayCoreClients';
+import { useClientPlans } from '@/hooks/useAMEX OutsourcingClients';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';

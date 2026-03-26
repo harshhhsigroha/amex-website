@@ -78,7 +78,7 @@ export interface SelfBillException {
 
 // Self-billing fixed address
 export const SELF_BILL_TO_ADDRESS = {
-  companyName: 'PayCore by FirmFlow',
+  companyName: 'AMEX Outsourcing',
   addressLine1: 'Suite 8 Pemberton House',
   addressLine2: 'Stafford Park 1',
   city: 'Telford',

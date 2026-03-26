@@ -121,7 +121,7 @@ export function Dashboard({ invoices, selfBillInvoices, clients, candidates, isC
     const totalRev = periodInvoices.reduce((s, i) => s + Number(i.grand_total), 0);
     const totalPaid = periodSelfBills.reduce((s, i) => s + Number(i.total_to_pay), 0);
 
-    let csv = `PayCore ${isWeekly ? 'Weekly' : 'Monthly'} Report\nGenerated: ${now.toLocaleDateString('en-GB')}\n\n`;
+    let csv = `AMEX Outsourcing ${isWeekly ? 'Weekly' : 'Monthly'} Report\nGenerated: ${now.toLocaleDateString('en-GB')}\n\n`;
     csv += `SUMMARY\nMetric,Value\nTotal Revenue,${formatCurrency(totalRev)}\nTotal Payments,${formatCurrency(totalPaid)}\nNet Margin,${formatCurrency(totalRev - totalPaid)}\n\n`;
     csv += `INVOICES\nInvoice,Client,Date,Total\n`;
     periodInvoices.forEach(inv => { csv += `${inv.invoice_number},${inv.client_snapshot.company_name},${inv.invoice_date},${inv.grand_total}\n`; });
@@ -132,7 +132,7 @@ export function Dashboard({ invoices, selfBillInvoices, clients, candidates, isC
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `PayCore_Report_${isWeekly ? 'Weekly' : 'Monthly'}_${now.toISOString().split('T')[0]}.csv`;
+    a.download = `AMEX Outsourcing_Report_${isWeekly ? 'Weekly' : 'Monthly'}_${now.toISOString().split('T')[0]}.csv`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);

@@ -143,7 +143,7 @@ export function DailyLogPanel() {
     const dateStr = format(selectedDate, 'dd MMMM yyyy');
 
     doc.setFontSize(18);
-    doc.text('PayCore Daily Activity Log', 14, 20);
+    doc.text('AMEX Outsourcing Daily Activity Log', 14, 20);
     doc.setFontSize(10);
     doc.setTextColor(100);
     doc.text(`Date: ${dateStr}  |  Total Events: ${logs.length}  |  Active Users: ${stats.actors}`, 14, 28);
@@ -199,9 +199,9 @@ export function DailyLogPanel() {
     // Footer
     doc.setFontSize(7);
     doc.setTextColor(150);
-    doc.text(`Generated: ${format(new Date(), 'dd/MM/yyyy HH:mm')} • PayCore by FirmFlow • Confidential`, 14, 290);
+    doc.text(`Generated: ${format(new Date(), 'dd/MM/yyyy HH:mm')} • AMEX Outsourcing • Confidential`, 14, 290);
 
-    doc.save(`PayCore_DailyLog_${format(selectedDate, 'yyyy-MM-dd')}.pdf`);
+    doc.save(`AMEX Outsourcing_DailyLog_${format(selectedDate, 'yyyy-MM-dd')}.pdf`);
   };
 
   return (

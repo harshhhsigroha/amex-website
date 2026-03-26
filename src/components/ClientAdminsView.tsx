@@ -41,9 +41,9 @@ export function ClientAdminsView() {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-foreground tracking-tight">PayCore Team</h2>
+        <h2 className="text-2xl font-bold text-foreground tracking-tight">AMEX Team</h2>
         <p className="text-muted-foreground text-sm mt-1">
-          Your account managers and support staff at PayCore.
+          Your account managers and support staff at AMEX Outsourcing.
         </p>
       </div>
 
@@ -74,7 +74,7 @@ export function ClientAdminsView() {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-foreground truncate">
-                  {admin.full_name || 'PayCore Admin'}
+                  {admin.full_name || 'AMEX Admin'}
                 </p>
                 <p className="text-xs text-muted-foreground truncate">{admin.email}</p>
               </div>

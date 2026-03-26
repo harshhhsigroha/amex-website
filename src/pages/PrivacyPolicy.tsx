@@ -15,7 +15,7 @@ const PrivacyPolicy = () => {
         <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-3">1. Introduction</h2>
-            <p>FirmFlow Ltd ("we", "us", "our") operates the PayCore platform. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services. We are committed to protecting your personal data and being transparent about how we handle it.</p>
+            <p>AMEX Outsourcing Ltd ("we", "us", "our") operates the AMEX Outsourcing platform. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services. We are committed to protecting your personal data and being transparent about how we handle it.</p>
           </section>
 
           <section>
@@ -33,7 +33,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-3">3. How We Use Your Information</h2>
             <ul className="list-disc pl-5 space-y-2">
-              <li>To provide, maintain, and improve PayCore services</li>
+              <li>To provide, maintain, and improve AMEX Outsourcing services</li>
               <li>To generate invoices, self-billed invoices, and payroll documents</li>
               <li>To process contractor onboarding and manage candidate records</li>
               <li>To facilitate clock-in/out tracking and timesheet management</li>
@@ -91,8 +91,8 @@ const PrivacyPolicy = () => {
             <h2 className="text-lg font-semibold text-foreground mb-3">10. Contact Us</h2>
             <p>If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us at:</p>
             <div className="mt-3 p-4 rounded-lg bg-muted/50 border border-border/50">
-              <p className="text-foreground font-medium">FirmFlow Ltd</p>
-              <p>Email: privacy@firmflow.co.uk</p>
+              <p className="text-foreground font-medium">AMEX Outsourcing Ltd</p>
+              <p>Email: privacy@amexoutsourcing.co.uk</p>
               <p>Address: United Kingdom</p>
             </div>
           </section>

@@ -27,9 +27,9 @@ export default function ClientAuth() {
   useEffect(() => {
     if (user && !loading) {
       if (isClient) {
-        navigate('/ops'); // PayCore clients → Invoice Tool
+        navigate('/ops'); // AMEX Outsourcing clients → Invoice Tool
       } else if (isAdmin) {
-        navigate('/paycore'); // PayCore team should use /auth/team
+        navigate('/paycore'); // AMEX team should use /auth/team
       }
     }
   }, [user, loading, isClient, isAdmin, navigate]);
