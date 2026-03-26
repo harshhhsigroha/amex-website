@@ -1,6 +1,7 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
 import { FileText, CheckCircle2, ArrowRight, Calculator, Clock, Shield, CreditCard } from 'lucide-react';
+import { Factory, Truck, Utensils, Hammer, HeartPulse, GraduationCap } from 'lucide-react';
 
 const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
