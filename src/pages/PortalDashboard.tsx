@@ -160,9 +160,9 @@ function PortalSidebar({
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
               <h1 className="text-sm font-bold text-foreground tracking-tight" style={primaryColor ? { color: primaryColor } : undefined}>
-                {companyName || 'Client Portal'}
+                {companyName || 'AMEX Outsourcing'}
               </h1>
-              <p className="text-[10px] text-muted-foreground">End-User Portal</p>
+              <p className="text-[10px] text-muted-foreground">AMEX Outsourcing Portal</p>
             </div>
           )}
         </div>
