@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useClientDashboard, InvoiceLineItem } from '@/hooks/useClientDashboard';
-import { ClientSupport } from '@/components/ClientSupport';
 import { ClientSidebar } from '@/components/ClientSidebar';
 import { FileBrowser } from '@/components/files/FileBrowser';
 import { ClientEndUserManager } from '@/components/ClientEndUserManager';
@@ -173,8 +172,6 @@ export default function ClientDashboard() {
         return <ClientOnboardingConfig />;
       case 'admins':
         return <ClientAdminsView />;
-      case 'support_paycore':
-        return <ClientSupport />;
       case 'support_clients':
         return <ClientSupportToClients />;
       default:
