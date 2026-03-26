@@ -137,9 +137,9 @@ const Index = () => {
   useEffect(() => {
     if (!loading && identityReady) {
       if (!user) navigate('/auth/client');
-      else if (isAdmin && !isClient) navigate('/ops'); // Admin users → operations portal
+      else if (isAdmin && !isClient) navigate('/admin'); // Admin users → admin portal
       else if (!isClient && !isAdmin) navigate('/auth/client');
-      // Client users (Tony) stay on /ops — this IS their portal
+      // Client users stay on /admin — this IS their portal
     }
   }, [user, loading, identityReady, isAdmin, isClient, navigate]);
 

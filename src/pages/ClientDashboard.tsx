@@ -77,7 +77,7 @@ export default function ClientDashboard() {
       if (!user) {
         navigate('/auth/client');
       } else if (!isClient) {
-        if (isAdmin) navigate('/ops');
+        if (isAdmin) navigate('/admin');
         else navigate('/auth/client');
       }
     }
