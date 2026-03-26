@@ -150,13 +150,13 @@ export default function PayCoreAdmin() {
       case 'audit':
         return isSuperAdmin
           ? <AuditLog />
-          : <RestrictedMessage text="Super Admin access required to view audit logs." />;
+          : <RestrictedMessage text="Admin access required to view audit logs." />;
       case 'daily-log':
         return <DailyLogPanel />;
       case 'team':
         return isSuperAdmin
           ? <AdminPanel />
-          : <RestrictedMessage text="Super Admin access required to manage team members." />;
+          : <RestrictedMessage text="Admin access required to manage team members." />;
       case 'guide':    return <PayCoreGuide />;
       case 'settings': return <SettingsPanel email={user.email!} onSignOut={handleSignOut} />;
     }
