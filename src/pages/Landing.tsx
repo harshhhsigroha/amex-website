@@ -191,6 +191,29 @@ export default function Landing() {
               className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
               Contact
             </button>
+            <div ref={industriesDropdownRef} className="relative">
+              <button onClick={() => setIndustriesDropdownOpen(!industriesDropdownOpen)}
+                className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60 flex items-center gap-1">
+                Industries <ChevronDown className={`w-3 h-3 transition-transform ${industriesDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {industriesDropdownOpen && (
+                  <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg overflow-hidden">
+                    <div className="py-2">
+                      {industryLinks.map(s => (
+                        <div key={s.label}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground">
+                          <s.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                          {s.label}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => navigate('/auth/client')} className="hidden sm:flex text-muted-foreground text-[13px]">
