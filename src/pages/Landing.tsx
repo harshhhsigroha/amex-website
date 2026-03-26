@@ -313,10 +313,9 @@ export default function Landing() {
 
       {/* ── HERO ────────────────────────────────────────────── */}
       <section ref={heroRef} className="relative min-h-[100vh] flex flex-col justify-center overflow-hidden">
-        <div className="absolute inset-0 grid-pattern opacity-30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/20 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/[0.03] via-transparent to-background" />
 
-        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="max-w-7xl mx-auto px-6 pt-36 pb-32 w-full relative z-10">
+        <motion.div style={{ y: heroY, opacity: heroOpacity }} className="max-w-5xl mx-auto px-6 pt-40 pb-32 w-full relative z-10 text-center">
           <motion.div initial={{ opacity: 0, y: 20, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }} className="mb-8">
             <span className="inline-flex items-center gap-2.5 text-[11px] font-medium text-primary glass-premium px-5 py-2.5 rounded-full uppercase tracking-[0.14em]">
@@ -324,94 +323,60 @@ export default function Landing() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
               </span>
-              Employment Status Specialists
+              Employment Status · Payroll · HR
             </span>
           </motion.div>
 
-          <div className="mb-12">
+          <div className="mb-8">
             <div className="overflow-hidden">
               <motion.h1 initial={{ y: '110%', opacity: 0 }} animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[clamp(3rem,8vw,6.5rem)] font-semibold tracking-tight leading-[0.92] text-foreground">
-                Take your
+                className="text-[clamp(3rem,7vw,5.5rem)] font-semibold tracking-tight leading-[1] text-foreground">
+                Take your business
               </motion.h1>
             </div>
             <div className="overflow-hidden">
               <motion.h1 initial={{ y: '110%', opacity: 0 }} animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[clamp(3rem,8vw,6.5rem)] tracking-tighter leading-[0.92]">
-                <span className="text-foreground font-semibold">business </span><Accent>further.</Accent>
+                className="text-[clamp(3rem,7vw,5.5rem)] tracking-tight leading-[1]">
+                <Accent>further.</Accent>
               </motion.h1>
             </div>
           </div>
 
-          <div className="grid lg:grid-cols-[1fr_480px] gap-20 items-end">
-            <div>
-              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-                className="text-muted-foreground max-w-xl leading-relaxed text-lg mb-10">
-                We provide employment status services, payroll management, and HR support across the UK. Our team works with you to ensure correct classification and compliance with UK legislation.
-              </motion.p>
-              <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.72 }}
-                className="flex flex-col sm:flex-row flex-wrap gap-3 mb-12">
-                <Button size="lg" onClick={() => navigate('/contact')}
-                  className="rounded-full px-8 h-[3.25rem] shadow-xl shadow-primary/25 gap-2.5 w-full sm:w-auto text-[15px] font-medium">
-                  Contact Us <ArrowRight className="w-4 h-4" />
-                </Button>
-                <Button size="lg" variant="outline" onClick={() => navigate('/auth/client')}
-                  className="rounded-full px-8 h-[3.25rem] w-full sm:w-auto text-[15px]">
-                  Sign In <ArrowRight className="w-4 h-4 ml-1" />
-                </Button>
-              </motion.div>
-              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
-                className="flex flex-wrap gap-x-8 gap-y-3">
-                {[
-                  { icon: ShieldCheck, label: 'HMRC Compliant' },
-                  { icon: Users, label: 'UK-Wide Service' },
-                  { icon: Clock, label: '24/7 Support' },
-                  { icon: Star, label: 'Dedicated Account Managers' },
-                ].map(({ icon: Ic, label }) => (
-                  <div key={label} className="flex items-center gap-2 text-[13px] text-muted-foreground">
-                    <div className="w-7 h-7 rounded-lg bg-primary/8 flex items-center justify-center">
-                      <Ic className="w-3.5 h-3.5 text-primary/70" strokeWidth={1.5} />
-                    </div>
-                    {label}
-                  </div>
-                ))}
-              </motion.div>
-            </div>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="text-muted-foreground max-w-2xl mx-auto leading-relaxed text-lg mb-10">
+            Employment status, payroll management, and HR support for businesses across the UK — ensuring compliance and taking care of your workforce.
+          </motion.p>
 
-            {/* Stats card */}
-            <motion.div initial={{ opacity: 0, y: 60 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden lg:block">
-              <div className="glass-premium rounded-3xl p-8 space-y-6">
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">Why AMEX Outsourcing?</p>
-                    <p className="text-xs text-muted-foreground">Supporting businesses across the UK</p>
-                  </div>
-                </div>
-                {[
-                  { label: 'Employment Classification Accuracy', value: 'Industry-Leading' },
-                  { label: 'Client Satisfaction', value: 'Consistently High' },
-                  { label: 'Compliance Reviews', value: 'Quarterly' },
-                  { label: 'Workforce Support', value: 'End-to-End' },
-                ].map((item, i) => (
-                  <motion.div key={item.label} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.8 + i * 0.1 }}
-                    className="flex items-center justify-between py-3 border-b border-border/20 last:border-0">
-                    <span className="text-sm text-muted-foreground">{item.label}</span>
-                    <span className="text-sm font-medium text-foreground">{item.value}</span>
-                  </motion.div>
-                ))}
+          <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.72 }}
+            className="flex flex-col sm:flex-row justify-center gap-3 mb-16">
+            <Button size="lg" onClick={() => navigate('/contact')}
+              className="rounded-full px-10 h-[3.25rem] shadow-xl shadow-primary/25 gap-2.5 text-[15px] font-medium">
+              Get Started <ArrowRight className="w-4 h-4" />
+            </Button>
+            <Button size="lg" variant="outline" onClick={() => navigate('/about')}
+              className="rounded-full px-10 h-[3.25rem] text-[15px]">
+              Learn More
+            </Button>
+          </motion.div>
+
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9 }}
+            className="flex flex-wrap justify-center gap-x-10 gap-y-3">
+            {[
+              { icon: ShieldCheck, label: 'HMRC Compliant' },
+              { icon: Users, label: 'UK-Wide Service' },
+              { icon: Clock, label: '24/7 Support' },
+              { icon: Star, label: 'Dedicated Account Managers' },
+            ].map(({ icon: Ic, label }) => (
+              <div key={label} className="flex items-center gap-2 text-[13px] text-muted-foreground">
+                <Ic className="w-3.5 h-3.5 text-primary/60" strokeWidth={1.5} />
+                {label}
               </div>
-            </motion.div>
-          </div>
+            ))}
+          </motion.div>
         </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }}
