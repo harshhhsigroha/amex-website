@@ -116,9 +116,9 @@ export default function Landing() {
   ];
 
   const industryLinks = [
-    { icon: Hammer, label: 'Construction' },
-    { icon: HeartPulse, label: 'Healthcare' },
-    { icon: Utensils, label: 'Hospitality' },
+    { icon: Hammer, label: 'Construction', href: '/industries/construction' },
+    { icon: HeartPulse, label: 'Healthcare', href: '/industries/healthcare' },
+    { icon: Utensils, label: 'Hospitality', href: '/industries/hospitality' },
   ];
 
   const services = [
