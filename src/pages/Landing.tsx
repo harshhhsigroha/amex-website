@@ -132,10 +132,8 @@ export default function Landing() {
         className="fixed top-4 left-4 right-4 z-50 glass-premium rounded-2xl shadow-lg">
         <div className="max-w-7xl mx-auto px-5 h-14 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center">
-              <span className="text-primary-foreground font-black text-xs">AX</span>
-            </div>
-            <span className="font-bold text-sm text-foreground tracking-tight">AMEX Outsourcing</span>
+            <img src="/logo.png" alt="AMEX Outsourcing" className="h-8 object-contain" />
+          </div>
           </div>
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(l => (
