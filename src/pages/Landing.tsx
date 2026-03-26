@@ -198,11 +198,11 @@ export default function Landing() {
                     className="absolute top-full right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg overflow-hidden">
                     <div className="py-2">
                       {industryLinks.map(s => (
-                        <div key={s.label}
-                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground">
+                        <button key={s.label} onClick={() => { setIndustriesDropdownOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors">
                           <s.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
                           {s.label}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </motion.div>
