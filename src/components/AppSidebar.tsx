@@ -195,7 +195,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
             <div className="flex-1 min-w-0">
               <h1 className="text-sm font-bold text-foreground tracking-tight">{brandName}</h1>
               {(!whiteLabel || !whiteLabel.hide_powered_by) && (
-                <p className="text-[10px] text-muted-foreground">{whiteLabel ? 'Powered by PayCore' : 'by FirmFlow'}</p>
+                <p className="text-[10px] text-muted-foreground">{whiteLabel ? 'Powered by AMEX Outsourcing' : 'AMEX Outsourcing'}</p>
               )}
             </div>
           )}

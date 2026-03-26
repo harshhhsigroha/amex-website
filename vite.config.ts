@@ -22,8 +22,8 @@ export default defineConfig(({ mode }) => ({
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       },
       manifest: {
-        name: "PayCore by FirmFlow",
-        short_name: "PayCore",
+        name: "AMEX Outsourcing",
+        short_name: "AMEX",
         description: "Professional Contractor Payroll & Invoice Management",
         theme_color: "#0a0a0a",
         background_color: "#0a0a0a",
