@@ -802,10 +802,10 @@ export default function Landing() {
             <div>
               <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Services</p>
               <div className="space-y-2.5">
-                {services.slice(0, 4).map(s => (
-                  <button key={s.title} onClick={() => navigate(s.href)}
+                {serviceLinks.slice(0, 4).map(s => (
+                  <button key={s.label} onClick={() => navigate(s.href)}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    {s.title}
+                    {s.label}
                   </button>
                 ))}
               </div>
