@@ -535,7 +535,6 @@ export default function Landing() {
               <div className="flex items-center gap-2.5 mb-4">
                 <img src="/logo.png" alt="AMEX Outsourcing" className="h-8 object-contain" />
               </div>
-              </div>
               <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                 Employment Status Specialists. Providing compliant payroll, HR, and employment status services across the UK.
               </p>
