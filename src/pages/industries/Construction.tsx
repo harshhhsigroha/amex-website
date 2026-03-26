@@ -1,13 +1,10 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
-import { Hammer, CheckCircle2, ArrowRight, Scale, FileText, Briefcase, ShieldCheck, Users, HardHat } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Hammer, CheckCircle2, ArrowRight, Scale, FileText, Briefcase, ShieldCheck, Users, HardHat, ClipboardCheck, HeadphonesIcon, TrendingUp } from 'lucide-react';
 
 const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
 export default function Construction() {
-  const navigate = useNavigate();
-
   return (
     <PageLayout>
       {/* Hero */}
@@ -23,72 +20,70 @@ export default function Construction() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            Employment status, payroll, and HR solutions built for the construction industry — from site operatives to subcontractors, we help you stay compliant and keep projects moving.
+            AMEX Outsourcing specialises in Employment Status, Payroll, and HR services, offering your company tailored services that ensure both protection and full compliance with legal and regulatory requirements. Our in-house team of experts brings a deep understanding of the complexities involved in managing employment relationships, particularly within industries like construction, where HMRC's enforcement efforts are becoming increasingly stringent.
           </motion.p>
         </div>
       </section>
 
-      {/* Overview */}
+      {/* Included Services */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-5xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <div>
-              <h2 className="text-2xl font-medium text-foreground mb-4">Built for construction</h2>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                The construction sector relies heavily on subcontractors, agency workers, and self-employed operatives. With IR35 reforms, CIS requirements, and evolving employment law, getting worker classification right is critical to avoiding costly penalties and project delays.
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                We understand the unique challenges of construction — from managing a workforce that changes week to week to ensuring every operative is correctly classified and paid on time. Our services are designed to give you confidence on every project.
-              </p>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                Whether you're a main contractor, specialist subcontractor, or labour provider, we tailor our approach to your specific needs and the regulatory demands of your supply chain.
-              </p>
-            </div>
-            <div className="space-y-4">
-              {[
-                { icon: Scale, title: 'IR35 & CIS Compliance', desc: 'Accurate status determinations for subcontractors and operatives, aligned with HMRC guidelines and CIS regulations.' },
-                { icon: FileText, title: 'Construction Payroll', desc: 'Weekly payroll processing for site workers with CIS deductions, holiday pay calculations, and payslip generation.' },
-                { icon: Users, title: 'Workforce Management', desc: 'HR support for recruitment, onboarding, and managing a flexible workforce across multiple sites.' },
-                { icon: ShieldCheck, title: 'Audit-Ready Documentation', desc: 'Full documentation and audit trails to protect your business in the event of an HMRC enquiry.' },
-              ].map((item, i) => (
-                <motion.div key={item.title} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
-                  className="glass-premium rounded-xl p-5 flex items-start gap-4 group transition-all duration-500">
-                  <div className="w-10 h-10 rounded-lg glass flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
-                    <item.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-foreground mb-1">{item.title}</h3>
-                    <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+          <motion.h2 {...fade} className="text-2xl font-medium text-foreground text-center mb-10">Included Services</motion.h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: Scale, title: 'Employment Status Compliance' },
+              { icon: ShieldCheck, title: 'Risk Mitigation and HMRC Preparedness' },
+              { icon: FileText, title: 'Comprehensive Payroll Services' },
+              { icon: Briefcase, title: 'Dedicated Contract Support and Ongoing Assistance' },
+              { icon: Users, title: 'HR Support' },
+            ].map((item, i) => (
+              <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.1 + i * 0.06 }}
+                className="glass-premium rounded-xl p-6 flex items-start gap-4 group transition-all duration-500">
+                <div className="w-10 h-10 rounded-lg glass flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <item.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-sm font-medium text-foreground">{item.title}</h3>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Services tailored */}
+      {/* How can AMEX help */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-medium text-foreground text-center mb-4">How we support construction businesses</h2>
-          <p className="text-sm text-muted-foreground text-center mb-10 max-w-lg mx-auto">Our services are tailored to the specific regulatory and operational needs of the construction sector.</p>
-          <div className="grid sm:grid-cols-2 gap-3">
+          <motion.h2 {...fade} className="text-2xl font-medium text-foreground text-center mb-4">
+            How can AMEX help your company stay compliant?
+          </motion.h2>
+          <motion.p {...fade} transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-sm text-muted-foreground text-center leading-relaxed max-w-3xl mx-auto">
+            AMEX Outsourcing specialises in employment status, payroll, and HR services tailored to help companies manage compliance and mitigate risks. With expertise in industries such as construction, AMEX ensures businesses meet legal standards, reduce penalties, and stay ahead of regulatory changes. From worker classification and payroll management to HR strategy and contract support, AMEX provides comprehensive solutions that enable companies to focus on growth while maintaining compliance and protection.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* Construction Services */}
+      <section className="py-20 px-6 bg-background border-t border-border/20">
+        <div className="max-w-5xl mx-auto">
+          <motion.h2 {...fade} className="text-2xl font-medium text-foreground text-center mb-10">Construction Services</motion.h2>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              'IR35 status determinations',
-              'CIS registration & deductions',
-              'Weekly payroll for site operatives',
-              'Subcontractor payment management',
-              'Right to work verification',
-              'Holiday pay & entitlement tracking',
-              'HMRC-ready documentation',
-              'Multi-site workforce support',
+              { icon: Scale, title: 'Employment Status', desc: 'Accurate worker classification aligned with HMRC guidelines, IR35 regulations, and CIS requirements to protect your business.' },
+              { icon: FileText, title: 'Payroll Services', desc: 'Comprehensive payroll processing for site operatives and subcontractors, including CIS deductions, holiday pay, and payslip generation.' },
+              { icon: Users, title: 'HR Services', desc: 'End-to-end HR support covering recruitment, onboarding, right-to-work checks, and ongoing workforce management across multiple sites.' },
+              { icon: ShieldCheck, title: 'Navigating HMRC Scrutiny and Risk Mitigation', desc: 'Proactive compliance strategies and audit-ready documentation to prepare your business for HMRC enquiries and reduce exposure to penalties.' },
+              { icon: Briefcase, title: 'Expertly Crafted Contracts and Dedicated Support', desc: 'Bespoke contracts tailored to the construction sector with ongoing expert guidance to adapt to regulatory changes.' },
+              { icon: HeadphonesIcon, title: 'Guiding You Through Every Step', desc: 'A dedicated account team that works alongside your business from initial assessment through to ongoing compliance management.' },
             ].map((item, i) => (
-              <motion.div key={item} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.1 + i * 0.04 }}
-                className="flex items-center gap-3 p-3 rounded-xl bg-muted/30">
-                <CheckCircle2 className="w-4 h-4 text-primary shrink-0" />
-                <span className="text-sm text-foreground">{item}</span>
+              <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.15 + i * 0.06 }}
+                className="glass-premium rounded-xl p-6 flex flex-col gap-3 group transition-all duration-500">
+                <div className="w-10 h-10 rounded-lg glass flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform">
+                  <item.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                </div>
+                <h3 className="text-sm font-medium text-foreground">{item.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
           </div>
