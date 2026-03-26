@@ -1,13 +1,10 @@
 import { motion } from 'framer-motion';
-import { Factory, Truck, Utensils, Hammer, HeartPulse, GraduationCap } from 'lucide-react';
+import { Utensils, Hammer, HeartPulse } from 'lucide-react';
 
 const industries = [
   { icon: Hammer, title: 'Construction' },
   { icon: HeartPulse, title: 'Healthcare' },
   { icon: Utensils, title: 'Hospitality' },
-  { icon: Factory, title: 'Manufacturing' },
-  { icon: Truck, title: 'Logistics & Transport' },
-  { icon: GraduationCap, title: 'Education' },
 ];
 
 export default function IndustriesSection() {
@@ -18,7 +15,7 @@ export default function IndustriesSection() {
         <p className="text-sm text-muted-foreground text-center mb-10 max-w-lg mx-auto">
           We work with organisations across a range of sectors, tailoring our services to meet industry-specific requirements.
         </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-3 gap-4">
           {industries.map((ind, i) => (
             <motion.div key={ind.title} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: 0.1 + i * 0.04 }}
