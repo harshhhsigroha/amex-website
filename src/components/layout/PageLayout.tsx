@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Phone, Mail, Scale, FileText, Briefcase, ClipboardCheck, BarChart3, ShieldCheck } from 'lucide-react';
+import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Phone, Mail, Scale, FileText, Briefcase, Hammer, HeartPulse, Utensils } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 
@@ -16,17 +16,29 @@ const serviceLinks = [
   { icon: Briefcase, label: 'HR Services', href: '/services/hr-services' },
 ];
 
+const industryLinks = [
+  { icon: Hammer, label: 'Construction' },
+  { icon: HeartPulse, label: 'Healthcare' },
+  { icon: Utensils, label: 'Hospitality' },
+];
+
 export default function PageLayout({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [industriesOpen, setIndustriesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const industriesDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setServicesOpen(false);
+      }
+      if (industriesDropdownRef.current && !industriesDropdownRef.current.contains(e.target as Node)) {
+        setIndustriesOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClick);
@@ -80,6 +92,29 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
               Contact
             </button>
+            <div ref={industriesDropdownRef} className="relative">
+              <button onClick={() => setIndustriesOpen(!industriesOpen)}
+                className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60 flex items-center gap-1">
+                Industries <ChevronDown className={`w-3 h-3 transition-transform ${industriesOpen ? 'rotate-180' : ''}`} />
+              </button>
+              <AnimatePresence>
+                {industriesOpen && (
+                  <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg overflow-hidden">
+                    <div className="py-2">
+                      {industryLinks.map(s => (
+                        <div key={s.label}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground">
+                          <s.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                          {s.label}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => navigate('/auth/client')} className="hidden sm:flex text-muted-foreground text-[13px]">
@@ -132,9 +167,31 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                   </motion.div>
                 )}
               </AnimatePresence>
+              <motion.button initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                onClick={() => setMobileIndustriesOpen(!mobileIndustriesOpen)}
+                className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                Industries<ChevronDown className={`w-4 h-4 text-muted-foreground/50 transition-transform ${mobileIndustriesOpen ? 'rotate-180' : ''}`} />
+              </motion.button>
+              <AnimatePresence>
+                {mobileIndustriesOpen && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                    <div className="pl-4 space-y-0.5">
+                      {industryLinks.map(s => (
+                        <div key={s.label}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground">
+                          <s.icon className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
+                          {s.label}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               {navLinks.filter(l => l.label !== 'About').map((l, i) => (
                 <motion.button key={l.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: (i + 2) * 0.05 }} onClick={() => { setMenuOpen(false); navigate(l.href); }}
+                  transition={{ delay: (i + 3) * 0.05 }} onClick={() => { setMenuOpen(false); navigate(l.href); }}
                   className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
                   {l.label}<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
                 </motion.button>
