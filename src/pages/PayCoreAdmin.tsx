@@ -191,7 +191,7 @@ export default function PayCoreAdmin() {
           ))}
         </nav>
 
-        <SidebarFooter email={user.email!} role={isSuperAdmin ? 'Super Admin' : 'Admin'} onSignOut={handleSignOut} />
+        <SidebarFooter email={user.email!} role="Admin" onSignOut={handleSignOut} />
       </aside>
 
       {/* Mobile header */}
