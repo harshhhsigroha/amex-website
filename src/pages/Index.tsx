@@ -137,7 +137,7 @@ const Index = () => {
   useEffect(() => {
     if (!loading && identityReady) {
       if (!user) navigate('/auth/client');
-      else if (isAdmin && !isClient) navigate('/paycore'); // AMEX team → their portal
+      else if (isAdmin && !isClient) navigate('/ops'); // Admin users → operations portal
       else if (!isClient && !isAdmin) navigate('/auth/client');
       // Client users (Tony) stay on /ops — this IS their portal
     }

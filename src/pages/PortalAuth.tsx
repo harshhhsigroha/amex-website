@@ -31,7 +31,7 @@ export default function PortalAuth() {
     if (!loading && identityReady && user) {
       if (isPortalUser) navigate('/admin');
       else if (isClient) navigate('/ops');
-      else if (isAdmin) navigate('/paycore');
+      else if (isAdmin) navigate('/ops');
     }
   }, [user, loading, identityReady, isPortalUser, isClient, isAdmin, navigate]);
 
