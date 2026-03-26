@@ -116,9 +116,9 @@ export default function Landing() {
   ];
 
   const industryLinks = [
-    { icon: Hammer, label: 'Construction' },
-    { icon: HeartPulse, label: 'Healthcare' },
-    { icon: Utensils, label: 'Hospitality' },
+    { icon: Hammer, label: 'Construction', href: '/industries/construction' },
+    { icon: HeartPulse, label: 'Healthcare', href: '/industries/healthcare' },
+    { icon: Utensils, label: 'Hospitality', href: '/industries/hospitality' },
   ];
 
   const services = [
@@ -134,9 +134,9 @@ export default function Landing() {
   ];
 
   const industries = [
-    { icon: Hammer, title: 'Construction' },
-    { icon: HeartPulse, title: 'Healthcare' },
-    { icon: Utensils, title: 'Hospitality' },
+    { icon: Hammer, title: 'Construction', href: '/industries/construction' },
+    { icon: HeartPulse, title: 'Healthcare', href: '/industries/healthcare' },
+    { icon: Utensils, title: 'Hospitality', href: '/industries/hospitality' },
   ];
 
   return (
@@ -198,11 +198,11 @@ export default function Landing() {
                     className="absolute top-full right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg overflow-hidden">
                     <div className="py-2">
                       {industryLinks.map(s => (
-                        <div key={s.label}
-                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground">
+                        <button key={s.label} onClick={() => { setIndustriesDropdownOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors">
                           <s.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
                           {s.label}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </motion.div>
@@ -284,11 +284,11 @@ export default function Landing() {
                     exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                     <div className="pl-4 space-y-0.5">
                       {industryLinks.map(s => (
-                        <div key={s.label}
-                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground">
+                        <button key={s.label} onClick={() => { setMenuOpen(false); setMobileIndustriesOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/40 rounded-xl transition-colors">
                           <s.icon className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
                           {s.label}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </motion.div>
@@ -656,7 +656,7 @@ export default function Landing() {
           <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
             {industries.map((ind, i) => (
               <Reveal key={ind.title} axis="y" delay={i * 0.04}>
-                <div className="glass-premium rounded-2xl p-6 text-center group transition-all duration-300">
+                <div onClick={() => navigate(ind.href)} className="glass-premium rounded-2xl p-6 text-center group transition-all duration-300 cursor-pointer hover:border-primary/20">
                   <div className="w-12 h-12 rounded-xl glass mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                     <ind.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                   </div>

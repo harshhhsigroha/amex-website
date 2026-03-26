@@ -17,9 +17,9 @@ const serviceLinks = [
 ];
 
 const industryLinks = [
-  { icon: Hammer, label: 'Construction' },
-  { icon: HeartPulse, label: 'Healthcare' },
-  { icon: Utensils, label: 'Hospitality' },
+  { icon: Hammer, label: 'Construction', href: '/industries/construction' },
+  { icon: HeartPulse, label: 'Healthcare', href: '/industries/healthcare' },
+  { icon: Utensils, label: 'Hospitality', href: '/industries/hospitality' },
 ];
 
 export default function PageLayout({ children }: { children: React.ReactNode }) {
@@ -104,11 +104,11 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                     className="absolute top-full right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg overflow-hidden">
                     <div className="py-2">
                       {industryLinks.map(s => (
-                        <div key={s.label}
-                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground">
+                        <button key={s.label} onClick={() => { setIndustriesOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors">
                           <s.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
                           {s.label}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </motion.div>
@@ -179,11 +179,11 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                     exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                     <div className="pl-4 space-y-0.5">
                       {industryLinks.map(s => (
-                        <div key={s.label}
-                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground">
+                        <button key={s.label} onClick={() => { setMenuOpen(false); setMobileIndustriesOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/40 rounded-xl transition-colors">
                           <s.icon className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
                           {s.label}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </motion.div>
