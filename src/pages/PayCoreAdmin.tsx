@@ -127,13 +127,13 @@ export default function AMEX OutsourcingAdmin() {
 
   // Auth guard
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) navigate('/auth/team');
+    if (!loading && (!user || !isAdmin)) navigate('/');
   }, [user, loading, isAdmin, navigate]);
 
   if (loading) return <LoadingScreen />;
   if (!user || !isAdmin) return null;
 
-  const handleSignOut = () => signOut().then(() => navigate('/auth/team'));
+  const handleSignOut = () => signOut().then(() => navigate('/'));
 
   // ── Content router ───────────────────────────────────────────────────────
 
