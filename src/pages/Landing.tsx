@@ -399,7 +399,162 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ── INDUSTRIES ──────────────────────────────────────── */}
+      {/* ── EMPLOYMENT STATUS DEEP-DIVE ─────────────────────── */}
+      <section className="py-32 px-6 bg-background border-t border-border/20">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <Reveal axis="left">
+              <div>
+                <p className="text-[10px] font-medium text-primary uppercase tracking-[0.2em] mb-4">Employment Status</p>
+                <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
+                  Correct classification,<br /><Accent>reduced risk.</Accent>
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                  Understanding your employment status is essential for determining tax obligations, National Insurance contributions, benefits entitlements, and legal rights. Whether you engage self-employed contractors, agency workers, or PAYE employees, correct classification protects both your organisation and your workforce.
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                  Our team provides detailed assessments aligned with HMRC guidelines and IR35 legislation, helping you to classify workers correctly and maintain full compliance with UK employment law. We produce thorough documentation to support your position in the event of any enquiry.
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {['IR35 assessments', 'HMRC compliance', 'Worker classification', 'Audit-ready documentation'].map(item => (
+                    <div key={item} className="flex items-center gap-2 text-sm text-foreground">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" /> {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+            <Reveal axis="right">
+              <div className="glass-premium rounded-3xl p-8 space-y-5">
+                {[
+                  { icon: Scale, title: 'Status Determination', desc: 'We assess each engagement individually, considering the nature of the working relationship, control, and financial arrangements.' },
+                  { icon: ShieldCheck, title: 'Regulatory Alignment', desc: 'Our assessments follow current HMRC guidance, helping to reduce the risk of reclassification, back taxes, or penalties.' },
+                  { icon: FileText, title: 'Full Documentation', desc: 'We provide comprehensive reports and supporting evidence, so your organisation is prepared for any compliance review.' },
+                ].map((item, i) => (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0">
+                      <item.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-foreground mb-1">{item.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+                <Button variant="outline" onClick={() => navigate('/services/employment-status')}
+                  className="w-full rounded-xl gap-2 mt-2">
+                  Learn More <ArrowRight className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── PAYROLL DEEP-DIVE ──────────────────────────────── */}
+      <section className="py-32 px-6 bg-background border-t border-border/20">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <Reveal axis="left" className="order-2 md:order-1">
+              <div className="glass-premium rounded-3xl p-8 space-y-5">
+                {[
+                  { icon: FileText, title: 'Wage & Deductions', desc: 'Accurate calculation of wages, income tax, National Insurance, pension contributions, and any applicable levies — fully itemised on every payslip.' },
+                  { icon: BarChart3, title: 'Invoice Management', desc: 'Once timesheets are approved, we generate and submit invoices on your behalf, providing clear breakdowns and following up on payments.' },
+                  { icon: Shield, title: 'HMRC Submissions', desc: 'All payroll data is submitted to HMRC in accordance with Real Time Information (RTI) requirements, keeping you compliant at every stage.' },
+                ].map((item, i) => (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0">
+                      <item.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-foreground mb-1">{item.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+                <Button variant="outline" onClick={() => navigate('/services/payroll-services')}
+                  className="w-full rounded-xl gap-2 mt-2">
+                  Learn More <ArrowRight className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+            </Reveal>
+            <Reveal axis="right" className="order-1 md:order-2">
+              <div>
+                <p className="text-[10px] font-medium text-primary uppercase tracking-[0.2em] mb-4">Payroll Services</p>
+                <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
+                  Accurate payroll,<br /><Accent>on time.</Accent>
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                  We manage end-to-end payroll processing, ensuring your workforce is paid correctly and promptly. Our service covers everything from calculating gross pay and deductions to generating payslips and submitting returns to HMRC.
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                  Whether your contractors are on weekly or monthly schedules, our streamlined system handles the complexity — including self-billed invoicing, VAT calculations, and detailed payment breakdowns — so you can maintain full transparency with your workforce.
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {['Tax & NI deductions', 'Pension contributions', 'Payslip generation', 'Self-billed invoices'].map(item => (
+                    <div key={item} className="flex items-center gap-2 text-sm text-foreground">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" /> {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ── HR DEEP-DIVE ──────────────────────────────────── */}
+      <section className="py-32 px-6 bg-background border-t border-border/20">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <Reveal axis="left">
+              <div>
+                <p className="text-[10px] font-medium text-primary uppercase tracking-[0.2em] mb-4">HR Services</p>
+                <h2 className="text-[clamp(1.75rem,3.5vw,2.75rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
+                  People-focused<br /><Accent>HR support.</Accent>
+                </h2>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-5">
+                  Whether you are preparing to hire your first employee or managing a workforce of several hundred, our HR team provides practical, tailored support. We cover the full spectrum — from recruitment and onboarding through to performance management and exit processes.
+                </p>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-8">
+                  We help you navigate the complexities of employment law, resolve sensitive workplace issues, address absenteeism, and build a positive culture that supports retention. Our aim is to give you confidence in your people processes, so you can focus on running your business.
+                </p>
+                <div className="grid grid-cols-2 gap-3">
+                  {['Recruitment support', 'Performance management', 'Absence management', 'Employment law guidance'].map(item => (
+                    <div key={item} className="flex items-center gap-2 text-sm text-foreground">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-primary shrink-0" /> {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </Reveal>
+            <Reveal axis="right">
+              <div className="glass-premium rounded-3xl p-8 space-y-5">
+                {[
+                  { icon: Users, title: 'Employee Engagement', desc: 'We help you develop strategies to improve workplace satisfaction and build a culture that attracts and retains talent.' },
+                  { icon: Briefcase, title: 'Legal Compliance', desc: 'Guidance on your responsibilities as an employer, covering disciplinary procedures, grievance handling, and redundancy processes.' },
+                  { icon: TrendingUp, title: 'Workforce Planning', desc: 'Support with organisational design, succession planning, and workforce restructuring to meet your evolving business needs.' },
+                ].map((item, i) => (
+                  <div key={item.title} className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-xl glass flex items-center justify-center shrink-0">
+                      <item.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-medium text-foreground mb-1">{item.title}</h3>
+                      <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+                <Button variant="outline" onClick={() => navigate('/services/hr-services')}
+                  className="w-full rounded-xl gap-2 mt-2">
+                  Learn More <ArrowRight className="w-3.5 h-3.5" />
+                </Button>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
       <section className="py-32 px-6 bg-background border-t border-border/20">
         <div className="max-w-7xl mx-auto">
           <Reveal axis="y" className="text-center mb-20">
