@@ -78,9 +78,6 @@ function AppRoutes() {
       <Route path="/services/employment-status" element={<EmploymentStatus />} />
       <Route path="/services/payroll-services" element={<PayrollServices />} />
       <Route path="/services/hr-services" element={<HRServices />} />
-      <Route path="/services/timesheet-management" element={<TimesheetManagement />} />
-      <Route path="/services/billing-invoicing" element={<BillingInvoicing />} />
-      <Route path="/services/compliance-legal" element={<ComplianceLegal />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
       <Route path="*" element={<NotFound />} />

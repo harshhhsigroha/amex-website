@@ -107,18 +107,12 @@ export default function Landing() {
     { icon: Scale, label: 'Employment Status', href: '/services/employment-status' },
     { icon: FileText, label: 'Payroll Services', href: '/services/payroll-services' },
     { icon: Briefcase, label: 'HR Services', href: '/services/hr-services' },
-    { icon: ClipboardCheck, label: 'Timesheet Management', href: '/services/timesheet-management' },
-    { icon: BarChart3, label: 'Billing & Invoicing', href: '/services/billing-invoicing' },
-    { icon: ShieldCheck, label: 'Compliance & Legal', href: '/services/compliance-legal' },
   ];
 
   const services = [
     { icon: Scale, title: 'Employment Status', desc: 'Guidance on employment classification for contractors and employees, supporting compliance with UK legislation and helping to mitigate the risk of reclassification.', tags: ['IR35', 'HMRC', 'Classification'], href: '/services/employment-status' },
     { icon: FileText, title: 'Payroll Services', desc: 'End-to-end payroll management including wage calculations, tax deductions, National Insurance, pension contributions, and payslip generation — accurate and on time.', tags: ['PAYE', 'NI', 'Pensions'], href: '/services/payroll-services' },
     { icon: Briefcase, title: 'HR Services', desc: 'Comprehensive human resources support covering recruitment, onboarding, performance management, employee engagement, and employment law guidance.', tags: ['Recruitment', 'Compliance', 'Engagement'], href: '/services/hr-services' },
-    { icon: ClipboardCheck, title: 'Timesheet Management', desc: 'A user-friendly timesheet submission system with clock in/out functionality, GPS tracking, and automated approval workflows to streamline administration.', tags: ['Clock In/Out', 'GPS', 'Automated'], href: '/services/timesheet-management' },
-    { icon: BarChart3, title: 'Billing & Invoicing', desc: 'We manage invoicing on your behalf — generating, submitting, and following up on payments with clear, accurate breakdowns and full transparency.', tags: ['Auto-Invoice', 'Self-Bill', 'VAT'], href: '/services/billing-invoicing' },
-    { icon: ShieldCheck, title: 'Compliance & Legal', desc: 'Regular compliance reviews and legal risk mitigation services designed to help your organisation stay aligned with current regulations and industry standards.', tags: ['Audits', 'Legal', 'Risk'], href: '/services/compliance-legal' },
   ];
 
   const processSteps = [
