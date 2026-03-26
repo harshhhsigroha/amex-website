@@ -87,6 +87,8 @@ export default function HRServices() {
         </div>
       </section>
 
+      <IndustriesSection />
+
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-medium text-foreground mb-4">Need HR support?</h2>
