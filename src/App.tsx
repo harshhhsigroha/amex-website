@@ -5,9 +5,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CustomDomainProvider, useCustomDomainContext } from "./contexts/CustomDomainContext";
-import Landing from "./pages/Landing";
+import PortalChooser from "./pages/PortalChooser";
 import Index from "./pages/Index";
-import TeamAuth from "./pages/TeamAuth";
 import ClientAuth from "./pages/ClientAuth";
 import PortalAuth from "./pages/PortalAuth";
 import ClientDashboard from "./pages/ClientDashboard";
@@ -17,7 +16,6 @@ import CandidateOnboarding from "./pages/CandidateOnboarding";
 import PayCoreAdmin from "./pages/PayCoreAdmin";
 import ClockInOut from "./pages/ClockInOut";
 import NotFound from "./pages/NotFound";
-import Auth from "./pages/Auth";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 
