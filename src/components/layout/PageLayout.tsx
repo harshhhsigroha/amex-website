@@ -14,9 +14,6 @@ const serviceLinks = [
   { icon: Scale, label: 'Employment Status', href: '/services/employment-status' },
   { icon: FileText, label: 'Payroll Services', href: '/services/payroll-services' },
   { icon: Briefcase, label: 'HR Services', href: '/services/hr-services' },
-  { icon: ClipboardCheck, label: 'Timesheet Management', href: '/services/timesheet-management' },
-  { icon: BarChart3, label: 'Billing & Invoicing', href: '/services/billing-invoicing' },
-  { icon: ShieldCheck, label: 'Compliance & Legal', href: '/services/compliance-legal' },
 ];
 
 export default function PageLayout({ children }: { children: React.ReactNode }) {

@@ -19,9 +19,6 @@ import Process from "./pages/Process";
 import EmploymentStatus from "./pages/services/EmploymentStatus";
 import PayrollServices from "./pages/services/PayrollServices";
 import HRServices from "./pages/services/HRServices";
-import TimesheetManagement from "./pages/services/TimesheetManagement";
-import BillingInvoicing from "./pages/services/BillingInvoicing";
-import ComplianceLegal from "./pages/services/ComplianceLegal";
 
 import ClockInOut from "./pages/ClockInOut";
 import NotFound from "./pages/NotFound";
@@ -81,9 +78,6 @@ function AppRoutes() {
       <Route path="/services/employment-status" element={<EmploymentStatus />} />
       <Route path="/services/payroll-services" element={<PayrollServices />} />
       <Route path="/services/hr-services" element={<HRServices />} />
-      <Route path="/services/timesheet-management" element={<TimesheetManagement />} />
-      <Route path="/services/billing-invoicing" element={<BillingInvoicing />} />
-      <Route path="/services/compliance-legal" element={<ComplianceLegal />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
       <Route path="*" element={<NotFound />} />
