@@ -75,7 +75,7 @@ function Counter({ to, suffix = '' }: { to: number; suffix?: string }) {
 
 /* ── Accent ────────────────────────────────────────────────── */
 function Accent({ children, className = '' }: { children: React.ReactNode; className?: string }) {
-  return <span className={`font-serif italic text-gradient ${className}`}>{children}</span>;
+  return <span className={`text-gradient ${className}`}>{children}</span>;
 }
 
 /* ── Floating Orb ──────────────────────────────────────────── */
@@ -202,7 +202,7 @@ export default function Landing() {
         <motion.div style={{ y: heroY, opacity: heroOpacity }} className="max-w-7xl mx-auto px-6 pt-36 pb-32 w-full relative z-10">
           <motion.div initial={{ opacity: 0, y: 20, scale: 0.95 }} animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }} className="mb-8">
-            <span className="inline-flex items-center gap-2.5 text-[11px] font-bold text-primary glass-premium px-5 py-2.5 rounded-full uppercase tracking-[0.14em]">
+            <span className="inline-flex items-center gap-2.5 text-[11px] font-semibold text-primary glass-premium px-5 py-2.5 rounded-full uppercase tracking-[0.14em]">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
@@ -215,7 +215,7 @@ export default function Landing() {
             <div className="overflow-hidden">
               <motion.h1 initial={{ y: '110%', opacity: 0 }} animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-                className="text-[clamp(3rem,8vw,6.5rem)] font-black tracking-tighter leading-[0.92] text-foreground">
+                className="text-[clamp(3rem,8vw,6.5rem)] font-bold tracking-tight leading-[0.92] text-foreground">
                 Take your
               </motion.h1>
             </div>
@@ -275,7 +275,7 @@ export default function Landing() {
                     <TrendingUp className="w-5 h-5 text-primary" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground">Why AMEX Outsourcing?</p>
+                    <p className="text-sm font-semibold text-foreground">Why AMEX Outsourcing?</p>
                     <p className="text-xs text-muted-foreground">Trusted by businesses across the UK</p>
                   </div>
                 </div>
@@ -289,7 +289,7 @@ export default function Landing() {
                     transition={{ delay: 0.8 + i * 0.1 }}
                     className="flex items-center justify-between py-3 border-b border-border/20 last:border-0">
                     <span className="text-sm text-muted-foreground">{item.label}</span>
-                    <span className="text-sm font-bold text-foreground">{item.value}</span>
+                    <span className="text-sm font-semibold text-foreground">{item.value}</span>
                   </motion.div>
                 ))}
               </div>
@@ -318,7 +318,7 @@ export default function Landing() {
             ].map((s, i) => (
               <Reveal key={s.label} axis={i < 2 ? 'left' : 'right'} delay={i * 0.06}
                 className="px-6 py-16 md:py-20 text-center border-r border-border/20 last:border-r-0">
-                <p className="text-[clamp(3rem,7vw,5rem)] font-black text-foreground leading-none mb-3 tabular-nums tracking-tight">
+                <p className="text-[clamp(3rem,7vw,5rem)] font-semibold text-foreground leading-none mb-3 tabular-nums tracking-tight">
                   <Counter to={s.to} suffix={s.suffix} />
                 </p>
                 <p className="text-sm font-semibold text-foreground mb-0.5">{s.label}</p>
@@ -334,8 +334,8 @@ export default function Landing() {
         <FloatingOrb className="w-[400px] h-[400px] bg-primary/[0.04] top-[20%] right-[5%]" delay={1} />
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal axis="y" className="text-center mb-20">
-            <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-4">About Us</p>
-            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-black text-foreground leading-[0.95] tracking-tight mb-6">
+            <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">About Us</p>
+            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
               Be at the forefront<br />of <Accent>innovation.</Accent>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
@@ -357,7 +357,7 @@ export default function Landing() {
                   <div className="w-11 h-11 rounded-xl glass flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
                     <item.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                  <h3 className="text-sm font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
                   <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
                 </div>
               </Reveal>
@@ -371,8 +371,8 @@ export default function Landing() {
         <FloatingOrb className="w-[350px] h-[350px] bg-violet-500/[0.04] top-[30%] left-[5%]" delay={3} />
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal axis="y" className="text-center mb-20">
-            <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-4">What We Do</p>
-            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-black text-foreground leading-[0.95] tracking-tight mb-6">
+            <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">What We Do</p>
+            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
               Services we're<br /><Accent>offering.</Accent>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto text-base leading-relaxed">
@@ -389,13 +389,13 @@ export default function Landing() {
                       <s.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-base font-bold text-foreground mb-2 group-hover:text-primary transition-colors">{s.title}</h3>
+                      <h3 className="text-base font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{s.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
                     </div>
                   </div>
                   <div className="flex flex-wrap gap-1.5 pl-[3.75rem]">
                     {s.tags.map(t => (
-                      <span key={t} className="text-[9px] font-bold text-muted-foreground/60 bg-muted/50 px-2.5 py-1 rounded-full uppercase tracking-widest">{t}</span>
+                      <span key={t} className="text-[9px] font-medium text-muted-foreground/60 bg-muted/50 px-2.5 py-1 rounded-full uppercase tracking-widest">{t}</span>
                     ))}
                   </div>
                 </div>
@@ -409,8 +409,8 @@ export default function Landing() {
       <section id="process" className="py-32 px-6 bg-background border-t border-border/20 relative">
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal axis="y" className="text-center mb-20">
-            <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-4">Our Process</p>
-            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-black text-foreground leading-[0.95] tracking-tight mb-6">
+            <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">Our Process</p>
+            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
               Employment Status,<br />Payroll & <Accent>HR.</Accent>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto text-base leading-relaxed">
@@ -427,11 +427,11 @@ export default function Landing() {
                       <ArrowRight className="w-6 h-6 text-primary/30" />
                     </div>
                   )}
-                  <span className="text-6xl font-black text-primary/10 block mb-4">{step.n}</span>
+                  <span className="text-6xl font-bold text-primary/10 block mb-4">{step.n}</span>
                   <div className="w-14 h-14 rounded-2xl glass mx-auto mb-5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <step.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
                   </div>
-                  <h3 className="text-lg font-bold text-foreground mb-3">{step.title}</h3>
+                  <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{step.desc}</p>
                 </div>
               </Reveal>
@@ -447,7 +447,7 @@ export default function Landing() {
               <p className="text-lg text-foreground leading-relaxed mb-6 italic">
                 "The user-friendly interface and accessibility of payroll-related data have made the entire process transparent and hassle-free. AMEX has consistently demonstrated a high level of professionalism, responsiveness, and adaptability to our specific needs."
               </p>
-              <p className="text-sm font-bold text-foreground">Jane Jordan</p>
+              <p className="text-sm font-semibold text-foreground">Jane Jordan</p>
               <p className="text-xs text-muted-foreground">Client</p>
             </div>
           </Reveal>
@@ -459,8 +459,8 @@ export default function Landing() {
         <FloatingOrb className="w-[400px] h-[400px] bg-primary/[0.05] top-[10%] left-[5%]" delay={1} />
         <div className="max-w-7xl mx-auto relative z-10">
           <Reveal axis="y" className="text-center mb-20">
-            <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-4">Contact</p>
-            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-black text-foreground leading-[0.95] tracking-tight mb-6">
+            <p className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">Contact</p>
+            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
               We're delivering the best<br /><Accent>customer experience.</Accent>
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto text-base leading-relaxed">
@@ -480,7 +480,7 @@ export default function Landing() {
                   <div className="w-14 h-14 rounded-2xl glass mx-auto mb-5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                     <item.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
                   </div>
-                  <p className="text-sm font-bold text-foreground mb-2">{item.label}</p>
+                  <p className="text-sm font-semibold text-foreground mb-2">{item.label}</p>
                   <p className="text-xs text-muted-foreground leading-relaxed">{item.value}</p>
                 </a>
               </Reveal>
@@ -502,13 +502,13 @@ export default function Landing() {
           <div className="relative rounded-3xl glass-premium overflow-hidden px-10 py-20 border-2 !border-primary/15">
             <div className="absolute inset-0 hero-mesh pointer-events-none" />
             <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none">
-              <span className="text-[clamp(6rem,18vw,16rem)] font-black text-primary/[0.03] leading-none whitespace-nowrap tracking-tighter">
+              <span className="text-[clamp(6rem,18vw,16rem)] font-bold text-primary/[0.03] leading-none whitespace-nowrap tracking-tighter">
                 AMEX Outsourcing
               </span>
             </div>
             <div className="relative flex flex-col md:flex-row items-center justify-between gap-10">
               <Reveal axis="left">
-                <h2 className="text-[clamp(2rem,4.5vw,3.5rem)] font-black text-foreground leading-[1] tracking-tight mb-3">
+                <h2 className="text-[clamp(2rem,4.5vw,3.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-3">
                   Take your business<br /><Accent>further.</Accent>
                 </h2>
                 <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
@@ -545,7 +545,7 @@ export default function Landing() {
 
             {/* Quick Links */}
             <div>
-              <p className="text-xs font-bold text-foreground uppercase tracking-widest mb-4">Quick Links</p>
+              <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Quick Links</p>
               <div className="space-y-2.5">
                 {navLinks.map(l => (
                   <button key={l.label} onClick={() => scrollTo(l.href)}
@@ -558,7 +558,7 @@ export default function Landing() {
 
             {/* Services */}
             <div>
-              <p className="text-xs font-bold text-foreground uppercase tracking-widest mb-4">Services</p>
+              <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Services</p>
               <div className="space-y-2.5">
                 {['Employment Status', 'Payroll Services', 'HR Services', 'Compliance & Legal'].map(s => (
                   <button key={s} onClick={() => scrollTo('services')}
@@ -571,7 +571,7 @@ export default function Landing() {
 
             {/* Login Portals */}
             <div>
-              <p className="text-xs font-bold text-foreground uppercase tracking-widest mb-4">Portal Login</p>
+              <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Portal Login</p>
               <div className="space-y-3">
                 <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
