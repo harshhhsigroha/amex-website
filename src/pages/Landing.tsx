@@ -98,10 +98,10 @@ export default function Landing() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const navLinks = [
-    { label: 'About', href: 'about' },
-    { label: 'Services', href: 'services' },
-    { label: 'Process', href: 'process' },
-    { label: 'Contact', href: 'contact' },
+    { label: 'About', href: '/about' },
+    { label: 'Services', href: '/services/employment-status' },
+    { label: 'Process', href: '/process' },
+    { label: 'Contact', href: '/contact' },
   ];
   const scrollTo = (id: string) => {
     setMenuOpen(false);
