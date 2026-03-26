@@ -14,7 +14,7 @@ import {
   FolderOpen,
   UserCog,
   MessageSquare,
-  Inbox,
+  
   ChevronRight,
   Settings2,
   Clock,
