@@ -30,7 +30,7 @@ export default function Process() {
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.p {...fade} className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">Our Process</motion.p>
           <motion.h1 {...fade} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[clamp(2.5rem,5vw,4rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
+            className="text-[clamp(2.5rem,5vw,4rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
             Employment Status, Payroll & HR
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
@@ -55,7 +55,7 @@ export default function Process() {
                   </div>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-xl font-semibold text-foreground mb-3">{step.title}</h3>
+                  <h3 className="text-xl font-medium text-foreground mb-3">{step.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-5">{step.desc}</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {step.details.map(d => (
@@ -74,7 +74,7 @@ export default function Process() {
       {/* Benefits */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-semibold text-foreground text-center mb-12">Why choose our process?</h2>
+          <h2 className="text-2xl font-medium text-foreground text-center mb-12">Why choose our process?</h2>
           <div className="grid md:grid-cols-3 gap-5">
             {[
               { icon: Clock, title: 'Save Time', desc: 'Streamlined workflows eliminate hours of manual processing each week.' },
@@ -83,11 +83,11 @@ export default function Process() {
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
-                className="glass-premium rounded-2xl p-7 text-center group hover:glow-ring transition-all duration-500">
-                <div className="w-12 h-12 rounded-xl glass mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform">
+                className="glass-premium rounded-2xl p-7 text-center group  transition-all duration-500">
+                <div className="w-12 h-12 rounded-xl glass mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition-transform">
                   <item.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">{item.title}</h3>
+                <h3 className="text-sm font-medium text-foreground mb-2">{item.title}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
@@ -98,7 +98,7 @@ export default function Process() {
       {/* CTA */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">Ready to get started?</h2>
+          <h2 className="text-2xl font-medium text-foreground mb-4">Ready to get started?</h2>
           <p className="text-muted-foreground mb-8">Let us handle the complexity of employment status, payroll, and compliance.</p>
           <a href="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-medium shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
             Contact Us <ArrowRight className="w-4 h-4" />

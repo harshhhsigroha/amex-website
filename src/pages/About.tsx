@@ -13,7 +13,7 @@ export default function About() {
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.p {...fade} className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">About Us</motion.p>
           <motion.h1 {...fade} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[clamp(2.5rem,5vw,4rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
+            className="text-[clamp(2.5rem,5vw,4rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
             Be at the forefront of innovation
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
@@ -37,11 +37,11 @@ export default function About() {
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.1 + i * 0.06 }}
-                className="glass-premium rounded-2xl p-7 group hover:glow-ring transition-all duration-500">
-                <div className="w-11 h-11 rounded-xl glass flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-300">
+                className="glass-premium rounded-2xl p-7 group  transition-all duration-500">
+                <div className="w-11 h-11 rounded-xl glass flex items-center justify-center mb-5 group-hover:scale-105 transition-transform duration-300">
                   <item.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                 </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
+                <h3 className="text-sm font-medium text-foreground mb-2 group-hover:text-primary transition-colors">{item.title}</h3>
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
@@ -62,7 +62,7 @@ export default function About() {
               <motion.div key={s.label} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
                 className="glass-premium rounded-2xl p-6">
-                <p className="text-3xl font-semibold text-foreground mb-1">{s.value}</p>
+                <p className="text-3xl font-medium text-foreground mb-1">{s.value}</p>
                 <p className="text-xs text-muted-foreground">{s.label}</p>
               </motion.div>
             ))}
@@ -80,7 +80,7 @@ export default function About() {
             <p className="text-lg text-foreground leading-relaxed mb-6 italic">
               "The user-friendly interface and accessibility of payroll-related data have made the entire process transparent and hassle-free. AMEX has consistently demonstrated a high level of professionalism, responsiveness, and adaptability to our specific needs."
             </p>
-            <p className="text-sm font-semibold text-foreground">Jane Jordan</p>
+            <p className="text-sm font-medium text-foreground">Jane Jordan</p>
             <p className="text-xs text-muted-foreground">Client</p>
           </div>
         </div>
@@ -89,7 +89,7 @@ export default function About() {
       {/* CTA */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-semibold text-foreground mb-4">Ready to work with us?</h2>
+          <h2 className="text-2xl font-medium text-foreground mb-4">Ready to work with us?</h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">Get in touch today and discover how AMEX Outsourcing can support your business.</p>
           <a href="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-medium shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
             Contact Us <CheckCircle2 className="w-4 h-4" />
