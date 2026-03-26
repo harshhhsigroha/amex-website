@@ -40,7 +40,6 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
       if (industriesDropdownRef.current && !industriesDropdownRef.current.contains(e.target as Node)) {
         setIndustriesOpen(false);
       }
-      }
     };
     document.addEventListener('mousedown', handleClick);
     return () => document.removeEventListener('mousedown', handleClick);
