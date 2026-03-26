@@ -5,102 +5,195 @@ const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, tr
 
 const PrivacyPolicy = () => {
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      <div className="max-w-3xl mx-auto px-6 py-16">
-        <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" /> Back to Home
-        </Link>
-
-        <h1 className="text-3xl font-bold mb-2">Privacy Policy</h1>
-        <p className="text-muted-foreground text-sm mb-10">Last updated: {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
-
-        <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">1. Introduction</h2>
-            <p>AMEX Outsourcing Ltd ("we", "us", "our") operates the AMEX Outsourcing platform. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our services. We are committed to protecting your personal data and being transparent about how we handle it.</p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">2. Information We Collect</h2>
-            <p className="mb-3">We may collect the following types of information:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li><strong className="text-foreground">Personal Information:</strong> Name, email address, phone number, postal address, date of birth, National Insurance number, and bank details when provided for payroll and invoicing purposes.</li>
-              <li><strong className="text-foreground">Employment Data:</strong> Employee IDs, timesheets, clock-in/out records, hourly rates, and contractor details necessary for invoice generation and payroll processing.</li>
-              <li><strong className="text-foreground">Account Data:</strong> Login credentials, user roles, and authentication tokens.</li>
-              <li><strong className="text-foreground">Usage Data:</strong> Pages visited, features used, timestamps, browser type, IP address, and device information.</li>
-              <li><strong className="text-foreground">Uploaded Files:</strong> Documents, timesheets, and other files uploaded through the platform.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">3. How We Use Your Information</h2>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>To provide, maintain, and improve AMEX Outsourcing services</li>
-              <li>To generate invoices, self-billed invoices, and payroll documents</li>
-              <li>To process contractor onboarding and manage candidate records</li>
-              <li>To facilitate clock-in/out tracking and timesheet management</li>
-              <li>To communicate with you about your account or our services</li>
-              <li>To comply with legal obligations, including UK tax and employment law</li>
-              <li>To detect, prevent, and address technical issues or security threats</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">4. Data Sharing & Disclosure</h2>
-            <p>We do not sell your personal data. We may share information with:</p>
-            <ul className="list-disc pl-5 space-y-2 mt-3">
-              <li><strong className="text-foreground">Your Employer or Client:</strong> Data necessary for payroll, invoicing, and contractor management as part of the service.</li>
-              <li><strong className="text-foreground">Service Providers:</strong> Trusted third parties who assist us in operating the platform (e.g., cloud hosting, payment processing) under strict data protection agreements.</li>
-              <li><strong className="text-foreground">Legal Authorities:</strong> When required by law, regulation, or legal process.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">5. Data Retention</h2>
-            <p>We retain your personal data for as long as necessary to provide our services and comply with legal obligations. Payroll and invoice records are retained for a minimum of 6 years in accordance with HMRC requirements. You may request deletion of your data where legally permissible.</p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">6. Data Security</h2>
-            <p>We implement appropriate technical and organisational measures to protect your personal data, including encryption in transit and at rest, role-based access controls, and regular security assessments. However, no method of transmission over the Internet is 100% secure.</p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">7. Your Rights (UK GDPR)</h2>
-            <p className="mb-3">Under the UK General Data Protection Regulation, you have the right to:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>Access the personal data we hold about you</li>
-              <li>Request correction of inaccurate data</li>
-              <li>Request deletion of your data (right to be forgotten)</li>
-              <li>Object to or restrict the processing of your data</li>
-              <li>Data portability — receive your data in a structured, machine-readable format</li>
-              <li>Withdraw consent at any time where processing is based on consent</li>
-              <li>Lodge a complaint with the Information Commissioner's Office (ICO)</li>
-            </ul>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">8. Cookies</h2>
-            <p>We use essential cookies to ensure the platform functions correctly, and analytics cookies to understand usage patterns.</p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">9. Changes to This Policy</h2>
-            <p>We may update this Privacy Policy from time to time. We will notify you of any significant changes by posting a prominent notice on our platform or by emailing you directly.</p>
-          </section>
-
-          <section>
-            <h2 className="text-lg font-semibold text-foreground mb-3">10. Contact Us</h2>
-            <p>If you have any questions about this Privacy Policy or wish to exercise your rights, please contact us at:</p>
-            <div className="mt-3 p-4 rounded-lg bg-muted/50 border border-border/50">
-              <p className="text-foreground font-medium">AMEX Outsourcing Ltd</p>
-              <p>Email: privacy@amexoutsourcing.co.uk</p>
-              <p>Address: United Kingdom</p>
-            </div>
-          </section>
+    <PageLayout>
+      <section className="py-20 px-6 bg-background relative overflow-hidden">
+        <div className="absolute inset-0 hero-mesh pointer-events-none" />
+        <div className="max-w-4xl mx-auto relative z-10 text-center">
+          <motion.p {...fade} className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">Legal</motion.p>
+          <motion.h1 {...fade} transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-[clamp(2.5rem,5vw,4rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
+            Privacy Policy
+          </motion.h1>
+          <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
+            Effective Date: 18 March 2026
+          </motion.p>
         </div>
-      </div>
-    </div>
+      </section>
+
+      <section className="py-16 px-6 bg-background border-t border-border/20">
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}
+          className="max-w-3xl mx-auto">
+
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+            AMEX Outsourcing (&ldquo;we,&rdquo; &ldquo;our,&rdquo; or &ldquo;us&rdquo;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your personal data in accordance with the UK General Data Protection Regulation (UK GDPR) and the Data Protection Act 2018.
+          </p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">
+            By using our website (<a href="https://amexoutsourcing.com/" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">https://amexoutsourcing.com/</a>) or engaging with our services, you agree to the practices described in this policy.
+          </p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">1. Information We Collect</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-3">We may collect both Personal Information and Non-Personal Information.</p>
+          <h3 className="text-sm font-medium text-foreground mb-2">a. Personal Information</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">This includes:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-5">
+            {['Name', 'Email address', 'Phone number', 'Company name', 'Job title', 'Any information you provide via forms, email, or communication'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+          <h3 className="text-sm font-medium text-foreground mb-2">b. Non-Personal Information</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">This includes:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-10">
+            {['IP address', 'Browser type', 'Pages visited', 'Time spent on site', 'Referring website', 'Cookies and tracking data'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">2. How We Use Your Information</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">We use your data to:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-10">
+            {['Respond to enquiries and requests', 'Provide services and manage client relationships', 'Improve website functionality and user experience', 'Send updates or marketing communications (with opt-out option)', 'Conduct analytics and internal research', 'Ensure security, prevent fraud, and comply with legal obligations'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">3. Credit Reference and Affordability Checks</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">To help us assess applications, prevent fraud, and meet our legal and regulatory obligations, we may obtain information about you from credit reference agencies (CRAs).</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">We obtain this information via Creditsafe, which uses its data partner TransUnion to supply consumer credit and identity data.</p>
+          <div className="glass-premium rounded-xl p-5 space-y-3 mb-4">
+            <div>
+              <p className="text-sm font-medium text-foreground">Creditsafe Business Solutions Limited</p>
+              <p className="text-xs text-muted-foreground">Authorised and regulated by the Financial Conduct Authority — FCA Firm Reference Number: 742313</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-foreground">TransUnion International UK Limited</p>
+              <p className="text-xs text-muted-foreground">Authorised and regulated by the Financial Conduct Authority — FCA Firm Reference Number: 805757</p>
+            </div>
+          </div>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">The information we receive may include data relating to your identity, credit commitments, payment history, and public record information. This data is used solely for legitimate business purposes, including creditworthiness assessment, identity verification, and fraud prevention, in accordance with applicable data protection laws.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">Further information can be found at:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-10">
+            <li className="text-sm text-muted-foreground"><a href="https://www.creditsafe.com/gb/en/legal/privacy-policy.html" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Creditsafe Transparency Notice</a></li>
+            <li className="text-sm text-muted-foreground"><a href="https://www.transunion.co.uk/legal/privacy-centre/pc-credit-reference" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">TransUnion CRAIN</a></li>
+            <li className="text-sm text-muted-foreground"><a href="https://www.transunion.co.uk/legal/privacy-centre/pc-bureau" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">TransUnion Bureau Privacy Notice</a></li>
+          </ul>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">4. Legal Basis for Processing Personal Data</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">We process personal data under the following lawful bases:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-4">
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Performance of a contract</span> — to provide services and meet contractual obligations</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Legal obligation</span> — to comply with regulatory and legal requirements</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Legitimate interests</span> — for business operations, fraud prevention, compliance, and security</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Consent</span> — where required, with the ability to withdraw at any time</li>
+          </ul>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">Where we rely on legitimate interests, we ensure appropriate safeguards are in place.</p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">5. Legitimate Interests</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">Our legitimate interests include:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-4">
+            {['Operating and improving our business', 'Preventing fraud and ensuring security', 'Compliance, audit, and regulatory obligations', 'Protecting third-party data (including TransUnion data)'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">These are balanced against your rights and freedoms.</p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">6. Source of Personal Data</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">We may collect personal data from:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-10">
+            {['You directly', 'Employers or clients', 'Referees (where applicable)', 'Public sources (e.g. LinkedIn, websites, public records)', 'Credit reference agencies', 'Third-party service providers supporting our operations'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">7. How We Share Your Information</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">We do not sell your data. We may share it with:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-10">
+            {['Service providers (hosting, analytics, CRM, compliance tools)', 'Credit reference agencies (as described above)', 'Legal authorities where required', 'Business transfers (e.g. mergers or acquisitions)'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">8. International Data Transfers</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">We may transfer personal data outside the UK or EEA. Where this occurs, we ensure safeguards such as:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-10">
+            {['Standard Contractual Clauses (SCCs)', 'International Data Transfer Agreements (IDTAs)', 'Transfers to countries with adequacy decisions'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">9. Data Retention</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">We retain personal data only as long as necessary.</p>
+          <ul className="list-disc pl-5 space-y-1 mb-10">
+            <li className="text-sm text-muted-foreground">Data is kept to fulfil business and legal obligations</li>
+            <li className="text-sm text-muted-foreground">Credit-related data is retained only as required and then securely deleted</li>
+          </ul>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">10. Cookies and Tracking Technologies</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">We use cookies to:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-4">
+            <li className="text-sm text-muted-foreground">Improve user experience</li>
+            <li className="text-sm text-muted-foreground">Analyse website usage</li>
+          </ul>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">You can disable cookies via browser settings, though some features may not function properly.</p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">11. Your Rights</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">You have the right to:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-4">
+            {['Access your personal data', 'Rectify inaccurate data', 'Erase your data where applicable', 'Restrict processing', 'Data portability', 'Object to processing (including marketing)'].map(item => (
+              <li key={item} className="text-sm text-muted-foreground">{item}</li>
+            ))}
+          </ul>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">To exercise your rights, contact: <a href="mailto:hello@amexoutsourcing.com" className="text-primary hover:underline">hello@amexoutsourcing.com</a></p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">12. Complaints</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">You have the right to lodge a complaint with the UK Information Commissioner&apos;s Office (ICO): <a href="https://www.ico.org.uk" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">https://www.ico.org.uk</a></p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">13. Provision of Personal Data</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">Providing personal data is:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-4">
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Contractual</span> — required to deliver services</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Sometimes legal</span> — required for compliance</li>
+          </ul>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-2">If you do not provide required data:</p>
+          <ul className="list-disc pl-5 space-y-1 mb-4">
+            <li className="text-sm text-muted-foreground">We may be unable to provide services</li>
+            <li className="text-sm text-muted-foreground">Contracts may not be fulfilled</li>
+            <li className="text-sm text-muted-foreground">Verification and compliance checks may fail</li>
+          </ul>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">Optional data (e.g. marketing) is not mandatory.</p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">14. Automated Decision Making and Profiling</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">In some circumstances, we may conduct automated decision making or profiling using personal data. This involves the use of automated systems to evaluate certain information about an individual, such as risk factors, affordability indicators, or fraud signals, based on predefined rules or algorithms.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4">Where automated decision making is used, it may result in decisions such as the approval, restriction, or rejection of an application or service.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">Individuals have the right to request human intervention, to express their point of view, and to challenge decisions made solely by automated means. Further information about automated decision making and how to exercise these rights can be obtained by contacting us using the details provided in this Privacy Policy.</p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">15. Data Security</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">We implement appropriate technical and organisational measures to protect your data. However, no system is completely secure.</p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">16. Third-Party Links</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-10">We are not responsible for third-party websites linked from our site. Please review their privacy policies separately.</p>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">17. Contact Details</h2>
+          <div className="glass-premium rounded-xl p-5 space-y-2 mb-10">
+            <p className="text-sm font-medium text-foreground">AMEX Outsourcing</p>
+            <p className="text-sm text-muted-foreground">Email: <a href="mailto:hello@amexoutsourcing.com" className="text-primary hover:underline">hello@amexoutsourcing.com</a></p>
+            <p className="text-sm text-muted-foreground">Phone: <a href="tel:+01952973737" className="text-primary hover:underline">01952 973737</a></p>
+            <p className="text-sm text-muted-foreground">Address: Pemberton House, Stafford Park 1, TF3 3BD</p>
+          </div>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">18. Data Protection Officer (DPO)</h2>
+          <div className="glass-premium rounded-xl p-5 space-y-2 mb-10">
+            <p className="text-sm font-medium text-foreground">Lili</p>
+            <p className="text-sm text-muted-foreground">Email: <a href="mailto:lili@amexoutsourcing.com" className="text-primary hover:underline">lili@amexoutsourcing.com</a></p>
+          </div>
+
+          <h2 className="text-lg font-medium text-foreground mb-4">19. Changes to This Policy</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-6">We may update this policy periodically. Updates will be posted with a revised effective date.</p>
+          <p className="text-sm text-muted-foreground leading-relaxed">By using our services, you confirm that you have read and understood this Privacy Policy.</p>
+
+        </motion.div>
+      </section>
+    </PageLayout>
   );
 };
 
