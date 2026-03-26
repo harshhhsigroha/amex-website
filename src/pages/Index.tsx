@@ -46,6 +46,7 @@ import { useWhiteLabel } from '@/hooks/useWhiteLabel';
 import { useAdminPermissions } from '@/hooks/useAdminPermissions';
 import { Button } from '@/components/ui/button';
 import { SidebarProvider, SidebarTrigger, SidebarInset } from '@/components/ui/sidebar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Download, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
