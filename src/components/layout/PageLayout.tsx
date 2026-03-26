@@ -26,13 +26,20 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [industriesOpen, setIndustriesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const industriesDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setServicesOpen(false);
+      }
+      if (industriesDropdownRef.current && !industriesDropdownRef.current.contains(e.target as Node)) {
+        setIndustriesOpen(false);
+      }
       }
     };
     document.addEventListener('mousedown', handleClick);
