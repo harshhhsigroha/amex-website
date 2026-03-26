@@ -406,12 +406,16 @@ const Index = () => {
           : <RestrictedContent message="You don't have permission to access files." />;
 
       case 'support':
-        return isClient ? <ClientSupport /> : <AdminSupport />;
-
-      case 'client-inbox':
-        return isClient
-          ? <ClientSupportToClients />
-          : <RestrictedContent message="Access denied." />;
+        return isClient ? (
+          <Tabs defaultValue="our-tickets" className="w-full">
+            <TabsList className="mb-4">
+              <TabsTrigger value="our-tickets">Our Tickets</TabsTrigger>
+              <TabsTrigger value="client-inbox">Client Inbox</TabsTrigger>
+            </TabsList>
+            <TabsContent value="our-tickets"><ClientSupport /></TabsContent>
+            <TabsContent value="client-inbox"><ClientSupportToClients /></TabsContent>
+          </Tabs>
+        ) : <AdminSupport />;
 
       case 'team':
         return isClient
