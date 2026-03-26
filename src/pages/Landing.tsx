@@ -86,13 +86,19 @@ export default function Landing() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [industriesDropdownOpen, setIndustriesDropdownOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const servicesDropdownRef = useRef<HTMLDivElement>(null);
+  const industriesDropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(e.target as Node)) {
         setServicesDropdownOpen(false);
+      }
+      if (industriesDropdownRef.current && !industriesDropdownRef.current.contains(e.target as Node)) {
+        setIndustriesDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClick);
@@ -107,6 +113,12 @@ export default function Landing() {
     { icon: Scale, label: 'Employment Status', href: '/services/employment-status' },
     { icon: FileText, label: 'Payroll Services', href: '/services/payroll-services' },
     { icon: Briefcase, label: 'HR Services', href: '/services/hr-services' },
+  ];
+
+  const industryLinks = [
+    { icon: Hammer, label: 'Construction' },
+    { icon: HeartPulse, label: 'Healthcare' },
+    { icon: Utensils, label: 'Hospitality' },
   ];
 
   const services = [
