@@ -85,15 +85,31 @@ export default function Landing() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const servicesDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(e.target as Node)) {
+        setServicesDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-  const navLinks = [
-    { label: 'About', href: '/about' },
-    { label: 'Services', href: '/services/employment-status' },
-    { label: 'Process', href: '/process' },
-    { label: 'Contact', href: '/contact' },
+  const serviceLinks = [
+    { icon: Scale, label: 'Employment Status', href: '/services/employment-status' },
+    { icon: FileText, label: 'Payroll Services', href: '/services/payroll-services' },
+    { icon: Briefcase, label: 'HR Services', href: '/services/hr-services' },
+    { icon: ClipboardCheck, label: 'Timesheet Management', href: '/services/timesheet-management' },
+    { icon: BarChart3, label: 'Billing & Invoicing', href: '/services/billing-invoicing' },
+    { icon: ShieldCheck, label: 'Compliance & Legal', href: '/services/compliance-legal' },
   ];
 
   const services = [
