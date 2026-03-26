@@ -134,7 +134,6 @@ export default function Landing() {
           <div className="flex items-center gap-2.5">
             <img src="/logo.png" alt="AMEX Outsourcing" className="h-8 object-contain" />
           </div>
-          </div>
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(l => (
               <button key={l.label} onClick={() => scrollTo(l.href)}
