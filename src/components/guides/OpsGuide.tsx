@@ -162,7 +162,7 @@ const sections = [
       },
       {
         title: 'End-user portal access',
-        content: 'You can give your clients read-only portal access at /admin so they can view their own invoices and contractors. Manage their login from My Clients — click on a client and use the End Users tab.',
+        content: 'You can give your clients read-only portal access at /client so they can view their own invoices and contractors. Manage their login from My Clients — click on a client and use the End Users tab.',
       },
       {
         title: 'Client support',

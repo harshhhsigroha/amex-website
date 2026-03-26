@@ -27,9 +27,9 @@ export default function ClientAuth() {
   useEffect(() => {
     if (user && !loading) {
       if (isClient) {
-        navigate('/ops'); // AMEX Outsourcing clients → Invoice Tool
+        navigate('/admin');
       } else if (isAdmin) {
-        navigate('/ops'); // Admin → operations portal
+        navigate('/admin');
       }
     }
   }, [user, loading, isClient, isAdmin, navigate]);

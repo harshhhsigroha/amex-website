@@ -46,9 +46,9 @@ const sections: GuideSection[] = [
         title: 'Three-tier architecture',
         content: null,
         list: [
-          { label: 'AMEX Team (You)', desc: 'Manage agencies, billing, support, announcements, SLA tracking, and platform settings from /paycore' },
-          { label: 'Operators / Agencies', desc: 'Each agency logs in at /ops to generate invoices, process timesheets, manage candidates, and support their clients' },
-          { label: 'End Users', desc: "Agencies' clients log in at /admin for a read-only view of invoices, contractors, and support" },
+          { label: 'AMEX Team (You)', desc: 'Manage agencies, billing, support, announcements, SLA tracking, and platform settings from /admin' },
+          { label: 'Operators / Agencies', desc: 'Each agency logs in at /admin to generate invoices, process timesheets, manage candidates, and support their clients' },
+          { label: 'End Users', desc: "Agencies' clients log in at /client for a read-only view of invoices, contractors, and support" },
         ],
       },
       {
