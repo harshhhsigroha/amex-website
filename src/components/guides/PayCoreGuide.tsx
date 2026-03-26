@@ -405,7 +405,7 @@ const sections: GuideSection[] = [
 
 type SectionId = (typeof sections)[number]['id'];
 
-export function AMEX OutsourcingGuide() {
+export function PayCoreGuide() {
   const [activeSection, setActiveSection] = useState<SectionId>('overview');
   const current = sections.find(s => s.id === activeSection)!;
 

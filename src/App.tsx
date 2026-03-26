@@ -13,7 +13,7 @@ import ClientDashboard from "./pages/ClientDashboard";
 import PortalDashboard from "./pages/PortalDashboard";
 import ResetPassword from "./pages/ResetPassword";
 import CandidateOnboarding from "./pages/CandidateOnboarding";
-import AMEX OutsourcingAdmin from "./pages/AMEX OutsourcingAdmin";
+import PayCoreAdmin from "./pages/PayCoreAdmin";
 import ClockInOut from "./pages/ClockInOut";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -56,7 +56,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<CustomDomainHome />} />
-      <Route path="/paycore" element={<AMEX OutsourcingAdmin />} />
+      <Route path="/paycore" element={<PayCoreAdmin />} />
       <Route path="/ops" element={<Index />} />
       <Route path="/admin" element={<PortalDashboard />} />
       <Route path="/auth/client" element={<ClientAuth />} />

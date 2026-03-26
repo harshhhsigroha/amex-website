@@ -8,9 +8,9 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { useSwipeNavigation } from '@/hooks/useSwipeNavigation';
 
 // ── Feature panels ───────────────────────────────────────────────────────────
-import { AMEX OutsourcingDashboard } from '@/components/paycore/AMEX OutsourcingDashboard';
-import { AMEX OutsourcingClientManager } from '@/components/paycore/ClientManager';
-import { AMEX OutsourcingSupportPanel } from '@/components/paycore/AMEX OutsourcingSupportPanel';
+import { PayCoreDashboard } from '@/components/paycore/PayCoreDashboard';
+import { PayCoreClientManager } from '@/components/paycore/ClientManager';
+import { PayCoreSupportPanel } from '@/components/paycore/PayCoreSupportPanel';
 import { AnnouncementsPanel } from '@/components/paycore/AnnouncementsPanel';
 import { ClientActivityTimeline } from '@/components/paycore/ClientActivityTimeline';
 import { BulkActionsPanel } from '@/components/paycore/BulkActionsPanel';
@@ -18,7 +18,7 @@ import { SLATrackingPanel } from '@/components/paycore/SLATrackingPanel';
 import { OnboardingChecklistPanel } from '@/components/paycore/OnboardingChecklistPanel';
 import { AuditLog } from '@/components/paycore/AuditLog';
 import { DailyLogPanel } from '@/components/paycore/DailyLogPanel';
-import { AMEX OutsourcingGuide } from '@/components/guides/AMEX OutsourcingGuide';
+import { PayCoreGuide } from '@/components/guides/PayCoreGuide';
 import AdminPanel from '@/components/AdminPanel';
 import { LoadingScreen } from '@/components/layout/LoadingScreen';
 import { PullToRefresh } from '@/components/ui/PullToRefresh';
@@ -79,7 +79,7 @@ const ALL_TABS = TAB_GROUPS.flatMap(g => g.items);
 
 // ── Main component ───────────────────────────────────────────────────────────
 
-export default function AMEX OutsourcingAdmin() {
+export default function PayCoreAdmin() {
   const { user, loading, isSuperAdmin, isAdmin, signOut } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -139,9 +139,9 @@ export default function AMEX OutsourcingAdmin() {
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'overview':      return <AMEX OutsourcingDashboard />;
-      case 'clients':       return <AMEX OutsourcingClientManager />;
-      case 'support':       return <AMEX OutsourcingSupportPanel />;
+      case 'overview':      return <PayCoreDashboard />;
+      case 'clients':       return <PayCoreClientManager />;
+      case 'support':       return <PayCoreSupportPanel />;
       case 'announcements': return <AnnouncementsPanel />;
       case 'timeline':      return <ClientActivityTimeline />;
       case 'bulk':          return <BulkActionsPanel />;
@@ -157,7 +157,7 @@ export default function AMEX OutsourcingAdmin() {
         return isSuperAdmin
           ? <AdminPanel />
           : <RestrictedMessage text="Super Admin access required to manage team members." />;
-      case 'guide':    return <AMEX OutsourcingGuide />;
+      case 'guide':    return <PayCoreGuide />;
       case 'settings': return <SettingsPanel email={user.email!} onSignOut={handleSignOut} />;
     }
   };

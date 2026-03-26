@@ -1336,7 +1336,7 @@ function ClientListItem({ client, selected, onClick }: { client: DbClient; selec
 
 // ── Main Export ───────────────────────────────────────────────────────────────
 
-export function AMEX OutsourcingClientManager() {
+export function PayCoreClientManager() {
   const { clients, isLoading, refetch } = useClients();
   const [search, setSearch] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(null);

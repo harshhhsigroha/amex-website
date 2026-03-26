@@ -14,7 +14,7 @@ import { PRICING_PLANS } from './ClientManager';
 
 const COLORS = ['hsl(221,83%,53%)', 'hsl(262,80%,58%)', 'hsl(38,92%,50%)', 'hsl(160,60%,45%)'];
 
-export function AMEX OutsourcingDashboard() {
+export function PayCoreDashboard() {
   const { clients } = useClients();
 
   const { data: plans = [] } = useQuery({
