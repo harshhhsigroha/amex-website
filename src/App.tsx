@@ -18,31 +18,18 @@ import ClockInOut from "./pages/ClockInOut";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
-
 import { LoadingScreen } from "./components/layout/LoadingScreen";
-
 
 const queryClient = new QueryClient();
 
-/** When on a custom domain, the landing page redirects to the portal login */
-function CustomDomainLanding() {
+/** When on a custom domain, show portal auth; otherwise show the portal chooser */
+function CustomDomainHome() {
   const { isCustomDomain, domainInfo } = useCustomDomainContext();
 
   if (isCustomDomain && domainInfo) {
-    // On a custom domain, show the portal auth instead of the marketing landing
     return <PortalAuth />;
   }
-  return <Landing />;
-}
-
-/** Custom domain onboarding — auto-injects clientId */
-function CustomDomainOnboarding() {
-  const { domainInfo } = useCustomDomainContext();
-  // If we're on a custom domain, we already know the clientId
-  // The CandidateOnboarding component reads from useParams, but we'll
-  // navigate to the correct route. For now, if the URL has no clientId,
-  // and we're on a custom domain, we pass it via the route.
-  return <CandidateOnboarding />;
+  return <PortalChooser />;
 }
 
 const App = () => (
@@ -52,7 +39,6 @@ const App = () => (
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          
           <BrowserRouter>
             <AppRoutes />
           </BrowserRouter>
@@ -63,40 +49,25 @@ const App = () => (
 );
 
 function AppRoutes() {
-  const { isLoading, isCustomDomain, domainInfo } = useCustomDomainContext();
+  const { isLoading } = useCustomDomainContext();
 
   if (isLoading) return <LoadingScreen />;
 
   return (
     <Routes>
-      <Route path="/" element={<CustomDomainLanding />} />
-      {/* PayCore Team management portal */}
+      <Route path="/" element={<CustomDomainHome />} />
       <Route path="/paycore" element={<PayCoreAdmin />} />
-      {/* PayCore Clients — Invoice generation tool */}
       <Route path="/ops" element={<Index />} />
-      {/* End Users (clients of PayCore clients) */}
       <Route path="/admin" element={<PortalDashboard />} />
-      {/* Auth portals */}
-      <Route path="/auth/team" element={<TeamAuth />} />
       <Route path="/auth/client" element={<ClientAuth />} />
       <Route path="/auth/portal" element={<PortalAuth />} />
-      {/* Legacy /auth → team login */}
-      <Route path="/auth" element={<Auth />} />
+      <Route path="/auth" element={<ClientAuth />} />
       <Route path="/auth/reset-password" element={<ResetPassword />} />
-      {/* Clock-in/out page — public, no auth required */}
       <Route path="/clock/:clientId" element={<ClockInOut />} />
-      {/* On custom domains, /onboarding works without clientId */}
-      <Route
-        path="/onboarding/:clientId"
-        element={<CandidateOnboarding />}
-      />
-      <Route
-        path="/onboarding"
-        element={<CandidateOnboarding />}
-      />
+      <Route path="/onboarding/:clientId" element={<CandidateOnboarding />} />
+      <Route path="/onboarding" element={<CandidateOnboarding />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
-      
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
