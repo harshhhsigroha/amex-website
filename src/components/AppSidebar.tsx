@@ -14,7 +14,7 @@ import {
   FolderOpen,
   UserCog,
   MessageSquare,
-  Inbox,
+  
   ChevronRight,
   Settings2,
   Clock,
@@ -74,7 +74,6 @@ const historyNavItems: NavItem[] = [
 
 const supportNavItems: NavItem[] = [
   { title: 'Support', value: 'support', icon: MessageSquare },
-  { title: 'Client Inbox', value: 'client-inbox', icon: Inbox, clientOnly: true },
 ];
 
 const teamNavItems: NavItem[] = [
