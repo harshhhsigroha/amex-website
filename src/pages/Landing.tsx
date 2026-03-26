@@ -136,7 +136,7 @@ export default function Landing() {
           </div>
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(l => (
-              <button key={l.label} onClick={() => scrollTo(l.href)}
+              <button key={l.label} onClick={() => navigate(l.href)}
                 className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
                 {l.label}
               </button>
@@ -169,7 +169,7 @@ export default function Landing() {
             <div className="px-4 py-4 flex flex-col gap-1">
               {navLinks.map((l, i) => (
                 <motion.button key={l.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }} onClick={() => scrollTo(l.href)}
+                  transition={{ delay: i * 0.05 }} onClick={() => navigate(l.href)}
                   className="flex items-center justify-between w-full px-4 py-3.5 text-base font-semibold text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
                   {l.label}<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
                 </motion.button>
@@ -548,7 +548,7 @@ export default function Landing() {
               <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Quick Links</p>
               <div className="space-y-2.5">
                 {navLinks.map(l => (
-                  <button key={l.label} onClick={() => scrollTo(l.href)}
+                  <button key={l.label} onClick={() => navigate(l.href)}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {l.label}
                   </button>
