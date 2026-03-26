@@ -61,7 +61,7 @@ serve(async (req) => {
           </tr>
         </table>
         <p style="margin-top: 30px; color: #666; font-size: 12px;">
-          Sent from PayCore landing page contact form.
+          Sent from AMEX Outsourcing contact form.
         </p>
       </div>
     `;
