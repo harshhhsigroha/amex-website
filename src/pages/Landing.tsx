@@ -656,7 +656,7 @@ export default function Landing() {
           <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
             {industries.map((ind, i) => (
               <Reveal key={ind.title} axis="y" delay={i * 0.04}>
-                <div className="glass-premium rounded-2xl p-6 text-center group transition-all duration-300">
+                <div onClick={() => navigate(ind.href)} className="glass-premium rounded-2xl p-6 text-center group transition-all duration-300 cursor-pointer hover:border-primary/20">
                   <div className="w-12 h-12 rounded-xl glass mx-auto mb-4 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                     <ind.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                   </div>
