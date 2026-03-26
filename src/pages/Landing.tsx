@@ -284,11 +284,11 @@ export default function Landing() {
                     exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
                     <div className="pl-4 space-y-0.5">
                       {industryLinks.map(s => (
-                        <div key={s.label}
-                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground">
+                        <button key={s.label} onClick={() => { setMenuOpen(false); setMobileIndustriesOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/40 rounded-xl transition-colors">
                           <s.icon className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
                           {s.label}
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </motion.div>
