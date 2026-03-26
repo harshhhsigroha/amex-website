@@ -29,7 +29,7 @@ function CustomDomainHome() {
   if (isCustomDomain && domainInfo) {
     return <PortalAuth />;
   }
-  return <PortalChooser />;
+  return <Landing />;
 }
 
 const App = () => (
