@@ -5,7 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CustomDomainProvider, useCustomDomainContext } from "./contexts/CustomDomainContext";
-import PortalChooser from "./pages/PortalChooser";
+import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import ClientAuth from "./pages/ClientAuth";
 import PortalAuth from "./pages/PortalAuth";
