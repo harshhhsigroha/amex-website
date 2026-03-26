@@ -10,7 +10,6 @@ import {
   Shield,
   ClipboardList,
   MessagesSquare,
-  Headphones,
 } from 'lucide-react';
 import {
   Sidebar,
