@@ -1,4 +1,5 @@
 import PageLayout from '@/components/layout/PageLayout';
+import IndustriesSection from '@/components/IndustriesSection';
 import { motion } from 'framer-motion';
 import { Scale, CheckCircle2, ArrowRight, ShieldCheck, FileText, Users } from 'lucide-react';
 
@@ -85,6 +86,8 @@ export default function EmploymentStatus() {
           </div>
         </div>
       </section>
+
+      <IndustriesSection />
 
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">

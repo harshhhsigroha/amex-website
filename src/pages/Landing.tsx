@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import {
   ArrowRight, CheckCircle2, ShieldCheck, Clock, Users,
   FileText, BarChart3, Headphones, MapPin, Phone, Mail,
-  ChevronRight, Building2, Scale, Briefcase, ClipboardCheck,
+  ChevronRight, ChevronDown, Building2, Scale, Briefcase, ClipboardCheck,
   Shield, Star, TrendingUp, Sparkles, Factory, Truck, Utensils,
   Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart,
 } from 'lucide-react';
@@ -85,15 +85,31 @@ export default function Landing() {
   const heroRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const servicesDropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (servicesDropdownRef.current && !servicesDropdownRef.current.contains(e.target as Node)) {
+        setServicesDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
   const heroY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
-  const navLinks = [
-    { label: 'About', href: '/about' },
-    { label: 'Services', href: '/services/employment-status' },
-    { label: 'Process', href: '/process' },
-    { label: 'Contact', href: '/contact' },
+  const serviceLinks = [
+    { icon: Scale, label: 'Employment Status', href: '/services/employment-status' },
+    { icon: FileText, label: 'Payroll Services', href: '/services/payroll-services' },
+    { icon: Briefcase, label: 'HR Services', href: '/services/hr-services' },
+    { icon: ClipboardCheck, label: 'Timesheet Management', href: '/services/timesheet-management' },
+    { icon: BarChart3, label: 'Billing & Invoicing', href: '/services/billing-invoicing' },
+    { icon: ShieldCheck, label: 'Compliance & Legal', href: '/services/compliance-legal' },
   ];
 
   const services = [
@@ -134,12 +150,41 @@ export default function Landing() {
             <img src="/logo.png" alt="AMEX Outsourcing" className="h-8 object-contain" />
           </a>
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map(l => (
-              <button key={l.label} onClick={() => navigate(l.href)}
-                className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
-                {l.label}
+            <button onClick={() => navigate('/about')}
+              className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
+              About
+            </button>
+            <div ref={servicesDropdownRef} className="relative">
+              <button onClick={() => setServicesDropdownOpen(!servicesDropdownOpen)}
+                className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60 flex items-center gap-1">
+                Services <ChevronDown className={`w-3 h-3 transition-transform ${servicesDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
-            ))}
+              <AnimatePresence>
+                {servicesDropdownOpen && (
+                  <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute top-full left-0 mt-2 w-64 glass-premium rounded-xl shadow-lg overflow-hidden">
+                    <div className="py-2">
+                      {serviceLinks.map(s => (
+                        <button key={s.label} onClick={() => { setServicesDropdownOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-[13px] text-muted-foreground hover:text-foreground hover:bg-accent/60 transition-colors">
+                          <s.icon className="w-4 h-4 text-primary" strokeWidth={1.5} />
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            <button onClick={() => navigate('/process')}
+              className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
+              Process
+            </button>
+            <button onClick={() => navigate('/contact')}
+              className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
+              Contact
+            </button>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" onClick={() => navigate('/auth/client')} className="hidden sm:flex text-muted-foreground text-[13px]">
@@ -166,20 +211,50 @@ export default function Landing() {
             exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25 }}
             className="md:hidden fixed top-[4.5rem] left-4 right-4 z-40 glass-premium rounded-2xl overflow-hidden shadow-lg">
             <div className="px-4 py-4 flex flex-col gap-1">
-              {navLinks.map((l, i) => (
-                <motion.button key={l.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }} onClick={() => { setMenuOpen(false); navigate(l.href); }}
-                  className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
-                  {l.label}<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
-                </motion.button>
-              ))}
+              <motion.button initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+                onClick={() => { setMenuOpen(false); navigate('/about'); }}
+                className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                About<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+              </motion.button>
+              <motion.button initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 }}
+                onClick={() => setMobileServicesOpen(!mobileServicesOpen)}
+                className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                Services<ChevronDown className={`w-4 h-4 text-muted-foreground/50 transition-transform ${mobileServicesOpen ? 'rotate-180' : ''}`} />
+              </motion.button>
+              <AnimatePresence>
+                {mobileServicesOpen && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                    <div className="pl-4 space-y-0.5">
+                      {serviceLinks.map(s => (
+                        <button key={s.label} onClick={() => { setMenuOpen(false); setMobileServicesOpen(false); navigate(s.href); }}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent/40 rounded-xl transition-colors">
+                          <s.icon className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
+                          {s.label}
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <motion.button initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }} onClick={() => { setMenuOpen(false); navigate('/process'); }}
+                className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                Process<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+              </motion.button>
+              <motion.button initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.15 }} onClick={() => { setMenuOpen(false); navigate('/contact'); }}
+                className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                Contact<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
+              </motion.button>
               <div className="h-px bg-border/40 my-2" />
               {[
                 { label: 'Admin Login', route: '/auth/client' },
                 { label: 'Client Login', route: '/auth/portal' },
               ].map((item, i) => (
                 <motion.button key={item.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: (navLinks.length + i) * 0.05 }}
+                  transition={{ delay: 0.2 + i * 0.05 }}
                   onClick={() => { setMenuOpen(false); navigate(item.route); }}
                   className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-muted-foreground hover:text-foreground hover:bg-accent/40 rounded-xl transition-colors">
                   {item.label}<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
@@ -307,9 +382,9 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { to: 10, suffix: '+', label: 'Years Experience', sub: 'in the industry' },
+              { to: 5, suffix: '+', label: 'Years Experience', sub: 'in the industry' },
               { to: 90, suffix: '+', label: 'Clients Served', sub: 'across the UK' },
-              { to: 45, suffix: '+', label: 'Industries Supported', sub: 'and growing' },
+              { to: 1000, suffix: 's', label: 'Payrolls Processed', sub: 'accurately and on time' },
               { to: 24, suffix: '/7', label: 'Support Available', sub: 'whenever you need us' },
             ].map((s, i) => (
               <Reveal key={s.label} axis={i < 2 ? 'left' : 'right'} delay={i * 0.06}
@@ -715,7 +790,7 @@ export default function Landing() {
             <div>
               <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Quick Links</p>
               <div className="space-y-2.5">
-                {navLinks.map(l => (
+                {[{ label: 'About', href: '/about' }, { label: 'Process', href: '/process' }, { label: 'Contact', href: '/contact' }].map(l => (
                   <button key={l.label} onClick={() => navigate(l.href)}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {l.label}
@@ -727,10 +802,10 @@ export default function Landing() {
             <div>
               <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Services</p>
               <div className="space-y-2.5">
-                {services.slice(0, 4).map(s => (
-                  <button key={s.title} onClick={() => navigate(s.href)}
+                {serviceLinks.slice(0, 4).map(s => (
+                  <button key={s.label} onClick={() => navigate(s.href)}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
-                    {s.title}
+                    {s.label}
                   </button>
                 ))}
               </div>
