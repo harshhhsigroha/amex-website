@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useClients } from '@/hooks/useClients';
-import { useClientPlans, useClientBilling, useClientWhiteLabel } from '@/hooks/useAMEX OutsourcingClients';
+import { useClientPlans, useClientBilling, useClientWhiteLabel } from '@/hooks/usePayCoreClients';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -24,7 +24,7 @@ import {
   Users2, Layers, Copy
 } from 'lucide-react';
 import { DbClient } from '@/types/database';
-import { ClientPlan, ClientBillingRecord } from '@/hooks/useAMEX OutsourcingClients';
+import { ClientPlan, ClientBillingRecord } from '@/hooks/usePayCoreClients';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 
