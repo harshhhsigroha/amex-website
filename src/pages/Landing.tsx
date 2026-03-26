@@ -134,14 +134,9 @@ export default function Landing() {
   ];
 
   const industries = [
-    { icon: Factory, title: 'Manufacturing' },
-    { icon: Truck, title: 'Logistics & Transport' },
-    { icon: Utensils, title: 'Hospitality' },
     { icon: Hammer, title: 'Construction' },
     { icon: HeartPulse, title: 'Healthcare' },
-    { icon: GraduationCap, title: 'Education' },
-    { icon: Landmark, title: 'Public Sector' },
-    { icon: ShoppingCart, title: 'Retail' },
+    { icon: Utensils, title: 'Hospitality' },
   ];
 
   return (
@@ -693,7 +688,7 @@ export default function Landing() {
             </p>
           </Reveal>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
+          <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
             {industries.map((ind, i) => (
               <Reveal key={ind.title} axis="y" delay={i * 0.04}>
                 <div className="glass-premium rounded-2xl p-6 text-center group transition-all duration-300">
