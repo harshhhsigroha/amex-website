@@ -277,6 +277,28 @@ export default function Landing() {
                 className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
                 Contact<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
               </motion.button>
+              <motion.button initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.2 }}
+                onClick={() => setMobileIndustriesOpen(!mobileIndustriesOpen)}
+                className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                Industries<ChevronDown className={`w-4 h-4 text-muted-foreground/50 transition-transform ${mobileIndustriesOpen ? 'rotate-180' : ''}`} />
+              </motion.button>
+              <AnimatePresence>
+                {mobileIndustriesOpen && (
+                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
+                    <div className="pl-4 space-y-0.5">
+                      {industryLinks.map(s => (
+                        <div key={s.label}
+                          className="flex items-center gap-3 w-full px-4 py-2.5 text-sm text-muted-foreground">
+                          <s.icon className="w-3.5 h-3.5 text-primary" strokeWidth={1.5} />
+                          {s.label}
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
               <div className="h-px bg-border/40 my-2" />
               {[
                 { label: 'Admin Login', route: '/auth/client' },
