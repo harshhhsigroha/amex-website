@@ -24,6 +24,12 @@ export default function Healthcare() {
             AMEX Outsourcing specialises in delivering tailored Employment Status, Payroll, HR and compliance services for healthcare organisations of any size. In a highly regulated industry where accurate worker classification and payroll management are critical, our services are customised to meet the unique needs of the healthcare sector, ensuring full compliance with the complex regulatory environment.
           </motion.p>
         </div>
+        <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
+          className="max-w-5xl mx-auto mt-12 relative z-10">
+          <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+            <img src={healthcareImg} alt="Healthcare professionals collaborating in a modern hospital" className="w-full h-[320px] object-cover" width={1280} height={720} />
+          </div>
+        </motion.div>
       </section>
 
       {/* Included Services */}

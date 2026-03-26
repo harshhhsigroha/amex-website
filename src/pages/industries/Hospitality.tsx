@@ -28,6 +28,12 @@ export default function Hospitality() {
             In an increasingly regulated environment, HMRC has intensified its focus on contractor employment, particularly within sectors like hospitality, where the use of temporary, seasonal, or freelance workers is widespread. Misclassifying these workers—whether they are kitchen staff, bartenders, or front-of-house employees—can result in severe financial penalties, backdated tax liabilities, and potential reputational damage. At AMEX Outsourcing, we help hospitality businesses avoid these costly mistakes by providing expert guidance on employment status, ensuring that workers are correctly classified, whether they are permanent staff, freelancers, or contractors.
           </motion.p>
         </div>
+        <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}
+          className="max-w-5xl mx-auto mt-12 relative z-10">
+          <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+            <img src={hospitalityImg} alt="Hospitality staff serving guests in an upscale restaurant" className="w-full h-[320px] object-cover" width={1280} height={720} />
+          </div>
+        </motion.div>
       </section>
 
       {/* Included Services */}

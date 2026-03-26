@@ -24,6 +24,12 @@ export default function Construction() {
             AMEX Outsourcing specialises in Employment Status, Payroll, and HR services, offering your company tailored services that ensure both protection and full compliance with legal and regulatory requirements. Our in-house team of experts brings a deep understanding of the complexities involved in managing employment relationships, particularly within industries like construction, where HMRC's enforcement efforts are becoming increasingly stringent.
           </motion.p>
         </div>
+        <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
+          className="max-w-5xl mx-auto mt-12 relative z-10">
+          <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+            <img src={constructionImg} alt="Construction professionals reviewing blueprints on site" className="w-full h-[320px] object-cover" width={1280} height={720} />
+          </div>
+        </motion.div>
       </section>
 
       {/* Included Services */}
