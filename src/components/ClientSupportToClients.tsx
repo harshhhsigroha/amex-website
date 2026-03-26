@@ -139,7 +139,7 @@ export function ClientSupportToClients() {
       ticket_id: selectedTicket.id,
       sender_id: user.id,
       message: newMessage.trim(),
-      is_admin: false, // Tony is not a PayCore admin but acts as ops admin to his clients
+      is_admin: false, // Tony is not a AMEX Outsourcing admin but acts as ops admin to his clients
     });
     if (!error) {
       setNewMessage('');

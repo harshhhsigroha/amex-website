@@ -12,7 +12,7 @@ export function useClients() {
     const { data, error } = await supabase
       .from('clients')
       .select('*')
-      .is('parent_client_id', null)  // Only top-level PayCore clients, not sub-clients
+      .is('parent_client_id', null)  // Only top-level AMEX Outsourcing clients, not sub-clients
       .order('company_name');
 
     if (error) {

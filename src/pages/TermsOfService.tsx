@@ -15,12 +15,12 @@ const TermsOfService = () => {
         <div className="space-y-8 text-sm leading-relaxed text-muted-foreground">
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-3">1. Agreement to Terms</h2>
-            <p>By accessing or using the PayCore platform operated by FirmFlow Ltd ("Company", "we", "us"), you agree to be bound by these Terms of Service. If you do not agree to these Terms, you must not use the platform.</p>
+            <p>By accessing or using the AMEX Outsourcing platform operated by AMEX Outsourcing Ltd ("Company", "we", "us"), you agree to be bound by these Terms of Service. If you do not agree to these Terms, you must not use the platform.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-3">2. Description of Service</h2>
-            <p>PayCore is a contractor payroll and invoice management platform that provides tools for timesheet processing, invoice generation, self-billed invoicing, candidate onboarding, clock-in/out tracking, and file management for businesses operating in the United Kingdom.</p>
+            <p>AMEX Outsourcing is a contractor payroll and invoice management platform that provides tools for timesheet processing, invoice generation, self-billed invoicing, candidate onboarding, clock-in/out tracking, and file management for businesses operating in the United Kingdom.</p>
           </section>
 
           <section>
@@ -52,7 +52,7 @@ const TermsOfService = () => {
             <h2 className="text-lg font-semibold text-foreground mb-3">5. Invoicing & Financial Data</h2>
             <ul className="list-disc pl-5 space-y-2">
               <li>You are solely responsible for the accuracy of all financial data entered into the platform, including timesheets, hourly rates, and invoice details.</li>
-              <li>PayCore generates invoices based on the data you provide. We do not independently verify the accuracy of submitted financial information.</li>
+              <li>AMEX Outsourcing generates invoices based on the data you provide. We do not independently verify the accuracy of submitted financial information.</li>
               <li>You remain responsible for compliance with HMRC regulations, tax obligations, and employment law.</li>
               <li>Generated invoices and self-billed invoices should be reviewed before submission to HMRC or clients.</li>
             </ul>
@@ -60,7 +60,7 @@ const TermsOfService = () => {
 
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-3">6. Intellectual Property</h2>
-            <p>The PayCore platform, including its design, code, branding, and content, is the intellectual property of FirmFlow Ltd. You are granted a limited, non-exclusive, non-transferable licence to use the platform for its intended purpose. You retain ownership of the data you upload to the platform.</p>
+            <p>The AMEX Outsourcing platform, including its design, code, branding, and content, is the intellectual property of AMEX Outsourcing Ltd. You are granted a limited, non-exclusive, non-transferable licence to use the platform for its intended purpose. You retain ownership of the data you upload to the platform.</p>
           </section>
 
           <section>
@@ -70,12 +70,12 @@ const TermsOfService = () => {
 
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-3">8. Limitation of Liability</h2>
-            <p>To the maximum extent permitted by law, FirmFlow Ltd shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising from your use of the platform. Our total liability shall not exceed the amount paid by you for the service in the preceding 12 months.</p>
+            <p>To the maximum extent permitted by law, AMEX Outsourcing Ltd shall not be liable for any indirect, incidental, special, consequential, or punitive damages, including loss of profits, data, or business opportunities, arising from your use of the platform. Our total liability shall not exceed the amount paid by you for the service in the preceding 12 months.</p>
           </section>
 
           <section>
             <h2 className="text-lg font-semibold text-foreground mb-3">9. Indemnification</h2>
-            <p>You agree to indemnify and hold harmless FirmFlow Ltd, its officers, directors, employees, and agents from any claims, losses, or damages arising from your use of the platform, your violation of these Terms, or your violation of any third-party rights.</p>
+            <p>You agree to indemnify and hold harmless AMEX Outsourcing Ltd, its officers, directors, employees, and agents from any claims, losses, or damages arising from your use of the platform, your violation of these Terms, or your violation of any third-party rights.</p>
           </section>
 
           <section>
@@ -97,8 +97,8 @@ const TermsOfService = () => {
             <h2 className="text-lg font-semibold text-foreground mb-3">13. Contact</h2>
             <p>For questions regarding these Terms, please contact:</p>
             <div className="mt-3 p-4 rounded-lg bg-muted/50 border border-border/50">
-              <p className="text-foreground font-medium">FirmFlow Ltd</p>
-              <p>Email: legal@firmflow.co.uk</p>
+              <p className="text-foreground font-medium">AMEX Outsourcing Ltd</p>
+              <p>Email: legal@amexoutsourcing.co.uk</p>
               <p>Address: United Kingdom</p>
             </div>
           </section>

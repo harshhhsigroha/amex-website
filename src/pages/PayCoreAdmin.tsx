@@ -127,13 +127,13 @@ export default function PayCoreAdmin() {
 
   // Auth guard
   useEffect(() => {
-    if (!loading && (!user || !isAdmin)) navigate('/auth/team');
+    if (!loading && (!user || !isAdmin)) navigate('/');
   }, [user, loading, isAdmin, navigate]);
 
   if (loading) return <LoadingScreen />;
   if (!user || !isAdmin) return null;
 
-  const handleSignOut = () => signOut().then(() => navigate('/auth/team'));
+  const handleSignOut = () => signOut().then(() => navigate('/'));
 
   // ── Content router ───────────────────────────────────────────────────────
 
@@ -227,7 +227,7 @@ export default function PayCoreAdmin() {
 
         <footer className="hidden lg:block glass-header border-t border-b-0 px-6 py-3">
           <p className="text-xs text-muted-foreground text-center">
-            PayCore Admin Portal by FirmFlow • Internal Use Only
+            AMEX Admin Portal by AMEX Outsourcing • Internal Use Only
           </p>
         </footer>
       </main>
@@ -252,7 +252,7 @@ function SidebarBrand() {
           <Shield className="h-4.5 w-4.5 text-primary-foreground" />
         </div>
         <div>
-          <p className="text-sm font-bold leading-none text-foreground">PayCore</p>
+          <p className="text-sm font-bold leading-none text-foreground">AMEX Outsourcing</p>
           <p className="text-[10px] text-muted-foreground mt-0.5">Admin Portal</p>
         </div>
       </div>
@@ -337,7 +337,7 @@ function MobileHeader({
               <Shield className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
-              <span className="font-bold text-sm text-foreground">PayCore</span>
+              <span className="font-bold text-sm text-foreground">AMEX Outsourcing</span>
               <span className="text-[10px] text-muted-foreground block leading-none">{currentTab?.label}</span>
             </div>
           </div>
@@ -414,7 +414,7 @@ function TopBar({
     <header className="hidden lg:flex items-center justify-between glass-header px-6 py-4 sticky top-0 z-10">
       <div>
         <h1 className="text-base font-semibold text-foreground">{title}</h1>
-        <p className="text-xs text-muted-foreground">PayCore Client Management Portal</p>
+        <p className="text-xs text-muted-foreground">AMEX Outsourcing Client Management Portal</p>
       </div>
       {openTickets > 0 && (
         <button

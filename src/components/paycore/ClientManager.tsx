@@ -143,7 +143,7 @@ function AddClientDialog({ onAdded }: { onAdded: () => void }) {
         <DialogContent className="max-w-md">
           <DialogHeader>
             <DialogTitle>Add New Client</DialogTitle>
-            <DialogDescription>Register a new PayCore client (recruitment agency).</DialogDescription>
+            <DialogDescription>Register a new AMEX Outsourcing client (recruitment agency).</DialogDescription>
           </DialogHeader>
           <div className="grid grid-cols-2 gap-3 py-2">
             {[
@@ -640,11 +640,11 @@ function WhiteLabelPanel({ client }: { client: DbClient }) {
         <Switch checked={form.enabled} onCheckedChange={v => setForm(f => ({ ...f, enabled: v }))} />
       </div>
 
-      {/* Hide "Powered by PayCore" toggle */}
+      {/* Hide "Powered by AMEX Outsourcing" toggle */}
       <div className="flex items-center justify-between p-3 bg-muted/30 rounded-lg">
         <div>
-          <p className="text-sm font-medium">Hide "Powered by PayCore"</p>
-          <p className="text-xs text-muted-foreground">Remove PayCore branding from ops &amp; end-user portals</p>
+          <p className="text-sm font-medium">Hide "Powered by AMEX Outsourcing"</p>
+          <p className="text-xs text-muted-foreground">Remove AMEX Outsourcing branding from ops &amp; end-user portals</p>
         </div>
         <Switch checked={form.hide_powered_by} onCheckedChange={v => setForm(f => ({ ...f, hide_powered_by: v }))} />
       </div>

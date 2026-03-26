@@ -129,7 +129,7 @@ export function PayCoreDashboard() {
       {/* Page header */}
       <div>
         <h2 className="text-2xl font-bold text-foreground tracking-tight">Overview</h2>
-        <p className="text-muted-foreground text-sm mt-1">PayCore platform health at a glance</p>
+        <p className="text-muted-foreground text-sm mt-1">AMEX Outsourcing platform health at a glance</p>
       </div>
 
       {/* KPI Row */}

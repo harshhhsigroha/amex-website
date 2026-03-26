@@ -23,16 +23,16 @@ export interface InvoiceBranding {
 
 export const DEFAULT_CONFIG: InvoiceConfig = {
   vatNumber: 'GB 123456789',
-  bankName: 'PayCore by FirmFlow',
+  bankName: 'AMEX Outsourcing',
   sortCode: '04-06-05',
   accountNumber: '2197155',
-  remittanceEmail: 'accounts@firmflow.com',
+  remittanceEmail: 'accounts@amexoutsourcing.com',
 };
 
 export const DEFAULT_BRANDING: InvoiceBranding = {
-  companyName: 'PayCore by FirmFlow',
+  companyName: 'AMEX Outsourcing',
   tagline: 'Professional Payroll Services',
-  primaryColor: [59, 130, 246], // Blue
+  primaryColor: [220, 38, 38], // Red
 };
 
 // Legacy export for backwards compatibility

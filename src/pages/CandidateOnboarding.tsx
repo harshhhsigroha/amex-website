@@ -62,7 +62,7 @@ export default function CandidateOnboarding() {
   const [honeypot, setHoneypot] = useState('');
   const [gdprConsent, setGdprConsent] = useState(false);
 
-  const brandName = whiteLabel?.brand_name || 'PayCore';
+  const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
   const logoUrl = whiteLabel?.logo_url || null;
 
   // Group enabled fields by section for step navigation
@@ -440,7 +440,7 @@ export default function CandidateOnboarding() {
               </div>
             )}
             <span className="font-semibold text-foreground">{brandName}</span>
-            {whiteLabel && !whiteLabel.hide_powered_by && <span className="text-[10px] text-muted-foreground">Powered by PayCore</span>}
+            {whiteLabel && !whiteLabel.hide_powered_by && <span className="text-[10px] text-muted-foreground">Powered by AMEX Outsourcing</span>}
           </div>
           <Button variant="ghost" onClick={() => navigate('/')}>Back to Home</Button>
         </div>

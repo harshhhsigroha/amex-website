@@ -220,8 +220,8 @@ const sections = [
     border: 'border-slate-200',
     steps: [
       {
-        title: 'Getting help from PayCore',
-        content: 'Use the Support → PayCore tab to raise a ticket directly with the PayCore support team. Provide as much detail as possible including any error messages or invoice numbers.',
+        title: 'Getting help from AMEX Outsourcing',
+        content: 'Use the Support tab to raise a ticket directly with the AMEX Outsourcing support team. Provide as much detail as possible including any error messages or invoice numbers.',
       },
       {
         title: 'Supporting your clients',
@@ -254,7 +254,7 @@ const sections = [
       },
       {
         title: 'Security reminder',
-        content: 'Only share login credentials with authorised personnel. Each team member should have their own account. Avoid sharing passwords — contact PayCore support if you need to reset access.',
+        content: 'Only share login credentials with authorised personnel. Each team member should have their own account. Avoid sharing passwords — contact AMEX Outsourcing support if you need to reset access.',
         tip: 'Team member accounts can be removed at any time if someone leaves.',
       },
     ],

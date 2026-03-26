@@ -19,12 +19,12 @@ export interface InvoiceSettings {
 }
 
 export const DEFAULT_INVOICE_SETTINGS: Omit<InvoiceSettings, 'id'> = {
-  bank_name: 'PayCore by FirmFlow',
+  bank_name: 'AMEX Outsourcing',
   sort_code: '04-06-05',
   account_number: '2197155',
-  remittance_email: 'accounts@firmflow.com',
+  remittance_email: 'accounts@amexoutsourcing.com',
   vat_number: 'GB 123456789',
-  self_bill_company_name: 'PayCore by FirmFlow',
+  self_bill_company_name: 'AMEX Outsourcing',
   self_bill_address_line1: 'Suite 8 Pemberton House',
   self_bill_address_line2: 'Stafford Park 1',
   self_bill_city: 'Telford',

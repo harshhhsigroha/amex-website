@@ -51,7 +51,7 @@ export function useSupportTickets() {
         .order('created_at', { ascending: false });
 
       if (isAdmin) {
-        // PayCore team: exclude tickets from portal users (end-clients).
+        // AMEX team: exclude tickets from portal users (end-clients).
         // End-client → operator tickets are handled in operator's Client Inbox tab.
         const { data: portalUserIds } = await supabase
           .from('portal_users')
@@ -63,7 +63,7 @@ export function useSupportTickets() {
           query = query.not('user_id', 'in', `(${excludedIds.join(',')})`);
         }
       } else {
-        // Operators: only THEIR OWN tickets to PayCore.
+        // Operators: only THEIR OWN tickets to AMEX Outsourcing.
         // End-client tickets are shown separately in Client Inbox tab.
         query = query.eq('user_id', user.id);
       }

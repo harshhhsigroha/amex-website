@@ -69,7 +69,7 @@ export function generateSelfBillPDF(
 
   // Resolve "Invoice To" address — prefer live settings, fall back to defaults
   const invoiceTo = {
-    companyName: invoiceSettings?.self_bill_company_name ?? 'PayCore by FirmFlow',
+    companyName: invoiceSettings?.self_bill_company_name ?? 'AMEX Outsourcing',
     addressLine1: invoiceSettings?.self_bill_address_line1 ?? 'Suite 8 Pemberton House',
     addressLine2: invoiceSettings?.self_bill_address_line2 ?? 'Stafford Park 1',
     city: invoiceSettings?.self_bill_city ?? 'Telford',
@@ -243,8 +243,8 @@ export function generateSelfBillPDF(
   doc.setProperties({
     title: `Self Bill ${remittanceNumber}`,
     subject: 'Self Billed Invoice / Remittance Advice',
-    author: 'PayCore by FirmFlow',
-    creator: 'PayCore Payroll System',
+    author: 'AMEX Outsourcing',
+    creator: 'AMEX Outsourcing Payroll System',
   });
 
   const invoiceDate = new Date(paymentDate);
@@ -296,7 +296,7 @@ export function regenerateSelfBillPDF(
   const lineItems = invoice.line_items as SelfBillLineItem[];
 
   const invoiceTo = {
-    companyName: invoiceSettings?.self_bill_company_name ?? 'PayCore by FirmFlow',
+    companyName: invoiceSettings?.self_bill_company_name ?? 'AMEX Outsourcing',
     addressLine1: invoiceSettings?.self_bill_address_line1 ?? 'Suite 8 Pemberton House',
     addressLine2: invoiceSettings?.self_bill_address_line2 ?? 'Stafford Park 1',
     city: invoiceSettings?.self_bill_city ?? 'Telford',

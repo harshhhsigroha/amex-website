@@ -73,7 +73,7 @@ const historyNavItems: NavItem[] = [
 ];
 
 const supportNavItems: NavItem[] = [
-  { title: 'Support PayCore', value: 'support', icon: MessageSquare },
+  { title: 'Support', value: 'support', icon: MessageSquare },
   { title: 'Client Inbox', value: 'client-inbox', icon: Inbox, clientOnly: true },
 ];
 
@@ -130,7 +130,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
 
   const roleLabel = isClient ? 'Operator' : role === 'super_admin' ? 'Super Admin' : 'Admin';
   const initials = (user?.email || '?').slice(0, 2).toUpperCase();
-  const brandName = whiteLabel?.brand_name || 'PayCore';
+  const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
   const logoUrl = whiteLabel?.logo_url || '/logo.png';
 
   const renderNavGroup = (items: NavItem[], label: string) => {
@@ -195,7 +195,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
             <div className="flex-1 min-w-0">
               <h1 className="text-sm font-bold text-foreground tracking-tight">{brandName}</h1>
               {(!whiteLabel || !whiteLabel.hide_powered_by) && (
-                <p className="text-[10px] text-muted-foreground">{whiteLabel ? 'Powered by AMEX Outsourcing' : 'AMEX Outsourcing'}</p>
+                <p className="text-[10px] text-muted-foreground">{whiteLabel ? 'Powered AMEX Outsourcing' : 'AMEX Outsourcing'}</p>
               )}
             </div>
           )}
