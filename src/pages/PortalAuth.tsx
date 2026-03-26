@@ -113,7 +113,7 @@ export default function PortalAuth() {
         </Card>
 
         {isCustomDomain && !domainInfo?.hidePoweredBy && (
-          <p className="text-center text-[10px] text-muted-foreground/50">Powered by PayCore</p>
+          <p className="text-center text-[10px] text-muted-foreground/50">Powered by AMEX Outsourcing</p>
         )}
       </div>
     </div>

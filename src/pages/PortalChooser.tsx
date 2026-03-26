@@ -9,7 +9,7 @@ export default function PortalChooser() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/30 p-4">
       <div className="w-full max-w-lg space-y-6">
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold text-foreground">Welcome to PayCore</h1>
+          <h1 className="text-3xl font-bold text-foreground">Welcome to AMEX Outsourcing</h1>
           <p className="text-muted-foreground">Select your portal to sign in</p>
         </div>
 

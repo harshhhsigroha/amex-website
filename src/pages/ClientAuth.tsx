@@ -64,7 +64,7 @@ export default function ClientAuth() {
           </div>
           <div>
             <CardTitle className="text-2xl font-bold">Company Portal</CardTitle>
-            <CardDescription>Sign in with the credentials provided by your PayCore account manager</CardDescription>
+            <CardDescription>Sign in with the credentials provided by your account manager</CardDescription>
           </div>
         </CardHeader>
         <CardContent>

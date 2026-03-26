@@ -49,12 +49,12 @@ const managementNavItems: NavItem[] = [
 ];
 
 const supportNavItems: NavItem[] = [
-  { title: 'Support → PayCore', value: 'support_paycore', icon: Headphones },
+  { title: 'Support', value: 'support_paycore', icon: Headphones },
   { title: 'Client Inbox', value: 'support_clients', icon: MessagesSquare },
 ];
 
 const accountNavItems: NavItem[] = [
-  { title: 'PayCore Team', value: 'admins', icon: Shield },
+  { title: 'Admin Team', value: 'admins', icon: Shield },
 ];
 
 interface ClientSidebarProps {
