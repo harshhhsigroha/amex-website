@@ -13,6 +13,15 @@ import ClientDashboard from "./pages/ClientDashboard";
 import PortalDashboard from "./pages/PortalDashboard";
 import ResetPassword from "./pages/ResetPassword";
 import CandidateOnboarding from "./pages/CandidateOnboarding";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Process from "./pages/Process";
+import EmploymentStatus from "./pages/services/EmploymentStatus";
+import PayrollServices from "./pages/services/PayrollServices";
+import HRServices from "./pages/services/HRServices";
+import TimesheetManagement from "./pages/services/TimesheetManagement";
+import BillingInvoicing from "./pages/services/BillingInvoicing";
+import ComplianceLegal from "./pages/services/ComplianceLegal";
 
 import ClockInOut from "./pages/ClockInOut";
 import NotFound from "./pages/NotFound";
@@ -66,6 +75,15 @@ function AppRoutes() {
       <Route path="/clock/:clientId" element={<ClockInOut />} />
       <Route path="/onboarding/:clientId" element={<CandidateOnboarding />} />
       <Route path="/onboarding" element={<CandidateOnboarding />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
+      <Route path="/process" element={<Process />} />
+      <Route path="/services/employment-status" element={<EmploymentStatus />} />
+      <Route path="/services/payroll-services" element={<PayrollServices />} />
+      <Route path="/services/hr-services" element={<HRServices />} />
+      <Route path="/services/timesheet-management" element={<TimesheetManagement />} />
+      <Route path="/services/billing-invoicing" element={<BillingInvoicing />} />
+      <Route path="/services/compliance-legal" element={<ComplianceLegal />} />
       <Route path="/privacy" element={<PrivacyPolicy />} />
       <Route path="/terms" element={<TermsOfService />} />
       <Route path="*" element={<NotFound />} />

@@ -98,10 +98,10 @@ export default function Landing() {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   const navLinks = [
-    { label: 'About', href: 'about' },
-    { label: 'Services', href: 'services' },
-    { label: 'Process', href: 'process' },
-    { label: 'Contact', href: 'contact' },
+    { label: 'About', href: '/about' },
+    { label: 'Services', href: '/services/employment-status' },
+    { label: 'Process', href: '/process' },
+    { label: 'Contact', href: '/contact' },
   ];
   const scrollTo = (id: string) => {
     setMenuOpen(false);
@@ -136,7 +136,7 @@ export default function Landing() {
           </div>
           <div className="hidden md:flex items-center gap-1">
             {navLinks.map(l => (
-              <button key={l.label} onClick={() => scrollTo(l.href)}
+              <button key={l.label} onClick={() => navigate(l.href)}
                 className="px-4 py-2 text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors rounded-lg hover:bg-accent/60">
                 {l.label}
               </button>
@@ -146,7 +146,7 @@ export default function Landing() {
             <Button variant="ghost" size="sm" onClick={() => navigate('/auth/client')} className="hidden sm:flex text-muted-foreground text-[13px]">
               Sign In
             </Button>
-            <Button size="sm" onClick={() => scrollTo('contact')} className="rounded-full px-5 gap-1.5 text-[13px] shadow-lg shadow-primary/20">
+            <Button size="sm" onClick={() => navigate('/contact')} className="rounded-full px-5 gap-1.5 text-[13px] shadow-lg shadow-primary/20">
               Contact Us <ArrowRight className="w-3.5 h-3.5" />
             </Button>
             <button onClick={() => setMenuOpen(!menuOpen)} className="md:hidden ml-1 p-2 rounded-lg hover:bg-accent/60 transition-colors">
@@ -169,7 +169,7 @@ export default function Landing() {
             <div className="px-4 py-4 flex flex-col gap-1">
               {navLinks.map((l, i) => (
                 <motion.button key={l.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }} onClick={() => scrollTo(l.href)}
+                  transition={{ delay: i * 0.05 }} onClick={() => navigate(l.href)}
                   className="flex items-center justify-between w-full px-4 py-3.5 text-base font-semibold text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
                   {l.label}<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
                 </motion.button>
@@ -238,7 +238,7 @@ export default function Landing() {
               <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.72 }}
                 className="flex flex-col sm:flex-row flex-wrap gap-3 mb-12">
-                <Button size="lg" onClick={() => scrollTo('contact')}
+                <Button size="lg" onClick={() => navigate('/contact')}
                   className="rounded-full px-8 h-[3.25rem] shadow-xl shadow-primary/25 gap-2.5 w-full sm:w-auto text-[15px] font-semibold">
                   Contact Us <ArrowRight className="w-4 h-4" />
                 </Button>
@@ -516,7 +516,7 @@ export default function Landing() {
                 </p>
               </Reveal>
               <Reveal axis="right" className="flex flex-col sm:flex-row gap-3 shrink-0 w-full sm:w-auto">
-                <Button onClick={() => scrollTo('contact')} size="lg"
+                <Button onClick={() => navigate('/contact')} size="lg"
                   className="rounded-full px-8 h-12 shadow-lg shadow-primary/30 gap-2 w-full sm:w-auto">
                   Get in Touch <ArrowRight className="w-4 h-4" />
                 </Button>
@@ -548,7 +548,7 @@ export default function Landing() {
               <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Quick Links</p>
               <div className="space-y-2.5">
                 {navLinks.map(l => (
-                  <button key={l.label} onClick={() => scrollTo(l.href)}
+                  <button key={l.label} onClick={() => navigate(l.href)}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {l.label}
                   </button>
@@ -561,7 +561,7 @@ export default function Landing() {
               <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Services</p>
               <div className="space-y-2.5">
                 {['Employment Status', 'Payroll Services', 'HR Services', 'Compliance & Legal'].map(s => (
-                  <button key={s} onClick={() => scrollTo('services')}
+                  <button key={s} onClick={() => navigate('/services/employment-status')}
                     className="block text-sm text-muted-foreground hover:text-foreground transition-colors">
                     {s}
                   </button>
