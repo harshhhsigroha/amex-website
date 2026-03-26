@@ -9,6 +9,9 @@ import {
   Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
+import heroTeamImg from '@/assets/hero-team.jpg';
+import aboutConsultantImg from '@/assets/about-consultant.jpg';
+import ctaHandshakeImg from '@/assets/cta-handshake.jpg';
 
 /* ── Scroll direction ─────────────────────────────────────── */
 function useScrollDirection() {
@@ -379,6 +382,15 @@ export default function Landing() {
           </motion.div>
         </motion.div>
 
+        {/* Hero image strip */}
+        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1 }}
+          className="max-w-5xl mx-auto px-6 pb-24 relative z-10">
+          <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
+            <img src={heroTeamImg} alt="Professional team meeting" className="w-full h-64 md:h-80 object-cover" width={1280} height={720} />
+          </div>
+        </motion.div>
+
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
           <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity }}
@@ -414,15 +426,22 @@ export default function Landing() {
       {/* ── ABOUT ───────────────────────────────────────────── */}
       <section id="about" className="py-32 px-6 bg-background relative">
         <div className="max-w-7xl mx-auto relative z-10">
-          <Reveal axis="y" className="text-center mb-20">
-            <p className="text-[10px] font-medium text-primary uppercase tracking-[0.2em] mb-4">About Us</p>
-            <h2 className="text-[clamp(2.5rem,5.5vw,4.5rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
-              Supporting your<br />workforce <Accent>needs.</Accent>
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-              We work closely with businesses and contractors to provide a compliant and personalised service. Our approach is tailored to each client, ensuring you receive the support that suits your organisation.
-            </p>
-          </Reveal>
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
+            <Reveal axis="left">
+              <div className="rounded-2xl overflow-hidden shadow-xl">
+                <img src={aboutConsultantImg} alt="Business consultant reviewing documents" className="w-full h-80 object-cover" loading="lazy" width={800} height={960} />
+              </div>
+            </Reveal>
+            <Reveal axis="right">
+              <p className="text-[10px] font-medium text-primary uppercase tracking-[0.2em] mb-4">About Us</p>
+              <h2 className="text-[clamp(2rem,4vw,3.5rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
+                Supporting your<br />workforce <Accent>needs.</Accent>
+              </h2>
+              <p className="text-muted-foreground text-base leading-relaxed">
+                We work closely with businesses and contractors to provide a compliant and personalised service. Our approach is tailored to each client, ensuring you receive the support that suits your organisation.
+              </p>
+            </Reveal>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
@@ -761,8 +780,10 @@ export default function Landing() {
       {/* ── CTA ─────────────────────────────────────────────── */}
       <section className="py-28 px-6 bg-background border-t border-border/20">
         <div className="max-w-7xl mx-auto">
-          <div className="relative rounded-3xl glass-premium overflow-hidden px-10 py-20 border-2 !border-primary/10">
-            <div className="relative flex flex-col md:flex-row items-center justify-between gap-10">
+          <div className="relative rounded-3xl overflow-hidden">
+            <img src={ctaHandshakeImg} alt="Business partnership" className="absolute inset-0 w-full h-full object-cover" loading="lazy" width={1280} height={640} />
+            <div className="absolute inset-0 bg-background/85 backdrop-blur-sm" />
+            <div className="relative px-10 py-20 flex flex-col md:flex-row items-center justify-between gap-10">
               <Reveal axis="left">
                 <h2 className="text-[clamp(2rem,4.5vw,3.5rem)] font-medium text-foreground leading-tight tracking-tight mb-3">
                   Take your business<br /><Accent>further.</Accent>
