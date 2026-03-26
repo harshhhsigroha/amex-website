@@ -127,7 +127,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
     return true;
   };
 
-  const roleLabel = isClient ? 'Operator' : role === 'super_admin' ? 'Super Admin' : 'Admin';
+  const roleLabel = isClient ? 'Operator' : 'Admin';
   const initials = (user?.email || '?').slice(0, 2).toUpperCase();
   const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
   const logoUrl = whiteLabel?.logo_url || '/logo.png';
