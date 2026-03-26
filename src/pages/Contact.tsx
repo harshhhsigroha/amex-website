@@ -38,7 +38,7 @@ export default function Contact() {
         <div className="max-w-4xl mx-auto relative z-10 text-center">
           <motion.p {...fade} className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">Contact</motion.p>
           <motion.h1 {...fade} transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-[clamp(2.5rem,5vw,4rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
+            className="text-[clamp(2.5rem,5vw,4rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
             Get in touch with us
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
@@ -59,11 +59,11 @@ export default function Contact() {
             <motion.a key={item.label} href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined}
               rel="noopener noreferrer" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, delay: 0.1 + i * 0.08 }}
-              className="glass-premium rounded-2xl p-8 text-center block group hover:glow-ring transition-all duration-500">
-              <div className="w-14 h-14 rounded-2xl glass mx-auto mb-5 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              className="glass-premium rounded-2xl p-8 text-center block group  transition-all duration-500">
+              <div className="w-14 h-14 rounded-2xl glass mx-auto mb-5 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                 <item.icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
               </div>
-              <p className="text-sm font-semibold text-foreground mb-2">{item.label}</p>
+              <p className="text-sm font-medium text-foreground mb-2">{item.label}</p>
               <p className="text-xs text-muted-foreground leading-relaxed">{item.value}</p>
             </motion.a>
           ))}
@@ -80,7 +80,7 @@ export default function Contact() {
                 <Send className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <p className="font-semibold text-foreground text-sm">Send us a message</p>
+                <p className="font-medium text-foreground text-sm">Send us a message</p>
                 <p className="text-xs text-muted-foreground">We reply within 1 business hour</p>
               </div>
             </div>

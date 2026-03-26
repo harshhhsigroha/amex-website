@@ -231,11 +231,11 @@
 
   .glass-premium:hover {
     box-shadow:
-      0 0 0 1px hsl(0 78% 50% / 0.08),
-      0 8px 24px -4px hsl(220 20% 10% / 0.08),
-      0 32px 64px -16px hsl(220 20% 10% / 0.12);
-    border-color: hsl(0 78% 50% / 0.15);
-    transform: translateY(-2px);
+      0 0 0 1px hsl(220 20% 10% / 0.04),
+      0 6px 20px -4px hsl(220 20% 10% / 0.08),
+      0 24px 48px -12px hsl(220 20% 10% / 0.1);
+    border-color: hsl(var(--glass-highlight));
+    transform: translateY(-1px);
   }
 
   .dark .glass-premium {
@@ -359,9 +359,8 @@
   /* ── Glow ring for hero elements ─────────────────────────────── */
   .glow-ring {
     box-shadow:
-      0 0 0 1px hsl(0 78% 50% / 0.1),
-      0 0 20px -4px hsl(0 78% 50% / 0.15),
-      0 0 40px -8px hsl(0 78% 50% / 0.1);
+      0 0 0 1px hsl(0 78% 50% / 0.05),
+      0 0 10px -4px hsl(0 78% 50% / 0.06);
   }
 
   /* ── Grid pattern ────────────────────────────────────────────── */

@@ -60,7 +60,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               {navLinks.map((l, i) => (
                 <motion.button key={l.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: i * 0.05 }} onClick={() => { setMenuOpen(false); navigate(l.href); }}
-                  className="flex items-center justify-between w-full px-4 py-3.5 text-base font-semibold text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
+                  className="flex items-center justify-between w-full px-4 py-3.5 text-base font-medium text-foreground hover:text-primary hover:bg-primary/5 rounded-xl transition-colors">
                   {l.label}<ChevronRight className="w-4 h-4 text-muted-foreground/50" />
                 </motion.button>
               ))}
@@ -98,7 +98,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               <p className="text-xs text-muted-foreground">Pemberton House, Stafford Park 1, TF3 3BD</p>
             </div>
             <div>
-              <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Quick Links</p>
+              <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Quick Links</p>
               <div className="space-y-2.5">
                 {navLinks.map(l => (
                   <button key={l.label} onClick={() => navigate(l.href)}
@@ -107,7 +107,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
             <div>
-              <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Services</p>
+              <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Services</p>
               <div className="space-y-2.5">
                 {['Employment Status', 'Payroll Services', 'HR Services', 'Compliance & Legal'].map(s => (
                   <button key={s} onClick={() => navigate(`/services/${s.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`)}
@@ -116,7 +116,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               </div>
             </div>
             <div>
-              <p className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Portal Login</p>
+              <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Portal Login</p>
               <div className="space-y-3">
                 <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
