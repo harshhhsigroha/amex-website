@@ -70,7 +70,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                 {servicesOpen && (
                   <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full left-0 mt-2 w-64 glass-premium rounded-xl shadow-lg overflow-hidden">
+                    className="absolute top-full left-0 mt-2 w-64 bg-background border border-border rounded-xl shadow-xl overflow-hidden z-50">
                     <div className="py-2">
                       {serviceLinks.map(s => (
                         <button key={s.label} onClick={() => { setServicesOpen(false); navigate(s.href); }}
@@ -101,7 +101,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                 {industriesOpen && (
                   <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 8 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute top-full right-0 mt-2 w-56 glass-premium rounded-xl shadow-lg overflow-hidden">
+                    className="absolute top-full right-0 mt-2 w-56 bg-background border border-border rounded-xl shadow-xl overflow-hidden z-50">
                     <div className="py-2">
                       {industryLinks.map(s => (
                         <button key={s.label} onClick={() => { setIndustriesOpen(false); navigate(s.href); }}
