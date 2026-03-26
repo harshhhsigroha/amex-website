@@ -1,6 +1,7 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
 import { HeartPulse, ArrowRight, Scale, FileText, Users, ShieldCheck, Eye, BookOpen, HeadphonesIcon } from 'lucide-react';
+import healthcareImg from '@/assets/industry-healthcare.jpg';
 
 const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 

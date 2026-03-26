@@ -1,6 +1,7 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
 import { Hammer, CheckCircle2, ArrowRight, Scale, FileText, Briefcase, ShieldCheck, Users, HardHat, ClipboardCheck, HeadphonesIcon, TrendingUp } from 'lucide-react';
+import constructionImg from '@/assets/industry-construction.jpg';
 
 const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
