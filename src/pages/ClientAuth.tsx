@@ -29,7 +29,7 @@ export default function ClientAuth() {
       if (isClient) {
         navigate('/ops'); // AMEX Outsourcing clients → Invoice Tool
       } else if (isAdmin) {
-        navigate('/paycore'); // AMEX team should use /auth/team
+        navigate('/ops'); // Admin → operations portal
       }
     }
   }, [user, loading, isClient, isAdmin, navigate]);

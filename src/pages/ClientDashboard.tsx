@@ -77,7 +77,7 @@ export default function ClientDashboard() {
       if (!user) {
         navigate('/auth/client');
       } else if (!isClient) {
-        if (isAdmin) navigate('/paycore');
+        if (isAdmin) navigate('/ops');
         else navigate('/auth/client');
       }
     }
