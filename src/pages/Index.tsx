@@ -443,7 +443,7 @@ const Index = () => {
         return <OpsGuide />;
 
       default:
-        return <RestrictedContent message="You have no permissions assigned. Please contact a Super Admin." />;
+        return <RestrictedContent message="You have no permissions assigned. Please contact your administrator." />;
     }
   };
 
