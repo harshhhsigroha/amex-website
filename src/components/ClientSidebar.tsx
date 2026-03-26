@@ -49,7 +49,6 @@ const managementNavItems: NavItem[] = [
 ];
 
 const supportNavItems: NavItem[] = [
-  { title: 'Support', value: 'support_paycore', icon: Headphones },
   { title: 'Client Inbox', value: 'support_clients', icon: MessagesSquare },
 ];
 

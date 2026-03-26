@@ -173,8 +173,6 @@ export default function ClientDashboard() {
         return <ClientOnboardingConfig />;
       case 'admins':
         return <ClientAdminsView />;
-      case 'support_paycore':
-        return <ClientSupport />;
       case 'support_clients':
         return <ClientSupportToClients />;
       default:
