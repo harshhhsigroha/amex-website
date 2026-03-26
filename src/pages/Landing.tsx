@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import {
   ArrowRight, CheckCircle2, ShieldCheck, Clock, Users,
   FileText, BarChart3, Headphones, MapPin, Phone, Mail,
-  ChevronRight, Building2, Scale, Briefcase, ClipboardCheck,
+  ChevronRight, ChevronDown, Building2, Scale, Briefcase, ClipboardCheck,
   Shield, Star, TrendingUp, Sparkles, Factory, Truck, Utensils,
   Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart,
 } from 'lucide-react';
@@ -307,9 +307,9 @@ export default function Landing() {
         <div className="max-w-7xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[
-              { to: 10, suffix: '+', label: 'Years Experience', sub: 'in the industry' },
+              { to: 5, suffix: '+', label: 'Years Experience', sub: 'in the industry' },
               { to: 90, suffix: '+', label: 'Clients Served', sub: 'across the UK' },
-              { to: 45, suffix: '+', label: 'Industries Supported', sub: 'and growing' },
+              { to: 1000, suffix: 's', label: 'Payrolls Processed', sub: 'accurately and on time' },
               { to: 24, suffix: '/7', label: 'Support Available', sub: 'whenever you need us' },
             ].map((s, i) => (
               <Reveal key={s.label} axis={i < 2 ? 'left' : 'right'} delay={i * 0.06}
