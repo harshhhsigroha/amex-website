@@ -875,7 +875,7 @@ export default function PortalDashboard() {
 
   // Derive display values from white label (if enabled)
   const wlEnabled = whiteLabel?.enabled;
-  const displayName = (wlEnabled && whiteLabel?.brand_name) ? whiteLabel.brand_name : (clientName || 'Client Portal');
+  const displayName = (wlEnabled && whiteLabel?.brand_name) ? whiteLabel.brand_name : (clientName || 'AMEX Outsourcing');
   const displayLogo = (wlEnabled && whiteLabel?.logo_url) ? whiteLabel.logo_url : '/logo.png';
   const primaryHex = (wlEnabled && whiteLabel?.primary_color) ? whiteLabel.primary_color : null;
 
