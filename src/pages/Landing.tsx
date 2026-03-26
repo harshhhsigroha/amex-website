@@ -134,9 +134,9 @@ export default function Landing() {
   ];
 
   const industries = [
-    { icon: Hammer, title: 'Construction' },
-    { icon: HeartPulse, title: 'Healthcare' },
-    { icon: Utensils, title: 'Hospitality' },
+    { icon: Hammer, title: 'Construction', href: '/industries/construction' },
+    { icon: HeartPulse, title: 'Healthcare', href: '/industries/healthcare' },
+    { icon: Utensils, title: 'Hospitality', href: '/industries/hospitality' },
   ];
 
   return (
