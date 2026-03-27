@@ -9,7 +9,7 @@ import {
   Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
-import heroTeamImg from '@/assets/hero-team.jpg';
+
 import aboutConsultantImg from '@/assets/about-consultant.jpg';
 import ctaHandshakeImg from '@/assets/cta-handshake.jpg';
 
@@ -382,14 +382,6 @@ export default function Landing() {
           </motion.div>
         </motion.div>
 
-        {/* Hero image strip */}
-        <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-          className="max-w-5xl mx-auto px-6 pb-24 relative z-10">
-          <div className="rounded-2xl overflow-hidden shadow-2xl shadow-primary/10">
-            <img src={heroTeamImg} alt="Professional team meeting" className="w-full h-64 md:h-80 object-cover" width={1280} height={720} />
-          </div>
-        </motion.div>
 
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3 }}
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
