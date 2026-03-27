@@ -9,7 +9,7 @@ import {
   Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
-import heroTeamImg from '@/assets/hero-team.jpg';
+
 import aboutConsultantImg from '@/assets/about-consultant.jpg';
 import ctaHandshakeImg from '@/assets/cta-handshake.jpg';
 
