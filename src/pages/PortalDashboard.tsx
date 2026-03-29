@@ -27,6 +27,7 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PortalGuide } from '@/components/guides/PortalGuide';
 import { PullToRefresh } from '@/components/ui/PullToRefresh';
+import { usePortalPermissions } from '@/hooks/usePortalPermissions';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
