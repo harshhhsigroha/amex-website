@@ -804,6 +804,7 @@ export default function PortalDashboard() {
 
     const effectiveClientId = link.sub_client_id || link.client_id;
     setClientId(effectiveClientId);
+    setParentClientId(link.client_id);
 
     const { data: clientRec } = await supabase
       .from('clients')
