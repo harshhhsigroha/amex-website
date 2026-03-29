@@ -74,15 +74,15 @@ interface SupportMessage {
 
 // ── Nav items ─────────────────────────────────────────────────────────────────
 
-const navItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: BarChart3, group: 'Workspace' },
-  { id: 'invoices',  label: 'Invoices',  icon: FileText,  group: 'Workspace' },
-  { id: 'contractors', label: 'Contractors', icon: Users, group: 'Workspace' },
-  { id: 'support',   label: 'Support',   icon: Headphones, group: 'Support' },
-  { id: 'guide',     label: 'Guide',     icon: HelpCircle, group: 'Support' },
+const allNavItems = [
+  { id: 'dashboard', label: 'Dashboard', icon: BarChart3, group: 'Workspace', permKey: 'can_view_dashboard' as const },
+  { id: 'invoices',  label: 'Invoices',  icon: FileText,  group: 'Workspace', permKey: 'can_view_invoices' as const },
+  { id: 'contractors', label: 'Contractors', icon: Users, group: 'Workspace', permKey: 'can_view_contractors' as const },
+  { id: 'support',   label: 'Support',   icon: Headphones, group: 'Support', permKey: 'can_view_support' as const },
+  { id: 'guide',     label: 'Guide',     icon: HelpCircle, group: 'Support', permKey: null },
 ] as const;
 
-type NavTab = typeof navItems[number]['id'];
+type NavTab = string;
 
 // ── Portal Sidebar ─────────────────────────────────────────────────────────────
 
