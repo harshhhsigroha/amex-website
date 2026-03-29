@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
 import { UserPlus, Trash2, Users, ExternalLink, Loader2, Copy, Edit2, Key, Eye, EyeOff, XCircle } from 'lucide-react';
+import { PortalPermissionsManager } from '@/components/PortalPermissionsManager';
 
 interface PortalUser {
   id: string;
@@ -342,6 +343,9 @@ export function ClientEndUserManager() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Portal Permissions */}
+      {clientId && <PortalPermissionsManager clientId={clientId} />}
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
