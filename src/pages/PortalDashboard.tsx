@@ -895,7 +895,7 @@ export default function PortalDashboard() {
 
   // If active tab was hidden, reset to first available
   const validTabIds = filteredNavItems.map(i => i.id);
-  const effectiveTab = validTabIds.includes(activeTab) ? activeTab : (validTabIds[0] || 'guide');
+  const effectiveTab = validTabIds.includes(activeTab) ? activeTab : (validTabIds[0] || 'guide') as string;
 
   const renderContent = () => {
     if (dataLoading || permsLoading) return (
