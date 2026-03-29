@@ -887,14 +887,24 @@ export default function PortalDashboard() {
   if (loading || !identityReady) return <LoadingScreen />;
   if (!user || !isPortalUser) return null;
 
+  // Filter nav items based on portal permissions
+  const filteredNavItems = allNavItems.filter(item => {
+    if (!item.permKey) return true; // guide always visible
+    return portalPerms[item.permKey];
+  });
+
+  // If active tab was hidden, reset to first available
+  const validTabIds = filteredNavItems.map(i => i.id);
+  const effectiveTab = validTabIds.includes(activeTab) ? activeTab : (validTabIds[0] || 'guide');
+
   const renderContent = () => {
-    if (dataLoading) return (
+    if (dataLoading || permsLoading) return (
       <div className="space-y-4">
         {[1, 2, 3].map(i => <div key={i} className="h-24 rounded-lg bg-muted animate-pulse" />)}
       </div>
     );
 
-    switch (activeTab) {
+    switch (effectiveTab) {
       case 'dashboard': return <DashboardTab invoices={invoices} contractors={contractors} />;
       case 'invoices':  return <InvoicesTab invoices={invoices} clientId={clientId} />;
       case 'contractors': return <ContractorsTab contractors={contractors} />;
@@ -907,13 +917,14 @@ export default function PortalDashboard() {
     <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen flex w-full bg-background bg-mesh">
         <PortalSidebar
-          activeTab={activeTab}
+          activeTab={effectiveTab}
           onTabChange={setActiveTab}
           companyName={displayName}
           userEmail={user.email || ''}
           onSignOut={handleSignOut}
           logoUrl={displayLogo}
           primaryColor={primaryHex}
+          navItems={[...filteredNavItems]}
         />
 
         <SidebarInset className="flex flex-col">
