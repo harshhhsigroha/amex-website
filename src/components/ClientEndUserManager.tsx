@@ -328,6 +328,7 @@ export function ClientEndUserManager() {
                   {showPw ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
                 </button>
               </div>
+              {newPw && <PasswordStrength password={newPw} className="mt-1" />}
             </div>
             <div className="space-y-1">
               <Label className="text-xs">Confirm Password</Label>
@@ -339,7 +340,7 @@ export function ClientEndUserManager() {
           </div>
           <DialogFooter>
             <Button variant="outline" size="sm" onClick={() => setPwUser(null)}>Cancel</Button>
-            <Button size="sm" onClick={handleSavePassword} disabled={savingPw || !newPw || newPw !== confirmPw}>
+            <Button size="sm" onClick={handleSavePassword} disabled={savingPw || !newPw || newPw !== confirmPw || !isPasswordStrong(newPw)}>
               {savingPw && <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />}Update Password
             </Button>
           </DialogFooter>
