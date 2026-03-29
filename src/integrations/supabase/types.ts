@@ -798,6 +798,50 @@ export type Database = {
           },
         ]
       }
+      portal_permissions: {
+        Row: {
+          can_view_contractors: boolean
+          can_view_dashboard: boolean
+          can_view_files: boolean
+          can_view_invoices: boolean
+          can_view_support: boolean
+          client_id: string
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          can_view_contractors?: boolean
+          can_view_dashboard?: boolean
+          can_view_files?: boolean
+          can_view_invoices?: boolean
+          can_view_support?: boolean
+          client_id: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Update: {
+          can_view_contractors?: boolean
+          can_view_dashboard?: boolean
+          can_view_files?: boolean
+          can_view_invoices?: boolean
+          can_view_support?: boolean
+          client_id?: string
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "portal_permissions_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: true
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       portal_users: {
         Row: {
           client_id: string

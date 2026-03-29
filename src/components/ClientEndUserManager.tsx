@@ -14,6 +14,8 @@ import {
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
 import { UserPlus, Trash2, Users, ExternalLink, Loader2, Copy, Edit2, Key, Eye, EyeOff, XCircle } from 'lucide-react';
+import { PortalPermissionsManager } from '@/components/PortalPermissionsManager';
+import { PasswordStrength, isPasswordStrong } from '@/components/auth/PasswordStrength';
 
 interface PortalUser {
   id: string;
@@ -218,10 +220,11 @@ export function ClientEndUserManager() {
               <div className="space-y-1">
                 <Label className="text-xs">Password</Label>
                 <Input className="h-8 text-sm" type="password" placeholder="Min. 8 characters" value={form.password} onChange={e => setForm(f => ({ ...f, password: e.target.value }))} />
+                {form.password && <PasswordStrength password={form.password} className="mt-1" />}
               </div>
             </div>
             <div className="flex gap-2 pt-1">
-              <Button size="sm" onClick={() => createUser.mutate()} disabled={createUser.isPending || !form.email || !form.password || !form.fullName}>
+              <Button size="sm" onClick={() => createUser.mutate()} disabled={createUser.isPending || !form.email || !form.password || !form.fullName || !isPasswordStrong(form.password)}>
                 {createUser.isPending && <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />}Create User
               </Button>
               <Button size="sm" variant="ghost" onClick={() => setShowAdd(false)}>Cancel</Button>
@@ -325,6 +328,7 @@ export function ClientEndUserManager() {
                   {showPw ? <EyeOff className="h-3.5 w-3.5" /> : <Eye className="h-3.5 w-3.5" />}
                 </button>
               </div>
+              {newPw && <PasswordStrength password={newPw} className="mt-1" />}
             </div>
             <div className="space-y-1">
               <Label className="text-xs">Confirm Password</Label>
@@ -336,12 +340,15 @@ export function ClientEndUserManager() {
           </div>
           <DialogFooter>
             <Button variant="outline" size="sm" onClick={() => setPwUser(null)}>Cancel</Button>
-            <Button size="sm" onClick={handleSavePassword} disabled={savingPw || !newPw || newPw !== confirmPw}>
+            <Button size="sm" onClick={handleSavePassword} disabled={savingPw || !newPw || newPw !== confirmPw || !isPasswordStrong(newPw)}>
               {savingPw && <Loader2 className="h-3.5 w-3.5 mr-1.5 animate-spin" />}Update Password
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Portal Permissions */}
+      {clientId && <PortalPermissionsManager clientId={clientId} />}
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>

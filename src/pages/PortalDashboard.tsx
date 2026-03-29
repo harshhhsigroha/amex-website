@@ -27,6 +27,7 @@ import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PortalGuide } from '@/components/guides/PortalGuide';
 import { PullToRefresh } from '@/components/ui/PullToRefresh';
+import { usePortalPermissions } from '@/hooks/usePortalPermissions';
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 
@@ -73,20 +74,20 @@ interface SupportMessage {
 
 // ── Nav items ─────────────────────────────────────────────────────────────────
 
-const navItems = [
-  { id: 'dashboard', label: 'Dashboard', icon: BarChart3, group: 'Workspace' },
-  { id: 'invoices',  label: 'Invoices',  icon: FileText,  group: 'Workspace' },
-  { id: 'contractors', label: 'Contractors', icon: Users, group: 'Workspace' },
-  { id: 'support',   label: 'Support',   icon: Headphones, group: 'Support' },
-  { id: 'guide',     label: 'Guide',     icon: HelpCircle, group: 'Support' },
+const allNavItems = [
+  { id: 'dashboard', label: 'Dashboard', icon: BarChart3, group: 'Workspace', permKey: 'can_view_dashboard' as const },
+  { id: 'invoices',  label: 'Invoices',  icon: FileText,  group: 'Workspace', permKey: 'can_view_invoices' as const },
+  { id: 'contractors', label: 'Contractors', icon: Users, group: 'Workspace', permKey: 'can_view_contractors' as const },
+  { id: 'support',   label: 'Support',   icon: Headphones, group: 'Support', permKey: 'can_view_support' as const },
+  { id: 'guide',     label: 'Guide',     icon: HelpCircle, group: 'Support', permKey: null },
 ] as const;
 
-type NavTab = typeof navItems[number]['id'];
+type NavTab = string;
 
 // ── Portal Sidebar ─────────────────────────────────────────────────────────────
 
 function PortalSidebar({
-  activeTab, onTabChange, companyName, userEmail, onSignOut, logoUrl, primaryColor,
+  activeTab, onTabChange, companyName, userEmail, onSignOut, logoUrl, primaryColor, navItems,
 }: {
   activeTab: NavTab;
   onTabChange: (t: NavTab) => void;
@@ -95,6 +96,7 @@ function PortalSidebar({
   onSignOut: () => void;
   logoUrl?: string;
   primaryColor?: string | null;
+  navItems: typeof allNavItems[number][];
 }) {
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
@@ -103,7 +105,7 @@ function PortalSidebar({
   const workspaceItems = navItems.filter(i => i.group === 'Workspace');
   const supportItems   = navItems.filter(i => i.group === 'Support');
 
-  const renderGroup = (items: typeof navItems[number][], label: string) => (
+  const renderGroup = (items: typeof allNavItems[number][], label: string) => (
     <SidebarGroup>
       <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.12em] font-semibold text-muted-foreground/60 px-3 mb-1">
         {label}
@@ -776,9 +778,11 @@ export default function PortalDashboard() {
   const [invoices, setInvoices] = useState<PortalInvoice[]>([]);
   const [contractors, setContractors] = useState<PortalContractor[]>([]);
   const [clientId, setClientId] = useState<string>('');
+  const [parentClientId, setParentClientId] = useState<string>('');
   const [clientName, setClientName] = useState<string>('');
   const [dataLoading, setDataLoading] = useState(true);
   const [whiteLabel, setWhiteLabel] = useState<WhiteLabelConfig | null>(null);
+  const { permissions: portalPerms, loading: permsLoading } = usePortalPermissions(parentClientId || clientId || null);
 
   useEffect(() => {
     if (!loading && identityReady) {
@@ -800,6 +804,7 @@ export default function PortalDashboard() {
 
     const effectiveClientId = link.sub_client_id || link.client_id;
     setClientId(effectiveClientId);
+    setParentClientId(link.client_id);
 
     const { data: clientRec } = await supabase
       .from('clients')
@@ -882,14 +887,24 @@ export default function PortalDashboard() {
   if (loading || !identityReady) return <LoadingScreen />;
   if (!user || !isPortalUser) return null;
 
+  // Filter nav items based on portal permissions
+  const filteredNavItems = allNavItems.filter(item => {
+    if (!item.permKey) return true; // guide always visible
+    return portalPerms[item.permKey];
+  });
+
+  // If active tab was hidden, reset to first available
+  const validTabIds = filteredNavItems.map(i => i.id as string);
+  const effectiveTab = validTabIds.includes(activeTab) ? activeTab : (validTabIds[0] || 'guide');
+
   const renderContent = () => {
-    if (dataLoading) return (
+    if (dataLoading || permsLoading) return (
       <div className="space-y-4">
         {[1, 2, 3].map(i => <div key={i} className="h-24 rounded-lg bg-muted animate-pulse" />)}
       </div>
     );
 
-    switch (activeTab) {
+    switch (effectiveTab) {
       case 'dashboard': return <DashboardTab invoices={invoices} contractors={contractors} />;
       case 'invoices':  return <InvoicesTab invoices={invoices} clientId={clientId} />;
       case 'contractors': return <ContractorsTab contractors={contractors} />;
@@ -902,13 +917,14 @@ export default function PortalDashboard() {
     <SidebarProvider defaultOpen={true}>
       <div className="min-h-screen flex w-full bg-background bg-mesh">
         <PortalSidebar
-          activeTab={activeTab}
+          activeTab={effectiveTab}
           onTabChange={setActiveTab}
           companyName={displayName}
           userEmail={user.email || ''}
           onSignOut={handleSignOut}
           logoUrl={displayLogo}
           primaryColor={primaryHex}
+          navItems={[...filteredNavItems]}
         />
 
         <SidebarInset className="flex flex-col">

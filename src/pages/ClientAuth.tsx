@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
+import { checkRateLimit, recordFailedAttempt, clearLoginAttempts } from '@/lib/loginRateLimit';
 import { Building2 } from 'lucide-react';
 import { LoadingScreen } from '@/components/layout/LoadingScreen';
 import { LoginForm } from '@/components/auth/LoginForm';
@@ -36,6 +37,11 @@ export default function ClientAuth() {
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    const { allowed } = checkRateLimit();
+    if (!allowed) {
+      toast({ variant: 'destructive', title: 'Account Locked', description: 'Too many failed login attempts. Please wait.' });
+      return;
+    }
     const result = loginSchema.safeParse({ email, password });
     if (!result.success) {
       toast({ variant: 'destructive', title: 'Validation Error', description: result.error.errors[0].message });
@@ -45,11 +51,16 @@ export default function ClientAuth() {
     const { error } = await signIn(email, password);
     setIsSubmitting(false);
     if (error) {
+      const { locked, remainingAttempts } = recordFailedAttempt();
       toast({
         variant: 'destructive',
         title: 'Login Failed',
-        description: error.message === 'Invalid login credentials' ? 'Invalid email or password' : error.message,
+        description: locked
+          ? 'Too many failed attempts. Your account is temporarily locked for 5 minutes.'
+          : `Invalid email or password. ${remainingAttempts} attempt${remainingAttempts !== 1 ? 's' : ''} remaining.`,
       });
+    } else {
+      clearLoginAttempts();
     }
   };
 
