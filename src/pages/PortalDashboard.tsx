@@ -87,7 +87,7 @@ type NavTab = string;
 // ── Portal Sidebar ─────────────────────────────────────────────────────────────
 
 function PortalSidebar({
-  activeTab, onTabChange, companyName, userEmail, onSignOut, logoUrl, primaryColor,
+  activeTab, onTabChange, companyName, userEmail, onSignOut, logoUrl, primaryColor, navItems,
 }: {
   activeTab: NavTab;
   onTabChange: (t: NavTab) => void;
@@ -96,6 +96,7 @@ function PortalSidebar({
   onSignOut: () => void;
   logoUrl?: string;
   primaryColor?: string | null;
+  navItems: typeof allNavItems[number][];
 }) {
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
@@ -104,7 +105,7 @@ function PortalSidebar({
   const workspaceItems = navItems.filter(i => i.group === 'Workspace');
   const supportItems   = navItems.filter(i => i.group === 'Support');
 
-  const renderGroup = (items: typeof navItems[number][], label: string) => (
+  const renderGroup = (items: typeof allNavItems[number][], label: string) => (
     <SidebarGroup>
       <SidebarGroupLabel className="text-[10px] uppercase tracking-[0.12em] font-semibold text-muted-foreground/60 px-3 mb-1">
         {label}
