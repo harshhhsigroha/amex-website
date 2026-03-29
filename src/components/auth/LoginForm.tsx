@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ShieldAlert } from 'lucide-react';
+import { checkRateLimit } from '@/lib/loginRateLimit';
 
 interface LoginFormProps {
   email: string;
@@ -22,8 +24,30 @@ export function LoginForm({
   isSubmitting,
   onForgotPassword,
 }: LoginFormProps) {
+  const [lockoutSeconds, setLockoutSeconds] = useState(0);
+
+  useEffect(() => {
+    const check = () => {
+      const { allowed, remainingSeconds } = checkRateLimit();
+      setLockoutSeconds(allowed ? 0 : remainingSeconds);
+    };
+    check();
+    const interval = setInterval(check, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const isLocked = lockoutSeconds > 0;
+  const minutes = Math.floor(lockoutSeconds / 60);
+  const seconds = lockoutSeconds % 60;
+
   return (
     <form onSubmit={onSubmit} className="space-y-4">
+      {isLocked && (
+        <div className="flex items-center gap-2 p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+          <ShieldAlert className="h-4 w-4 shrink-0" />
+          <span>Too many failed attempts. Try again in {minutes}:{seconds.toString().padStart(2, '0')}</span>
+        </div>
+      )}
       <div className="space-y-2">
         <Label htmlFor="login-email">Email</Label>
         <Input
@@ -33,6 +57,7 @@ export function LoginForm({
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
           required
+          disabled={isLocked}
         />
       </div>
       <div className="space-y-2">
@@ -55,9 +80,10 @@ export function LoginForm({
           value={password}
           onChange={(e) => onPasswordChange(e.target.value)}
           required
+          disabled={isLocked}
         />
       </div>
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
+      <Button type="submit" className="w-full" disabled={isSubmitting || isLocked}>
         {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
         Sign In
       </Button>
