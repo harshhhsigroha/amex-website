@@ -778,9 +778,11 @@ export default function PortalDashboard() {
   const [invoices, setInvoices] = useState<PortalInvoice[]>([]);
   const [contractors, setContractors] = useState<PortalContractor[]>([]);
   const [clientId, setClientId] = useState<string>('');
+  const [parentClientId, setParentClientId] = useState<string>('');
   const [clientName, setClientName] = useState<string>('');
   const [dataLoading, setDataLoading] = useState(true);
   const [whiteLabel, setWhiteLabel] = useState<WhiteLabelConfig | null>(null);
+  const { permissions: portalPerms, loading: permsLoading } = usePortalPermissions(parentClientId || clientId || null);
 
   useEffect(() => {
     if (!loading && identityReady) {
