@@ -254,7 +254,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
                   className="w-full justify-start gap-2 rounded-xl text-sm">
                   <Building2 className="w-4 h-4 text-primary" /> Admin Portal
                 </Button>
-                <Button variant="outline" size="sm" onClick={() => navigate('/auth/portal')}
+                <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
                   <Users className="w-4 h-4 text-primary" /> Client Portal
                 </Button>
