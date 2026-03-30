@@ -365,6 +365,11 @@ const Index = () => {
           </div>
         );
 
+      case 'clients':
+        return hasPermission('can_manage_clients')
+          ? <ClientManagement clients={clients} isLoading={clientsLoading} onAddClient={addClient} onUpdateClient={updateClient} onDeleteClient={deleteClient} invoices={invoices} />
+          : <RestrictedContent message="You don't have permission to manage clients." />;
+
       case 'candidates':
         return hasPermission('can_manage_candidates') ? (
           <div className="space-y-6">
