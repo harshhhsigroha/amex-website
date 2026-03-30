@@ -35,8 +35,8 @@ serve(async (req) => {
 
     const htmlBody = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-        <h2 style="color: #1a1a2e; border-bottom: 2px solid #4f46e5; padding-bottom: 10px;">
-          New Demo Request – PayCore
+        <h2 style="color: #1a1a2e; border-bottom: 2px solid #dc2626; padding-bottom: 10px;">
+          New Demo Request – AMEX Outsourcing
         </h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
           <tr style="background: #f8f9fa;">
@@ -73,8 +73,8 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "PayCore <noreply@firmflow.app>",
-        to: ["harsh@firmflow.app"],
+        from: "AMEX Outsourcing <noreply@firmflow.app>",
+        to: ["accounts@amexoutsourcing.com"],
         reply_to: email,
         subject: `Demo Request – ${company}`,
         html: htmlBody,

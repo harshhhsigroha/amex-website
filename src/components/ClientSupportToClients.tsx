@@ -1,6 +1,6 @@
 /**
  * ClientSupportToClients
- * Tony's (Operator 2) inbox for tickets raised by his end-clients (Operator 3).
+ * Inbox for tickets raised by end-clients (portal users).
  */
 import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';

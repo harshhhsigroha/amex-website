@@ -1,8 +1,8 @@
 /**
  * useSubClients
- * For a client user (Operator 2, e.g. Tony), fetches and manages
- * the sub-clients they own (clients where parent_client_id = Tony's client_id).
- * These are the recipients Tony can address invoices to.
+ * For a client user, fetches and manages the sub-clients they own
+ * (clients where parent_client_id = their client_id).
+ * These are the recipients they can address invoices to.
  */
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';

@@ -8,7 +8,7 @@ import { SingleFormBuilder, DEFAULT_FIELDS } from '@/components/OnboardingFormBu
 import { useAuth } from '@/contexts/AuthContext';
 
 /**
- * Allows a client (recruitment agency) to manage their own custom
+ * Allows a client to manage their own custom
  * candidate onboarding form, saved as form_type = "candidate_<clientId>".
  */
 export function ClientOnboardingFormBuilder() {
@@ -76,7 +76,7 @@ export function ClientOnboardingFormBuilder() {
       <SingleFormBuilder
         formType={`candidate_${clientId}`}
         title="Candidate Registration"
-        description="Configure the fields candidates fill in when registering with your agency."
+        description="Configure the fields candidates fill in when registering with your company."
         defaultFields={DEFAULT_FIELDS}
         onboardingUrl={onboardingUrl}
       />

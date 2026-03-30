@@ -23,9 +23,9 @@ export default function PortalChooser() {
                 <Building2 className="h-7 w-7 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-lg">Company Portal</CardTitle>
+                <CardTitle className="text-lg">Admin Portal</CardTitle>
                 <CardDescription className="text-xs">
-                  For agency administrators & operations
+                  For AMEX Outsourcing administrators
                 </CardDescription>
               </div>
             </CardHeader>

@@ -21,7 +21,7 @@ export interface GeneratedInvoiceResult {
   pdfBlob: Blob;
 }
 
-// Issuer info passed from the calling portal (the logged-in operator's own company)
+// Issuer info passed from the calling portal (the logged-in user's own company)
 export interface IssuerDetails {
   companyName: string;
   tagline?: string;
