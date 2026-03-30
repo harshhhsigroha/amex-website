@@ -1,7 +1,7 @@
 /**
  * ClientOnboardingConfig
  * Unified Onboarding tab for the Operations Portal.
- * - Shows the client-specific shareable link + QR code (white-label aware)
+ * - Shows the client-specific shareable link + QR code
  * - Embeds the full form builder so operators can configure fields inline
  */
 import { useState, useEffect, useRef } from 'react';
@@ -180,7 +180,7 @@ export function ClientOnboardingConfig() {
         </div>
       )}
 
-      {/* Unique shareable link — uses CSS var --primary which is already set to the white-label colour */}
+      {/* Unique shareable link */}
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="p-4 space-y-3">
           {/* Header: logo + brand name + badge */}

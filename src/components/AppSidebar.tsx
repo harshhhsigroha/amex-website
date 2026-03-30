@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
 import {
   LayoutDashboard,
   FileText,
@@ -8,13 +7,11 @@ import {
   Users,
   History,
   FileStack,
-  Shield,
   LogOut,
   HelpCircle,
   FolderOpen,
   UserCog,
   MessageSquare,
-  
   ChevronRight,
   Settings2,
   Clock,
@@ -36,11 +33,9 @@ import {
 } from '@/components/ui/sidebar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAdminPermissions, AdminPermissions } from '@/hooks/useAdminPermissions';
-
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
 
 interface NavItem {
   title: string;
@@ -50,21 +45,23 @@ interface NavItem {
   superAdminOnly?: boolean;
   adminOnly?: boolean;
   clientOnly?: boolean;
-  clientOrSuperAdmin?: boolean;
+  clientOrAdmin?: boolean;
   badge?: string;
 }
 
-// ── Admin-only tabs ──
+// ── Admin workspace ──
 const mainNavItems: NavItem[] = [
   { title: 'Dashboard', value: 'dashboard', icon: LayoutDashboard, permission: 'can_view_dashboard' },
   { title: 'Timesheets', value: 'timesheets', icon: Clock, adminOnly: true },
 ];
 
+// ── Invoicing (admin only) ──
 const invoiceNavItems: NavItem[] = [
   { title: 'Master Invoice', value: 'create', icon: FileText, adminOnly: true },
   { title: 'Self-Billed', value: 'selfbill', icon: Receipt, adminOnly: true },
 ];
 
+// ── Management (admin only) ──
 const managementNavItems: NavItem[] = [
   { title: 'Clients', value: 'clients', icon: Building2, adminOnly: true },
   { title: 'Candidates', value: 'candidates', icon: Users, adminOnly: true },
@@ -72,30 +69,37 @@ const managementNavItems: NavItem[] = [
   { title: 'Onboarding Form', value: 'onboarding-form', icon: FormInput, adminOnly: true },
 ];
 
-// ── Visible to both admin and client (read-only for client) ──
+// ── History (admin + client) ──
 const historyNavItems: NavItem[] = [
   { title: 'Invoice History', value: 'history', icon: History },
   { title: 'Self-Bill History', value: 'selfbill-history', icon: FileStack },
   { title: 'Files', value: 'files', icon: FolderOpen },
 ];
 
-// ── Admin-only settings ──
+// ── Client management (client users manage their end-users) ──
+const clientNavItems: NavItem[] = [
+  { title: 'End Users', value: 'team', icon: UserCog, clientOrAdmin: false },
+];
+
+// ── Settings ──
 const settingsNavItems: NavItem[] = [
   { title: 'Invoice Settings', value: 'invoice-settings', icon: Settings2, adminOnly: true },
 ];
 
+// ── Team (super admin manages admin team) ──
 const teamNavItems: NavItem[] = [
-  { title: 'Team', value: 'team', icon: UserCog, superAdminOnly: true },
+  { title: 'Admin Team', value: 'team', icon: UserCog, superAdminOnly: true },
 ];
 
+// ── Support (everyone) ──
 const supportNavItems: NavItem[] = [
   { title: 'Support', value: 'support', icon: MessageSquare },
 ];
 
+// ── Guide ──
 const guideNavItems: NavItem[] = [
   { title: 'Guide', value: 'guide', icon: HelpCircle, adminOnly: true },
 ];
-
 
 interface AppSidebarProps {
   activeTab: string;
@@ -104,11 +108,10 @@ interface AppSidebarProps {
 
 export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
   const navigate = useNavigate();
-  const { user, isSuperAdmin, isAdmin, isClient, role, signOut } = useAuth();
+  const { user, isSuperAdmin, isAdmin, isClient, signOut } = useAuth();
   const { hasPermission } = useAdminPermissions();
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
-
 
   const handleSignOut = async () => {
     await signOut();
@@ -117,17 +120,15 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
 
   const canAccessItem = (item: NavItem) => {
     if (item.adminOnly) return isAdmin;
-    if (item.clientOrSuperAdmin) return isClient || isSuperAdmin;
-    if (item.clientOnly) return isClient;
+    if (item.clientOrAdmin) return isClient || isAdmin;
+    if (item.clientOnly) return isClient && !isAdmin;
     if (item.superAdminOnly) return isSuperAdmin;
     if (item.permission) return hasPermission(item.permission);
     return true;
   };
 
-  const roleLabel = isAdmin ? (isSuperAdmin ? 'Super Admin' : 'Admin') : 'Client';
+  const roleLabel = isAdmin ? (isSuperAdmin ? 'Super Admin' : 'Admin') : 'Operator';
   const initials = (user?.email || '?').slice(0, 2).toUpperCase();
-  const brandName = 'AMEX Outsourcing';
-  const logoUrl = '/logo.png';
 
   const renderNavGroup = (items: NavItem[], label: string) => {
     const accessibleItems = items.filter(canAccessItem);
@@ -178,19 +179,20 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
     );
   };
 
+  // Build nav groups in order — admin sees full set, clients see a subset
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border glass-sidebar">
       {/* Header */}
       <SidebarHeader className="p-4 pb-3">
         <div className="flex items-center gap-3">
           <div className="relative shrink-0">
-            <img src={logoUrl} alt={brandName} className="h-9 w-9 rounded-xl object-contain" />
+            <img src="/logo.png" alt="AMEX Outsourcing" className="h-9 w-9 rounded-xl object-contain" />
             <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-sidebar" />
           </div>
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
-              <h1 className="text-sm font-bold text-foreground tracking-tight">{brandName}</h1>
-              <p className="text-[10px] text-muted-foreground">AMEX Outsourcing</p>
+              <h1 className="text-sm font-bold text-foreground tracking-tight">AMEX Outsourcing</h1>
+              <p className="text-[10px] text-muted-foreground">{roleLabel}</p>
             </div>
           )}
         </div>
@@ -204,8 +206,9 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
         {renderNavGroup(invoiceNavItems, 'Invoicing')}
         {renderNavGroup(managementNavItems, 'Management')}
         {renderNavGroup(historyNavItems, 'History')}
+        {isClient && !isAdmin && renderNavGroup(clientNavItems, 'Portal')}
         {renderNavGroup(settingsNavItems, 'Settings')}
-        {renderNavGroup(teamNavItems, 'Team')}
+        {isSuperAdmin && renderNavGroup(teamNavItems, 'Team')}
         {renderNavGroup(supportNavItems, 'Support')}
         {renderNavGroup(guideNavItems, 'Help')}
       </SidebarContent>

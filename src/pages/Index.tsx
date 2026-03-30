@@ -83,7 +83,7 @@ const Index = () => {
   const { candidates, isLoading: candidatesLoading, upsertCandidates, updateCandidate, addCandidate, getCandidateByEmpId, getCandidateByName, clearAllCandidates } = useCandidates();
   const { invoices: selfBillInvoices, isLoading: selfBillLoading, filters: selfBillFilters, setFilters: setSelfBillFilters, addInvoice: addSelfBillInvoice, getNextRemittanceNumber, getFinancialYears: getSelfBillYears, getFinancialWeeks: getSelfBillWeeks, refreshInvoices: refreshSelfBillInvoices } = useSelfBilledInvoices();
 
-  // Resolve client_id, company name, and white-label color for branded PDF generation
+  // Resolve client_id and company name for branded PDF generation
   useEffect(() => {
     if (!user || !isClient) return;
     supabase

@@ -25,7 +25,7 @@ export interface GeneratedInvoiceResult {
 export interface IssuerDetails {
   companyName: string;
   tagline?: string;
-  primaryColor?: [number, number, number]; // RGB override from white-label
+  primaryColor?: [number, number, number]; // RGB override for branding
 }
 
 export function generateInvoicePDF(
@@ -51,7 +51,7 @@ export function generateInvoicePDF(
   const issuerName = issuer?.companyName || DEFAULT_BRANDING.companyName;
   const issuerTagline = issuer?.tagline || DEFAULT_BRANDING.tagline;
 
-  // Use branding colors — prefer white-label override
+  // Use branding colors
   const primaryColor: [number, number, number] = issuer?.primaryColor || DEFAULT_BRANDING.primaryColor;
   const blackColor: [number, number, number] = [0, 0, 0];
   const whiteColor: [number, number, number] = [255, 255, 255];
