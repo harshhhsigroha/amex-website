@@ -269,15 +269,17 @@ export default function CandidateOnboarding() {
     personal: User,
     bank: CreditCard,
     documents: FileCheck,
+    agency: Building2,
+    p45: FileCheck,
+    eligibility: FileCheck,
+    control: FileCheck,
+    declaration: FileCheck,
     custom: Building2,
   };
 
-  const sectionLabels: Record<string, string> = {
-    personal: 'Personal Info',
-    bank: 'Bank Details',
-    documents: 'Documents',
-    custom: 'Additional Info',
-  };
+  const sectionLabels: Record<string, string> = Object.fromEntries(
+    Object.entries(SECTIONS).map(([k, v]) => [k, v.label])
+  );
 
   const steps = [
     ...activeSections.map(s => ({
