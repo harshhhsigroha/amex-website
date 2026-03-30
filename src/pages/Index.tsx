@@ -127,7 +127,7 @@ const Index = () => {
       else if (hasPermission('can_generate_self_bills')) setActiveTab('selfbill');
       else if (hasPermission('can_manage_candidates')) setActiveTab('candidates');
       else if (hasPermission('can_view_history')) setActiveTab('history');
-      else if (isClient) setActiveTab('my_clients'); // Client users (Tony) → Clients tab
+      else if (isClient) setActiveTab('dashboard');
       else setActiveTab('noaccess');
     }
   }, [permissionsLoading, isSuperAdmin, isClient, hasPermission, activeTab]);
