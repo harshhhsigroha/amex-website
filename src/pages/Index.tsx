@@ -385,7 +385,7 @@ const Index = () => {
         ) : <RestrictedContent message="You don't have permission to manage candidates." />;
 
       case 'timesheets':
-        return isClient ? <TimesheetManager /> : <RestrictedContent message="Access denied." />;
+        return <TimesheetManager />;
 
       case 'history':
         return hasPermission('can_view_history') 
