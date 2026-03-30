@@ -471,9 +471,7 @@ const Index = () => {
 
           <footer className="glass-header border-t border-b-0">
             <div className="px-6 py-3 flex items-center justify-between">
-              {(!whiteLabel || !whiteLabel.hide_powered_by) && (
-                <p className="text-[11px] text-muted-foreground">AMEX Outsourcing</p>
-              )}
+              <p className="text-[11px] text-muted-foreground">AMEX Outsourcing</p>
               <p className="text-[11px] text-muted-foreground ml-auto">UK Financial Year: 6 Apr – 5 Apr</p>
             </div>
           </footer>
