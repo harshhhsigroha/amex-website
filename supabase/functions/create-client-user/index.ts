@@ -109,11 +109,28 @@ serve(async (req) => {
 
     if (createError) {
       // If user already exists, look them up and link instead
-      if (createError.message?.includes("already been registered") || (createError as any).code === "email_exists") {
-        const { data: listData } = await supabaseAdmin.auth.admin.listUsers();
-        const existingUser = listData?.users?.find(u => u.email === email);
+      const errMsg = createError.message || "";
+      const errCode = (createError as any).code || "";
+      const isExisting = errMsg.includes("already") || errCode === "email_exists" || (createError as any).status === 422;
+      
+      if (isExisting) {
+        // Use listUsers with email filter for reliable lookup
+        const { data: listData, error: listError } = await supabaseAdmin.auth.admin.listUsers({ 
+          page: 1, 
+          perPage: 1 
+        });
+        
+        // Find user by iterating (listUsers doesn't filter by email in all versions)
+        let existingUser = listData?.users?.find(u => u.email === email);
+        
+        // If not found in first page, try fetching more pages
         if (!existingUser) {
-          return new Response(JSON.stringify({ error: "User exists but could not be found" }), {
+          const { data: allUsers } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+          existingUser = allUsers?.users?.find(u => u.email === email);
+        }
+        
+        if (!existingUser) {
+          return new Response(JSON.stringify({ error: "User exists but could not be found. Try a different email." }), {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
           });
         }
