@@ -765,7 +765,7 @@ function SupportTab({ userId, clientId, userEmail }: { userId: string; clientId:
 
 export default function PortalDashboard() {
   const navigate = useNavigate();
-  const { user, loading, identityReady, isPortalUser, signOut } = useAuth();
+  const { user, loading, identityReady, isPortalUser, isClient, isAdmin, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const [invoices, setInvoices] = useState<PortalInvoice[]>([]);
   const [contractors, setContractors] = useState<PortalContractor[]>([]);
@@ -773,30 +773,53 @@ export default function PortalDashboard() {
   const [parentClientId, setParentClientId] = useState<string>('');
   const [clientName, setClientName] = useState<string>('');
   const [dataLoading, setDataLoading] = useState(true);
+
+  // Allow both client_users and portal_users on this page
+  const isAuthorized = isClient || isPortalUser;
   
   const { permissions: portalPerms, loading: permsLoading } = usePortalPermissions(parentClientId || clientId || null);
 
   useEffect(() => {
     if (!loading && identityReady) {
-      if (!user || !isPortalUser) navigate('/auth/portal');
+      if (!user) navigate('/auth/portal');
+      else if (isAdmin && !isClient) navigate('/dashboard');
+      else if (!isAuthorized) navigate('/auth/portal');
     }
-  }, [user, loading, identityReady, isPortalUser, navigate]);
+  }, [user, loading, identityReady, isAdmin, isAuthorized, navigate]);
 
   const fetchData = useCallback(async () => {
-    if (!user || !isPortalUser) return;
+    if (!user || !isAuthorized) return;
     setDataLoading(true);
 
-    const { data: link } = await supabase
-      .from('portal_users')
-      .select('client_id, sub_client_id')
-      .eq('user_id', user.id)
-      .maybeSingle();
+    let effectiveClientId: string | null = null;
+    let parentId: string | null = null;
 
-    if (!link) { setDataLoading(false); return; }
+    if (isPortalUser) {
+      // Portal user — get client from portal_users
+      const { data: link } = await supabase
+        .from('portal_users')
+        .select('client_id, sub_client_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (!link) { setDataLoading(false); return; }
+      effectiveClientId = link.sub_client_id || link.client_id;
+      parentId = link.client_id;
+    } else if (isClient) {
+      // Client user — get client from client_users
+      const { data: link } = await supabase
+        .from('client_users')
+        .select('client_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (!link) { setDataLoading(false); return; }
+      effectiveClientId = link.client_id;
+      parentId = link.client_id;
+    }
 
-    const effectiveClientId = link.sub_client_id || link.client_id;
+    if (!effectiveClientId) { setDataLoading(false); return; }
+
     setClientId(effectiveClientId);
-    setParentClientId(link.client_id);
+    setParentClientId(parentId || effectiveClientId);
 
     const { data: clientRec } = await supabase
       .from('clients')
@@ -836,7 +859,7 @@ export default function PortalDashboard() {
     }
 
     setDataLoading(false);
-  }, [user, isPortalUser]);
+  }, [user, isAuthorized, isPortalUser, isClient]);
 
   useEffect(() => {
     fetchData();
@@ -853,7 +876,7 @@ export default function PortalDashboard() {
   const primaryHex: string | null = null;
 
   if (loading || !identityReady) return <LoadingScreen />;
-  if (!user || !isPortalUser) return null;
+  if (!user || !isAuthorized) return null;
 
   // Filter nav items based on portal permissions
   const filteredNavItems = allNavItems.filter(item => {
