@@ -439,6 +439,41 @@ export default function AdminPanel() {
               </DialogContent>
             </Dialog>
           </div>
+
+          {/* Credentials display dialog */}
+          <Dialog open={!!createdCredentials} onOpenChange={() => setCreatedCredentials(null)}>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2">
+                  <ShieldCheck className="h-5 w-5 text-primary" />
+                  Admin Created Successfully
+                </DialogTitle>
+                <DialogDescription>
+                  Share these credentials securely with the new admin. The password cannot be retrieved later.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-3 py-4">
+                <div className="rounded-lg border bg-muted/50 p-4 space-y-2">
+                  <div>
+                    <span className="text-xs text-muted-foreground">Email</span>
+                    <p className="text-sm font-mono font-semibold">{createdCredentials?.email}</p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-muted-foreground">Password</span>
+                    <p className="text-sm font-mono font-semibold">{createdCredentials?.password}</p>
+                  </div>
+                  <div>
+                    <span className="text-xs text-muted-foreground">Login URL</span>
+                    <p className="text-sm font-mono">{window.location.origin}/auth/admin</p>
+                  </div>
+                </div>
+                <p className="text-xs text-destructive font-medium">⚠️ This password will not be shown again. Save it now.</p>
+              </div>
+              <DialogFooter>
+                <Button onClick={() => setCreatedCredentials(null)}>Done</Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </CardHeader>
         <CardContent>
           {loading ? (
