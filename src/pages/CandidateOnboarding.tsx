@@ -14,7 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 import { Loader2, CheckCircle2, User, CreditCard, FileCheck, Building2 } from 'lucide-react';
-import { FormField, DEFAULT_FIELDS } from '@/components/OnboardingFormBuilder';
+import { FormField, DEFAULT_FIELDS, ALL_SECTIONS, SECTIONS } from '@/components/OnboardingFormBuilder';
 import { SignaturePad } from '@/components/onboarding/SignaturePad';
 import { OnboardingFileUpload } from '@/components/onboarding/OnboardingFileUpload';
 import { useWhiteLabel } from '@/hooks/useWhiteLabel';
@@ -66,8 +66,7 @@ export default function CandidateOnboarding() {
   const logoUrl = whiteLabel?.logo_url || null;
 
   // Group enabled fields by section for step navigation
-  const sections = ['personal', 'bank', 'documents', 'custom'] as const;
-  const activeSections = sections.filter(s => enabledFields.some(f => f.section === s));
+  const activeSections = ALL_SECTIONS.filter(s => enabledFields.some(f => f.section === s));
   const totalSteps = activeSections.length + 1; // +1 for review
 
   // Load form config — prefer client-specific form if clientId is in the URL
