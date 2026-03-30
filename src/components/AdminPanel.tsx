@@ -276,7 +276,7 @@ export default function AdminPanel() {
 
   const openEditDialog = (admin: AdminUser) => {
     setSelectedAdmin(admin);
-    setFormData({ email: admin.email, role: admin.role });
+    setFormData({ email: admin.email, fullName: admin.full_name || '', password: '', role: admin.role });
     setIsEditDialogOpen(true);
   };
 
