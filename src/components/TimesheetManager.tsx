@@ -134,22 +134,6 @@ export function TimesheetManager() {
         const cid = data?.client_id ?? null;
         setClientId(cid);
         setClientName((data?.clients as { company_name?: string } | null)?.company_name ?? null);
-        if (cid) {
-          supabase
-            .from('client_white_label')
-            .select('primary_color, enabled')
-            .eq('client_id', cid)
-            .maybeSingle()
-            .then(({ data: wl }) => {
-              if (wl?.enabled && wl.primary_color) {
-                const hex = wl.primary_color.replace('#', '');
-                const r = parseInt(hex.slice(0, 2), 16);
-                const g = parseInt(hex.slice(2, 4), 16);
-                const b = parseInt(hex.slice(4, 6), 16);
-                if (!isNaN(r)) setBrandColor([r, g, b]);
-              }
-            });
-        }
       });
   }, [user, isClient]);
 

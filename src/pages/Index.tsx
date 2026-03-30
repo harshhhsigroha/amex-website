@@ -42,7 +42,7 @@ import { useCandidates } from '@/hooks/useCandidates';
 import { useSelfBilledInvoices } from '@/hooks/useSelfBilledInvoices';
 import { useInvoiceSettings } from '@/hooks/useInvoiceSettings';
 import { useAuth } from '@/contexts/AuthContext';
-import { useWhiteLabel } from '@/hooks/useWhiteLabel';
+
 import { useAdminPermissions } from '@/hooks/useAdminPermissions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -74,7 +74,6 @@ const Index = () => {
   const [myClientId, setMyClientId] = useState<string | null>(null);
   const [myClientName, setMyClientName] = useState<string | null>(null);
   const [myBrandColor, setMyBrandColor] = useState<[number, number, number] | null>(null);
-  const { whiteLabel } = useWhiteLabel(myClientId);
 
   // Data hooks
   const { clients, isLoading: clientsLoading, addClient, updateClient, deleteClient } = useClients();
@@ -97,26 +96,6 @@ const Index = () => {
         setMyClientId(cid);
         const name = (data?.clients as { company_name?: string } | null)?.company_name ?? null;
         setMyClientName(name);
-
-        // Also fetch white-label primary color for branded PDFs
-        if (cid) {
-          supabase
-            .from('client_white_label')
-            .select('primary_color, enabled')
-            .eq('client_id', cid)
-            .maybeSingle()
-            .then(({ data: wl }) => {
-              if (wl?.enabled && wl.primary_color) {
-                const hex = wl.primary_color.replace('#', '');
-                const r = parseInt(hex.slice(0, 2), 16);
-                const g = parseInt(hex.slice(2, 4), 16);
-                const b = parseInt(hex.slice(4, 6), 16);
-                if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
-                  setMyBrandColor([r, g, b]);
-                }
-              }
-            });
-        }
       });
   }, [user, isClient]);
 
@@ -492,9 +471,7 @@ const Index = () => {
 
           <footer className="glass-header border-t border-b-0">
             <div className="px-6 py-3 flex items-center justify-between">
-              {(!whiteLabel || !whiteLabel.hide_powered_by) && (
-                <p className="text-[11px] text-muted-foreground">AMEX Outsourcing</p>
-              )}
+              <p className="text-[11px] text-muted-foreground">AMEX Outsourcing</p>
               <p className="text-[11px] text-muted-foreground ml-auto">UK Financial Year: 6 Apr – 5 Apr</p>
             </div>
           </footer>

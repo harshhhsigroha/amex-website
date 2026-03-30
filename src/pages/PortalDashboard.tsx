@@ -762,14 +762,6 @@ function SupportTab({ userId, clientId, userEmail }: { userId: string; clientId:
 
 // ── Main Portal Dashboard ─────────────────────────────────────────────────────
 
-interface WhiteLabelConfig {
-  enabled: boolean;
-  brand_name: string | null;
-  logo_url: string | null;
-  primary_color: string | null;
-  secondary_color: string | null;
-  custom_domain: string | null;
-}
 
 export default function PortalDashboard() {
   const navigate = useNavigate();
@@ -781,7 +773,7 @@ export default function PortalDashboard() {
   const [parentClientId, setParentClientId] = useState<string>('');
   const [clientName, setClientName] = useState<string>('');
   const [dataLoading, setDataLoading] = useState(true);
-  const [whiteLabel, setWhiteLabel] = useState<WhiteLabelConfig | null>(null);
+  
   const { permissions: portalPerms, loading: permsLoading } = usePortalPermissions(parentClientId || clientId || null);
 
   useEffect(() => {
@@ -813,12 +805,6 @@ export default function PortalDashboard() {
       .maybeSingle();
     setClientName(clientRec?.company_name || '');
 
-    const { data: wl } = await supabase
-      .from('client_white_label')
-      .select('*')
-      .eq('client_id', link.client_id)
-      .maybeSingle();
-    setWhiteLabel(wl as WhiteLabelConfig | null);
 
     const { data: invData } = await supabase
       .from('invoices')
@@ -856,33 +842,15 @@ export default function PortalDashboard() {
     fetchData();
   }, [fetchData]);
 
-  // Apply white-label CSS variables dynamically
-  useEffect(() => {
-    if (!whiteLabel?.enabled) return;
-    const root = document.documentElement;
-    if (whiteLabel.primary_color) {
-      // Convert hex to approximate HSL for CSS var
-      root.style.setProperty('--wl-primary', whiteLabel.primary_color);
-    }
-    if (whiteLabel.secondary_color) {
-      root.style.setProperty('--wl-secondary', whiteLabel.secondary_color);
-    }
-    return () => {
-      root.style.removeProperty('--wl-primary');
-      root.style.removeProperty('--wl-secondary');
-    };
-  }, [whiteLabel]);
 
   const handleSignOut = async () => {
     await signOut();
     navigate('/auth/portal');
   };
 
-  // Derive display values from white label (if enabled)
-  const wlEnabled = whiteLabel?.enabled;
-  const displayName = (wlEnabled && whiteLabel?.brand_name) ? whiteLabel.brand_name : (clientName || 'AMEX Outsourcing');
-  const displayLogo = (wlEnabled && whiteLabel?.logo_url) ? whiteLabel.logo_url : '/logo.png';
-  const primaryHex = (wlEnabled && whiteLabel?.primary_color) ? whiteLabel.primary_color : null;
+  const displayName = clientName || 'AMEX Outsourcing';
+  const displayLogo = '/logo.png';
+  const primaryHex: string | null = null;
 
   if (loading || !identityReady) return <LoadingScreen />;
   if (!user || !isPortalUser) return null;
@@ -936,12 +904,7 @@ export default function PortalDashboard() {
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="h-5" />
             <div className="flex items-center gap-2.5 flex-1">
-              {wlEnabled && whiteLabel?.logo_url && (
-                <img src={whiteLabel.logo_url} alt={displayName} className="h-7 w-7 object-contain rounded" />
-              )}
-              {(!wlEnabled || !whiteLabel?.logo_url) && (
-                <Building2 className="h-4 w-4 text-muted-foreground" />
-              )}
+              <Building2 className="h-4 w-4 text-muted-foreground" />
               <p
                 className="text-sm font-semibold"
                 style={primaryHex ? { color: primaryHex } : undefined}
