@@ -275,7 +275,7 @@ function AddPortalUserDialog({
         body: JSON.stringify({
           email: form.email, password: form.password, fullName: form.fullName,
           clientId, userType: 'portal',
-          subClientId: form.subClientId || null,
+          subClientId: form.subClientId && form.subClientId !== 'none' ? form.subClientId : null,
         }),
       });
       const json = await res.json();
