@@ -27,10 +27,8 @@ export default function ClientAuth() {
 
   useEffect(() => {
     if (user && !loading) {
-      if (isClient) {
-        navigate('/admin');
-      } else if (isAdmin) {
-        navigate('/admin');
+      if (isClient || isAdmin) {
+        navigate('/dashboard');
       }
     }
   }, [user, loading, isClient, isAdmin, navigate]);

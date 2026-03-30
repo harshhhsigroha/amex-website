@@ -134,12 +134,12 @@ const Index = () => {
   }, [permissionsLoading, isSuperAdmin, isClient, hasPermission, activeTab]);
 
   // Auth redirect — wait for identityReady to avoid race condition
+  // ── Auth redirect — send unauthenticated or unauthorized users away ──
   useEffect(() => {
     if (!loading && identityReady) {
       if (!user) navigate('/auth/client');
-      else if (isAdmin && !isClient) navigate('/admin'); // Admin users → admin portal
       else if (!isClient && !isAdmin) navigate('/auth/client');
-      // Client users stay on /admin — this IS their portal
+      // Both admins and clients stay on /dashboard — unified portal
     }
   }, [user, loading, identityReady, isAdmin, isClient, navigate]);
 

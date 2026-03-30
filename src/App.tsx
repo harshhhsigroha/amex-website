@@ -66,6 +66,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<CustomDomainHome />} />
       
+      <Route path="/dashboard" element={<Index />} />
       <Route path="/admin" element={<Index />} />
       <Route path="/client" element={<PortalDashboard />} />
       <Route path="/auth/client" element={<ClientAuth />} />
