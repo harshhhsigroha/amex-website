@@ -31,6 +31,8 @@ import {
 
 type FieldType = 'text' | 'email' | 'tel' | 'date' | 'select' | 'short_answer' | 'long_answer' | 'mcq' | 'file_upload' | 'signature';
 
+export type SectionType = 'personal' | 'bank' | 'documents' | 'agency' | 'p45' | 'eligibility' | 'control' | 'declaration' | 'custom';
+
 export interface FormField {
   id: string;
   name: string;
@@ -38,7 +40,7 @@ export interface FormField {
   type: FieldType;
   required: boolean;
   enabled: boolean;
-  section: 'personal' | 'bank' | 'documents' | 'custom';
+  section: SectionType;
   isCustom?: boolean;
   options?: string[];
   placeholder?: string;
@@ -55,24 +57,80 @@ const FIELD_TYPE_CONFIG = {
   signature: { icon: PenLine, label: 'Signature', description: 'Digital signature field' },
 };
 
+export const ALL_SECTIONS: SectionType[] = ['personal', 'bank', 'documents', 'agency', 'p45', 'eligibility', 'control', 'declaration', 'custom'];
+
 export const DEFAULT_FIELDS: FormField[] = [
-  { id: '1', name: 'candidate_name', label: 'Full Name', type: 'text', required: true, enabled: true, section: 'personal' },
-  { id: '2', name: 'email', label: 'Email Address', type: 'email', required: true, enabled: true, section: 'personal' },
-  { id: '3', name: 'contact_no', label: 'Phone Number', type: 'tel', required: false, enabled: true, section: 'personal' },
-  { id: '4', name: 'address', label: 'Address', type: 'text', required: false, enabled: true, section: 'personal' },
-  { id: '5', name: 'dob', label: 'Date of Birth', type: 'date', required: false, enabled: true, section: 'personal' },
-  { id: '6', name: 'gender', label: 'Gender', type: 'select', required: false, enabled: true, section: 'personal' },
-  { id: '7', name: 'ni_number', label: 'National Insurance Number', type: 'text', required: false, enabled: true, section: 'personal' },
-  { id: '8', name: 'bank_name', label: 'Bank Name', type: 'text', required: false, enabled: true, section: 'bank' },
-  { id: '9', name: 'sort_code', label: 'Sort Code', type: 'text', required: false, enabled: true, section: 'bank' },
-  { id: '10', name: 'account_number', label: 'Account Number', type: 'text', required: false, enabled: true, section: 'bank' },
-  { id: '11', name: 'beneficiary_name', label: 'Account Holder Name', type: 'text', required: false, enabled: true, section: 'bank' },
-  { id: '12', name: 'has_candidate_id', label: 'ID Document', type: 'select', required: false, enabled: true, section: 'documents' },
-  { id: '13', name: 'right_to_work', label: 'Right to Work', type: 'select', required: false, enabled: true, section: 'documents' },
-  { id: '14', name: 'proof_of_address', label: 'Proof of Address', type: 'select', required: false, enabled: true, section: 'documents' },
-  { id: '15', name: 'id_document_upload', label: 'Upload ID Document', type: 'file_upload', required: false, enabled: true, section: 'documents', isCustom: false, description: 'Upload a copy of your passport, driving licence, or national ID card', acceptedFileTypes: '.pdf,.jpg,.jpeg,.png', maxFileSize: 5 },
-  { id: '16', name: 'right_to_work_upload', label: 'Upload Right to Work', type: 'file_upload', required: false, enabled: true, section: 'documents', isCustom: false, description: 'Upload your right to work document (visa, share code, etc.)', acceptedFileTypes: '.pdf,.jpg,.jpeg,.png', maxFileSize: 5 },
-  { id: '17', name: 'proof_of_address_upload', label: 'Upload Proof of Address', type: 'file_upload', required: false, enabled: true, section: 'documents', isCustom: false, description: 'Upload a recent utility bill or bank statement (within 3 months)', acceptedFileTypes: '.pdf,.jpg,.jpeg,.png', maxFileSize: 5 },
+  // ── 1. Your Details ──
+  { id: '1', name: 'title', label: 'Title', type: 'select', required: true, enabled: true, section: 'personal', options: ['Mr.', 'Mrs.', 'Ms.', 'Miss', 'Other'] },
+  { id: '2', name: 'first_name', label: 'First Name', type: 'text', required: true, enabled: true, section: 'personal' },
+  { id: '3', name: 'middle_name', label: 'Middle Name', type: 'text', required: false, enabled: true, section: 'personal', placeholder: 'Optional' },
+  { id: '4', name: 'candidate_name', label: 'Surname', type: 'text', required: true, enabled: true, section: 'personal' },
+  { id: '5', name: 'dob', label: 'Date of Birth', type: 'date', required: true, enabled: true, section: 'personal' },
+  { id: '6', name: 'address', label: 'Address', type: 'long_answer', required: true, enabled: true, section: 'personal', placeholder: 'Address Line 1, Line 2, City, Postcode, Country' },
+  { id: '7', name: 'contact_no', label: 'Telephone Number', type: 'tel', required: false, enabled: true, section: 'personal' },
+  { id: '8', name: 'mobile_number', label: 'Mobile Number', type: 'tel', required: true, enabled: true, section: 'personal' },
+  { id: '9', name: 'email', label: 'Email', type: 'email', required: true, enabled: true, section: 'personal' },
+  { id: '10', name: 'nationality', label: 'Nationality', type: 'select', required: true, enabled: true, section: 'personal', options: ['British', 'Polish', 'Indian', 'Romanian', 'Irish', 'Italian', 'Portuguese', 'Spanish', 'French', 'Nigerian', 'Pakistani', 'Bangladeshi', 'Chinese', 'German', 'Lithuanian', 'Latvian', 'Bulgarian', 'Hungarian', 'Jamaican', 'Australian', 'South African', 'American', 'Other'] },
+  { id: '11', name: 'right_to_work', label: 'Do you have the right to work in the UK?', type: 'mcq', required: true, enabled: true, section: 'personal', options: ['Yes', 'No'] },
+  { id: '12', name: 'id_document_upload', label: 'Upload Identification', type: 'file_upload', required: true, enabled: true, section: 'personal', description: 'Upload passport, driving licence or other form of identification', acceptedFileTypes: '.pdf,.jpg,.jpeg,.png', maxFileSize: 10 },
+  { id: '13', name: 'portrait_upload', label: 'Portrait Upload', type: 'file_upload', required: true, enabled: true, section: 'personal', description: 'Please upload a passport-style photo of yourself', acceptedFileTypes: '.jpg,.jpeg,.png', maxFileSize: 5 },
+  { id: '14', name: 'visa_required', label: 'Do you need a Visa to work?', type: 'mcq', required: false, enabled: true, section: 'personal', options: ['Yes', 'No'] },
+  { id: '15', name: 'right_to_work_upload', label: 'Upload Proof of Right to Work', type: 'file_upload', required: false, enabled: true, section: 'personal', description: "Upload your Resident Permit or visit gov.uk/prove-right-to-work", acceptedFileTypes: '.pdf,.jpg,.jpeg,.png', maxFileSize: 10 },
+  { id: '16', name: 'ni_number', label: 'National Insurance Number', type: 'text', required: false, enabled: true, section: 'personal' },
+  { id: '17', name: 'gender', label: 'Gender', type: 'mcq', required: true, enabled: true, section: 'personal', options: ['Male', 'Female', 'Other'] },
+
+  // ── 2. Bank Details ──
+  { id: '18', name: 'bank_name', label: 'Name of Bank or Building Society', type: 'text', required: true, enabled: true, section: 'bank' },
+  { id: '19', name: 'beneficiary_name', label: 'Name of Account Holder', type: 'text', required: true, enabled: true, section: 'bank' },
+  { id: '20', name: 'sort_code', label: 'Sort Code', type: 'text', required: true, enabled: true, section: 'bank' },
+  { id: '21', name: 'account_number', label: 'Account Number', type: 'text', required: true, enabled: true, section: 'bank' },
+  { id: '22', name: 'bank_reference', label: 'Reference Number', type: 'text', required: false, enabled: true, section: 'bank' },
+  { id: '23', name: 'proof_of_banking_upload', label: 'Upload Proof of Banking', type: 'file_upload', required: true, enabled: true, section: 'bank', description: 'Screenshot of mobile banking, front of card, or bank statement showing sort code, account number and name', acceptedFileTypes: '.pdf,.jpg,.jpeg,.png', maxFileSize: 10 },
+
+  // ── 3. Documents / P45 ──
+  { id: '24', name: 'p45_status', label: 'P45 Status', type: 'mcq', required: true, enabled: true, section: 'p45', options: ['I have enclosed form P45', 'I do not have a P45', 'Not able to enclose form P45'] },
+  { id: '25', name: 'tax_statement', label: 'Tax Statement', type: 'mcq', required: true, enabled: true, section: 'p45', description: 'Read the following statements and select the ONE that applies to you', options: [
+    'A – This is my first job since last 6 April (no Jobseeker\'s Allowance, ESA, or pension received)',
+    'B – This is now my only job but I have had another since last 6 April',
+    'C – I have another job or receive a State/Occupational Pension',
+    'D – Student Loan applies'
+  ] },
+
+  // ── 4. Agency Details ──
+  { id: '26', name: 'agency_name', label: 'Name of Agency', type: 'text', required: true, enabled: true, section: 'agency' },
+  { id: '27', name: 'agency_contact', label: 'Agency Contact', type: 'text', required: false, enabled: true, section: 'agency' },
+  { id: '28', name: 'agency_branch', label: 'Agency Branch', type: 'text', required: false, enabled: true, section: 'agency' },
+  { id: '29', name: 'agency_telephone', label: 'Agency Telephone Number', type: 'tel', required: false, enabled: true, section: 'agency' },
+
+  // ── 5. Eligibility Assessment ──
+  { id: '30', name: 'ea_set_workplace', label: '1. Do you have a set workplace?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '31', name: 'ea_paid_from_home', label: '1a. If no set workplace, are you paid from the time when you set out from home?', type: 'mcq', required: false, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '32', name: 'ea_travel_worksites', label: '2. Are you required to travel to/between two or more worksite locations during your working day?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '33', name: 'ea_attend_depot', label: '3. Do you attend a depot each day prior to travelling to a workplace?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '34', name: 'ea_paid_travelling', label: '4. Are you paid for the time spent travelling between worksites?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '35', name: 'ea_duties_from_home', label: '5. Are part or all of your duties carried out from home?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '36', name: 'ea_travel_from_home', label: '6. If yes, does your role require you to travel to other workplaces from home?', type: 'mcq', required: false, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '37', name: 'ea_longer_than_24m', label: '7. Do you expect your current job to last longer than 24 months at this location?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '38', name: 'ea_further_jobs', label: '8. Do you intend to move on to further jobs after completing this one?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '39', name: 'ea_incur_costs', label: '9. Will you incur costs on travel and/or food during travel to your temporary workplace?', type: 'mcq', required: true, enabled: true, section: 'eligibility', options: ['Yes', 'No'] },
+  { id: '40', name: 'ea_travel_method', label: '10. How will you travel to work?', type: 'text', required: false, enabled: true, section: 'eligibility' },
+  { id: '41', name: 'ea_travel_time', label: '11. How long will the travel take each way?', type: 'text', required: false, enabled: true, section: 'eligibility' },
+
+  // ── 6. Control Questionnaire ──
+  { id: '42', name: 'cq_no_instructions', label: '1. Can you confirm you are not issued with specific detailed instructions on how to do your work?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '43', name: 'cq_free_how', label: '2. Are you free to choose how you do your work?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '44', name: 'cq_free_order', label: '3. Are you free to choose in what order you do your work?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '45', name: 'cq_not_moved', label: '4. Can you confirm you cannot be moved to another job without your agreement?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '46', name: 'cq_solely_responsible', label: '5. Are you solely responsible for deciding how to do your work?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '47', name: 'cq_not_supervised', label: '6. Can you confirm you are not supervised doing your work (beyond quality checks)?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '48', name: 'cq_free_when', label: '7. Are you free to choose when you want to work?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '49', name: 'cq_qualified', label: '8. Are you qualified or skilled enough to never be subject to supervision or control?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+  { id: '50', name: 'cq_no_other_control', label: '9. Can you confirm no other party has the right to supervise, direct or control how you work?', type: 'mcq', required: true, enabled: true, section: 'control', options: ['Yes', 'No'] },
+
+  // ── 7. Worker Declaration ──
+  { id: '51', name: 'declaration_name', label: 'Full Name', type: 'text', required: true, enabled: true, section: 'declaration', description: 'You agree that all information supplied is correct and true to the best of your knowledge.' },
+  { id: '52', name: 'declaration_date', label: 'Date', type: 'date', required: true, enabled: true, section: 'declaration' },
+  { id: '53', name: 'declaration_signature', label: 'Signature', type: 'signature', required: true, enabled: true, section: 'declaration', description: 'In the event of an incorrect or overpayment, you are required to return the excess amount within 48 hours of receiving written notification.' },
 ];
 
 // Company onboarding default fields (simpler — business details)
@@ -84,10 +142,15 @@ const DEFAULT_COMPANY_FIELDS: FormField[] = [
   { id: 'c5', name: 'ni_number', label: 'Company Registration Number', type: 'text', required: false, enabled: true, section: 'personal' },
 ];
 
-const SECTIONS = {
-  personal: { label: 'Personal Information', color: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
+export const SECTIONS: Record<SectionType, { label: string; color: string }> = {
+  personal: { label: 'Your Details', color: 'bg-blue-500/10 text-blue-600 border-blue-500/20' },
   bank: { label: 'Bank Details', color: 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' },
   documents: { label: 'Documents', color: 'bg-amber-500/10 text-amber-600 border-amber-500/20' },
+  agency: { label: 'Agency Details', color: 'bg-cyan-500/10 text-cyan-600 border-cyan-500/20' },
+  p45: { label: 'Form P45', color: 'bg-orange-500/10 text-orange-600 border-orange-500/20' },
+  eligibility: { label: 'Eligibility Assessment', color: 'bg-teal-500/10 text-teal-600 border-teal-500/20' },
+  control: { label: 'Control Questionnaire', color: 'bg-indigo-500/10 text-indigo-600 border-indigo-500/20' },
+  declaration: { label: 'Worker Declaration', color: 'bg-rose-500/10 text-rose-600 border-rose-500/20' },
   custom: { label: 'Custom Fields', color: 'bg-violet-500/10 text-violet-600 border-violet-500/20' },
 };
 
