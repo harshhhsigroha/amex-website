@@ -788,20 +788,38 @@ export default function PortalDashboard() {
   }, [user, loading, identityReady, isAdmin, isAuthorized, navigate]);
 
   const fetchData = useCallback(async () => {
-    if (!user || !isPortalUser) return;
+    if (!user || !isAuthorized) return;
     setDataLoading(true);
 
-    const { data: link } = await supabase
-      .from('portal_users')
-      .select('client_id, sub_client_id')
-      .eq('user_id', user.id)
-      .maybeSingle();
+    let effectiveClientId: string | null = null;
+    let parentId: string | null = null;
 
-    if (!link) { setDataLoading(false); return; }
+    if (isPortalUser) {
+      // Portal user — get client from portal_users
+      const { data: link } = await supabase
+        .from('portal_users')
+        .select('client_id, sub_client_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (!link) { setDataLoading(false); return; }
+      effectiveClientId = link.sub_client_id || link.client_id;
+      parentId = link.client_id;
+    } else if (isClient) {
+      // Client user — get client from client_users
+      const { data: link } = await supabase
+        .from('client_users')
+        .select('client_id')
+        .eq('user_id', user.id)
+        .maybeSingle();
+      if (!link) { setDataLoading(false); return; }
+      effectiveClientId = link.client_id;
+      parentId = link.client_id;
+    }
 
-    const effectiveClientId = link.sub_client_id || link.client_id;
+    if (!effectiveClientId) { setDataLoading(false); return; }
+
     setClientId(effectiveClientId);
-    setParentClientId(link.client_id);
+    setParentClientId(parentId || effectiveClientId);
 
     const { data: clientRec } = await supabase
       .from('clients')
