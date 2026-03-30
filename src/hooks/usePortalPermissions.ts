@@ -1,6 +1,19 @@
+/**
+ * ============================================================================
+ * usePortalPermissions
+ * ============================================================================
+ * Used in: PortalDashboard (end-user facing)
+ * Purpose: Fetches the portal_permissions row for a given clientId and returns
+ *          which modules the end-user is allowed to see.
+ *
+ * Falls back to DEFAULT_PERMISSIONS when no row exists in the database.
+ * ============================================================================
+ */
+
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 
+// ── Types ───────────────────────────────────────────────────────────────────
 export interface PortalPermissions {
   can_view_dashboard: boolean;
   can_view_invoices: boolean;
@@ -9,6 +22,7 @@ export interface PortalPermissions {
   can_view_files: boolean;
 }
 
+// ── Defaults (all visible except Files) ─────────────────────────────────────
 const DEFAULT_PERMISSIONS: PortalPermissions = {
   can_view_dashboard: true,
   can_view_invoices: true,
@@ -17,6 +31,7 @@ const DEFAULT_PERMISSIONS: PortalPermissions = {
   can_view_files: false,
 };
 
+// ── Hook ────────────────────────────────────────────────────────────────────
 export function usePortalPermissions(clientId: string | null) {
   const [permissions, setPermissions] = useState<PortalPermissions>(DEFAULT_PERMISSIONS);
   const [loading, setLoading] = useState(true);
@@ -46,9 +61,10 @@ export function usePortalPermissions(clientId: string | null) {
         can_view_files: data.can_view_files,
       });
     } else {
-      // No record = use defaults (all visible)
+      // No record exists — use defaults
       setPermissions(DEFAULT_PERMISSIONS);
     }
+
     setLoading(false);
   }, [clientId]);
 
