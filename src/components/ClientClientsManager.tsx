@@ -30,8 +30,9 @@ import {
 import { toast } from 'sonner';
 import {
   Building2, UserPlus, Trash2, Loader2, Copy, ExternalLink,
-  Search, Plus, MapPin, Globe, Edit2, Users, CheckCircle2, Link2,
+  Search, Plus, MapPin, Globe, Edit2, Users, CheckCircle2, Link2, ShieldCheck,
 } from 'lucide-react';
+import { PortalPermissionsManager } from '@/components/PortalPermissionsManager';
 import { DbClient } from '@/types/database';
 
 interface EndClient {
