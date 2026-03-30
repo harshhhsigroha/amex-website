@@ -4,7 +4,7 @@ import { Dashboard } from '@/components/Dashboard';
 import { InvoiceSummary } from '@/components/InvoiceSummary';
 import { TimesheetTable } from '@/components/TimesheetTable';
 import { ClientSelector } from '@/components/ClientSelector';
-import { ClientManagement } from '@/components/ClientManagement';
+
 import { InvoiceHistory } from '@/components/InvoiceHistory';
 import { CandidateMasterUpload } from '@/components/CandidateMasterUpload';
 import { CandidateList } from '@/components/CandidateList';
@@ -14,7 +14,7 @@ import AdminPanel from '@/components/AdminPanel';
 import { AdminSupport } from '@/components/AdminSupport';
 import { ClientSupport } from '@/components/ClientSupport';
 import { AppSidebar } from '@/components/AppSidebar';
-import { ClientClientsManager } from '@/components/ClientClientsManager';
+
 import { ClientTeamManagement } from '@/components/ClientTeamManagement';
 import { ClientSupportToClients } from '@/components/ClientSupportToClients';
 import { TimesheetUpload } from '@/components/invoice/TimesheetUpload';
@@ -76,8 +76,7 @@ const Index = () => {
   const { whiteLabel } = useWhiteLabel(myClientId);
 
   // Data hooks
-  const { clients, isLoading: clientsLoading, addClient, updateClient, deleteClient } = useClients();
-  // Sub-clients: Tony's own invoice recipients (only relevant when isClient)
+  const { clients, isLoading: clientsLoading, addClient, updateClient } = useClients();
   const { subClients, isLoading: subClientsLoading, addSubClient, updateSubClient } = useSubClients();
   const { invoices, isLoading: invoicesLoading, addInvoice, filters, setFilters, refetch: refetchInvoices, getFinancialYears, getFinancialWeeks } = useInvoices();
   const { effectiveSettings: invoiceSettings } = useInvoiceSettings();
@@ -128,7 +127,7 @@ const Index = () => {
       else if (hasPermission('can_generate_self_bills')) setActiveTab('selfbill');
       else if (hasPermission('can_manage_candidates')) setActiveTab('candidates');
       else if (hasPermission('can_view_history')) setActiveTab('history');
-      else if (isClient) setActiveTab('my_clients'); // Client users (Tony) → Clients tab
+      else if (isClient) setActiveTab('dashboard');
       else setActiveTab('noaccess');
     }
   }, [permissionsLoading, isSuperAdmin, isClient, hasPermission, activeTab]);
@@ -365,14 +364,6 @@ const Index = () => {
             </div>
           </div>
         );
-
-      case 'clients':
-        return hasPermission('can_manage_clients') 
-          ? <ClientManagement clients={clients} isLoading={clientsLoading} onAddClient={addClient} onUpdateClient={updateClient} onDeleteClient={deleteClient} invoices={invoices} />
-          : <RestrictedContent message="You don't have permission to manage clients." />;
-
-      case 'my_clients':
-        return <ClientClientsManager />;
 
       case 'candidates':
         return hasPermission('can_manage_candidates') ? (
