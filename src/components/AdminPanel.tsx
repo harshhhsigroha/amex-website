@@ -737,9 +737,6 @@ export default function AdminPanel() {
       {/* Client User Management */}
       <ClientUserManagement clients={clients} />
 
-      {/* Onboarding Form Builder */}
-      <OnboardingFormBuilder />
-
 
       {/* Clear History Section */}
       <ClearHistoryButton />
