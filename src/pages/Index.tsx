@@ -420,12 +420,12 @@ const Index = () => {
         return <RestrictedContent message="Access denied." />;
 
       case 'onboard-candidates':
-        return isClient
+        return (isAdmin || isClient)
           ? <ClientCandidateOnboarding />
           : <RestrictedContent message="Access denied." />;
 
       case 'onboarding-form':
-        return isClient
+        return (isAdmin || isClient)
           ? <ClientOnboardingConfig />
           : <RestrictedContent message="Access denied." />;
 
