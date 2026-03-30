@@ -52,7 +52,7 @@ interface NavItem {
 // ── Admin workspace ──
 const mainNavItems: NavItem[] = [
   { title: 'Dashboard', value: 'dashboard', icon: LayoutDashboard, permission: 'can_view_dashboard' },
-  { title: 'Timesheets', value: 'timesheets', icon: Clock, adminOnly: true },
+  { title: 'Timesheets', value: 'timesheets', icon: Clock },
 ];
 
 // ── Invoicing (admin only) ──
@@ -65,6 +65,7 @@ const invoiceNavItems: NavItem[] = [
 const managementNavItems: NavItem[] = [
   { title: 'Clients', value: 'clients', icon: Building2, adminOnly: true },
   { title: 'Candidates', value: 'candidates', icon: Users, adminOnly: true },
+  { title: 'Clock Links', value: 'clock-links', icon: Clock, adminOnly: true },
   { title: 'Onboard Candidates', value: 'onboard-candidates', icon: ClipboardList, adminOnly: true },
   { title: 'Onboarding Form', value: 'onboarding-form', icon: FormInput, adminOnly: true },
 ];
