@@ -362,6 +362,18 @@ export function ClientUserManagement({ clients }: ClientUserManagementProps) {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedUserForPerms(cu);
+                              setIsPermsDialogOpen(true);
+                            }}
+                            className="text-primary hover:text-primary"
+                            title="Manage Permissions"
+                          >
+                            <ShieldCheck className="h-4 w-4" />
+                          </Button>
                           {isSuperAdmin && (
                             <Button
                               variant="ghost"
