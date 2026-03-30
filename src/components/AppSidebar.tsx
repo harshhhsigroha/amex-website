@@ -97,7 +97,7 @@ interface AppSidebarProps {
 
 export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
   const navigate = useNavigate();
-  const { user, isSuperAdmin, isClient, role, signOut } = useAuth();
+  const { user, isSuperAdmin, isAdmin, isClient, role, signOut } = useAuth();
   const { hasPermission } = useAdminPermissions();
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
@@ -129,7 +129,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
     return true;
   };
 
-  const roleLabel = isClient ? 'Client' : 'Admin';
+  const roleLabel = isAdmin ? (isSuperAdmin ? 'Super Admin' : 'Admin') : 'Client';
   const initials = (user?.email || '?').slice(0, 2).toUpperCase();
   const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
   const logoUrl = whiteLabel?.logo_url || '/logo.png';

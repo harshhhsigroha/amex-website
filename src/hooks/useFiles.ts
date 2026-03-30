@@ -39,8 +39,9 @@ export function useFiles(isClientView: boolean = false) {
       let query = supabase
         .from('files')
         .select('*')
-        .order('file_date', { ascending: false })
-        .order('created_at', { ascending: false });
+        .order('financial_year', { ascending: false })
+        .order('financial_week', { ascending: false })
+        .order('file_date', { ascending: false });
 
       if (filters.clientId) {
         query = query.eq('client_id', filters.clientId);

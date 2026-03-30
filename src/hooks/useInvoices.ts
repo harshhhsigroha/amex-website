@@ -34,6 +34,8 @@ export function useInvoices() {
     let query = supabase
       .from('invoices')
       .select('*')
+      .order('financial_year', { ascending: false })
+      .order('financial_week', { ascending: false })
       .order('created_at', { ascending: false });
 
     if (filterParams.financialYear) {

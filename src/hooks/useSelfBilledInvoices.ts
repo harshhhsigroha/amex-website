@@ -39,6 +39,8 @@ export function useSelfBilledInvoices() {
       let query = supabase
         .from('self_billed_invoices')
         .select('*')
+        .order('financial_year', { ascending: false })
+        .order('financial_week', { ascending: false })
         .order('created_at', { ascending: false });
 
       if (filters.financialYear) {
