@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useClients } from '@/hooks/useClients';
 import { ClientUserManagement } from '@/components/ClientUserManagement';
 import ClearHistoryButton from '@/components/ClearHistoryButton';
-import OnboardingFormBuilder from '@/components/OnboardingFormBuilder';
+
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -736,9 +736,6 @@ export default function AdminPanel() {
 
       {/* Client User Management */}
       <ClientUserManagement clients={clients} />
-
-      {/* Onboarding Form Builder */}
-      <OnboardingFormBuilder />
 
 
       {/* Clear History Section */}

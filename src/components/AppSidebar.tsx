@@ -54,6 +54,9 @@ interface NavItem {
 const mainNavItems: NavItem[] = [
   { title: 'Dashboard', value: 'dashboard', icon: LayoutDashboard, permission: 'can_view_dashboard' },
   { title: 'Timesheets', value: 'timesheets', icon: Clock, clientOnly: true },
+];
+
+const invoiceNavItems: NavItem[] = [
   { title: 'Master Invoice', value: 'create', icon: FileText, permission: 'can_generate_invoices' },
   { title: 'Self-Billed', value: 'selfbill', icon: Receipt, permission: 'can_generate_self_bills' },
 ];
@@ -63,8 +66,6 @@ const managementNavItems: NavItem[] = [
   { title: 'My Clients', value: 'my_clients', icon: Building2, clientOnly: true },
   { title: 'Candidates', value: 'candidates', icon: Users, permission: 'can_manage_candidates' },
   { title: 'Onboard Candidate', value: 'onboard-candidates', icon: UserCog, clientOnly: true },
-  { title: 'Onboarding Form', value: 'onboarding-form', icon: Settings2, clientOnly: true },
-  { title: 'Invoice Settings', value: 'invoice-settings', icon: Settings2, clientOnly: true },
 ];
 
 const historyNavItems: NavItem[] = [
@@ -73,12 +74,17 @@ const historyNavItems: NavItem[] = [
   { title: 'Files', value: 'files', icon: FolderOpen, permission: 'can_view_history' },
 ];
 
-const supportNavItems: NavItem[] = [
-  { title: 'Support', value: 'support', icon: MessageSquare },
+const settingsNavItems: NavItem[] = [
+  { title: 'Onboarding Form', value: 'onboarding-form', icon: Settings2, clientOnly: true },
+  { title: 'Invoice Settings', value: 'invoice-settings', icon: Settings2, clientOnly: true },
 ];
 
 const teamNavItems: NavItem[] = [
   { title: 'Team', value: 'team', icon: UserCog, clientOrSuperAdmin: true },
+];
+
+const supportNavItems: NavItem[] = [
+  { title: 'Support', value: 'support', icon: MessageSquare },
 ];
 
 const guideNavItems: NavItem[] = [
@@ -204,8 +210,10 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
       {/* Navigation */}
       <SidebarContent className="px-2 py-3 gap-1">
         {renderNavGroup(mainNavItems, 'Workspace')}
+        {renderNavGroup(invoiceNavItems, 'Invoicing')}
         {renderNavGroup(managementNavItems, 'Management')}
         {renderNavGroup(historyNavItems, 'History')}
+        {renderNavGroup(settingsNavItems, 'Settings')}
         {renderNavGroup(teamNavItems, 'Team')}
         {renderNavGroup(supportNavItems, 'Support')}
         {renderNavGroup(guideNavItems, 'Help')}

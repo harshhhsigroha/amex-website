@@ -108,15 +108,23 @@ export function ClientUserManagement({ clients }: ClientUserManagementProps) {
       .select('id, email')
       .in('id', userIds);
 
+    // Fetch admin user IDs to exclude them from this list
+    const { data: adminRoles } = await supabase
+      .from('user_roles')
+      .select('user_id');
+    const adminUserIds = new Set(adminRoles?.map((r) => r.user_id) || []);
+
     const profileMap = new Map(profiles?.map((p) => [p.id, p.email]) || []);
     const clientMap = new Map(clients.map((c) => [c.id, c.company_name]));
 
     setClientUsers(
-      data.map((cu) => ({
-        ...cu,
-        email: profileMap.get(cu.user_id) || 'Unknown',
-        client_name: clientMap.get(cu.client_id) || 'Unknown',
-      })),
+      data
+        .filter((cu) => !adminUserIds.has(cu.user_id))
+        .map((cu) => ({
+          ...cu,
+          email: profileMap.get(cu.user_id) || 'Unknown',
+          client_name: clientMap.get(cu.client_id) || 'Unknown',
+        })),
     );
     setIsLoading(false);
   };
