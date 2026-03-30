@@ -72,7 +72,7 @@ interface TimesheetRow {
 }
 
 export function TimesheetManager() {
-  const { user, isClient } = useAuth();
+  const { user, isClient, isAdmin } = useAuth();
   const [activeSubTab, setActiveSubTab] = useState('logs');
   const [timeLogs, setTimeLogs] = useState<TimeLog[]>([]);
   const [timesheets, setTimesheets] = useState<TimesheetRow[]>([]);
