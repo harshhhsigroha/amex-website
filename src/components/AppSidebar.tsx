@@ -77,11 +77,7 @@ const supportNavItems: NavItem[] = [
 ];
 
 const teamNavItems: NavItem[] = [
-  { title: 'Team Members', value: 'team', icon: UserCog, clientOnly: true },
-];
-
-const adminNavItems: NavItem[] = [
-  { title: 'Admin Panel', value: 'admin', icon: Shield, superAdminOnly: true },
+  { title: 'Team', value: 'team', icon: UserCog },
 ];
 
 const guideNavItems: NavItem[] = [
