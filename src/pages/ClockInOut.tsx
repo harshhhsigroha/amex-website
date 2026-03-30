@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Clock, MapPin, LogIn, LogOut, Loader2, Search, CheckCircle, AlertTriangle } from 'lucide-react';
+import { Clock, MapPin, LogIn, LogOut, Loader2, CheckCircle, AlertTriangle, User } from 'lucide-react';
 import { toast } from 'sonner';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 
@@ -41,13 +41,11 @@ export default function ClockInOut() {
   const [locationError, setLocationError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
 
-  // Live clock
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Get geolocation
   const getLocation = useCallback(async (): Promise<GeoLocation | null> => {
     setLocationLoading(true);
     setLocationError(null);
@@ -65,16 +63,15 @@ export default function ClockInOut() {
           const { latitude, longitude } = position.coords;
           let address: string | null = null;
 
-          // Reverse geocode with OpenStreetMap Nominatim
           try {
             const resp = await fetch(
               `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`,
-              { headers: { 'User-Agent': 'AMEX OutsourcingTimesheets/1.0' } }
+              { headers: { 'User-Agent': 'AMEXOutsourcing/1.0' } }
             );
             const data = await resp.json();
             address = data.display_name || null;
           } catch {
-            // Geocoding failed, continue with coords only
+            // Geocoding failed
           }
 
           const loc = { lat: latitude, lng: longitude, address };
@@ -92,7 +89,6 @@ export default function ClockInOut() {
     });
   }, []);
 
-  // Lookup candidate
   const handleLookup = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!candidateName.trim() || !clientId) return;
@@ -115,17 +111,14 @@ export default function ClockInOut() {
       setCandidate(data.candidate);
       setActiveSession(data.activeSession || null);
       setCompanyName(data.companyName || '');
-
-      // Pre-fetch location
       getLocation();
-    } catch (err) {
-      toast.error('Failed to look up employee');
+    } catch {
+      toast.error('Failed to look up. Please try again.');
     } finally {
       setIsLooking(false);
     }
   };
 
-  // Clock in
   const handleClockIn = async () => {
     if (!candidate || !clientId) return;
     setIsClocking(true);
@@ -151,15 +144,14 @@ export default function ClockInOut() {
       }
 
       setActiveSession({ id: data.logId, clockIn: data.clockIn, clockInAddress: data.address });
-      toast.success('Clocked In!', { description: `At ${new Date(data.clockIn).toLocaleTimeString()}` });
-    } catch (err) {
+      toast.success('Clocked In!', { description: `At ${new Date(data.clockIn).toLocaleTimeString('en-GB')}` });
+    } catch {
       toast.error('Failed to clock in');
     } finally {
       setIsClocking(false);
     }
   };
 
-  // Clock out
   const handleClockOut = async () => {
     if (!candidate || !clientId) return;
     setIsClocking(true);
@@ -185,10 +177,8 @@ export default function ClockInOut() {
       }
 
       setActiveSession(null);
-      toast.success('Clocked Out!', {
-        description: `Total: ${data.totalHours} hours`,
-      });
-    } catch (err) {
+      toast.success('Clocked Out!', { description: `Total: ${data.totalHours} hours` });
+    } catch {
       toast.error('Failed to clock out');
     } finally {
       setIsClocking(false);
@@ -219,80 +209,88 @@ export default function ClockInOut() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/30 p-4">
       <Sonner />
-      <Card className="w-full max-w-md shadow-xl border-border/50">
-        <CardHeader className="text-center space-y-3">
-          <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
+      <Card className="w-full max-w-md shadow-2xl border-border/50 overflow-hidden">
+        {/* Header with gradient */}
+        <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent px-6 pt-8 pb-6 text-center">
+          <div className="mx-auto w-16 h-16 bg-primary/15 rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-primary/10">
             <Clock className="h-8 w-8 text-primary" />
           </div>
-          <div>
-            <CardTitle className="text-2xl font-bold">
-              {companyName || 'Time Clock'}
-            </CardTitle>
-            <CardDescription>
-              {currentTime.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
-            </CardDescription>
-            <p className="text-3xl font-mono font-bold text-foreground mt-2">
-              {currentTime.toLocaleTimeString('en-GB')}
-            </p>
-          </div>
-        </CardHeader>
+          <CardTitle className="text-2xl font-bold text-foreground">
+            {companyName || 'Time Clock'}
+          </CardTitle>
+          <CardDescription className="mt-1">
+            {currentTime.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+          </CardDescription>
+          <p className="text-4xl font-mono font-bold text-foreground mt-3 tracking-wider">
+            {currentTime.toLocaleTimeString('en-GB')}
+          </p>
+        </div>
 
-        <CardContent className="space-y-6">
+        <CardContent className="px-6 pb-8 pt-6 space-y-6">
           {!candidate ? (
             <form onSubmit={handleLookup} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Enter your full name</Label>
-                <Input
-                  id="name"
-                  placeholder="e.g. John Smith"
-                  value={candidateName}
-                  onChange={(e) => setCandidateName(e.target.value)}
-                  autoFocus
-                  className="text-center text-lg h-12"
-                />
+                <Label htmlFor="name" className="text-sm font-medium">Enter your full name</Label>
+                <div className="relative">
+                  <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Input
+                    id="name"
+                    placeholder="e.g. John Smith"
+                    value={candidateName}
+                    onChange={(e) => setCandidateName(e.target.value)}
+                    autoFocus
+                    className="pl-10 text-center text-lg h-12"
+                    maxLength={100}
+                  />
+                </div>
+                <p className="text-xs text-muted-foreground text-center">
+                  Type your name exactly as registered, or enter a new name to get started
+                </p>
               </div>
-              <Button type="submit" className="w-full h-12 text-base" disabled={isLooking || !candidateName.trim()}>
+              <Button type="submit" className="w-full h-12 text-base font-semibold" disabled={isLooking || !candidateName.trim()}>
                 {isLooking ? (
                   <Loader2 className="h-5 w-5 animate-spin mr-2" />
                 ) : (
-                  <Search className="h-5 w-5 mr-2" />
+                  <CheckCircle className="h-5 w-5 mr-2" />
                 )}
-                Find Me
+                Continue
               </Button>
             </form>
           ) : (
             <div className="space-y-4">
-              {/* Candidate info */}
-              <div className="bg-accent/50 rounded-lg p-4 text-center">
-                <p className="text-sm text-muted-foreground">Welcome</p>
-                <p className="text-xl font-bold text-foreground">{candidate.name}</p>
-                <p className="text-xs text-muted-foreground font-mono mt-1">ID: {candidate.emp_id}</p>
+              {/* Welcome card */}
+              <div className="bg-gradient-to-r from-primary/5 to-primary/10 rounded-xl p-5 text-center border border-primary/10">
+                <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">Welcome</p>
+                <p className="text-xl font-bold text-foreground mt-1">{candidate.name}</p>
+                <Badge variant="outline" className="mt-2 font-mono text-xs">
+                  ID: {candidate.emp_id}
+                </Badge>
               </div>
 
-              {/* Location status */}
-              <div className="flex items-center gap-2 text-sm">
+              {/* Location */}
+              <div className="flex items-center gap-2 text-sm px-1">
                 <MapPin className="h-4 w-4 text-muted-foreground shrink-0" />
                 {locationLoading ? (
                   <span className="text-muted-foreground flex items-center gap-1">
                     <Loader2 className="h-3 w-3 animate-spin" /> Getting location...
                   </span>
                 ) : locationError ? (
-                  <span className="text-destructive">{locationError}</span>
+                  <span className="text-amber-600 text-xs">{locationError}</span>
                 ) : location?.address ? (
-                  <span className="text-muted-foreground truncate">{location.address}</span>
+                  <span className="text-muted-foreground text-xs truncate">{location.address}</span>
                 ) : (
-                  <span className="text-muted-foreground">Location unavailable</span>
+                  <span className="text-muted-foreground text-xs">Location unavailable</span>
                 )}
               </div>
 
-              {/* Active session info */}
+              {/* Active session */}
               {activeSession && (
-                <div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
-                  <div className="flex items-center gap-2 mb-1">
-                    <Badge className="bg-emerald-100 text-emerald-700">Active</Badge>
-                    <span className="text-sm font-medium">Clocked in since</span>
+                <div className="bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800 rounded-xl p-4">
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-400">Active Session</span>
                   </div>
-                  <p className="text-lg font-mono font-semibold">
+                  <p className="text-2xl font-mono font-bold text-foreground">
                     {new Date(activeSession.clockIn).toLocaleTimeString('en-GB')}
                   </p>
                   {activeSession.clockInAddress && (
@@ -302,12 +300,12 @@ export default function ClockInOut() {
               )}
 
               {/* Clock buttons */}
-              <div className="grid gap-3">
+              <div className="grid gap-3 pt-2">
                 {!activeSession ? (
                   <Button
                     onClick={handleClockIn}
                     disabled={isClocking}
-                    className="h-16 text-lg bg-emerald-600 hover:bg-emerald-700 text-white"
+                    className="h-16 text-lg font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl shadow-lg shadow-emerald-600/20"
                     size="lg"
                   >
                     {isClocking ? (
@@ -321,7 +319,7 @@ export default function ClockInOut() {
                   <Button
                     onClick={handleClockOut}
                     disabled={isClocking}
-                    className="h-16 text-lg"
+                    className="h-16 text-lg font-bold rounded-xl shadow-lg"
                     variant="destructive"
                     size="lg"
                   >
@@ -334,8 +332,8 @@ export default function ClockInOut() {
                   </Button>
                 )}
 
-                <Button variant="outline" onClick={handleReset} className="h-10">
-                  Not you? Search again
+                <Button variant="ghost" onClick={handleReset} className="h-10 text-muted-foreground">
+                  Not you? Start over
                 </Button>
               </div>
             </div>

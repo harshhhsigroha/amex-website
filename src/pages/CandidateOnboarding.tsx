@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate, useParams } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -12,18 +12,20 @@ import {
 } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Progress } from '@/components/ui/progress';
 import { toast } from 'sonner';
-import { Loader2, CheckCircle2, User, CreditCard, FileCheck, Building2 } from 'lucide-react';
+import { Loader2, CheckCircle2, User, CreditCard, FileCheck, Building2, ArrowLeft, ArrowRight, Send } from 'lucide-react';
 import { FormField, DEFAULT_FIELDS, ALL_SECTIONS, SECTIONS } from '@/components/OnboardingFormBuilder';
 import { SignaturePad } from '@/components/onboarding/SignaturePad';
 import { OnboardingFileUpload } from '@/components/onboarding/OnboardingFileUpload';
 
 const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  initial: { opacity: 0, x: 20 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -20 },
 };
 
-// Map field names to DB columns for known fields
+// Map field names to DB columns
 const FIELD_TO_DB_MAP: Record<string, string> = {
   candidate_name: 'candidate_name',
   email: 'email',
@@ -58,18 +60,15 @@ export default function CandidateOnboarding() {
   const [gdprConsent, setGdprConsent] = useState(false);
 
   const brandName = 'AMEX Outsourcing';
-  const logoUrl: string | null = null;
 
-  // Group enabled fields by section for step navigation
   const activeSections = ALL_SECTIONS.filter(s => enabledFields.some(f => f.section === s));
   const totalSteps = activeSections.length + 1; // +1 for review
+  const progressPercent = (currentStep / totalSteps) * 100;
 
-  // Load form config — prefer client-specific form if clientId is in the URL
   const loadConfig = useCallback(async () => {
     try {
       let data = null;
 
-      // Try client-specific form first (via URL param)
       if (clientId) {
         const res = await supabase
           .from('onboarding_form_config')
@@ -79,7 +78,6 @@ export default function CandidateOnboarding() {
         data = res.data;
       }
 
-      // Fall back to global form
       if (!data) {
         const res = await supabase
           .from('onboarding_form_config')
@@ -101,7 +99,6 @@ export default function CandidateOnboarding() {
       const enabled = fields.filter(f => f.enabled);
       setEnabledFields(enabled);
 
-      // Initialize form values
       const initialValues: Record<string, string | boolean> = {};
       enabled.forEach(f => {
         if (f.section === 'documents' && !f.isCustom) {
@@ -113,13 +110,12 @@ export default function CandidateOnboarding() {
       setFormValues(initialValues);
     } catch (err) {
       console.error('Failed to load form config:', err);
-      // Fallback to defaults
       const enabled = DEFAULT_FIELDS.filter(f => f.enabled);
       setEnabledFields(enabled);
     } finally {
       setIsLoading(false);
     }
-  }, [clientId]); // clientId in deps so each agency loads their own form
+  }, [clientId]);
 
   useEffect(() => {
     loadConfig();
@@ -130,18 +126,18 @@ export default function CandidateOnboarding() {
   };
 
   const getCurrentSectionFields = () => {
-    if (currentStep > activeSections.length) return []; // review step
+    if (currentStep > activeSections.length) return [];
     const section = activeSections[currentStep - 1];
     return enabledFields.filter(f => f.section === section);
   };
 
   const validateStep = (): boolean => {
-    if (currentStep > activeSections.length) return true; // review
+    if (currentStep > activeSections.length) return true;
     const sectionFields = getCurrentSectionFields();
     const missing = sectionFields.filter(f => {
       if (!f.required) return false;
       const val = formValues[f.name];
-      if (typeof val === 'boolean') return false; // checkboxes are always valid
+      if (typeof val === 'boolean') return false;
       return !val || (typeof val === 'string' && !val.trim());
     });
 
@@ -150,7 +146,6 @@ export default function CandidateOnboarding() {
       return false;
     }
 
-    // Email validation
     const emailField = sectionFields.find(f => f.type === 'email');
     if (emailField) {
       const emailVal = formValues[emailField.name];
@@ -164,19 +159,11 @@ export default function CandidateOnboarding() {
   };
 
   const nextStep = () => {
-    if (validateStep()) {
-      setCurrentStep(prev => Math.min(prev + 1, totalSteps));
-    }
+    if (validateStep()) setCurrentStep(prev => Math.min(prev + 1, totalSteps));
   };
 
   const prevStep = () => {
     setCurrentStep(prev => Math.max(prev - 1, 1));
-  };
-
-  const generateEmpId = () => {
-    const timestamp = Date.now().toString(36).toUpperCase();
-    const random = Math.random().toString(36).substring(2, 6).toUpperCase();
-    return `PC-${timestamp}-${random}`;
   };
 
   const handleSubmit = async () => {
@@ -186,7 +173,6 @@ export default function CandidateOnboarding() {
     }
     setIsSubmitting(true);
     try {
-      // Construct full name from split fields
       const firstName = ((formValues['first_name'] as string) || '').trim();
       const middleName = ((formValues['middle_name'] as string) || '').trim();
       const surname = ((formValues['candidate_name'] as string) || '').trim();
@@ -198,14 +184,12 @@ export default function CandidateOnboarding() {
         return;
       }
 
-      // Build submission payload
       const payload: Record<string, unknown> = {
         candidate_name: candidateName,
         _form_loaded_at: String(formLoadedAt.current),
-        _hp_field: honeypot, // honeypot field
+        _hp_field: honeypot,
       };
 
-      // Map enabled fields to DB columns
       enabledFields.forEach(f => {
         const dbCol = FIELD_TO_DB_MAP[f.name];
         if (dbCol && dbCol !== 'candidate_name') {
@@ -218,7 +202,6 @@ export default function CandidateOnboarding() {
         }
       });
 
-      // Submit via secure edge function
       const { data, error } = await supabase.functions.invoke('submit-onboarding', {
         body: payload,
       });
@@ -239,7 +222,10 @@ export default function CandidateOnboarding() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <div className="text-center space-y-4">
+          <Loader2 className="h-10 w-10 animate-spin text-primary mx-auto" />
+          <p className="text-sm text-muted-foreground">Loading registration form...</p>
+        </div>
       </div>
     );
   }
@@ -248,16 +234,18 @@ export default function CandidateOnboarding() {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center p-6">
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5 }}>
-          <Card className="max-w-md w-full text-center">
-            <CardContent className="pt-12 pb-8">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
+          <Card className="max-w-md w-full text-center shadow-xl">
+            <CardContent className="pt-12 pb-8 px-8">
+              <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
                 <CheckCircle2 className="w-10 h-10 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground mb-3">Registration Complete!</h2>
-              <p className="text-muted-foreground mb-8">
+              <p className="text-muted-foreground mb-8 leading-relaxed">
                 Thank you for registering. Our team will review your information and be in touch soon.
               </p>
-              <Button onClick={() => navigate('/')} variant="outline">Back to Home</Button>
+              <Button onClick={() => navigate('/')} variant="outline" className="rounded-xl">
+                Back to Home
+              </Button>
             </CardContent>
           </Card>
         </motion.div>
@@ -283,10 +271,11 @@ export default function CandidateOnboarding() {
 
   const steps = [
     ...activeSections.map(s => ({
+      key: s,
       title: sectionLabels[s],
       icon: sectionIcons[s],
     })),
-    { title: 'Review', icon: CheckCircle2 },
+    { key: 'review', title: 'Review & Submit', icon: CheckCircle2 },
   ];
 
   const isReviewStep = currentStep > activeSections.length;
@@ -294,10 +283,9 @@ export default function CandidateOnboarding() {
   const renderField = (field: FormField) => {
     const value = formValues[field.name];
 
-    // Documents section - checkbox style (non-custom fields)
     if (field.section === 'documents' && !field.isCustom) {
       return (
-        <div key={field.id} className="flex items-start space-x-3 p-4 rounded-lg border border-border">
+        <div key={field.id} className="flex items-start space-x-3 p-4 rounded-xl border border-border bg-card hover:bg-accent/30 transition-colors">
           <Checkbox
             id={field.name}
             checked={!!value}
@@ -305,23 +293,22 @@ export default function CandidateOnboarding() {
           />
           <div>
             <Label htmlFor={field.name} className="font-medium cursor-pointer">
-              {field.label} {field.required && '*'}
+              {field.label} {field.required && <span className="text-destructive">*</span>}
             </Label>
             {field.description && (
-              <p className="text-sm text-muted-foreground">{field.description}</p>
+              <p className="text-sm text-muted-foreground mt-0.5">{field.description}</p>
             )}
           </div>
         </div>
       );
     }
 
-    // Gender select
     if (field.name === 'gender') {
       return (
         <div key={field.id} className="space-y-2">
-          <Label>{field.label} {field.required && '*'}</Label>
+          <Label className="text-sm font-medium">{field.label} {field.required && <span className="text-destructive">*</span>}</Label>
           <Select value={(value as string) || ''} onValueChange={(v) => updateValue(field.name, v)}>
-            <SelectTrigger><SelectValue placeholder="Select" /></SelectTrigger>
+            <SelectTrigger className="rounded-xl"><SelectValue placeholder="Select" /></SelectTrigger>
             <SelectContent>
               <SelectItem value="Male">Male</SelectItem>
               <SelectItem value="Female">Female</SelectItem>
@@ -333,17 +320,16 @@ export default function CandidateOnboarding() {
       );
     }
 
-    // MCQ custom field
     if (field.type === 'mcq' && field.options) {
       return (
-        <div key={field.id} className="space-y-2">
-          <Label>{field.label} {field.required && '*'}</Label>
+        <div key={field.id} className="space-y-3">
+          <Label className="text-sm font-medium">{field.label} {field.required && <span className="text-destructive">*</span>}</Label>
           {field.description && <p className="text-sm text-muted-foreground">{field.description}</p>}
-          <RadioGroup value={(value as string) || ''} onValueChange={(v) => updateValue(field.name, v)}>
+          <RadioGroup value={(value as string) || ''} onValueChange={(v) => updateValue(field.name, v)} className="space-y-2">
             {field.options.map((opt) => (
-              <div key={opt} className="flex items-center space-x-2">
+              <div key={opt} className="flex items-center space-x-3 p-3 rounded-xl border border-border hover:bg-accent/30 transition-colors">
                 <RadioGroupItem value={opt} id={`${field.name}-${opt}`} />
-                <Label htmlFor={`${field.name}-${opt}`} className="cursor-pointer">{opt}</Label>
+                <Label htmlFor={`${field.name}-${opt}`} className="cursor-pointer flex-1">{opt}</Label>
               </div>
             ))}
           </RadioGroup>
@@ -351,7 +337,6 @@ export default function CandidateOnboarding() {
       );
     }
 
-    // Signature field
     if (field.type === 'signature') {
       return (
         <SignaturePad
@@ -365,7 +350,6 @@ export default function CandidateOnboarding() {
       );
     }
 
-    // File upload field
     if (field.type === 'file_upload') {
       return (
         <OnboardingFileUpload
@@ -381,195 +365,265 @@ export default function CandidateOnboarding() {
       );
     }
 
-    // Long answer
     if (field.type === 'long_answer') {
       return (
         <div key={field.id} className="space-y-2">
-          <Label>{field.label} {field.required && '*'}</Label>
+          <Label className="text-sm font-medium">{field.label} {field.required && <span className="text-destructive">*</span>}</Label>
           {field.description && <p className="text-sm text-muted-foreground">{field.description}</p>}
           <Textarea
             value={(value as string) || ''}
             onChange={(e) => updateValue(field.name, e.target.value)}
             placeholder={field.placeholder || ''}
             rows={3}
+            className="rounded-xl"
           />
         </div>
       );
     }
 
-    // Address field - textarea
     if (field.name === 'address') {
       return (
         <div key={field.id} className="space-y-2">
-          <Label>{field.label} {field.required && '*'}</Label>
+          <Label className="text-sm font-medium">{field.label} {field.required && <span className="text-destructive">*</span>}</Label>
           <Textarea
             value={(value as string) || ''}
             onChange={(e) => updateValue(field.name, e.target.value)}
             placeholder="123 Main Street, London, SW1A 1AA"
             rows={3}
+            className="rounded-xl"
           />
         </div>
       );
     }
 
-    // Default: text/email/tel/date input
     const inputType = field.type === 'short_answer' ? 'text' : field.type;
     return (
       <div key={field.id} className="space-y-2">
-        <Label>{field.label} {field.required && '*'}</Label>
+        <Label className="text-sm font-medium">{field.label} {field.required && <span className="text-destructive">*</span>}</Label>
         {field.description && <p className="text-sm text-muted-foreground">{field.description}</p>}
         <Input
           type={inputType}
           value={(value as string) || ''}
           onChange={(e) => updateValue(field.name, e.target.value)}
           placeholder={field.placeholder || ''}
+          className="rounded-xl"
         />
       </div>
     );
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted/20">
+      {/* Header */}
+      <header className="border-b border-border/50 bg-card/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {logoUrl ? (
-              <img src={logoUrl} alt={brandName} className="h-9 w-9 rounded-lg object-contain" />
-            ) : (
-              <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center">
-                <span className="text-primary-foreground font-bold">{brandName.charAt(0)}</span>
-              </div>
-            )}
-            <span className="font-semibold text-foreground">{brandName}</span>
-            
+            <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center shadow-md">
+              <span className="text-primary-foreground font-bold text-sm">{brandName.charAt(0)}</span>
+            </div>
+            <div>
+              <span className="font-semibold text-foreground text-sm">{brandName}</span>
+              <p className="text-[10px] text-muted-foreground leading-none mt-0.5">{formName}</p>
+            </div>
           </div>
-          <Button variant="ghost" onClick={() => navigate('/')}>Back to Home</Button>
+          <Button variant="ghost" size="sm" onClick={() => navigate('/')} className="text-xs">
+            Back to Home
+          </Button>
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-6 py-12">
-        {/* Progress Steps */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between">
-            {steps.map((step, index) => (
-              <div key={index} className="flex items-center">
-                <div className="flex flex-col items-center">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
-                    currentStep >= index + 1 ? 'bg-primary text-primary-foreground' : 'bg-muted text-muted-foreground'
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Progress bar */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-xs font-medium text-muted-foreground">
+              Step {currentStep} of {totalSteps}
+            </span>
+            <span className="text-xs font-medium text-primary">
+              {Math.round(progressPercent)}% complete
+            </span>
+          </div>
+          <Progress value={progressPercent} className="h-2 rounded-full" />
+
+          {/* Step indicators */}
+          <div className="flex items-center justify-between mt-4 gap-1 overflow-x-auto pb-1">
+            {steps.map((step, index) => {
+              const StepIcon = step.icon;
+              const isActive = currentStep === index + 1;
+              const isComplete = currentStep > index + 1;
+              return (
+                <button
+                  key={step.key}
+                  onClick={() => {
+                    if (isComplete) setCurrentStep(index + 1);
+                  }}
+                  className={`flex flex-col items-center gap-1.5 min-w-0 flex-1 transition-all duration-200 ${
+                    isComplete ? 'cursor-pointer' : 'cursor-default'
+                  }`}
+                >
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 ${
+                    isActive
+                      ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20 scale-110'
+                      : isComplete
+                        ? 'bg-primary/15 text-primary'
+                        : 'bg-muted text-muted-foreground'
                   }`}>
-                    <step.icon className="w-5 h-5" />
+                    {isComplete ? (
+                      <CheckCircle2 className="w-4 h-4" />
+                    ) : (
+                      <StepIcon className="w-4 h-4" />
+                    )}
                   </div>
-                  <span className={`text-xs mt-2 ${currentStep >= index + 1 ? 'text-foreground' : 'text-muted-foreground'}`}>
+                  <span className={`text-[10px] leading-tight text-center truncate w-full ${
+                    isActive ? 'text-primary font-semibold' : isComplete ? 'text-foreground' : 'text-muted-foreground'
+                  }`}>
                     {step.title}
                   </span>
-                </div>
-                {index < steps.length - 1 && (
-                  <div className={`w-16 md:w-24 h-0.5 mx-2 ${currentStep > index + 1 ? 'bg-primary' : 'bg-muted'}`} />
-                )}
-              </div>
-            ))}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        <motion.div key={currentStep} initial="hidden" animate="visible" variants={fadeIn} transition={{ duration: 0.3 }}>
-          <Card>
-            <CardHeader>
-              <CardTitle>{isReviewStep ? 'Review Your Information' : steps[currentStep - 1]?.title}</CardTitle>
-              <CardDescription>
-                {isReviewStep ? 'Please verify all information is correct' : `Step ${currentStep} of ${totalSteps}`}
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {!isReviewStep && getCurrentSectionFields().map(renderField)}
-              {/* Honeypot - hidden from users */}
-              <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
-                <label htmlFor="hp_website">Website</label>
-                <input
-                  id="hp_website"
-                  type="text"
-                  tabIndex={-1}
-                  autoComplete="off"
-                  value={honeypot}
-                  onChange={(e) => setHoneypot(e.target.value)}
-                />
-              </div>
-
-              {isReviewStep && (
-                <div className="space-y-6">
-                  {activeSections.map(section => {
-                    const sectionFields = enabledFields.filter(f => f.section === section);
-                    const hasValues = sectionFields.some(f => {
-                      const v = formValues[f.name];
-                      return v !== undefined && v !== '' && v !== false;
-                    });
-                    if (!hasValues && section !== 'personal') return null;
-
+        <AnimatePresence mode="wait">
+          <motion.div key={currentStep} {...fadeIn} transition={{ duration: 0.25 }}>
+            <Card className="shadow-lg border-border/50">
+              <CardHeader className="pb-4">
+                <div className="flex items-center gap-3">
+                  {(() => {
+                    const StepIcon = steps[currentStep - 1]?.icon || CheckCircle2;
                     return (
-                      <div key={section} className="space-y-3">
-                        <h4 className="font-medium text-sm text-muted-foreground uppercase tracking-wide">
-                          {sectionLabels[section]}
-                        </h4>
-                        <div className="grid grid-cols-2 gap-2 text-sm">
-                          {sectionFields.map(f => {
-                            const val = formValues[f.name];
-                            if (val === '' || val === undefined || val === null) return null;
-                            const isSignature = f.type === 'signature' && typeof val === 'string' && val.startsWith('data:');
-                            const isFile = f.type === 'file_upload' && typeof val === 'string' && val.startsWith('http');
-                            return (
-                              <div key={f.id} className="contents">
-                                <span className="text-muted-foreground">{f.label}:</span>
-                                <span>
-                                  {isSignature ? '✓ Signed' : isFile ? '✓ Uploaded' : typeof val === 'boolean' ? (val ? '✓' : '✗') : String(val)}
-                                </span>
-                              </div>
-                            );
-                          })}
-                        </div>
+                      <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                        <StepIcon className="w-5 h-5 text-primary" />
                       </div>
                     );
-                  })}
-                </div>
-              )}
-
-              {/* UK GDPR Consent — required on review step */}
-              {isReviewStep && (
-                <div className="border border-border rounded-lg p-4 bg-muted/30 space-y-3">
-                  <h4 className="text-sm font-semibold text-foreground">Data Protection & Privacy Consent</h4>
-                  <p className="text-xs text-muted-foreground leading-relaxed">
-                    The information you provide will be collected and processed by {brandName} for the purpose of
-                    employment registration, payroll processing, and right-to-work compliance. Your data will be
-                    stored securely and retained only as long as necessary. Under the UK GDPR you have the right
-                    to access, correct, or request deletion of your data at any time by contacting {brandName}.
-                  </p>
-                  <div className="flex items-start gap-3">
-                    <Checkbox
-                      id="gdpr_consent"
-                      checked={gdprConsent}
-                      onCheckedChange={(checked) => setGdprConsent(!!checked)}
-                    />
-                    <label htmlFor="gdpr_consent" className="text-xs text-foreground cursor-pointer leading-relaxed">
-                      I confirm that I have read and understood the above. I consent to my personal data (including
-                      National Insurance number, bank details, and identification documents) being processed by{' '}
-                      <span className="font-medium">{brandName}</span> for the purposes stated above. *
-                    </label>
+                  })()}
+                  <div>
+                    <CardTitle className="text-lg">{isReviewStep ? 'Review & Submit' : steps[currentStep - 1]?.title}</CardTitle>
+                    <CardDescription className="text-xs mt-0.5">
+                      {isReviewStep ? 'Please verify all information is correct before submitting' : `Fill in the details below to continue`}
+                    </CardDescription>
                   </div>
                 </div>
-              )}
+              </CardHeader>
 
-              <div className="flex justify-between pt-6">
-                <Button variant="outline" onClick={prevStep} disabled={currentStep === 1}>Previous</Button>
-                {currentStep < totalSteps ? (
-                  <Button onClick={nextStep}>Continue</Button>
-                ) : (
-                  <Button onClick={handleSubmit} disabled={isSubmitting || !gdprConsent}>
-                    {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Submit Registration
-                  </Button>
+              <CardContent className="space-y-5">
+                {!isReviewStep && getCurrentSectionFields().map(renderField)}
+
+                {/* Honeypot */}
+                <div aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, overflow: 'hidden' }}>
+                  <label htmlFor="hp_website">Website</label>
+                  <input id="hp_website" type="text" tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} />
+                </div>
+
+                {/* Review step */}
+                {isReviewStep && (
+                  <div className="space-y-5">
+                    {activeSections.map(section => {
+                      const sectionFields = enabledFields.filter(f => f.section === section);
+                      const hasValues = sectionFields.some(f => {
+                        const v = formValues[f.name];
+                        return v !== undefined && v !== '' && v !== false;
+                      });
+                      if (!hasValues && section !== 'personal') return null;
+
+                      return (
+                        <div key={section} className="rounded-xl border border-border p-4 space-y-2">
+                          <div className="flex items-center justify-between">
+                            <h4 className="font-medium text-sm text-foreground">
+                              {sectionLabels[section]}
+                            </h4>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="text-xs text-primary h-6 px-2"
+                              onClick={() => setCurrentStep(activeSections.indexOf(section) + 1)}
+                            >
+                              Edit
+                            </Button>
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-sm">
+                            {sectionFields.map(f => {
+                              const val = formValues[f.name];
+                              if (val === '' || val === undefined || val === null) return null;
+                              const isSignature = f.type === 'signature' && typeof val === 'string' && val.startsWith('data:');
+                              const isFile = f.type === 'file_upload' && typeof val === 'string' && val.startsWith('http');
+                              return (
+                                <div key={f.id} className="flex justify-between py-1 border-b border-border/30 last:border-0">
+                                  <span className="text-muted-foreground text-xs">{f.label}</span>
+                                  <span className="text-xs font-medium text-right ml-2">
+                                    {isSignature ? '✓ Signed' : isFile ? '✓ Uploaded' : typeof val === 'boolean' ? (val ? '✓' : '✗') : String(val)}
+                                  </span>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
                 )}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+
+                {/* GDPR consent */}
+                {isReviewStep && (
+                  <div className="rounded-xl border border-primary/20 p-5 bg-primary/5 space-y-3">
+                    <h4 className="text-sm font-semibold text-foreground">Data Protection & Privacy Consent</h4>
+                    <p className="text-xs text-muted-foreground leading-relaxed">
+                      The information you provide will be collected and processed by {brandName} for the purpose of
+                      employment registration, payroll processing, and right-to-work compliance. Your data will be
+                      stored securely and retained only as long as necessary. Under the UK GDPR you have the right
+                      to access, correct, or request deletion of your data at any time by contacting {brandName}.
+                    </p>
+                    <div className="flex items-start gap-3 pt-1">
+                      <Checkbox
+                        id="gdpr_consent"
+                        checked={gdprConsent}
+                        onCheckedChange={(checked) => setGdprConsent(!!checked)}
+                      />
+                      <label htmlFor="gdpr_consent" className="text-xs text-foreground cursor-pointer leading-relaxed">
+                        I confirm that I have read and understood the above. I consent to my personal data being processed by{' '}
+                        <span className="font-semibold">{brandName}</span> for the purposes stated above. <span className="text-destructive">*</span>
+                      </label>
+                    </div>
+                  </div>
+                )}
+
+                {/* Navigation */}
+                <div className="flex items-center justify-between pt-4 border-t border-border/50">
+                  <Button
+                    variant="outline"
+                    onClick={prevStep}
+                    disabled={currentStep === 1}
+                    className="gap-2 rounded-xl"
+                  >
+                    <ArrowLeft className="h-4 w-4" />
+                    Previous
+                  </Button>
+
+                  {currentStep < totalSteps ? (
+                    <Button onClick={nextStep} className="gap-2 rounded-xl">
+                      Continue
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={isSubmitting || !gdprConsent}
+                      className="gap-2 rounded-xl min-w-[160px]"
+                    >
+                      {isSubmitting ? (
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                      ) : (
+                        <Send className="h-4 w-4" />
+                      )}
+                      Submit Registration
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </AnimatePresence>
       </main>
     </div>
   );
