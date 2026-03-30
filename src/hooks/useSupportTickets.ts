@@ -51,8 +51,8 @@ export function useSupportTickets() {
         .order('created_at', { ascending: false });
 
       if (isAdmin) {
-        // AMEX team: exclude tickets from portal users (end-clients).
-        // End-client → operator tickets are handled in operator's Client Inbox tab.
+        // AMEX admin: exclude tickets from portal users (end-clients).
+        // End-client tickets are handled in the Client Inbox tab.
         const { data: portalUserIds } = await supabase
           .from('portal_users')
           .select('user_id');
@@ -63,7 +63,7 @@ export function useSupportTickets() {
           query = query.not('user_id', 'in', `(${excludedIds.join(',')})`);
         }
       } else {
-        // Operators: only THEIR OWN tickets to AMEX Outsourcing.
+        // Client users: only THEIR OWN tickets to AMEX Outsourcing.
         // End-client tickets are shown separately in Client Inbox tab.
         query = query.eq('user_id', user.id);
       }

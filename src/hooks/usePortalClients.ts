@@ -1,7 +1,7 @@
 /**
  * usePortalClients
- * For a client user (Operator 2, e.g. Tony), fetches the end-clients (portal_users)
- * linked to Tony's client_id, exposing them as selectable DbClient-like records.
+ * For a client user, fetches the end-clients (portal_users)
+ * linked to their client_id, exposing them as selectable DbClient-like records.
  *
  * Each end-client's "company" is their full_name, email, and their
  * client_id (Tony's company) — so invoices are billed to them via the portal_users link.

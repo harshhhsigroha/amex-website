@@ -1,8 +1,8 @@
 /**
  * ClientTeamManagement
- * Allows Tony (Operator 2 / client_user) to add sub-team members who can
- * access his Ops Portal and configure their permissions.
- * These team members are stored in client_users table linked to Tony's client_id.
+ * Allows a client user to add sub-team members who can
+ * access their portal and configure their permissions.
+ * These team members are stored in client_users table linked to the client_id.
  */
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';

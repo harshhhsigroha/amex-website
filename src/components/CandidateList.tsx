@@ -261,7 +261,7 @@ export function CandidateList({ candidates, isLoading, onUpdateCandidate, onAddC
               <TableRow>
                 <TableHead className="w-[180px]">Candidate Name</TableHead>
                 <TableHead className="w-[100px]">EMP ID</TableHead>
-                <TableHead className="w-[150px]">Agency / Recipient</TableHead>
+                <TableHead className="w-[150px]">Umbrella / Recipient</TableHead>
                 <TableHead className="w-[120px]">Account No</TableHead>
                 <TableHead className="w-[100px]">Sort Code</TableHead>
                 <TableHead className="w-[100px]">Payment</TableHead>

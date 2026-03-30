@@ -116,7 +116,7 @@ export function ClientOnboardingConfig() {
   // We read it here additionally to display the logo and brand name in the link card.
   const { whiteLabel } = useWhiteLabel(clientId);
 
-  const brandName = whiteLabel?.brand_name || 'Your Agency';
+  const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
   const logoUrl = whiteLabel?.logo_url || null;
 
   const onboardingUrl = clientId
@@ -216,11 +216,11 @@ export function ClientOnboardingConfig() {
         </CardContent>
       </Card>
 
-      {/* Full form builder — saves as candidate_<clientId> so it's isolated per agency */}
+      {/* Full form builder — saves as candidate_<clientId> so it's isolated per client */}
       <SingleFormBuilder
         formType={`candidate_${clientId}`}
         title="Candidate Registration"
-        description="Configure the fields candidates fill in when registering with your agency."
+        description="Configure the fields candidates fill in when registering with your company."
         defaultFields={DEFAULT_FIELDS}
         clientId={clientId}
       />
