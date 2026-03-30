@@ -9,7 +9,7 @@ import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import ClientAuth from "./pages/ClientAuth";
 import PortalAuth from "./pages/PortalAuth";
-import ClientDashboard from "./pages/ClientDashboard";
+
 import PortalDashboard from "./pages/PortalDashboard";
 import ResetPassword from "./pages/ResetPassword";
 import CandidateOnboarding from "./pages/CandidateOnboarding";
