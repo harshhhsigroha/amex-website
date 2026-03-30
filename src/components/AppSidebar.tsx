@@ -210,8 +210,10 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
       {/* Navigation */}
       <SidebarContent className="px-2 py-3 gap-1">
         {renderNavGroup(mainNavItems, 'Workspace')}
+        {renderNavGroup(invoiceNavItems, 'Invoicing')}
         {renderNavGroup(managementNavItems, 'Management')}
         {renderNavGroup(historyNavItems, 'History')}
+        {renderNavGroup(settingsNavItems, 'Settings')}
         {renderNavGroup(teamNavItems, 'Team')}
         {renderNavGroup(supportNavItems, 'Support')}
         {renderNavGroup(guideNavItems, 'Help')}
