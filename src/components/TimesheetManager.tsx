@@ -70,6 +70,23 @@ interface TimesheetRow {
   approved_by: string | null;
   approved_at: string | null;
 }
+function ClockLinkCard({ clientId, clientName }: { clientId: string; clientName: string }) {
+  const clockUrl = `${window.location.origin}/clock/${clientId}`;
+  return (
+    <div className="p-4 rounded-xl border border-border bg-card space-y-3">
+      <h3 className="text-sm font-semibold">{clientName}</h3>
+      <div className="flex gap-2">
+        <input readOnly value={clockUrl} className="h-8 text-xs font-mono flex-1 rounded-md border border-input bg-background px-2" />
+        <Button size="sm" variant="outline" className="h-8 text-xs shrink-0" onClick={() => { navigator.clipboard.writeText(clockUrl); toast.success('Link copied'); }}>
+          <Copy className="h-3.5 w-3.5 mr-1" />Copy
+        </Button>
+      </div>
+      <Button size="sm" variant="outline" className="w-full h-8 text-xs" onClick={() => window.open(clockUrl, '_blank')}>
+        <ExternalLink className="h-3.5 w-3.5 mr-1" />Open Clock Page
+      </Button>
+    </div>
+  );
+}
 
 export function TimesheetManager() {
   const { user, isClient } = useAuth();
@@ -545,6 +562,7 @@ export function TimesheetManager() {
         <TabsList>
           <TabsTrigger value="logs" className="gap-2"><Timer className="h-4 w-4" /> Time Logs</TabsTrigger>
           <TabsTrigger value="timesheets" className="gap-2"><FileText className="h-4 w-4" /> Timesheets</TabsTrigger>
+          <TabsTrigger value="clock" className="gap-2"><Clock className="h-4 w-4" /> Clock In / Out</TabsTrigger>
         </TabsList>
 
         {/* Time Logs */}
@@ -722,6 +740,32 @@ export function TimesheetManager() {
                     </TableBody>
                   </Table>
                 </ScrollArea>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Clock In / Out Links */}
+        <TabsContent value="clock">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Clock className="h-5 w-5 text-primary" /> Clock In / Out Links
+              </CardTitle>
+              <p className="text-sm text-muted-foreground">Share these links with candidates so they can clock in and out for each client.</p>
+            </CardHeader>
+            <CardContent>
+              {isClient && clientId ? (
+                <ClockLinkCard clientId={clientId} clientName={clientName || 'Your Company'} />
+              ) : (
+                <p className="text-sm text-muted-foreground">Clock links are available per client. Use the sub-client links below.</p>
+              )}
+              {subClients.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  {subClients.map(sc => (
+                    <ClockLinkCard key={sc.id} clientId={sc.id} clientName={sc.company_name} />
+                  ))}
+                </div>
               )}
             </CardContent>
           </Card>

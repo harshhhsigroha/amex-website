@@ -19,9 +19,7 @@ export function useClients() {
       toast.error('Failed to load clients');
       console.error('Error fetching clients:', error);
     } else {
-      // Filter out the umbrella company (AMEX Outsourcing) — it's not a client to manage
-      const filtered = (data || []).filter(c => c.id !== 'a0000000-0000-0000-0000-000000000001');
-      setClients(filtered);
+      setClients(data || []);
     }
     setIsLoading(false);
   }, []);

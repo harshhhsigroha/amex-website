@@ -108,7 +108,6 @@ export function ClientOnboardingConfig() {
         .from('clients')
         .select('id, company_name')
         .is('parent_client_id', null)
-        .neq('id', 'a0000000-0000-0000-0000-000000000001')
         .order('company_name')
         .then(({ data }) => {
           const clients = data || [];
