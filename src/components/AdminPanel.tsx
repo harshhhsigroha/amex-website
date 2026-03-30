@@ -237,7 +237,7 @@ export default function AdminPanel() {
     const { data: existingRole } = await supabase
       .from('user_roles')
       .select('id')
-      .eq('user_id', profileData.id)
+      .eq('user_id', userId)
       .maybeSingle();
 
     if (existingRole) {
