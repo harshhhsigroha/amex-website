@@ -61,12 +61,15 @@ export function OnboardingFileUpload({
 
       if (uploadError) throw uploadError;
 
-      const { data: { publicUrl } } = supabase.storage
+      // Use signed URL since bucket is now private
+      const { data: signedUrlData, error: signedUrlError } = await supabase.storage
         .from('onboarding-uploads')
-        .getPublicUrl(filePath);
+        .createSignedUrl(filePath, 60 * 60 * 24 * 365); // 1 year
+
+      if (signedUrlError) throw signedUrlError;
 
       setFileName(file.name);
-      onChange(publicUrl);
+      onChange(signedUrlData.signedUrl);
       toast.success('File uploaded');
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Upload failed';

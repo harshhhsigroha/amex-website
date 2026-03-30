@@ -98,6 +98,7 @@ export function useCandidates() {
             .insert({
               emp_id: candidate.emp_id,
               candidate_name: candidate.candidate_name,
+              client_id: candidate.client_id,
               address: candidate.address,
               agency: candidate.agency,
               beneficiary_name: candidate.beneficiary_name,

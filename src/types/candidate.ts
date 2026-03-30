@@ -2,6 +2,7 @@ export interface Candidate {
   id: string;
   emp_id: string;
   candidate_name: string;
+  client_id: string | null;
   address: string | null;
   agency: string | null;
   beneficiary_name: string | null;
