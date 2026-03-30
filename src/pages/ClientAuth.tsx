@@ -17,7 +17,7 @@ const loginSchema = z.object({
 
 export default function ClientAuth() {
   const navigate = useNavigate();
-  const { user, loading, signIn, isClient, isAdmin, isRecovery } = useAuth();
+  const { user, loading, identityReady, signIn, isClient, isAdmin, isRecovery } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -26,13 +26,12 @@ export default function ClientAuth() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (isRecovery) return; // Don't redirect during password recovery
-    if (user && !loading) {
-      if (isClient || isAdmin) {
-        navigate('/dashboard');
-      }
+    if (isRecovery) return;
+    if (user && !loading && identityReady) {
+      if (isAdmin) navigate('/dashboard');
+      else if (isClient) navigate('/client');
     }
-  }, [user, loading, isClient, isAdmin, isRecovery, navigate]);
+  }, [user, loading, identityReady, isClient, isAdmin, isRecovery, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
