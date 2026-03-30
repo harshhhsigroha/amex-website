@@ -2,7 +2,7 @@
  * ============================================================================
  * PortalPermissionsManager
  * ============================================================================
- * Used in: ClientUserManagement, ClientEndUserManager, ClientClientsManager
+ * Used in: ClientUserManagement
  * Purpose: Toggle portal visibility per module for a given client.
  *          Controls what end-users see in their portal dashboard.
  *
