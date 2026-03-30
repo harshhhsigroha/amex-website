@@ -83,28 +83,67 @@ export function useClients() {
   }, []);
 
   const deleteClient = useCallback(async (id: string) => {
-    // First, delete any associated client_users
-    const { error: linkError } = await supabase
-      .from('client_users')
-      .delete()
+    // Delete all dependent records in order before deleting the client
+
+    // 1. Delete invoice line items for this client's invoices
+    const { data: clientInvoices } = await supabase
+      .from('invoices')
+      .select('id')
       .eq('client_id', id);
 
-    if (linkError) {
-      console.error('Error deleting client users:', linkError);
-      // Continue anyway - the client might not have portal users
+    if (clientInvoices && clientInvoices.length > 0) {
+      const invoiceIds = clientInvoices.map(inv => inv.id);
+      await supabase.from('invoice_line_items').delete().in('invoice_id', invoiceIds);
+      await supabase.from('invoices').delete().eq('client_id', id);
     }
 
+    // 2. Delete self-billed invoices
+    await supabase.from('self_billed_invoices').delete().eq('client_id', id);
+
+    // 3. Delete timesheets
+    await supabase.from('timesheets').delete().eq('client_id', id);
+
+    // 4. Delete time logs
+    await supabase.from('time_logs').delete().eq('client_id', id);
+
+    // 5. Delete files
+    await supabase.from('files').delete().eq('client_id', id);
+
+    // 6. Delete support tickets & messages for this client
+    const { data: tickets } = await supabase
+      .from('support_tickets')
+      .select('id')
+      .eq('client_id', id);
+
+    if (tickets && tickets.length > 0) {
+      const ticketIds = tickets.map(t => t.id);
+      await supabase.from('support_messages').delete().in('ticket_id', ticketIds);
+      await supabase.from('support_tickets').delete().eq('client_id', id);
+    }
+
+    // 7. Delete portal users & permissions
+    await supabase.from('portal_users').delete().eq('client_id', id);
+    await supabase.from('portal_permissions').delete().eq('client_id', id);
+
+    // 8. Delete client config tables
+    await supabase.from('client_permissions').delete().eq('client_id', id);
+    await supabase.from('client_white_label').delete().eq('client_id', id);
+    await supabase.from('client_plans').delete().eq('client_id', id);
+    await supabase.from('client_billing_records').delete().eq('client_id', id);
+    await supabase.from('client_onboarding_checklist').delete().eq('client_id', id);
+    await supabase.from('onboarding_form_config').delete().eq('client_id', id);
+
+    // 9. Delete client_users
+    await supabase.from('client_users').delete().eq('client_id', id);
+
+    // 10. Finally delete the client
     const { error } = await supabase
       .from('clients')
       .delete()
       .eq('id', id);
 
     if (error) {
-      toast.error('Failed to delete client', {
-        description: error.message.includes('violates foreign key')
-          ? 'This client has invoices and cannot be deleted'
-          : error.message,
-      });
+      toast.error('Failed to delete client', { description: error.message });
       console.error('Error deleting client:', error);
       return { success: false };
     }
