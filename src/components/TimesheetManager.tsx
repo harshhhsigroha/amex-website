@@ -72,7 +72,7 @@ interface TimesheetRow {
 }
 
 export function TimesheetManager() {
-  const { user, isClient } = useAuth();
+  const { user, isClient, isAdmin } = useAuth();
   const [activeSubTab, setActiveSubTab] = useState('logs');
   const [timeLogs, setTimeLogs] = useState<TimeLog[]>([]);
   const [timesheets, setTimesheets] = useState<TimesheetRow[]>([]);
@@ -105,9 +105,16 @@ export function TimesheetManager() {
   const selectedFYObj = financialYears.find(fy => fy.label === selectedYear) || currentFY;
   const weeks = getFinancialWeeksForYear(selectedFYObj);
 
-  // Resolve client_id + branding
+  // Resolve client_id + branding (for client users)
   useEffect(() => {
-    if (!user || !isClient) return;
+    if (!user) return;
+    if (isAdmin) {
+      // Admins see all — use a sentinel value
+      setClientId('__admin__');
+      setClientName('All Clients');
+      return;
+    }
+    if (!isClient) return;
     supabase
       .from('client_users')
       .select('client_id, clients(company_name)')
@@ -118,7 +125,7 @@ export function TimesheetManager() {
         setClientId(cid);
         setClientName((data?.clients as { company_name?: string } | null)?.company_name ?? null);
       });
-  }, [user, isClient]);
+  }, [user, isClient, isAdmin]);
 
   // Fetch time logs
   const fetchTimeLogs = useCallback(async () => {
@@ -127,9 +134,9 @@ export function TimesheetManager() {
     let query = supabase
       .from('time_logs')
       .select('*')
-      .eq('client_id', clientId)
       .eq('financial_year', selectedYear)
       .order('clock_in', { ascending: false });
+    if (clientId !== '__admin__') query = query.eq('client_id', clientId);
     if (selectedWeek !== 'all') query = query.eq('financial_week', parseInt(selectedWeek));
     const { data, error } = await query;
     if (error) { toast.error('Failed to load time logs'); }
@@ -143,9 +150,9 @@ export function TimesheetManager() {
     let query = supabase
       .from('timesheets')
       .select('*')
-      .eq('client_id', clientId)
       .eq('financial_year', selectedYear)
       .order('log_date', { ascending: false });
+    if (clientId !== '__admin__') query = query.eq('client_id', clientId);
     if (selectedWeek !== 'all') query = query.eq('financial_week', parseInt(selectedWeek));
     const { data, error } = await query;
     if (!error) setTimesheets((data || []) as TimesheetRow[]);
