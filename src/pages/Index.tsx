@@ -118,8 +118,8 @@ const Index = () => {
   useEffect(() => {
     if (!loading && identityReady) {
       if (!user) navigate('/auth/client');
-      else if (!isClient && !isAdmin) navigate('/auth/client');
-      // Both admins and clients stay on /dashboard — unified portal
+      else if (isClient && !isAdmin) navigate('/client');
+      else if (!isAdmin) navigate('/auth/client');
     }
   }, [user, loading, identityReady, isAdmin, isClient, navigate]);
 
