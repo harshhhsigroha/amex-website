@@ -117,9 +117,9 @@ const Index = () => {
   // ── Auth redirect — send unauthenticated or unauthorized users away ──
   useEffect(() => {
     if (!loading && identityReady) {
-      if (!user) navigate('/auth/client');
+      if (!user) navigate('/auth/admin');
       else if (isClient && !isAdmin) navigate('/client');
-      else if (!isAdmin) navigate('/auth/client');
+      else if (!isAdmin) navigate('/auth/admin');
     }
   }, [user, loading, identityReady, isAdmin, isClient, navigate]);
 
