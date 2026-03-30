@@ -46,40 +46,42 @@ interface NavItem {
   icon: React.ComponentType<{ className?: string }>;
   permission?: keyof AdminPermissions;
   superAdminOnly?: boolean;
+  adminOnly?: boolean;
   clientOnly?: boolean;
   clientOrSuperAdmin?: boolean;
   badge?: string;
 }
 
+// ── Admin-only tabs ──
 const mainNavItems: NavItem[] = [
   { title: 'Dashboard', value: 'dashboard', icon: LayoutDashboard, permission: 'can_view_dashboard' },
-  { title: 'Timesheets', value: 'timesheets', icon: Clock, permission: 'can_view_dashboard' },
+  { title: 'Timesheets', value: 'timesheets', icon: Clock, adminOnly: true },
 ];
 
 const invoiceNavItems: NavItem[] = [
-  { title: 'Master Invoice', value: 'create', icon: FileText, permission: 'can_generate_invoices' },
-  { title: 'Self-Billed', value: 'selfbill', icon: Receipt, permission: 'can_generate_self_bills' },
+  { title: 'Master Invoice', value: 'create', icon: FileText, adminOnly: true },
+  { title: 'Self-Billed', value: 'selfbill', icon: Receipt, adminOnly: true },
 ];
 
 const managementNavItems: NavItem[] = [
-  { title: 'Clients', value: 'clients', icon: Building2, permission: 'can_manage_clients' },
-  { title: 'Candidates', value: 'candidates', icon: Users, permission: 'can_manage_candidates' },
-  { title: 'Onboard Candidate', value: 'onboard-candidates', icon: UserCog, clientOnly: true },
+  { title: 'Clients', value: 'clients', icon: Building2, adminOnly: true },
+  { title: 'Candidates', value: 'candidates', icon: Users, adminOnly: true },
 ];
 
+// ── Visible to both admin and client (read-only for client) ──
 const historyNavItems: NavItem[] = [
-  { title: 'Invoice History', value: 'history', icon: History, permission: 'can_view_history' },
-  { title: 'Self-Bill History', value: 'selfbill-history', icon: FileStack, permission: 'can_view_history' },
-  { title: 'Files', value: 'files', icon: FolderOpen, permission: 'can_view_history' },
+  { title: 'Invoice History', value: 'history', icon: History },
+  { title: 'Self-Bill History', value: 'selfbill-history', icon: FileStack },
+  { title: 'Files', value: 'files', icon: FolderOpen },
 ];
 
+// ── Admin-only settings ──
 const settingsNavItems: NavItem[] = [
-  { title: 'Onboarding Form', value: 'onboarding-form', icon: Settings2, clientOnly: true },
-  { title: 'Invoice Settings', value: 'invoice-settings', icon: Settings2, clientOnly: true },
+  { title: 'Invoice Settings', value: 'invoice-settings', icon: Settings2, adminOnly: true },
 ];
 
 const teamNavItems: NavItem[] = [
-  { title: 'Team', value: 'team', icon: UserCog, clientOrSuperAdmin: true },
+  { title: 'Team', value: 'team', icon: UserCog, superAdminOnly: true },
 ];
 
 const supportNavItems: NavItem[] = [
@@ -87,7 +89,7 @@ const supportNavItems: NavItem[] = [
 ];
 
 const guideNavItems: NavItem[] = [
-  { title: 'Guide', value: 'guide', icon: HelpCircle },
+  { title: 'Guide', value: 'guide', icon: HelpCircle, adminOnly: true },
 ];
 
 
@@ -123,6 +125,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
   };
 
   const canAccessItem = (item: NavItem) => {
+    if (item.adminOnly) return isAdmin;
     if (item.clientOrSuperAdmin) return isClient || isSuperAdmin;
     if (item.clientOnly) return isClient;
     if (item.superAdminOnly) return isSuperAdmin;
