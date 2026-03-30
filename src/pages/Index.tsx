@@ -4,7 +4,7 @@ import { Dashboard } from '@/components/Dashboard';
 import { InvoiceSummary } from '@/components/InvoiceSummary';
 import { TimesheetTable } from '@/components/TimesheetTable';
 import { ClientSelector } from '@/components/ClientSelector';
-import { ClientManagement } from '@/components/ClientManagement';
+
 import { InvoiceHistory } from '@/components/InvoiceHistory';
 import { CandidateMasterUpload } from '@/components/CandidateMasterUpload';
 import { CandidateList } from '@/components/CandidateList';
@@ -14,7 +14,7 @@ import AdminPanel from '@/components/AdminPanel';
 import { AdminSupport } from '@/components/AdminSupport';
 import { ClientSupport } from '@/components/ClientSupport';
 import { AppSidebar } from '@/components/AppSidebar';
-import { ClientClientsManager } from '@/components/ClientClientsManager';
+
 import { ClientTeamManagement } from '@/components/ClientTeamManagement';
 import { ClientSupportToClients } from '@/components/ClientSupportToClients';
 import { TimesheetUpload } from '@/components/invoice/TimesheetUpload';
@@ -365,14 +365,6 @@ const Index = () => {
             </div>
           </div>
         );
-
-      case 'clients':
-        return hasPermission('can_manage_clients') 
-          ? <ClientManagement clients={clients} isLoading={clientsLoading} onAddClient={addClient} onUpdateClient={updateClient} onDeleteClient={deleteClient} invoices={invoices} />
-          : <RestrictedContent message="You don't have permission to manage clients." />;
-
-      case 'my_clients':
-        return <ClientClientsManager />;
 
       case 'candidates':
         return hasPermission('can_manage_candidates') ? (

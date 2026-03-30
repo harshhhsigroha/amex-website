@@ -62,7 +62,6 @@ const invoiceNavItems: NavItem[] = [
 ];
 
 const managementNavItems: NavItem[] = [
-  { title: 'My Clients', value: 'my_clients', icon: Building2, clientOnly: true },
   { title: 'Candidates', value: 'candidates', icon: Users, permission: 'can_manage_candidates' },
   { title: 'Onboard Candidate', value: 'onboard-candidates', icon: UserCog, clientOnly: true },
 ];
