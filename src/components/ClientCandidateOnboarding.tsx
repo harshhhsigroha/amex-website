@@ -313,24 +313,39 @@ function CandidateForm({ fields, formName }: { fields: FormField[]; formName: st
 // ─── Main export ──────────────────────────────────────────────────────────────
 
 export function ClientCandidateOnboarding() {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [mode, setMode] = useState<'choose' | 'inline' | 'link'>('choose');
   const [fields, setFields] = useState<FormField[]>([]);
   const [formName, setFormName] = useState('Candidate Registration');
   const [loading, setLoading] = useState(true);
   const [clientId, setClientId] = useState<string | null>(null);
   const [qrOpen, setQrOpen] = useState(false);
+  const [allClients, setAllClients] = useState<{ id: string; company_name: string }[]>([]);
 
-  // Resolve client id
+  // Resolve client id - admin gets a selector, client user resolves own
   useEffect(() => {
     if (!user) return;
-    supabase
-      .from('client_users')
-      .select('client_id')
-      .eq('user_id', user.id)
-      .maybeSingle()
-      .then(({ data }) => setClientId(data?.client_id ?? null));
-  }, [user]);
+    if (isAdmin) {
+      supabase
+        .from('clients')
+        .select('id, company_name')
+        .is('parent_client_id', null)
+        .neq('id', 'a0000000-0000-0000-0000-000000000001')
+        .order('company_name')
+        .then(({ data }) => {
+          const clients = data || [];
+          setAllClients(clients);
+          if (clients.length > 0) setClientId(clients[0].id);
+        });
+    } else {
+      supabase
+        .from('client_users')
+        .select('client_id')
+        .eq('user_id', user.id)
+        .maybeSingle()
+        .then(({ data }) => setClientId(data?.client_id ?? null));
+    }
+  }, [user, isAdmin]);
 
   const onboardingUrl = clientId
     ? `${window.location.origin}/onboarding/${clientId}`
