@@ -93,28 +93,43 @@ function QrCodeModal({
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function ClientOnboardingConfig() {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [clientId, setClientId] = useState<string | null>(null);
   const [loadingClientId, setLoadingClientId] = useState(true);
   const [qrOpen, setQrOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [allClients, setAllClients] = useState<{ id: string; company_name: string }[]>([]);
 
-  // Resolve client id from logged-in user
+  // For admins: load all clients to pick from. For clients: resolve own client_id.
   useEffect(() => {
     if (!user) return;
-    supabase
-      .from('client_users')
-      .select('client_id')
-      .eq('user_id', user.id)
-      .maybeSingle()
-      .then(({ data }) => {
-        setClientId(data?.client_id ?? null);
-        setLoadingClientId(false);
-      });
-  }, [user]);
+    if (isAdmin) {
+      supabase
+        .from('clients')
+        .select('id, company_name')
+        .is('parent_client_id', null)
+        .neq('id', 'a0000000-0000-0000-0000-000000000001')
+        .order('company_name')
+        .then(({ data }) => {
+          const clients = data || [];
+          setAllClients(clients);
+          if (clients.length > 0) setClientId(clients[0].id);
+          setLoadingClientId(false);
+        });
+    } else {
+      supabase
+        .from('client_users')
+        .select('client_id')
+        .eq('user_id', user.id)
+        .maybeSingle()
+        .then(({ data }) => {
+          setClientId(data?.client_id ?? null);
+          setLoadingClientId(false);
+        });
+    }
+  }, [user, isAdmin]);
 
-  // White-label config — CSS vars already injected globally by AppSidebar's useWhiteLabel.
-  // We read it here additionally to display the logo and brand name in the link card.
+  // White-label config
   const { whiteLabel } = useWhiteLabel(clientId);
 
   const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
@@ -140,7 +155,7 @@ export function ClientOnboardingConfig() {
   }
 
   if (!clientId) {
-    return <p className="text-sm text-muted-foreground">Unable to determine your client account.</p>;
+    return <p className="text-sm text-muted-foreground">No clients found. Please add a client first.</p>;
   }
 
   return (
