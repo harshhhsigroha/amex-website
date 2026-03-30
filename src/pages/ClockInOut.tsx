@@ -244,7 +244,7 @@ export default function ClockInOut() {
                   />
                 </div>
                 <p className="text-xs text-muted-foreground text-center">
-                  Type your name exactly as registered, or enter a new name to get started
+                  Enter your full name exactly as registered with your employer
                 </p>
               </div>
               <Button type="submit" className="w-full h-12 text-base font-semibold" disabled={isLooking || !candidateName.trim()}>

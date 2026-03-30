@@ -49,37 +49,52 @@ serve(async (req) => {
       });
     }
 
-    // Try to find candidate; if not found, create a placeholder
-    let candidate: { id: string; candidate_name: string; emp_id: string };
-
+    // Find candidate by name — must already be registered
     const { data: candidates } = await supabaseAdmin
       .from("candidates")
       .select("id, candidate_name, emp_id")
       .ilike("candidate_name", trimmedName);
 
-    if (candidates && candidates.length > 0) {
-      candidate = candidates[0];
-    } else {
-      // Auto-create a candidate record for this person
-      const empId = `CLK-${Date.now().toString(36).toUpperCase()}`;
-      const { data: newCandidate, error: createErr } = await supabaseAdmin
-        .from("candidates")
-        .insert({
-          candidate_name: trimmedName,
-          emp_id: empId,
-        })
-        .select("id, candidate_name, emp_id")
-        .single();
+    if (!candidates || candidates.length === 0) {
+      // Check for partial matches to suggest full name
+      const nameParts = trimmedName.split(/\s+/);
+      if (nameParts.length === 1) {
+        // Single name entered — check if there are candidates with this as first/last name
+        const { data: partialMatches } = await supabaseAdmin
+          .from("candidates")
+          .select("candidate_name")
+          .or(`candidate_name.ilike.${trimmedName}%,candidate_name.ilike.%${trimmedName}`);
 
-      if (createErr || !newCandidate) {
-        console.error("Failed to create candidate:", createErr);
-        return new Response(JSON.stringify({ error: "Failed to register. Please try again." }), {
-          status: 500,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+        if (partialMatches && partialMatches.length > 0) {
+          const suggestions = partialMatches.slice(0, 3).map(m => m.candidate_name).join(", ");
+          return new Response(JSON.stringify({ 
+            error: `Multiple candidates found. Please enter your full name. Did you mean: ${suggestions}?` 
+          }), {
+            status: 400,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
       }
-      candidate = newCandidate;
+
+      return new Response(JSON.stringify({ 
+        error: "You are not registered as a candidate. Please contact your employer to register before clocking in." 
+      }), {
+        status: 404,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
     }
+
+    if (candidates.length > 1) {
+      const names = candidates.map(c => c.candidate_name).join(", ");
+      return new Response(JSON.stringify({ 
+        error: `Multiple candidates found matching "${trimmedName}". Please enter your full name to identify yourself. Matches: ${names}` 
+      }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const candidate = candidates[0];
 
     // Calculate UK financial week/year
     const now = new Date();
