@@ -435,6 +435,35 @@ const Index = () => {
       case 'guide':
         return <OpsGuide />;
 
+      case 'clock':
+        return (
+          <div className="space-y-4">
+            <div>
+              <h2 className="text-2xl font-bold text-foreground tracking-tight">Clock In / Out</h2>
+              <p className="text-sm text-muted-foreground mt-1">Share the clock-in link with candidates so they can track their hours.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {clients.map(client => {
+                const clockUrl = `${window.location.origin}/clock/${client.id}`;
+                return (
+                  <div key={client.id} className="p-4 rounded-xl border border-border bg-card space-y-3">
+                    <h3 className="text-sm font-semibold">{client.company_name}</h3>
+                    <div className="flex gap-2">
+                      <Input readOnly value={clockUrl} className="h-8 text-xs font-mono flex-1" />
+                      <Button size="sm" variant="outline" className="h-8 text-xs shrink-0" onClick={() => { navigator.clipboard.writeText(clockUrl); toast.success('Link copied'); }}>
+                        Copy
+                      </Button>
+                    </div>
+                    <Button size="sm" variant="outline" className="w-full h-8 text-xs" onClick={() => window.open(clockUrl, '_blank')}>
+                      Open Clock Page
+                    </Button>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        );
+
       default:
         return <RestrictedContent message="You have no permissions assigned. Please contact your administrator." />;
     }
