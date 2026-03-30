@@ -466,6 +466,27 @@ export function ClientUserManagement({ clients }: ClientUserManagementProps) {
           </div>
         </DialogContent>
       </Dialog>
+      {/* Manage Permissions Dialog */}
+      <Dialog open={isPermsDialogOpen} onOpenChange={setIsPermsDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5" />
+              Portal Permissions
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="p-3 bg-muted rounded-lg">
+              <p className="text-sm text-muted-foreground">Managing permissions for:</p>
+              <p className="font-medium">{selectedUserForPerms?.email}</p>
+              <p className="text-sm text-muted-foreground">{selectedUserForPerms?.client_name}</p>
+            </div>
+            {selectedUserForPerms?.client_id && (
+              <PortalPermissionsManager clientId={selectedUserForPerms.client_id} />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </Card>
   );
 }
