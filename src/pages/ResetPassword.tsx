@@ -1,8 +1,24 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { KeyRound } from 'lucide-react';
 import { ResetPasswordForm } from '@/components/auth/ResetPasswordForm';
+import { LoadingScreen } from '@/components/layout/LoadingScreen';
 
 export default function ResetPassword() {
+  const { user, loading, isRecovery } = useAuth();
+  const navigate = useNavigate();
+
+  // If user lands here without a recovery session, redirect to login
+  useEffect(() => {
+    if (!loading && !user && !isRecovery) {
+      navigate('/auth/client');
+    }
+  }, [loading, user, isRecovery, navigate]);
+
+  if (loading) return <LoadingScreen />;
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-muted/30 p-4">
       <Card className="w-full max-w-md shadow-xl border-border/50">
