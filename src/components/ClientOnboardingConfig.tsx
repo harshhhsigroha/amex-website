@@ -16,7 +16,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogD
 import { Loader2, Copy, ExternalLink, Link2, QrCode } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/contexts/AuthContext';
-import { useWhiteLabel } from '@/hooks/useWhiteLabel';
+
 
 // ── QR Code Modal ─────────────────────────────────────────────────────────────
 
@@ -128,11 +128,8 @@ export function ClientOnboardingConfig() {
     }
   }, [user, isAdmin]);
 
-  // White-label config
-  const { whiteLabel } = useWhiteLabel(clientId);
-
-  const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
-  const logoUrl = whiteLabel?.logo_url || null;
+  const brandName = 'AMEX Outsourcing';
+  const logoUrl: string | null = null;
 
   const onboardingUrl = clientId
     ? `${window.location.origin}/onboarding/${clientId}`

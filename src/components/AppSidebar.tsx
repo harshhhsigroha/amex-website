@@ -36,7 +36,7 @@ import {
 } from '@/components/ui/sidebar';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAdminPermissions, AdminPermissions } from '@/hooks/useAdminPermissions';
-import { useWhiteLabel } from '@/hooks/useWhiteLabel';
+
 import { cn } from '@/lib/utils';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
@@ -109,19 +109,6 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
 
-  // Resolve client_id for white label lookup
-  const [clientId, setClientId] = useState<string | null>(null);
-  useEffect(() => {
-    if (!isClient || !user) return;
-    supabase
-      .from('client_users')
-      .select('client_id')
-      .eq('user_id', user.id)
-      .maybeSingle()
-      .then(({ data }) => setClientId(data?.client_id ?? null));
-  }, [isClient, user]);
-
-  const { whiteLabel } = useWhiteLabel(clientId);
 
   const handleSignOut = async () => {
     await signOut();
@@ -139,8 +126,8 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
 
   const roleLabel = isAdmin ? (isSuperAdmin ? 'Super Admin' : 'Admin') : 'Client';
   const initials = (user?.email || '?').slice(0, 2).toUpperCase();
-  const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
-  const logoUrl = whiteLabel?.logo_url || '/logo.png';
+  const brandName = 'AMEX Outsourcing';
+  const logoUrl = '/logo.png';
 
   const renderNavGroup = (items: NavItem[], label: string) => {
     const accessibleItems = items.filter(canAccessItem);
@@ -203,9 +190,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
           {!isCollapsed && (
             <div className="flex-1 min-w-0">
               <h1 className="text-sm font-bold text-foreground tracking-tight">{brandName}</h1>
-              {(!whiteLabel || !whiteLabel.hide_powered_by) && (
-                <p className="text-[10px] text-muted-foreground">{whiteLabel ? 'Powered AMEX Outsourcing' : 'AMEX Outsourcing'}</p>
-              )}
+              <p className="text-[10px] text-muted-foreground">AMEX Outsourcing</p>
             </div>
           )}
         </div>
