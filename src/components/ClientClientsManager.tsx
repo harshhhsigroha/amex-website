@@ -319,7 +319,10 @@ function AddPortalUserDialog({
             <Label className="text-xs font-medium text-muted-foreground">
               Link to Invoice Recipient <span className="text-muted-foreground/60">(optional)</span>
             </Label>
-            <Select value={form.subClientId} onValueChange={v => setForm(f => ({ ...f, subClientId: v }))}>
+            <Select
+              value={form.subClientId || 'none'}
+              onValueChange={v => setForm(f => ({ ...f, subClientId: v === 'none' ? '' : v }))}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select a company…" />
               </SelectTrigger>
