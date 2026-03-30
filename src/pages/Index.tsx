@@ -76,8 +76,7 @@ const Index = () => {
   const { whiteLabel } = useWhiteLabel(myClientId);
 
   // Data hooks
-  const { clients, isLoading: clientsLoading, addClient, updateClient, deleteClient } = useClients();
-  // Sub-clients: Tony's own invoice recipients (only relevant when isClient)
+  const { clients, isLoading: clientsLoading, addClient, updateClient } = useClients();
   const { subClients, isLoading: subClientsLoading, addSubClient, updateSubClient } = useSubClients();
   const { invoices, isLoading: invoicesLoading, addInvoice, filters, setFilters, refetch: refetchInvoices, getFinancialYears, getFinancialWeeks } = useInvoices();
   const { effectiveSettings: invoiceSettings } = useInvoiceSettings();
