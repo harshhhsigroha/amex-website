@@ -13,7 +13,7 @@ export default function ResetPassword() {
   // If user lands here without a recovery session, redirect to login
   useEffect(() => {
     if (!loading && !user && !isRecovery) {
-      navigate('/auth/client');
+      navigate('/auth/admin');
     }
   }, [loading, user, isRecovery, navigate]);
 

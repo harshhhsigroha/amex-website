@@ -781,9 +781,9 @@ export default function PortalDashboard() {
 
   useEffect(() => {
     if (!loading && identityReady) {
-      if (!user) navigate('/auth/portal');
+      if (!user) navigate('/auth/client');
       else if (isAdmin && !isClient) navigate('/dashboard');
-      else if (!isAuthorized) navigate('/auth/portal');
+      else if (!isAuthorized) navigate('/auth/client');
     }
   }, [user, loading, identityReady, isAdmin, isAuthorized, navigate]);
 
@@ -868,7 +868,7 @@ export default function PortalDashboard() {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate('/auth/portal');
+    navigate('/auth/client');
   };
 
   const displayName = clientName || 'AMEX Outsourcing';

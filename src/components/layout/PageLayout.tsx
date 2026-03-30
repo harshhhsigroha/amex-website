@@ -117,7 +117,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={() => navigate('/auth/client')} className="hidden sm:flex text-muted-foreground text-[13px]">
+            <Button variant="ghost" size="sm" onClick={() => navigate('/auth/admin')} className="hidden sm:flex text-muted-foreground text-[13px]">
               Sign In
             </Button>
             <Button size="sm" onClick={() => navigate('/contact')} className="rounded-full px-5 gap-1.5 text-[13px] shadow-lg shadow-primary/20">
@@ -198,8 +198,8 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               ))}
               <div className="h-px bg-border/40 my-2" />
               {[
-                { label: 'Admin Login', route: '/auth/client' },
-                { label: 'Client Login', route: '/auth/portal' },
+                { label: 'Admin Portal', route: '/auth/admin' },
+                { label: 'Client Portal', route: '/auth/client' },
               ].map((item, i) => (
                 <motion.button key={item.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: (navLinks.length + i + 1) * 0.05 }}
@@ -250,11 +250,11 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
             <div>
               <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Portal Login</p>
               <div className="space-y-3">
-                <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
+                <Button variant="outline" size="sm" onClick={() => navigate('/auth/admin')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
                   <Building2 className="w-4 h-4 text-primary" /> Admin Portal
                 </Button>
-                <Button variant="outline" size="sm" onClick={() => navigate('/auth/portal')}
+                <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
                   <Users className="w-4 h-4 text-primary" /> Client Portal
                 </Button>
