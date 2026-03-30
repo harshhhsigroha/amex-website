@@ -70,6 +70,23 @@ interface TimesheetRow {
   approved_by: string | null;
   approved_at: string | null;
 }
+function ClockLinkCard({ clientId, clientName }: { clientId: string; clientName: string }) {
+  const clockUrl = `${window.location.origin}/clock/${clientId}`;
+  return (
+    <div className="p-4 rounded-xl border border-border bg-card space-y-3">
+      <h3 className="text-sm font-semibold">{clientName}</h3>
+      <div className="flex gap-2">
+        <input readOnly value={clockUrl} className="h-8 text-xs font-mono flex-1 rounded-md border border-input bg-background px-2" />
+        <Button size="sm" variant="outline" className="h-8 text-xs shrink-0" onClick={() => { navigator.clipboard.writeText(clockUrl); toast.success('Link copied'); }}>
+          <Copy className="h-3.5 w-3.5 mr-1" />Copy
+        </Button>
+      </div>
+      <Button size="sm" variant="outline" className="w-full h-8 text-xs" onClick={() => window.open(clockUrl, '_blank')}>
+        <ExternalLink className="h-3.5 w-3.5 mr-1" />Open Clock Page
+      </Button>
+    </div>
+  );
+}
 
 export function TimesheetManager() {
   const { user, isClient } = useAuth();
