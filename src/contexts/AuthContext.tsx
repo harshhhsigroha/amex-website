@@ -10,6 +10,8 @@ interface AuthContextType {
   loading: boolean;
   /** True once user, role, isClient, isPortalUser are all resolved */
   identityReady: boolean;
+  /** True when user arrived via a password recovery link */
+  isRecovery: boolean;
   role: AppRole | null;
   isSuperAdmin: boolean;
   isAdmin: boolean;
@@ -55,6 +57,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const [identityReady, setIdentityReady] = useState(false);
+  const [isRecovery, setIsRecovery] = useState(false);
   const [role, setRole] = useState<AppRole | null>(null);
   const [isClientUser, setIsClientUser] = useState(false);
   const [isPortalUserState, setIsPortalUserState] = useState(false);
@@ -88,6 +91,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Listen for auth state changes FIRST (before getSession)
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        // Detect password recovery flow
+        if (event === 'PASSWORD_RECOVERY') {
+          setIsRecovery(true);
+        }
+
         setSession(session);
         setUser(session?.user ?? null);
         setLoading(false);
@@ -142,6 +150,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     session,
     loading,
     identityReady,
+    isRecovery,
     role,
     isSuperAdmin: role === 'super_admin',
     isAdmin: role === 'super_admin' || role === 'admin',
