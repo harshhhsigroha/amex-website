@@ -42,9 +42,10 @@ const App = () => (
             <Route path="/dashboard" element={<Index />} />
             <Route path="/admin" element={<Index />} />
             <Route path="/client" element={<PortalDashboard />} />
-            <Route path="/auth/client" element={<ClientAuth />} />
+            <Route path="/auth/admin" element={<ClientAuth />} />
+            <Route path="/auth/client" element={<PortalAuth />} />
             <Route path="/auth/portal" element={<PortalAuth />} />
-            <Route path="/auth" element={<ClientAuth />} />
+            <Route path="/auth" element={<PortalAuth />} />
             <Route path="/auth/reset-password" element={<ResetPassword />} />
             <Route path="/clock/:clientId" element={<ClockInOut />} />
             <Route path="/onboarding/:clientId" element={<CandidateOnboarding />} />
