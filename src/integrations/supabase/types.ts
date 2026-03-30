@@ -137,6 +137,7 @@ export type Database = {
           bank_name: string | null
           beneficiary_name: string | null
           candidate_name: string
+          client_id: string | null
           contact_no: string | null
           created_at: string
           dob: string | null
@@ -161,6 +162,7 @@ export type Database = {
           bank_name?: string | null
           beneficiary_name?: string | null
           candidate_name: string
+          client_id?: string | null
           contact_no?: string | null
           created_at?: string
           dob?: string | null
@@ -185,6 +187,7 @@ export type Database = {
           bank_name?: string | null
           beneficiary_name?: string | null
           candidate_name?: string
+          client_id?: string | null
           contact_no?: string | null
           created_at?: string
           dob?: string | null
@@ -201,7 +204,15 @@ export type Database = {
           sort_code?: string | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "candidates_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       client_billing_records: {
         Row: {
