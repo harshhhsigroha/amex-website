@@ -419,9 +419,9 @@ const Index = () => {
         ) : <AdminSupport />;
 
       case 'team':
-        return isClient
-          ? <ClientTeamManagement />
-          : <RestrictedContent message="Access denied." />;
+        if (isSuperAdmin) return <AdminPanel />;
+        if (isClient) return <ClientTeamManagement />;
+        return <RestrictedContent message="Access denied." />;
 
       case 'onboard-candidates':
         return isClient
@@ -435,9 +435,6 @@ const Index = () => {
 
       case 'invoice-settings':
         return (isSuperAdmin || isClient) ? <InvoiceSettingsPanel /> : <RestrictedContent message="Access denied." />;
-
-      case 'admin':
-        return isSuperAdmin ? <AdminPanel /> : <RestrictedContent message="Super Admin access required." />;
 
       case 'guide':
         return <OpsGuide />;

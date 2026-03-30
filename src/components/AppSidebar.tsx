@@ -47,6 +47,7 @@ interface NavItem {
   permission?: keyof AdminPermissions;
   superAdminOnly?: boolean;
   clientOnly?: boolean;
+  clientOrSuperAdmin?: boolean;
   badge?: string;
 }
 
@@ -77,11 +78,7 @@ const supportNavItems: NavItem[] = [
 ];
 
 const teamNavItems: NavItem[] = [
-  { title: 'Team Members', value: 'team', icon: UserCog, clientOnly: true },
-];
-
-const adminNavItems: NavItem[] = [
-  { title: 'Admin Panel', value: 'admin', icon: Shield, superAdminOnly: true },
+  { title: 'Team', value: 'team', icon: UserCog, clientOrSuperAdmin: true },
 ];
 
 const guideNavItems: NavItem[] = [
@@ -121,6 +118,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
   };
 
   const canAccessItem = (item: NavItem) => {
+    if (item.clientOrSuperAdmin) return isClient || isSuperAdmin;
     if (item.clientOnly) return isClient;
     if (item.superAdminOnly) return isSuperAdmin;
     if (item.permission) return hasPermission(item.permission);
@@ -210,7 +208,6 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
         {renderNavGroup(historyNavItems, 'History')}
         {renderNavGroup(teamNavItems, 'Team')}
         {renderNavGroup(supportNavItems, 'Support')}
-        {renderNavGroup(adminNavItems, 'Administration')}
         {renderNavGroup(guideNavItems, 'Help')}
       </SidebarContent>
 
