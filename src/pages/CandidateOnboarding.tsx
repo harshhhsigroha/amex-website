@@ -17,8 +17,6 @@ import { Loader2, CheckCircle2, User, CreditCard, FileCheck, Building2 } from 'l
 import { FormField, DEFAULT_FIELDS, ALL_SECTIONS, SECTIONS } from '@/components/OnboardingFormBuilder';
 import { SignaturePad } from '@/components/onboarding/SignaturePad';
 import { OnboardingFileUpload } from '@/components/onboarding/OnboardingFileUpload';
-import { useWhiteLabel } from '@/hooks/useWhiteLabel';
-import { useCustomDomainContext } from '@/contexts/CustomDomainContext';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -46,10 +44,7 @@ const FIELD_TO_DB_MAP: Record<string, string> = {
 export default function CandidateOnboarding() {
   const navigate = useNavigate();
   const { clientId: paramClientId } = useParams<{ clientId?: string }>();
-  const { domainInfo } = useCustomDomainContext();
-  // Use clientId from URL params, or fall back to custom domain's clientId
-  const clientId = paramClientId || domainInfo?.clientId || undefined;
-  const { whiteLabel } = useWhiteLabel(clientId ?? null);
+  const clientId = paramClientId || undefined;
 
   const [formValues, setFormValues] = useState<Record<string, string | boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,8 +57,8 @@ export default function CandidateOnboarding() {
   const [honeypot, setHoneypot] = useState('');
   const [gdprConsent, setGdprConsent] = useState(false);
 
-  const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
-  const logoUrl = whiteLabel?.logo_url || null;
+  const brandName = 'AMEX Outsourcing';
+  const logoUrl: string | null = null;
 
   // Group enabled fields by section for step navigation
   const activeSections = ALL_SECTIONS.filter(s => enabledFields.some(f => f.section === s));
@@ -446,7 +441,7 @@ export default function CandidateOnboarding() {
               </div>
             )}
             <span className="font-semibold text-foreground">{brandName}</span>
-            {whiteLabel && !whiteLabel.hide_powered_by && <span className="text-[10px] text-muted-foreground">Powered by AMEX Outsourcing</span>}
+            
           </div>
           <Button variant="ghost" onClick={() => navigate('/')}>Back to Home</Button>
         </div>
