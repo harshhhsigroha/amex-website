@@ -18,7 +18,7 @@ const loginSchema = z.object({
 
 export default function PortalAuth() {
   const navigate = useNavigate();
-  const { user, loading, identityReady, signIn, isPortalUser, isClient, isAdmin } = useAuth();
+  const { user, loading, identityReady, signIn, isPortalUser, isClient, isAdmin, isRecovery } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,11 +27,12 @@ export default function PortalAuth() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
+    if (isRecovery) return; // Don't redirect during password recovery
     if (!loading && identityReady && user) {
       if (isPortalUser) navigate('/client');
       else if (isClient || isAdmin) navigate('/dashboard');
     }
-  }, [user, loading, identityReady, isPortalUser, isClient, isAdmin, navigate]);
+  }, [user, loading, identityReady, isPortalUser, isClient, isAdmin, isRecovery, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
