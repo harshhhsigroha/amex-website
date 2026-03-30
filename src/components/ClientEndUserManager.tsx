@@ -351,8 +351,18 @@ export function ClientEndUserManager() {
         </DialogContent>
       </Dialog>
 
-      {/* Portal Permissions */}
-      {clientId && <PortalPermissionsManager clientId={clientId} />}
+      {/* Permissions Dialog */}
+      <Dialog open={!!permsUser} onOpenChange={() => setPermsUser(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" />Portal Permissions</DialogTitle>
+            <DialogDescription className="text-xs">
+              Manage what <span className="font-medium">{permsUser?.full_name || permsUser?.email}</span> can see in their portal.
+            </DialogDescription>
+          </DialogHeader>
+          {clientId && <PortalPermissionsManager clientId={clientId} />}
+        </DialogContent>
+      </Dialog>
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
