@@ -160,6 +160,7 @@ export async function parseCandidateMasterFile(file: File): Promise<CandidateMas
       candidates.push({
         emp_id: empId,
         candidate_name: candidateName,
+        client_id: null,
         address: findColumnValue(row, 'address'),
         agency: findColumnValue(row, 'agency'),
         beneficiary_name: findColumnValue(row, 'beneficiary_name'),
