@@ -876,7 +876,7 @@ export default function PortalDashboard() {
   const primaryHex: string | null = null;
 
   if (loading || !identityReady) return <LoadingScreen />;
-  if (!user || !isPortalUser) return null;
+  if (!user || !isAuthorized) return null;
 
   // Filter nav items based on portal permissions
   const filteredNavItems = allNavItems.filter(item => {
