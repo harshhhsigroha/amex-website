@@ -172,6 +172,7 @@ export function CandidateList({ candidates, isLoading, onUpdateCandidate, onAddC
       await onAddCandidate({
         emp_id: empId,
         candidate_name: addForm.candidate_name,
+        client_id: null,
         address: addForm.address || null,
         agency: addForm.agency || null,
         beneficiary_name: addForm.beneficiary_name || null,

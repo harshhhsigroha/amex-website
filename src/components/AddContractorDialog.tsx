@@ -58,6 +58,7 @@ export function AddContractorDialog({
       await onSave({
         emp_id: empId,
         candidate_name: formData.candidate_name.trim(),
+        client_id: null,
         address: formData.address.trim() || null,
         agency: null,
         beneficiary_name: formData.beneficiary_name.trim(),
