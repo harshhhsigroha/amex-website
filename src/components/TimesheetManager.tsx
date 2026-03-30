@@ -727,6 +727,32 @@ export function TimesheetManager() {
             </CardContent>
           </Card>
         </TabsContent>
+
+        {/* Clock In / Out Links */}
+        <TabsContent value="clock">
+          <Card>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Clock className="h-5 w-5 text-primary" /> Clock In / Out Links
+              </CardTitle>
+              <p className="text-sm text-muted-foreground">Share these links with candidates so they can clock in and out for each client.</p>
+            </CardHeader>
+            <CardContent>
+              {isClient && clientId ? (
+                <ClockLinkCard clientId={clientId} clientName={clientName || 'Your Company'} />
+              ) : (
+                <p className="text-sm text-muted-foreground">Clock links are available per client. Use the sub-client links below.</p>
+              )}
+              {subClients.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                  {subClients.map(sc => (
+                    <ClockLinkCard key={sc.id} clientId={sc.id} clientName={sc.company_name} />
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
 
       {/* Time Log Detail Dialog */}
