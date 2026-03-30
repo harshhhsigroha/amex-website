@@ -13,7 +13,7 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
-import { UserPlus, Trash2, Users, ExternalLink, Loader2, Copy, Edit2, Key, Eye, EyeOff, XCircle } from 'lucide-react';
+import { UserPlus, Trash2, Users, ExternalLink, Loader2, Copy, Edit2, Key, Eye, EyeOff, XCircle, ShieldCheck } from 'lucide-react';
 import { PortalPermissionsManager } from '@/components/PortalPermissionsManager';
 import { PasswordStrength, isPasswordStrong } from '@/components/auth/PasswordStrength';
 
