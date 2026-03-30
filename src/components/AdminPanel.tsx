@@ -377,10 +377,19 @@ export default function AdminPanel() {
                 <DialogHeader>
                   <DialogTitle>Add New Admin</DialogTitle>
                   <DialogDescription>
-                    Enter the email of an existing user to grant admin access.
+                    Create a new admin user with login credentials.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="space-y-4 py-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="fullName">Full Name</Label>
+                    <Input
+                      id="fullName"
+                      placeholder="John Smith"
+                      value={formData.fullName}
+                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
+                    />
+                  </div>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email Address</Label>
                     <Input
@@ -390,6 +399,17 @@ export default function AdminPanel() {
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password">Password</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Min 8 chars, uppercase, lowercase, number"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    />
+                    <p className="text-[11px] text-muted-foreground">Must contain uppercase, lowercase, and a number.</p>
                   </div>
                   <div className="space-y-2">
                     <Label htmlFor="role">Role</Label>
@@ -413,7 +433,7 @@ export default function AdminPanel() {
                   </Button>
                   <Button onClick={handleAddAdmin} disabled={isSubmitting}>
                     {isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Add Admin
+                    Create Admin
                   </Button>
                 </DialogFooter>
               </DialogContent>
