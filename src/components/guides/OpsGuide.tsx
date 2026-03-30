@@ -3,8 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 import {
   FileText, Users, Receipt, BarChart3, MessageSquare, UserCog,
-  CheckCircle2, AlertTriangle, ChevronRight, BookOpen, Building2,
-  Upload, Download, Settings2, Copy,
+  CheckCircle2, AlertTriangle, ChevronRight, BookOpen,
+  Upload, Download, Settings2, Clock,
 } from 'lucide-react';
 
 const sections = [
@@ -18,7 +18,7 @@ const sections = [
     steps: [
       {
         title: 'Your Operations Portal',
-        content: 'Welcome to your Operations Portal — the tool your agency uses to manage timesheets, generate invoices, manage candidates, produce self-billed remittances, and support your clients. Everything your team needs is in the left sidebar.',
+        content: 'Welcome to your Operations Portal — your central hub for managing timesheets, generating invoices, managing candidates, producing self-billed remittances, and communicating with AMEX Outsourcing. Everything you need is in the left sidebar.',
       },
       {
         title: 'Dashboard overview',
@@ -33,7 +33,7 @@ const sections = [
   {
     id: 'timesheets',
     title: 'Timesheets',
-    icon: FileText,
+    icon: Clock,
     color: 'text-cyan-600',
     bg: 'bg-cyan-500/10',
     border: 'border-cyan-200',
@@ -53,12 +53,12 @@ const sections = [
       },
       {
         title: 'Generating invoices from timesheets',
-        content: 'Once timesheets are approved, you can generate Master Invoices and Self-Billed Invoices directly from the Timesheets tab. The system will prompt you to select a sub-client (bill-to) for master invoices. VAT at 20% is calculated automatically.',
+        content: 'Once timesheets are approved, you can generate Master Invoices and Self-Billed Invoices directly from the Timesheets tab. The system will prompt you to select a client (bill-to) for master invoices. VAT at 20% is calculated automatically.',
         tip: 'Only approved timesheets are included in invoice generation. Make sure to approve all relevant entries before generating.',
       },
       {
         title: 'Files & storage',
-        content: 'Every PDF generated from timesheets — whether a timesheet report, master invoice, or self-bill — is automatically saved to the Files tab under the correct financial week for easy retrieval.',
+        content: 'Every PDF generated — whether a timesheet report, master invoice, or self-bill — is automatically saved to the Files tab under the correct financial week for easy retrieval.',
       },
     ],
   },
@@ -81,7 +81,7 @@ const sections = [
       },
       {
         title: 'Selecting a client',
-        content: 'After upload (or when generating from timesheets), you must select which client (your invoice recipient) this invoice is for. The client\'s details will appear on the generated PDF.',
+        content: 'After upload (or when generating from timesheets), you must select which client this invoice is for. The client\'s details will appear on the generated PDF.',
       },
       {
         title: 'VAT calculation',
@@ -89,7 +89,7 @@ const sections = [
       },
       {
         title: 'Generating the PDF',
-        content: 'Enter or confirm the invoice number, then click "Generate PDF". The invoice is: downloaded to your browser, saved to Files, and recorded in Invoice History. The PDF is branded with your agency name and colours.',
+        content: 'Enter or confirm the invoice number, then click "Generate PDF". The invoice is: downloaded to your browser, saved to Files, and recorded in Invoice History. The PDF is branded with your company name and colours.',
         tip: 'Invoice numbers must be unique. The system suggests one for you — you can edit it if needed.',
       },
     ],
@@ -104,7 +104,7 @@ const sections = [
     steps: [
       {
         title: 'What is a self-billed invoice?',
-        content: "A self-billed invoice (or remittance) is generated on behalf of each contractor. It shows what they are being paid for the day. The system generates one PDF per contractor, matching them to the Candidate Master by Employee ID.",
+        content: "A self-billed invoice (or remittance) is generated on behalf of each contractor. It shows what they are being paid for the period. The system generates one PDF per contractor, matching them to the Candidate Master by Employee ID.",
       },
       {
         title: 'Two generation methods',
@@ -131,42 +131,20 @@ const sections = [
     steps: [
       {
         title: 'The candidate master list',
-        content: 'The Candidates section shows all registered candidates for your agency. You can view, edit, and search by name or Employee ID. Bank details and NI numbers are stored securely here.',
+        content: 'The Candidates section shows all registered candidates. You can view, edit, and search by name or Employee ID. Bank details and NI numbers are stored securely here.',
         tip: 'Changes to bank details take effect on the next invoice run. Previous self-bills are not affected.',
       },
       {
         title: 'Onboarding new candidates',
-        content: 'Go to Onboard Candidate in the sidebar. You can either fill in the form on their behalf, or share the self-service link so the candidate registers themselves. Their record is automatically created.',
+        content: 'Go to Onboard Candidate in the sidebar. You can either fill in the form on their behalf, or share the self-service onboarding link so the candidate registers themselves. Their record is automatically created.',
       },
       {
         title: 'Your self-service onboarding link',
-        content: "Your agency has a unique onboarding URL. Share it with candidates — it's pre-configured with your custom form. The link is shown in both Onboard Candidate and Onboarding Form sections.",
+        content: "Your account has a unique onboarding URL. Share it with candidates — it's pre-configured with your custom form fields. The link is shown in the Onboard Candidate section.",
       },
       {
         title: 'Custom onboarding form',
-        content: 'Go to Onboarding Form in the sidebar to customise what information you collect from candidates. You can enable/disable fields, mark them as required, and add your own custom questions.',
-      },
-    ],
-  },
-  {
-    id: 'clients',
-    title: 'Managing Your Clients',
-    icon: Building2,
-    color: 'text-rose-600',
-    bg: 'bg-rose-500/10',
-    border: 'border-rose-200',
-    steps: [
-      {
-        title: 'My Clients',
-        content: 'The My Clients section lists all your invoice recipients (the companies you bill). You can add, edit, and manage them here. When generating invoices, you select from this list.',
-      },
-      {
-        title: 'End-user portal access',
-        content: 'You can give your clients read-only portal access at /client so they can view their own invoices and contractors. Manage their login from My Clients — click on a client and use the End Users tab.',
-      },
-      {
-        title: 'Client support',
-        content: "Your clients can raise support tickets from their portal. You'll see these in Client Inbox. You can respond directly and manage the ticket status.",
+        content: 'Go to Onboarding Form in Settings to customise what information you collect from candidates. You can enable/disable fields, mark them as required, and add your own custom questions.',
       },
     ],
   },
@@ -188,26 +166,30 @@ const sections = [
       },
       {
         title: 'Files browser',
-        content: 'The Files tab is your central document store. Every generated PDF — master invoices, self-bills, and timesheet reports — is automatically filed here under the correct financial week. You can also manually upload files.',
-        tip: 'Use the financial week filter to quickly locate documents from a specific period.',
+        content: 'The Files tab is your central document store. Every generated PDF — master invoices, self-bills, and timesheet reports — is automatically filed here under the correct financial year and week. You can also manually upload files.',
+        tip: 'Use the financial year and week filters to quickly locate documents from a specific period. Files are always sorted by financial week.',
       },
     ],
   },
   {
     id: 'settings',
-    title: 'Invoice Settings',
+    title: 'Settings',
     icon: Settings2,
     color: 'text-purple-600',
     bg: 'bg-purple-500/10',
     border: 'border-purple-200',
     steps: [
       {
-        title: 'Payment details',
+        title: 'Invoice payment details',
         content: 'Go to Invoice Settings to configure the bank details that appear on your master invoices — bank name, sort code, account number, and VAT number. These are printed on every PDF you generate.',
       },
       {
         title: 'Self-bill address',
-        content: 'You can also set the "Invoice To" company name and address used on self-billed invoices. This is your agency\'s own details that appear as the issuer on remittances.',
+        content: 'You can also set the "Invoice To" company name and address used on self-billed invoices. This is your company\'s details that appear as the issuer on remittances.',
+      },
+      {
+        title: 'Onboarding form builder',
+        content: 'Customise the fields on your candidate onboarding form. Toggle fields on/off, mark them as required, and add custom questions to suit your business needs.',
       },
     ],
   },
@@ -220,18 +202,18 @@ const sections = [
     border: 'border-slate-200',
     steps: [
       {
-        title: 'Getting help from AMEX Outsourcing',
-        content: 'Use the Support tab to raise a ticket directly with the AMEX Outsourcing support team. Provide as much detail as possible including any error messages or invoice numbers.',
+        title: 'Getting help',
+        content: 'Use the Support tab to raise a ticket directly with the AMEX Outsourcing team. Provide as much detail as possible including any error messages or invoice numbers.',
       },
       {
-        title: 'Supporting your clients',
+        title: 'Client Inbox',
         content: "View and respond to tickets raised by your end users from the Client Inbox tab. You'll see all their queries and can reply in the chat interface.",
       },
     ],
   },
   {
     id: 'team',
-    title: 'Team Access',
+    title: 'Team Management',
     icon: UserCog,
     color: 'text-indigo-600',
     bg: 'bg-indigo-500/10',
@@ -239,7 +221,7 @@ const sections = [
     steps: [
       {
         title: 'Adding team members',
-        content: 'Go to Team Members in the sidebar. You can add staff to your agency account and control exactly which parts of the portal they can access.',
+        content: 'Go to Team in the sidebar. You can add staff to your account and control exactly which parts of the portal they can access.',
       },
       {
         title: 'Permissions',
@@ -254,7 +236,7 @@ const sections = [
       },
       {
         title: 'Security reminder',
-        content: 'Only share login credentials with authorised personnel. Each team member should have their own account. Avoid sharing passwords — contact AMEX Outsourcing support if you need to reset access.',
+        content: 'Each team member should have their own account. Avoid sharing passwords — contact AMEX Outsourcing support if you need to reset access.',
         tip: 'Team member accounts can be removed at any time if someone leaves.',
       },
     ],
