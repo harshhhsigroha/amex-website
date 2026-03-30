@@ -31,8 +31,7 @@ export default function PortalAuth() {
   useEffect(() => {
     if (!loading && identityReady && user) {
       if (isPortalUser) navigate('/client');
-      else if (isClient) navigate('/admin');
-      else if (isAdmin) navigate('/admin');
+      else if (isClient || isAdmin) navigate('/dashboard');
     }
   }, [user, loading, identityReady, isPortalUser, isClient, isAdmin, navigate]);
 

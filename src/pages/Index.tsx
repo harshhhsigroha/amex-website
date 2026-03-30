@@ -134,12 +134,12 @@ const Index = () => {
   }, [permissionsLoading, isSuperAdmin, isClient, hasPermission, activeTab]);
 
   // Auth redirect — wait for identityReady to avoid race condition
+  // ── Auth redirect — send unauthenticated or unauthorized users away ──
   useEffect(() => {
     if (!loading && identityReady) {
       if (!user) navigate('/auth/client');
-      else if (isAdmin && !isClient) navigate('/admin'); // Admin users → admin portal
       else if (!isClient && !isAdmin) navigate('/auth/client');
-      // Client users stay on /admin — this IS their portal
+      // Both admins and clients stay on /dashboard — unified portal
     }
   }, [user, loading, identityReady, isAdmin, isClient, navigate]);
 
@@ -462,7 +462,7 @@ const Index = () => {
                   <div className="h-6 w-px bg-border/40" />
                   <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-foreground leading-none">Operations Portal</span>
+                      <span className="text-sm font-semibold text-foreground leading-none">{myClientName || 'Operations Portal'}</span>
                       <span className="text-[10px] text-muted-foreground mt-0.5 leading-none">
                         {currentFinancialPeriod.financialYear} · {formatFinancialWeek(currentFinancialPeriod.financialWeek)}
                       </span>

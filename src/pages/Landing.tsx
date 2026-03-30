@@ -299,8 +299,8 @@ export default function Landing() {
               </AnimatePresence>
               <div className="h-px bg-border/40 my-2" />
               {[
-                { label: 'Admin Login', route: '/auth/client' },
-                { label: 'Client Login', route: '/auth/portal' },
+                { label: 'Operations Portal', route: '/auth/client' },
+                { label: 'End User Portal', route: '/auth/portal' },
               ].map((item, i) => (
                 <motion.button key={item.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 + i * 0.05 }}
@@ -840,11 +840,11 @@ export default function Landing() {
               <div className="space-y-3">
                 <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
-                  <Building2 className="w-4 h-4 text-primary" /> Admin Portal
+                  <Building2 className="w-4 h-4 text-primary" /> Operations Portal
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => navigate('/auth/portal')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
-                  <Users className="w-4 h-4 text-primary" /> Client Portal
+                  <Users className="w-4 h-4 text-primary" /> End User Portal
                 </Button>
               </div>
               <div className="mt-5 space-y-1.5">

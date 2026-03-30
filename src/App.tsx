@@ -9,7 +9,7 @@ import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import ClientAuth from "./pages/ClientAuth";
 import PortalAuth from "./pages/PortalAuth";
-import ClientDashboard from "./pages/ClientDashboard";
+
 import PortalDashboard from "./pages/PortalDashboard";
 import ResetPassword from "./pages/ResetPassword";
 import CandidateOnboarding from "./pages/CandidateOnboarding";
@@ -66,6 +66,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<CustomDomainHome />} />
       
+      <Route path="/dashboard" element={<Index />} />
       <Route path="/admin" element={<Index />} />
       <Route path="/client" element={<PortalDashboard />} />
       <Route path="/auth/client" element={<ClientAuth />} />

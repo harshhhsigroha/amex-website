@@ -117,7 +117,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate(isClient ? '/auth/client' : '/auth/team');
+    navigate('/auth/client');
   };
 
   const canAccessItem = (item: NavItem) => {
