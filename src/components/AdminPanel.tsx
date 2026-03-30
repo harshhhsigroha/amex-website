@@ -253,7 +253,7 @@ export default function AdminPanel() {
     // Add the role
     const { error } = await supabase
       .from('user_roles')
-      .insert({ user_id: profileData.id, role: formData.role });
+      .insert({ user_id: userId, role: formData.role });
 
     if (error) {
       toast({
