@@ -97,7 +97,7 @@ interface AppSidebarProps {
 
 export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
   const navigate = useNavigate();
-  const { user, isSuperAdmin, isClient, role, signOut } = useAuth();
+  const { user, isSuperAdmin, isAdmin, isClient, role, signOut } = useAuth();
   const { hasPermission } = useAdminPermissions();
   const { state } = useSidebar();
   const isCollapsed = state === 'collapsed';
