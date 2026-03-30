@@ -545,6 +545,7 @@ export function TimesheetManager() {
         <TabsList>
           <TabsTrigger value="logs" className="gap-2"><Timer className="h-4 w-4" /> Time Logs</TabsTrigger>
           <TabsTrigger value="timesheets" className="gap-2"><FileText className="h-4 w-4" /> Timesheets</TabsTrigger>
+          <TabsTrigger value="clock" className="gap-2"><Clock className="h-4 w-4" /> Clock In / Out</TabsTrigger>
         </TabsList>
 
         {/* Time Logs */}
