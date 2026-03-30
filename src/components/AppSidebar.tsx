@@ -18,6 +18,8 @@ import {
   ChevronRight,
   Settings2,
   Clock,
+  ClipboardList,
+  FormInput,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -66,6 +68,8 @@ const invoiceNavItems: NavItem[] = [
 const managementNavItems: NavItem[] = [
   { title: 'Clients', value: 'clients', icon: Building2, adminOnly: true },
   { title: 'Candidates', value: 'candidates', icon: Users, adminOnly: true },
+  { title: 'Onboard Candidates', value: 'onboard-candidates', icon: ClipboardList, adminOnly: true },
+  { title: 'Onboarding Form', value: 'onboarding-form', icon: FormInput, adminOnly: true },
 ];
 
 // ── Visible to both admin and client (read-only for client) ──
