@@ -859,7 +859,7 @@ export default function PortalDashboard() {
     }
 
     setDataLoading(false);
-  }, [user, isPortalUser]);
+  }, [user, isAuthorized, isPortalUser, isClient]);
 
   useEffect(() => {
     fetchData();
