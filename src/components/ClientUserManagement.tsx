@@ -27,8 +27,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Users, UserPlus, Trash2, Loader2, Building2, Mail, Key, Eye, EyeOff } from 'lucide-react';
+import { Users, UserPlus, Trash2, Loader2, Building2, Mail, Key, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
+import { PortalPermissionsManager } from '@/components/PortalPermissionsManager';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface ClientUser {
@@ -63,6 +64,10 @@ export function ClientUserManagement({ clients }: ClientUserManagementProps) {
   const [newPassword, setNewPassword] = useState('');
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
+
+  // Permissions dialog state
+  const [isPermsDialogOpen, setIsPermsDialogOpen] = useState(false);
+  const [selectedUserForPerms, setSelectedUserForPerms] = useState<ClientUser | null>(null);
 
   const fetchClientUsers = async () => {
     setIsLoading(true);
@@ -357,6 +362,18 @@ export function ClientUserManagement({ clients }: ClientUserManagementProps) {
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setSelectedUserForPerms(cu);
+                              setIsPermsDialogOpen(true);
+                            }}
+                            className="text-primary hover:text-primary"
+                            title="Manage Permissions"
+                          >
+                            <ShieldCheck className="h-4 w-4" />
+                          </Button>
                           {isSuperAdmin && (
                             <Button
                               variant="ghost"
@@ -446,6 +463,27 @@ export function ClientUserManagement({ clients }: ClientUserManagementProps) {
               {isUpdatingPassword && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
               Update Password
             </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+      {/* Manage Permissions Dialog */}
+      <Dialog open={isPermsDialogOpen} onOpenChange={setIsPermsDialogOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ShieldCheck className="h-5 w-5" />
+              Portal Permissions
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-2">
+            <div className="p-3 bg-muted rounded-lg">
+              <p className="text-sm text-muted-foreground">Managing permissions for:</p>
+              <p className="font-medium">{selectedUserForPerms?.email}</p>
+              <p className="text-sm text-muted-foreground">{selectedUserForPerms?.client_name}</p>
+            </div>
+            {selectedUserForPerms?.client_id && (
+              <PortalPermissionsManager clientId={selectedUserForPerms.client_id} />
+            )}
           </div>
         </DialogContent>
       </Dialog>
