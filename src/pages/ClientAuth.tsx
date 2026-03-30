@@ -17,7 +17,7 @@ const loginSchema = z.object({
 
 export default function ClientAuth() {
   const navigate = useNavigate();
-  const { user, loading, identityReady, signIn, isClient, isAdmin, isRecovery } = useAuth();
+  const { user, loading, identityReady, signIn, isClient, isAdmin, isPortalUser, isRecovery, signOut } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,8 +30,13 @@ export default function ClientAuth() {
     if (user && !loading && identityReady) {
       if (isAdmin) navigate('/dashboard');
       else if (isClient) navigate('/client');
+      else if (isPortalUser) {
+        // Portal/end users should not access admin portal — sign them out and show error
+        toast({ variant: 'destructive', title: 'Access Denied', description: 'End users must log in via the End User Portal.' });
+        signOut();
+      }
     }
-  }, [user, loading, identityReady, isClient, isAdmin, isRecovery, navigate]);
+  }, [user, loading, identityReady, isClient, isAdmin, isPortalUser, isRecovery, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
