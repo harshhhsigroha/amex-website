@@ -65,6 +65,10 @@ export function ClientUserManagement({ clients }: ClientUserManagementProps) {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
 
+  // Permissions dialog state
+  const [isPermsDialogOpen, setIsPermsDialogOpen] = useState(false);
+  const [selectedUserForPerms, setSelectedUserForPerms] = useState<ClientUser | null>(null);
+
   const fetchClientUsers = async () => {
     setIsLoading(true);
     
