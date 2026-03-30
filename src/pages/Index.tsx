@@ -462,7 +462,7 @@ const Index = () => {
                   <div className="h-6 w-px bg-border/40" />
                   <div className="flex items-center gap-2">
                     <div className="flex flex-col">
-                      <span className="text-sm font-semibold text-foreground leading-none">Operations Portal</span>
+                      <span className="text-sm font-semibold text-foreground leading-none">{myClientName || 'Operations Portal'}</span>
                       <span className="text-[10px] text-muted-foreground mt-0.5 leading-none">
                         {currentFinancialPeriod.financialYear} · {formatFinancialWeek(currentFinancialPeriod.financialWeek)}
                       </span>
