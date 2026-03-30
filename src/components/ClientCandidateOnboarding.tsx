@@ -15,7 +15,7 @@ import {
   CheckCircle2, ChevronRight, ChevronLeft, Loader2,
   UserPlus, ClipboardList, ExternalLink, Copy,
 } from 'lucide-react';
-import { FormField, DEFAULT_FIELDS } from '@/components/OnboardingFormBuilder';
+import { FormField, DEFAULT_FIELDS, ALL_SECTIONS, SECTIONS } from '@/components/OnboardingFormBuilder';
 import { SignaturePad } from '@/components/onboarding/SignaturePad';
 import { OnboardingFileUpload } from '@/components/onboarding/OnboardingFileUpload';
 import { useAuth } from '@/contexts/AuthContext';
@@ -102,8 +102,7 @@ function CandidateForm({ fields, formName }: { fields: FormField[]; formName: st
   const formLoadedAt = useRef(Date.now());
   const [honeypot, setHoneypot] = useState('');
 
-  const sections = ['personal', 'bank', 'documents', 'custom'] as const;
-  const activeSections = sections.filter(s => fields.some(f => f.section === s));
+  const activeSections = ALL_SECTIONS.filter(s => fields.some(f => f.section === s));
   const totalSteps = activeSections.length + 1;
 
   useEffect(() => {
@@ -141,8 +140,14 @@ function CandidateForm({ fields, formName }: { fields: FormField[]; formName: st
     if (honeypot) return;
     setIsSubmitting(true);
     try {
+      // Construct full name from split fields
+      const firstName = ((formValues['first_name'] as string) || '').trim();
+      const middleName = ((formValues['middle_name'] as string) || '').trim();
+      const surname = ((formValues['candidate_name'] as string) || '').trim();
+      const candidateName = [firstName, middleName, surname].filter(Boolean).join(' ');
+
       const payload: Record<string, unknown> = {
-        candidate_name: (formValues['candidate_name'] as string)?.trim() || '',
+        candidate_name: candidateName || (formValues['candidate_name'] as string)?.trim() || '',
         _form_loaded_at: String(formLoadedAt.current),
         _hp_field: honeypot,
       };
@@ -187,7 +192,7 @@ function CandidateForm({ fields, formName }: { fields: FormField[]; formName: st
     );
   }
 
-  const sectionLabel: Record<string, string> = { personal: 'Personal Details', bank: 'Bank Details', documents: 'Documents', custom: 'Additional Info' };
+  const sectionLabel: Record<string, string> = Object.fromEntries(Object.entries(SECTIONS).map(([k, v]) => [k, v.label]));
   const isReview = currentStep > activeSections.length;
   const sectionFields = getSectionFields(currentStep);
 

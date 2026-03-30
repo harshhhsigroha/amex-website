@@ -14,7 +14,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { toast } from 'sonner';
 import { Loader2, CheckCircle2, User, CreditCard, FileCheck, Building2 } from 'lucide-react';
-import { FormField, DEFAULT_FIELDS } from '@/components/OnboardingFormBuilder';
+import { FormField, DEFAULT_FIELDS, ALL_SECTIONS, SECTIONS } from '@/components/OnboardingFormBuilder';
 import { SignaturePad } from '@/components/onboarding/SignaturePad';
 import { OnboardingFileUpload } from '@/components/onboarding/OnboardingFileUpload';
 import { useWhiteLabel } from '@/hooks/useWhiteLabel';
@@ -66,8 +66,7 @@ export default function CandidateOnboarding() {
   const logoUrl = whiteLabel?.logo_url || null;
 
   // Group enabled fields by section for step navigation
-  const sections = ['personal', 'bank', 'documents', 'custom'] as const;
-  const activeSections = sections.filter(s => enabledFields.some(f => f.section === s));
+  const activeSections = ALL_SECTIONS.filter(s => enabledFields.some(f => f.section === s));
   const totalSteps = activeSections.length + 1; // +1 for review
 
   // Load form config — prefer client-specific form if clientId is in the URL
@@ -192,7 +191,12 @@ export default function CandidateOnboarding() {
     }
     setIsSubmitting(true);
     try {
-      let candidateName = (formValues['candidate_name'] as string) || '';
+      // Construct full name from split fields
+      const firstName = ((formValues['first_name'] as string) || '').trim();
+      const middleName = ((formValues['middle_name'] as string) || '').trim();
+      const surname = ((formValues['candidate_name'] as string) || '').trim();
+      const candidateName = [firstName, middleName, surname].filter(Boolean).join(' ');
+
       if (!candidateName) {
         toast.error('Name is required');
         setIsSubmitting(false);
@@ -201,7 +205,7 @@ export default function CandidateOnboarding() {
 
       // Build submission payload
       const payload: Record<string, unknown> = {
-        candidate_name: candidateName.trim(),
+        candidate_name: candidateName,
         _form_loaded_at: String(formLoadedAt.current),
         _hp_field: honeypot, // honeypot field
       };
@@ -270,15 +274,17 @@ export default function CandidateOnboarding() {
     personal: User,
     bank: CreditCard,
     documents: FileCheck,
+    agency: Building2,
+    p45: FileCheck,
+    eligibility: FileCheck,
+    control: FileCheck,
+    declaration: FileCheck,
     custom: Building2,
   };
 
-  const sectionLabels: Record<string, string> = {
-    personal: 'Personal Info',
-    bank: 'Bank Details',
-    documents: 'Documents',
-    custom: 'Additional Info',
-  };
+  const sectionLabels: Record<string, string> = Object.fromEntries(
+    Object.entries(SECTIONS).map(([k, v]) => [k, v.label])
+  );
 
   const steps = [
     ...activeSections.map(s => ({
