@@ -166,109 +166,53 @@ export default function AdminPanel() {
   }, [isSuperAdmin]);
 
   const handleAddAdmin = async () => {
-    if (!formData.email) {
+    if (!formData.email || !formData.fullName || !formData.password) {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Please enter an email address',
+        description: 'Please fill in all fields (email, full name, and password)',
       });
+      return;
+    }
+
+    if (formData.password.length < 8) {
+      toast({ variant: 'destructive', title: 'Error', description: 'Password must be at least 8 characters' });
+      return;
+    }
+
+    const hasUpper = /[A-Z]/.test(formData.password);
+    const hasLower = /[a-z]/.test(formData.password);
+    const hasNum = /[0-9]/.test(formData.password);
+    if (!hasUpper || !hasLower || !hasNum) {
+      toast({ variant: 'destructive', title: 'Error', description: 'Password must contain uppercase, lowercase, and a number' });
       return;
     }
 
     setIsSubmitting(true);
 
-    // First try to find existing user in profiles
-    let userId: string | null = null;
-    const { data: profileData } = await supabase
-      .from('profiles')
-      .select('id')
-      .eq('email', formData.email)
-      .maybeSingle();
+    const { data, error } = await supabase.functions.invoke('create-admin-user', {
+      body: {
+        email: formData.email,
+        password: formData.password,
+        fullName: formData.fullName,
+        role: formData.role,
+      },
+    });
 
-    if (profileData) {
-      userId = profileData.id;
-    } else {
-      // User doesn't exist yet — create them via edge function with a temp password
-      const tempPassword = crypto.randomUUID().slice(0, 12) + 'A1!';
-      const { data: createData, error: createError } = await supabase.functions.invoke('create-client-user', {
-        body: {
-          email: formData.email,
-          password: tempPassword,
-          fullName: formData.email.split('@')[0],
-          clientId: clients[0]?.id || '',
-          userType: 'client',
-        },
-      });
-
-      if (createError || !createData?.success) {
-        // If user was created but linking failed, the user still exists — try profile lookup again
-        const { data: retryProfile } = await supabase
-          .from('profiles')
-          .select('id')
-          .eq('email', formData.email)
-          .maybeSingle();
-
-        if (retryProfile) {
-          userId = retryProfile.id;
-        } else {
-          toast({
-            variant: 'destructive',
-            title: 'Error',
-            description: 'Could not create user. Please try again.',
-          });
-          setIsSubmitting(false);
-          return;
-        }
-      } else {
-        userId = createData.userId;
-      }
-    }
-
-    if (!userId) {
+    if (error || !data?.success) {
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: 'Could not find or create user.',
-      });
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Check if already has a role
-    const { data: existingRole } = await supabase
-      .from('user_roles')
-      .select('id')
-      .eq('user_id', userId)
-      .maybeSingle();
-
-    if (existingRole) {
-      toast({
-        variant: 'destructive',
-        title: 'Already Admin',
-        description: 'This user already has an admin role.',
-      });
-      setIsSubmitting(false);
-      return;
-    }
-
-    // Add the role
-    const { error } = await supabase
-      .from('user_roles')
-      .insert({ user_id: userId, role: formData.role });
-
-    if (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: 'Failed to add admin role',
+        description: data?.error || error?.message || 'Failed to create admin user',
       });
     } else {
+      setCreatedCredentials({ email: formData.email, password: formData.password });
       toast({
-        title: 'Success',
+        title: 'Admin Created',
         description: `${formData.email} is now ${formData.role === 'super_admin' ? 'a Super Admin' : 'an Admin'}`,
       });
       setIsAddDialogOpen(false);
-      setFormData({ email: '', role: 'admin' });
+      setFormData({ email: '', fullName: '', password: '', role: 'admin' });
       fetchAdmins();
     }
 
