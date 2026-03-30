@@ -176,18 +176,58 @@ export default function AdminPanel() {
 
     setIsSubmitting(true);
 
-    // Find the user by email in profiles
-    const { data: profileData, error: profileError } = await supabase
+    // First try to find existing user in profiles
+    let userId: string | null = null;
+    const { data: profileData } = await supabase
       .from('profiles')
       .select('id')
       .eq('email', formData.email)
       .maybeSingle();
 
-    if (profileError || !profileData) {
+    if (profileData) {
+      userId = profileData.id;
+    } else {
+      // User doesn't exist yet — create them via edge function with a temp password
+      const tempPassword = crypto.randomUUID().slice(0, 12) + 'A1!';
+      const { data: createData, error: createError } = await supabase.functions.invoke('create-client-user', {
+        body: {
+          email: formData.email,
+          password: tempPassword,
+          fullName: formData.email.split('@')[0],
+          clientId: clients[0]?.id || '',
+          userType: 'client',
+        },
+      });
+
+      if (createError || !createData?.success) {
+        // If user was created but linking failed, the user still exists — try profile lookup again
+        const { data: retryProfile } = await supabase
+          .from('profiles')
+          .select('id')
+          .eq('email', formData.email)
+          .maybeSingle();
+
+        if (retryProfile) {
+          userId = retryProfile.id;
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description: 'Could not create user. Please try again.',
+          });
+          setIsSubmitting(false);
+          return;
+        }
+      } else {
+        userId = createData.userId;
+      }
+    }
+
+    if (!userId) {
       toast({
         variant: 'destructive',
-        title: 'User Not Found',
-        description: 'No user found with this email. They must sign up first.',
+        title: 'Error',
+        description: 'Could not find or create user.',
       });
       setIsSubmitting(false);
       return;
