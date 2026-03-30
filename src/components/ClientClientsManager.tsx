@@ -430,8 +430,8 @@ export function ClientClientsManager() {
   const [search, setSearch] = useState('');
   const [addCompanyOpen, setAddCompanyOpen] = useState(false);
   const [editCompany, setEditCompany] = useState<DbClient | null>(null);
-  const [addPortalOpen, setAddPortalOpen] = useState(false);
   const [assignDialog, setAssignDialog] = useState<EndClient | null>(null);
+  const [permissionsDialogUser, setPermissionsDialogUser] = useState<EndClient | null>(null);
 
   const { subClients, isLoading: subClientsLoading, addSubClient, updateSubClient } = useSubClients();
 
