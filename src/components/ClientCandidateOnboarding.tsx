@@ -400,6 +400,22 @@ export function ClientCandidateOnboarding() {
           <p className="text-sm text-muted-foreground mt-1">Register a new candidate directly or share the self-service link</p>
         </div>
 
+        {/* Admin client selector */}
+        {isAdmin && allClients.length > 1 && (
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-medium text-muted-foreground">Client:</span>
+            <select
+              className="h-9 px-3 rounded-md border border-input bg-background text-sm"
+              value={clientId || ''}
+              onChange={e => setClientId(e.target.value)}
+            >
+              {allClients.map(c => (
+                <option key={c.id} value={c.id}>{c.company_name}</option>
+              ))}
+            </select>
+          </div>
+        )}
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl">
           {/* Fill in directly */}
           <Card
