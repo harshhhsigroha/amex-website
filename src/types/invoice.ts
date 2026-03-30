@@ -36,4 +36,4 @@ export const DEFAULT_BRANDING: InvoiceBranding = {
 };
 
 // Legacy export for backwards compatibility
-export const PAYCORE_CONFIG = DEFAULT_CONFIG;
+export const AMEX_CONFIG = DEFAULT_CONFIG;
