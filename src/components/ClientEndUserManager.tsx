@@ -13,7 +13,7 @@ import {
   AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
-import { UserPlus, Trash2, Users, ExternalLink, Loader2, Copy, Edit2, Key, Eye, EyeOff, XCircle } from 'lucide-react';
+import { UserPlus, Trash2, Users, ExternalLink, Loader2, Copy, Edit2, Key, Eye, EyeOff, XCircle, ShieldCheck } from 'lucide-react';
 import { PortalPermissionsManager } from '@/components/PortalPermissionsManager';
 import { PasswordStrength, isPasswordStrong } from '@/components/auth/PasswordStrength';
 
@@ -41,6 +41,7 @@ export function ClientEndUserManager() {
   const [savingEdit, setSavingEdit] = useState(false);
   const [savingPw, setSavingPw] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [permsUser, setPermsUser] = useState<PortalUser | null>(null);
 
   const { data: clientId } = useQuery({
     queryKey: ['my_client_id', user?.id],
@@ -272,6 +273,9 @@ export function ClientEndUserManager() {
               <p className="text-xs text-muted-foreground hidden sm:block mr-2">{new Date(u.created_at).toLocaleDateString('en-GB')}</p>
               {/* Actions revealed on hover */}
               <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground hover:text-primary" title="Manage permissions" onClick={() => setPermsUser(u)}>
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                </Button>
                 <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground hover:text-foreground" title="Edit info" onClick={() => { setEditUser(u); setEditName(u.full_name || ''); }}>
                   <Edit2 className="h-3.5 w-3.5" />
                 </Button>
@@ -347,8 +351,18 @@ export function ClientEndUserManager() {
         </DialogContent>
       </Dialog>
 
-      {/* Portal Permissions */}
-      {clientId && <PortalPermissionsManager clientId={clientId} />}
+      {/* Permissions Dialog */}
+      <Dialog open={!!permsUser} onOpenChange={() => setPermsUser(null)}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2"><ShieldCheck className="h-4 w-4" />Portal Permissions</DialogTitle>
+            <DialogDescription className="text-xs">
+              Manage what <span className="font-medium">{permsUser?.full_name || permsUser?.email}</span> can see in their portal.
+            </DialogDescription>
+          </DialogHeader>
+          {clientId && <PortalPermissionsManager clientId={clientId} />}
+        </DialogContent>
+      </Dialog>
 
       {/* Delete Confirmation */}
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
