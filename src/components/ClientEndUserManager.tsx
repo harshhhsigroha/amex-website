@@ -273,6 +273,9 @@ export function ClientEndUserManager() {
               <p className="text-xs text-muted-foreground hidden sm:block mr-2">{new Date(u.created_at).toLocaleDateString('en-GB')}</p>
               {/* Actions revealed on hover */}
               <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground hover:text-primary" title="Manage permissions" onClick={() => setPermsUser(u)}>
+                  <ShieldCheck className="h-3.5 w-3.5" />
+                </Button>
                 <Button size="icon" variant="ghost" className="h-7 w-7 text-muted-foreground hover:text-foreground" title="Edit info" onClick={() => { setEditUser(u); setEditName(u.full_name || ''); }}>
                   <Edit2 className="h-3.5 w-3.5" />
                 </Button>
