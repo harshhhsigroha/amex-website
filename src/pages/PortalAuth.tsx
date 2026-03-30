@@ -18,7 +18,7 @@ const loginSchema = z.object({
 
 export default function PortalAuth() {
   const navigate = useNavigate();
-  const { user, loading, identityReady, signIn, isPortalUser, isClient, isAdmin, isRecovery } = useAuth();
+  const { user, loading, identityReady, signIn, isPortalUser, isClient, isAdmin, isRecovery, signOut } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -27,10 +27,18 @@ export default function PortalAuth() {
   const [password, setPassword] = useState('');
 
   useEffect(() => {
-    if (isRecovery) return; // Don't redirect during password recovery
+    if (isRecovery) return;
     if (!loading && identityReady && user) {
-      if (isPortalUser) navigate('/client');
-      else if (isClient || isAdmin) navigate('/dashboard');
+      if (isClient) {
+        // Client users log in here and go to the client dashboard
+        navigate('/client');
+      } else if (isPortalUser) {
+        navigate('/client');
+      } else if (isAdmin) {
+        // Admins don't belong here — redirect them
+        toast({ variant: 'destructive', title: 'Access Denied', description: 'Admin users should use the Admin Portal.' });
+        signOut();
+      }
     }
   }, [user, loading, identityReady, isPortalUser, isClient, isAdmin, isRecovery, navigate]);
 
@@ -84,7 +92,7 @@ export default function PortalAuth() {
             </div>
             <div>
               <CardTitle className="text-2xl font-bold">Client Portal</CardTitle>
-              <CardDescription>Sign in with the credentials provided by your company</CardDescription>
+              <CardDescription>Sign in with the credentials provided by your account manager</CardDescription>
             </div>
           </CardHeader>
           <CardContent>

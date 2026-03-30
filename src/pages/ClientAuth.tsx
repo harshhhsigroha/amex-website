@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import { checkRateLimit, recordFailedAttempt, clearLoginAttempts } from '@/lib/loginRateLimit';
-import { Building2 } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { LoadingScreen } from '@/components/layout/LoadingScreen';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { ForgotPasswordForm } from '@/components/auth/ForgotPasswordForm';
@@ -28,11 +28,11 @@ export default function ClientAuth() {
   useEffect(() => {
     if (isRecovery) return;
     if (user && !loading && identityReady) {
-      if (isAdmin) navigate('/dashboard');
-      else if (isClient) navigate('/client');
-      else if (isPortalUser) {
-        // Portal/end users should not access admin portal — sign them out and show error
-        toast({ variant: 'destructive', title: 'Access Denied', description: 'End users must log in via the End User Portal.' });
+      if (isAdmin) {
+        navigate('/dashboard');
+      } else if (isClient || isPortalUser) {
+        // Clients and portal users don't belong here — redirect or block
+        toast({ variant: 'destructive', title: 'Access Denied', description: 'This portal is for the AMEX admin team only. Please use the Client Portal.' });
         signOut();
       }
     }
@@ -74,11 +74,11 @@ export default function ClientAuth() {
       <Card className="w-full max-w-md shadow-xl border-border/50">
         <CardHeader className="text-center space-y-4">
           <div className="mx-auto w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center">
-            <Building2 className="h-8 w-8 text-primary" />
+            <ShieldCheck className="h-8 w-8 text-primary" />
           </div>
           <div>
-            <CardTitle className="text-2xl font-bold">Company Portal</CardTitle>
-            <CardDescription>Sign in with the credentials provided by your account manager</CardDescription>
+            <CardTitle className="text-2xl font-bold">Admin Portal</CardTitle>
+            <CardDescription>AMEX Outsourcing team login</CardDescription>
           </div>
         </CardHeader>
         <CardContent>
