@@ -41,6 +41,7 @@ export function ClientEndUserManager() {
   const [savingEdit, setSavingEdit] = useState(false);
   const [savingPw, setSavingPw] = useState(false);
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [permsUser, setPermsUser] = useState<PortalUser | null>(null);
 
   const { data: clientId } = useQuery({
     queryKey: ['my_client_id', user?.id],
