@@ -127,7 +127,7 @@ export function useClients() {
 
     // 8. Delete client config tables
     await supabase.from('client_permissions').delete().eq('client_id', id);
-    await supabase.from('client_white_label').delete().eq('client_id', id);
+    
     await supabase.from('client_plans').delete().eq('client_id', id);
     await supabase.from('client_billing_records').delete().eq('client_id', id);
     await supabase.from('client_onboarding_checklist').delete().eq('client_id', id);
