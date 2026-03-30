@@ -12,6 +12,7 @@ import { SelfBillGenerator } from '@/components/SelfBillGenerator';
 import { SelfBillHistory } from '@/components/SelfBillHistory';
 import AdminPanel from '@/components/AdminPanel';
 import { AdminSupport } from '@/components/AdminSupport';
+import { ClockLinksManager } from '@/components/ClockLinksManager';
 import { ClientSupport } from '@/components/ClientSupport';
 import { AppSidebar } from '@/components/AppSidebar';
 
@@ -366,6 +367,9 @@ const Index = () => {
 
       case 'timesheets':
         return <TimesheetManager />;
+
+      case 'clock-links':
+        return <ClockLinksManager clients={clients} />;
 
       case 'history':
         return hasPermission('can_view_history') 
