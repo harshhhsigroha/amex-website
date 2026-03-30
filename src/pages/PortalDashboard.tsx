@@ -765,7 +765,7 @@ function SupportTab({ userId, clientId, userEmail }: { userId: string; clientId:
 
 export default function PortalDashboard() {
   const navigate = useNavigate();
-  const { user, loading, identityReady, isPortalUser, signOut } = useAuth();
+  const { user, loading, identityReady, isPortalUser, isClient, isAdmin, signOut } = useAuth();
   const [activeTab, setActiveTab] = useState<NavTab>('dashboard');
   const [invoices, setInvoices] = useState<PortalInvoice[]>([]);
   const [contractors, setContractors] = useState<PortalContractor[]>([]);
@@ -773,14 +773,19 @@ export default function PortalDashboard() {
   const [parentClientId, setParentClientId] = useState<string>('');
   const [clientName, setClientName] = useState<string>('');
   const [dataLoading, setDataLoading] = useState(true);
+
+  // Allow both client_users and portal_users on this page
+  const isAuthorized = isClient || isPortalUser;
   
   const { permissions: portalPerms, loading: permsLoading } = usePortalPermissions(parentClientId || clientId || null);
 
   useEffect(() => {
     if (!loading && identityReady) {
-      if (!user || !isPortalUser) navigate('/auth/portal');
+      if (!user) navigate('/auth/portal');
+      else if (isAdmin && !isClient) navigate('/dashboard');
+      else if (!isAuthorized) navigate('/auth/portal');
     }
-  }, [user, loading, identityReady, isPortalUser, navigate]);
+  }, [user, loading, identityReady, isAdmin, isAuthorized, navigate]);
 
   const fetchData = useCallback(async () => {
     if (!user || !isPortalUser) return;
