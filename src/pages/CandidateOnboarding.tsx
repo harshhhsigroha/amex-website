@@ -191,7 +191,12 @@ export default function CandidateOnboarding() {
     }
     setIsSubmitting(true);
     try {
-      let candidateName = (formValues['candidate_name'] as string) || '';
+      // Construct full name from split fields
+      const firstName = ((formValues['first_name'] as string) || '').trim();
+      const middleName = ((formValues['middle_name'] as string) || '').trim();
+      const surname = ((formValues['candidate_name'] as string) || '').trim();
+      const candidateName = [firstName, middleName, surname].filter(Boolean).join(' ');
+
       if (!candidateName) {
         toast.error('Name is required');
         setIsSubmitting(false);
@@ -200,7 +205,7 @@ export default function CandidateOnboarding() {
 
       // Build submission payload
       const payload: Record<string, unknown> = {
-        candidate_name: candidateName.trim(),
+        candidate_name: candidateName,
         _form_loaded_at: String(formLoadedAt.current),
         _hp_field: honeypot, // honeypot field
       };
