@@ -1,30 +1,48 @@
-import { useState, useEffect } from 'react';
+/**
+ * ============================================================================
+ * PortalPermissionsManager
+ * ============================================================================
+ * Used in: ClientUserManagement, ClientEndUserManager, ClientClientsManager
+ * Purpose: Toggle portal visibility per module for a given client.
+ *          Controls what end-users see in their portal dashboard.
+ *
+ * Reads/writes the `portal_permissions` table (one row per client).
+ * If no row exists, defaults are used (all visible except Files).
+ * ============================================================================
+ */
+
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+
+// ── UI Components ───────────────────────────────────────────────────────────
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Loader2, ShieldCheck, Eye, FileText, Users, BarChart3, Headphones, FolderOpen } from 'lucide-react';
+import { Loader2, ShieldCheck, FileText, Users, BarChart3, Headphones, FolderOpen } from 'lucide-react';
 import { toast } from 'sonner';
 
+// ── Types ───────────────────────────────────────────────────────────────────
 interface PortalPermissionsManagerProps {
   clientId: string;
 }
 
-const permissionConfig = [
-  { key: 'can_view_dashboard', label: 'Dashboard', description: 'Overview stats and KPIs', icon: BarChart3 },
-  { key: 'can_view_invoices', label: 'Invoices', description: 'View and download invoices', icon: FileText },
-  { key: 'can_view_contractors', label: 'Contractors', description: 'View contractor listings', icon: Users },
-  { key: 'can_view_support', label: 'Support Tickets', description: 'Create and manage support tickets', icon: Headphones },
-  { key: 'can_view_files', label: 'Files & Documents', description: 'Access uploaded files', icon: FolderOpen },
+// ── Permission config: defines all toggleable modules ───────────────────────
+const PERMISSION_CONFIG = [
+  { key: 'can_view_dashboard',   label: 'Dashboard',         description: 'Overview stats and KPIs',              icon: BarChart3,  defaultOn: true  },
+  { key: 'can_view_invoices',    label: 'Invoices',           description: 'View and download invoices',           icon: FileText,   defaultOn: true  },
+  { key: 'can_view_contractors', label: 'Contractors',        description: 'View contractor listings',             icon: Users,      defaultOn: true  },
+  { key: 'can_view_support',     label: 'Support Tickets',    description: 'Create and manage support tickets',    icon: Headphones, defaultOn: true  },
+  { key: 'can_view_files',       label: 'Files & Documents',  description: 'Access uploaded files',                icon: FolderOpen, defaultOn: false },
 ] as const;
 
-type PermKey = typeof permissionConfig[number]['key'];
+type PermKey = typeof PERMISSION_CONFIG[number]['key'];
 
+// ── Main Component ──────────────────────────────────────────────────────────
 export function PortalPermissionsManager({ clientId }: PortalPermissionsManagerProps) {
   const qc = useQueryClient();
 
+  // ── Fetch current permissions ───────────────────────────────────────────
   const { data: perms, isLoading } = useQuery({
     queryKey: ['portal_permissions', clientId],
     queryFn: async () => {
@@ -39,6 +57,7 @@ export function PortalPermissionsManager({ clientId }: PortalPermissionsManagerP
     enabled: !!clientId,
   });
 
+  // ── Upsert mutation (insert or update) ──────────────────────────────────
   const upsertMutation = useMutation({
     mutationFn: async (updates: Record<string, boolean>) => {
       const payload = {
@@ -67,17 +86,16 @@ export function PortalPermissionsManager({ clientId }: PortalPermissionsManagerP
     onError: (e: Error) => toast.error(e.message),
   });
 
+  // ── Toggle handler: merges current values with the changed key ──────────
   const handleToggle = (key: PermKey, value: boolean) => {
-    const current = {
-      can_view_dashboard: perms?.can_view_dashboard ?? true,
-      can_view_invoices: perms?.can_view_invoices ?? true,
-      can_view_contractors: perms?.can_view_contractors ?? true,
-      can_view_support: perms?.can_view_support ?? true,
-      can_view_files: perms?.can_view_files ?? false,
-    };
+    const current: Record<string, boolean> = {};
+    for (const perm of PERMISSION_CONFIG) {
+      current[perm.key] = perms?.[perm.key] ?? perm.defaultOn;
+    }
     upsertMutation.mutate({ ...current, [key]: value });
   };
 
+  // ── Loading state ───────────────────────────────────────────────────────
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-8">
@@ -86,6 +104,7 @@ export function PortalPermissionsManager({ clientId }: PortalPermissionsManagerP
     );
   }
 
+  // ── Render ────────────────────────────────────────────────────────────────
   return (
     <Card className="border-border/60">
       <CardHeader className="pb-3">
@@ -98,13 +117,14 @@ export function PortalPermissionsManager({ clientId }: PortalPermissionsManagerP
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-1">
-        {permissionConfig.map(perm => {
-          const isEnabled = perms?.[perm.key] ?? (perm.key === 'can_view_files' ? false : true);
+        {PERMISSION_CONFIG.map((perm) => {
+          const isEnabled = perms?.[perm.key] ?? perm.defaultOn;
           return (
             <div
               key={perm.key}
               className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-muted/30 transition-colors"
             >
+              {/* Icon + label */}
               <div className="flex items-center gap-3">
                 <div className="h-8 w-8 rounded-lg bg-muted flex items-center justify-center shrink-0">
                   <perm.icon className="h-4 w-4 text-muted-foreground" />
@@ -114,6 +134,8 @@ export function PortalPermissionsManager({ clientId }: PortalPermissionsManagerP
                   <p className="text-xs text-muted-foreground">{perm.description}</p>
                 </div>
               </div>
+
+              {/* Status badge + toggle */}
               <div className="flex items-center gap-2">
                 <Badge variant={isEnabled ? 'default' : 'secondary'} className="text-[10px]">
                   {isEnabled ? 'Visible' : 'Hidden'}
