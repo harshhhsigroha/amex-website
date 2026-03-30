@@ -73,7 +73,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "AMEX Outsourcing <noreply@firmflow.app>",
+        from: "AMEX Outsourcing <noreply@amexoutsourcing.com>",
         to: ["accounts@amexoutsourcing.com"],
         reply_to: email,
         subject: `Demo Request – ${company}`,
