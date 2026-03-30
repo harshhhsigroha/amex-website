@@ -125,6 +125,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
   };
 
   const canAccessItem = (item: NavItem) => {
+    if (item.adminOnly) return isAdmin;
     if (item.clientOrSuperAdmin) return isClient || isSuperAdmin;
     if (item.clientOnly) return isClient;
     if (item.superAdminOnly) return isSuperAdmin;
