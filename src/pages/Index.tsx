@@ -4,7 +4,7 @@ import { Dashboard } from '@/components/Dashboard';
 import { InvoiceSummary } from '@/components/InvoiceSummary';
 import { TimesheetTable } from '@/components/TimesheetTable';
 import { ClientSelector } from '@/components/ClientSelector';
-
+import { ClientManagement } from '@/components/ClientManagement';
 import { InvoiceHistory } from '@/components/InvoiceHistory';
 import { CandidateMasterUpload } from '@/components/CandidateMasterUpload';
 import { CandidateList } from '@/components/CandidateList';
@@ -76,7 +76,7 @@ const Index = () => {
   const { whiteLabel } = useWhiteLabel(myClientId);
 
   // Data hooks
-  const { clients, isLoading: clientsLoading, addClient, updateClient } = useClients();
+  const { clients, isLoading: clientsLoading, addClient, updateClient, deleteClient } = useClients();
   const { subClients, isLoading: subClientsLoading, addSubClient, updateSubClient } = useSubClients();
   const { invoices, isLoading: invoicesLoading, addInvoice, filters, setFilters, refetch: refetchInvoices, getFinancialYears, getFinancialWeeks } = useInvoices();
   const { effectiveSettings: invoiceSettings } = useInvoiceSettings();
@@ -364,6 +364,11 @@ const Index = () => {
             </div>
           </div>
         );
+
+      case 'clients':
+        return hasPermission('can_manage_clients')
+          ? <ClientManagement clients={clients} isLoading={clientsLoading} onAddClient={addClient} onUpdateClient={updateClient} onDeleteClient={deleteClient} invoices={invoices} />
+          : <RestrictedContent message="You don't have permission to manage clients." />;
 
       case 'candidates':
         return hasPermission('can_manage_candidates') ? (
