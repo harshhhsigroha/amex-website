@@ -12,14 +12,16 @@ export function useClients() {
     const { data, error } = await supabase
       .from('clients')
       .select('*')
-      .is('parent_client_id', null)  // Only top-level AMEX Outsourcing clients, not sub-clients
+      .is('parent_client_id', null)  // Only top-level clients, not sub-clients
       .order('company_name');
 
     if (error) {
       toast.error('Failed to load clients');
       console.error('Error fetching clients:', error);
     } else {
-      setClients(data || []);
+      // Filter out the umbrella company (AMEX Outsourcing) — it's not a client to manage
+      const filtered = (data || []).filter(c => c.id !== 'a0000000-0000-0000-0000-000000000001');
+      setClients(filtered);
     }
     setIsLoading(false);
   }, []);

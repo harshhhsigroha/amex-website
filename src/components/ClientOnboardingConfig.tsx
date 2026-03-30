@@ -11,6 +11,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from '@/components/ui/dialog';
 import { Loader2, Copy, ExternalLink, Link2, QrCode } from 'lucide-react';
 import { toast } from 'sonner';
@@ -92,28 +93,43 @@ function QrCodeModal({
 // ── Main component ────────────────────────────────────────────────────────────
 
 export function ClientOnboardingConfig() {
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [clientId, setClientId] = useState<string | null>(null);
   const [loadingClientId, setLoadingClientId] = useState(true);
   const [qrOpen, setQrOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [allClients, setAllClients] = useState<{ id: string; company_name: string }[]>([]);
 
-  // Resolve client id from logged-in user
+  // For admins: load all clients to pick from. For clients: resolve own client_id.
   useEffect(() => {
     if (!user) return;
-    supabase
-      .from('client_users')
-      .select('client_id')
-      .eq('user_id', user.id)
-      .maybeSingle()
-      .then(({ data }) => {
-        setClientId(data?.client_id ?? null);
-        setLoadingClientId(false);
-      });
-  }, [user]);
+    if (isAdmin) {
+      supabase
+        .from('clients')
+        .select('id, company_name')
+        .is('parent_client_id', null)
+        .neq('id', 'a0000000-0000-0000-0000-000000000001')
+        .order('company_name')
+        .then(({ data }) => {
+          const clients = data || [];
+          setAllClients(clients);
+          if (clients.length > 0) setClientId(clients[0].id);
+          setLoadingClientId(false);
+        });
+    } else {
+      supabase
+        .from('client_users')
+        .select('client_id')
+        .eq('user_id', user.id)
+        .maybeSingle()
+        .then(({ data }) => {
+          setClientId(data?.client_id ?? null);
+          setLoadingClientId(false);
+        });
+    }
+  }, [user, isAdmin]);
 
-  // White-label config — CSS vars already injected globally by AppSidebar's useWhiteLabel.
-  // We read it here additionally to display the logo and brand name in the link card.
+  // White-label config
   const { whiteLabel } = useWhiteLabel(clientId);
 
   const brandName = whiteLabel?.brand_name || 'AMEX Outsourcing';
@@ -139,7 +155,7 @@ export function ClientOnboardingConfig() {
   }
 
   if (!clientId) {
-    return <p className="text-sm text-muted-foreground">Unable to determine your client account.</p>;
+    return <p className="text-sm text-muted-foreground">No clients found. Please add a client first.</p>;
   }
 
   return (
@@ -150,6 +166,23 @@ export function ClientOnboardingConfig() {
           Customise the form candidates fill in when onboarding. Changes apply to both direct registrations and the shared self-service link.
         </p>
       </div>
+
+      {/* Admin client selector */}
+      {isAdmin && allClients.length > 1 && (
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">Client:</span>
+          <Select value={clientId} onValueChange={setClientId}>
+            <SelectTrigger className="w-[260px] h-9 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {allClients.map(c => (
+                <SelectItem key={c.id} value={c.id}>{c.company_name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
 
       {/* Unique shareable link — uses CSS var --primary which is already set to the white-label colour */}
       <Card className="border-primary/20 bg-primary/5">
