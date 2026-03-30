@@ -4,7 +4,7 @@ import { Dashboard } from '@/components/Dashboard';
 import { InvoiceSummary } from '@/components/InvoiceSummary';
 import { TimesheetTable } from '@/components/TimesheetTable';
 import { ClientSelector } from '@/components/ClientSelector';
-
+import { ClientManagement } from '@/components/ClientManagement';
 import { InvoiceHistory } from '@/components/InvoiceHistory';
 import { CandidateMasterUpload } from '@/components/CandidateMasterUpload';
 import { CandidateList } from '@/components/CandidateList';
