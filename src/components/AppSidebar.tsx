@@ -205,6 +205,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
         {renderNavGroup(managementNavItems, 'Management')}
         {renderNavGroup(historyNavItems, 'History')}
         {renderNavGroup(teamNavItems, 'Team')}
+        {renderNavGroup(supportNavItems, 'Support')}
         {renderNavGroup(guideNavItems, 'Help')}
       </SidebarContent>
 
