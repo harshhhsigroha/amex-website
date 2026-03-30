@@ -3,7 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 serve(async (req) => {
@@ -27,7 +27,15 @@ serve(async (req) => {
       });
     }
 
-    // Lookup candidate by name for this client (candidates are global, but we validate client exists)
+    const trimmedName = candidateName.trim();
+    if (trimmedName.length < 2 || trimmedName.length > 100) {
+      return new Response(JSON.stringify({ error: "Name must be between 2 and 100 characters" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Validate client exists
     const { data: client } = await supabaseAdmin
       .from("clients")
       .select("id, company_name")
@@ -35,26 +43,43 @@ serve(async (req) => {
       .maybeSingle();
 
     if (!client) {
-      return new Response(JSON.stringify({ error: "Invalid company" }), {
+      return new Response(JSON.stringify({ error: "Invalid company link" }), {
         status: 404,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Find candidate by name (case-insensitive)
+    // Try to find candidate; if not found, create a placeholder
+    let candidate: { id: string; candidate_name: string; emp_id: string };
+
     const { data: candidates } = await supabaseAdmin
       .from("candidates")
-      .select("*")
-      .ilike("candidate_name", candidateName.trim());
+      .select("id, candidate_name, emp_id")
+      .ilike("candidate_name", trimmedName);
 
-    if (!candidates || candidates.length === 0) {
-      return new Response(JSON.stringify({ error: "Employee not found. Please check your name and try again." }), {
-        status: 404,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+    if (candidates && candidates.length > 0) {
+      candidate = candidates[0];
+    } else {
+      // Auto-create a candidate record for this person
+      const empId = `CLK-${Date.now().toString(36).toUpperCase()}`;
+      const { data: newCandidate, error: createErr } = await supabaseAdmin
+        .from("candidates")
+        .insert({
+          candidate_name: trimmedName,
+          emp_id: empId,
+        })
+        .select("id, candidate_name, emp_id")
+        .single();
+
+      if (createErr || !newCandidate) {
+        console.error("Failed to create candidate:", createErr);
+        return new Response(JSON.stringify({ error: "Failed to register. Please try again." }), {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      candidate = newCandidate;
     }
-
-    const candidate = candidates[0];
 
     // Calculate UK financial week/year
     const now = new Date();
@@ -70,7 +95,6 @@ serve(async (req) => {
     const fyEndYear = fyStartYear + 1;
     const financialYear = `FY ${fyStartYear}–${String(fyEndYear).slice(-2)}`;
     
-    // Calculate week number
     const april6 = new Date(fyStartYear, 3, 6);
     const dayOfWeek = april6.getDay();
     const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -80,7 +104,6 @@ serve(async (req) => {
     const financialWeek = Math.floor(daysSince / 7) + 1;
 
     if (action === "lookup") {
-      // Check if candidate has an active (open) clock-in
       const { data: activeLog } = await supabaseAdmin
         .from("time_logs")
         .select("*")
@@ -110,7 +133,6 @@ serve(async (req) => {
     }
 
     if (action === "clock_in") {
-      // Check for existing active session
       const { data: activeLog } = await supabaseAdmin
         .from("time_logs")
         .select("id")
@@ -166,7 +188,6 @@ serve(async (req) => {
     }
 
     if (action === "clock_out") {
-      // Find active session
       const { data: activeLog } = await supabaseAdmin
         .from("time_logs")
         .select("*")
@@ -184,7 +205,6 @@ serve(async (req) => {
         });
       }
 
-      // Calculate hours
       const clockInTime = new Date(activeLog.clock_in).getTime();
       const clockOutTime = now.getTime();
       const totalHours = Math.round(((clockOutTime - clockInTime) / (1000 * 60 * 60)) * 100) / 100;
