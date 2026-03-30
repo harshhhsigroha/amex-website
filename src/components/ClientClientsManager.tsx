@@ -763,6 +763,20 @@ export function ClientClientsManager() {
         subClients={subClients}
         onSuccess={() => qc.invalidateQueries({ queryKey: ['end_clients', clientId] })}
       />
+      <Dialog open={!!permissionsDialogUser} onOpenChange={v => { if (!v) setPermissionsDialogUser(null); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <ShieldCheck className="h-4 w-4" />Manage Portal Permissions
+            </DialogTitle>
+            <DialogDescription className="text-xs">
+              Configure what {permissionsDialogUser?.full_name || permissionsDialogUser?.email} can view.
+            </DialogDescription>
+          </DialogHeader>
+          {clientId && <PortalPermissionsManager clientId={clientId} />}
+        </DialogContent>
+      </Dialog>
+
       <AssignCompanyDialog
         open={!!assignDialog}
         onOpenChange={v => { if (!v) setAssignDialog(null); }}
