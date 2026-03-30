@@ -90,9 +90,10 @@ export default function AdminPanel() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isPermissionsDialogOpen, setIsPermissionsDialogOpen] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState<AdminUser | null>(null);
-  const [formData, setFormData] = useState({ email: '', role: 'admin' as AppRole });
+  const [formData, setFormData] = useState({ email: '', fullName: '', password: '', role: 'admin' as AppRole });
   const [permissionsData, setPermissionsData] = useState<AdminPermissions>(DEFAULT_PERMISSIONS);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [createdCredentials, setCreatedCredentials] = useState<{ email: string; password: string } | null>(null);
 
   const fetchAdmins = async () => {
     setLoading(true);
