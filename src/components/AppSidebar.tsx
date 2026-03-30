@@ -58,6 +58,7 @@ interface NavItem {
 const mainNavItems: NavItem[] = [
   { title: 'Dashboard', value: 'dashboard', icon: LayoutDashboard, permission: 'can_view_dashboard' },
   { title: 'Timesheets', value: 'timesheets', icon: Clock, adminOnly: true },
+  { title: 'Clock In / Out', value: 'clock', icon: Clock, adminOnly: true },
 ];
 
 const invoiceNavItems: NavItem[] = [
