@@ -196,7 +196,7 @@ function PortalSidebar({
                 <p className="text-xs font-semibold text-foreground truncate">{userEmail}</p>
                 <div className="flex items-center gap-1 mt-0.5">
                   <div className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: primaryColor || '#22c55e' }} />
-                  <p className="text-[10px] text-muted-foreground">End User</p>
+                  <p className="text-[10px] text-muted-foreground">Client</p>
                 </div>
               </div>
             </div>
