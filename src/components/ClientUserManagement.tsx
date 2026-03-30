@@ -27,8 +27,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Users, UserPlus, Trash2, Loader2, Building2, Mail, Key, Eye, EyeOff } from 'lucide-react';
+import { Users, UserPlus, Trash2, Loader2, Building2, Mail, Key, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import { toast } from 'sonner';
+import { PortalPermissionsManager } from '@/components/PortalPermissionsManager';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface ClientUser {
