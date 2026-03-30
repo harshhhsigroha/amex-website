@@ -167,6 +167,23 @@ export function ClientOnboardingConfig() {
         </p>
       </div>
 
+      {/* Admin client selector */}
+      {isAdmin && allClients.length > 1 && (
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-muted-foreground">Client:</span>
+          <Select value={clientId} onValueChange={setClientId}>
+            <SelectTrigger className="w-[260px] h-9 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {allClients.map(c => (
+                <SelectItem key={c.id} value={c.id}>{c.company_name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
+
       {/* Unique shareable link — uses CSS var --primary which is already set to the white-label colour */}
       <Card className="border-primary/20 bg-primary/5">
         <CardContent className="p-4 space-y-3">
