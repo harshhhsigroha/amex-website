@@ -711,7 +711,15 @@ export function ClientClientsManager() {
                         </p>
                         <Button
                           size="icon" variant="ghost"
-                          className="h-8 w-8 text-muted-foreground hover:text-sky-600 opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="h-8 w-8 text-muted-foreground hover:text-primary"
+                          title="Manage portal permissions"
+                          onClick={() => setPermissionsDialogUser(u)}
+                        >
+                          <ShieldCheck className="h-3.5 w-3.5" />
+                        </Button>
+                        <Button
+                          size="icon" variant="ghost"
+                          className="h-8 w-8 text-muted-foreground hover:text-sky-600"
                           title="Link to company"
                           onClick={() => setAssignDialog(u)}
                         >
@@ -719,7 +727,7 @@ export function ClientClientsManager() {
                         </Button>
                         <Button
                           size="icon" variant="ghost"
-                          className="h-8 w-8 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
+                          className="h-8 w-8 text-muted-foreground hover:text-destructive"
                           onClick={() => { if (confirm(`Remove portal access for ${u.email}?`)) removePortalUser.mutate(u.id); }}
                           disabled={removePortalUser.isPending}
                         >
