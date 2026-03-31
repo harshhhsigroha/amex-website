@@ -226,6 +226,7 @@ export default function ClockInOut() {
     setActiveSession(null);
     setCandidateName('');
     setLocation(null);
+    setNotRegistered(false);
   };
 
   if (!clientId) {
