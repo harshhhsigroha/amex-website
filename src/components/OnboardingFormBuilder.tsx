@@ -317,6 +317,11 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
     personal: fields.filter(f => f.section === 'personal'),
     bank: fields.filter(f => f.section === 'bank'),
     documents: fields.filter(f => f.section === 'documents'),
+    agency: fields.filter(f => f.section === 'agency'),
+    p45: fields.filter(f => f.section === 'p45'),
+    eligibility: fields.filter(f => f.section === 'eligibility'),
+    control: fields.filter(f => f.section === 'control'),
+    declaration: fields.filter(f => f.section === 'declaration'),
     custom: fields.filter(f => f.section === 'custom'),
   };
 
@@ -424,7 +429,7 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
               </div>
 
               {/* Fields by section */}
-              <Accordion type="multiple" defaultValue={['personal', 'bank', 'documents', 'custom']}>
+              <Accordion type="multiple" defaultValue={['personal', 'bank', 'documents', 'agency', 'p45', 'eligibility', 'control', 'declaration', 'custom']}>
                 {(Object.entries(fieldsBySection) as [keyof typeof SECTIONS, FormField[]][]).map(([section, sectionFields]) => (
                   sectionFields.length > 0 && (
                     <AccordionItem key={section} value={section}>
