@@ -98,14 +98,48 @@ export default function ClockInOut() {
     setIsLooking(true);
     setCandidate(null);
     setActiveSession(null);
+    setNotRegistered(false);
 
     try {
       const { data, error } = await supabase.functions.invoke('clock-action', {
         body: { action: 'lookup', clientId, candidateName: candidateName.trim() },
       });
 
-      if (error) throw error;
+      if (error) {
+        // Parse the error body for specific messages
+        try {
+          const errBody = JSON.parse(error.message || '{}');
+          if (errBody.error && (errBody.error.includes('not registered') || errBody.error.includes('not found'))) {
+            setNotRegistered(true);
+            return;
+          }
+        } catch {
+          // Not JSON, check the context property
+        }
+        // Check if the edge function returned a structured error via FunctionsHttpError
+        if (error.context && typeof error.context === 'object') {
+          try {
+            const body = await (error.context as Response).json();
+            if (body?.error?.includes('not registered')) {
+              setNotRegistered(true);
+              return;
+            }
+            if (body?.error) {
+              toast.error(body.error);
+              return;
+            }
+          } catch {
+            // Couldn't parse context
+          }
+        }
+        setNotRegistered(true);
+        return;
+      }
       if (data.error) {
+        if (data.error.includes('not registered')) {
+          setNotRegistered(true);
+          return;
+        }
         toast.error(data.error);
         return;
       }
@@ -115,7 +149,7 @@ export default function ClockInOut() {
       setCompanyName(data.companyName || '');
       getLocation();
     } catch {
-      toast.error('Failed to look up. Please try again.');
+      setNotRegistered(true);
     } finally {
       setIsLooking(false);
     }
