@@ -317,6 +317,11 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
     personal: fields.filter(f => f.section === 'personal'),
     bank: fields.filter(f => f.section === 'bank'),
     documents: fields.filter(f => f.section === 'documents'),
+    agency: fields.filter(f => f.section === 'agency'),
+    p45: fields.filter(f => f.section === 'p45'),
+    eligibility: fields.filter(f => f.section === 'eligibility'),
+    control: fields.filter(f => f.section === 'control'),
+    declaration: fields.filter(f => f.section === 'declaration'),
     custom: fields.filter(f => f.section === 'custom'),
   };
 
