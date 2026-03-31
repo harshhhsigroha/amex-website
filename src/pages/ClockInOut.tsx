@@ -29,6 +29,7 @@ interface ActiveSession {
 }
 
 export default function ClockInOut() {
+  const navigate = useNavigate();
   const { clientId } = useParams<{ clientId: string }>();
   const [candidateName, setCandidateName] = useState('');
   const [isLooking, setIsLooking] = useState(false);
@@ -40,6 +41,7 @@ export default function ClockInOut() {
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [notRegistered, setNotRegistered] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
