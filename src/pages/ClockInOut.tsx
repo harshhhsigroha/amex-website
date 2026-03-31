@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
-import { Clock, MapPin, LogIn, LogOut, Loader2, CheckCircle, AlertTriangle, User } from 'lucide-react';
+import { Clock, MapPin, LogIn, LogOut, Loader2, CheckCircle, AlertTriangle, User, UserPlus } from 'lucide-react';
 import { toast } from 'sonner';
 import { Toaster as Sonner } from '@/components/ui/sonner';
 
@@ -29,6 +29,7 @@ interface ActiveSession {
 }
 
 export default function ClockInOut() {
+  const navigate = useNavigate();
   const { clientId } = useParams<{ clientId: string }>();
   const [candidateName, setCandidateName] = useState('');
   const [isLooking, setIsLooking] = useState(false);
@@ -40,6 +41,7 @@ export default function ClockInOut() {
   const [locationLoading, setLocationLoading] = useState(false);
   const [locationError, setLocationError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [notRegistered, setNotRegistered] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -96,14 +98,48 @@ export default function ClockInOut() {
     setIsLooking(true);
     setCandidate(null);
     setActiveSession(null);
+    setNotRegistered(false);
 
     try {
       const { data, error } = await supabase.functions.invoke('clock-action', {
         body: { action: 'lookup', clientId, candidateName: candidateName.trim() },
       });
 
-      if (error) throw error;
+      if (error) {
+        // Parse the error body for specific messages
+        try {
+          const errBody = JSON.parse(error.message || '{}');
+          if (errBody.error && (errBody.error.includes('not registered') || errBody.error.includes('not found'))) {
+            setNotRegistered(true);
+            return;
+          }
+        } catch {
+          // Not JSON, check the context property
+        }
+        // Check if the edge function returned a structured error via FunctionsHttpError
+        if (error.context && typeof error.context === 'object') {
+          try {
+            const body = await (error.context as Response).json();
+            if (body?.error?.includes('not registered')) {
+              setNotRegistered(true);
+              return;
+            }
+            if (body?.error) {
+              toast.error(body.error);
+              return;
+            }
+          } catch {
+            // Couldn't parse context
+          }
+        }
+        setNotRegistered(true);
+        return;
+      }
       if (data.error) {
+        if (data.error.includes('not registered')) {
+          setNotRegistered(true);
+          return;
+        }
         toast.error(data.error);
         return;
       }
@@ -113,7 +149,7 @@ export default function ClockInOut() {
       setCompanyName(data.companyName || '');
       getLocation();
     } catch {
-      toast.error('Failed to look up. Please try again.');
+      setNotRegistered(true);
     } finally {
       setIsLooking(false);
     }
@@ -190,6 +226,7 @@ export default function ClockInOut() {
     setActiveSession(null);
     setCandidateName('');
     setLocation(null);
+    setNotRegistered(false);
   };
 
   if (!clientId) {
@@ -227,7 +264,38 @@ export default function ClockInOut() {
         </div>
 
         <CardContent className="px-6 pb-8 pt-6 space-y-6">
-          {!candidate ? (
+          {notRegistered ? (
+            <div className="space-y-4 text-center">
+              <div className="mx-auto w-14 h-14 bg-destructive/10 rounded-2xl flex items-center justify-center">
+                <UserPlus className="h-7 w-7 text-destructive" />
+              </div>
+              <div>
+                <p className="text-lg font-semibold text-foreground">Not Registered</p>
+                <p className="text-sm text-muted-foreground mt-2">
+                  We couldn't find <span className="font-medium text-foreground">"{candidateName.trim()}"</span> in our system. You need to be registered before you can clock in.
+                </p>
+              </div>
+              <div className="bg-muted/50 rounded-xl p-4 text-left space-y-2">
+                <p className="text-sm font-medium text-foreground">What you can do:</p>
+                <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
+                  <li>Sign up through our onboarding form</li>
+                  <li>Contact your employer to register you</li>
+                </ul>
+              </div>
+              <div className="grid gap-3 pt-2">
+                <Button
+                  onClick={() => navigate(`/onboarding/${clientId}`)}
+                  className="w-full h-12 text-base font-semibold"
+                >
+                  <UserPlus className="h-5 w-5 mr-2" />
+                  Sign Up / Onboard
+                </Button>
+                <Button variant="ghost" onClick={handleReset} className="h-10 text-muted-foreground">
+                  ← Try a different name
+                </Button>
+              </div>
+            </div>
+          ) : !candidate ? (
             <form onSubmit={handleLookup} className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="name" className="text-sm font-medium">Enter your full name</Label>
