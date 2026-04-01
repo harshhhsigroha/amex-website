@@ -344,12 +344,12 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
               <Settings2 className="h-3.5 w-3.5" />Configure Form
             </Button>
           </DialogTrigger>
-          <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
-            <DialogHeader>
+          <DialogContent className="max-w-3xl w-[95vw] max-h-[90vh] flex flex-col overflow-hidden">
+            <DialogHeader className="shrink-0">
               <DialogTitle>Configure {title}</DialogTitle>
               <DialogDescription>{description}</DialogDescription>
             </DialogHeader>
-            <div className="py-4 space-y-6">
+            <div className="flex-1 overflow-y-auto pr-1 space-y-6 py-4">
               <div className="space-y-2">
                 <Label>Form Title</Label>
                 <Input value={formName} onChange={e => setFormName(e.target.value)} placeholder={title} />
