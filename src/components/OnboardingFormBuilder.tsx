@@ -166,15 +166,7 @@ interface FormBuilderProps {
 }
 
 export function SingleFormBuilder({ formType, title, description, defaultFields, onboardingUrl, clientId }: FormBuilderProps) {
-  const [fields, setFields] = useState<FormField[]>(defaultFields);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [isAddFieldOpen, setIsAddFieldOpen] = useState(false);
-  const [formName, setFormName] = useState(title);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [configId, setConfigId] = useState<string | null>(null);
-
-  const [newField, setNewField] = useState<Partial<FormField>>({
+  const getEmptyNewField = (): Partial<FormField> => ({
     label: '',
     type: 'short_answer',
     required: false,
@@ -183,7 +175,20 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
     acceptedFileTypes: '.pdf,.jpg,.png',
     maxFileSize: 5,
   });
+
+  const [fields, setFields] = useState<FormField[]>(defaultFields);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isAddFieldOpen, setIsAddFieldOpen] = useState(false);
+  const [isEditFieldOpen, setIsEditFieldOpen] = useState(false);
+  const [formName, setFormName] = useState(title);
+  const [isSaving, setIsSaving] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [configId, setConfigId] = useState<string | null>(null);
+  const [editingField, setEditingField] = useState<FormField | null>(null);
+
+  const [newField, setNewField] = useState<Partial<FormField>>(getEmptyNewField);
   const [mcqOption, setMcqOption] = useState('');
+  const [editOption, setEditOption] = useState('');
 
   const loadConfig = useCallback(async () => {
     setIsLoading(true);
@@ -230,7 +235,6 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
           fields: JSON.parse(JSON.stringify(fields)),
           form_type: formType,
         };
-        // Include client_id so RLS policy allows clients to save their own config
         if (clientId) insertPayload.client_id = clientId;
         const { data, error } = await supabase
           .from('onboarding_form_config')
@@ -250,24 +254,114 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
     }
   };
 
-  const toggleField = (fieldId: string) => setFields(fields.map(f => f.id === fieldId ? { ...f, enabled: !f.enabled } : f));
-  const toggleRequired = (fieldId: string) => setFields(fields.map(f => f.id === fieldId ? { ...f, required: !f.required } : f));
-  const deleteField = (fieldId: string) => setFields(fields.filter(f => f.id !== fieldId));
+  const toggleField = (fieldId: string) => {
+    setFields(current => current.map(field => field.id === fieldId ? { ...field, enabled: !field.enabled } : field));
+  };
+
+  const toggleRequired = (fieldId: string) => {
+    setFields(current => current.map(field => field.id === fieldId ? { ...field, required: !field.required } : field));
+  };
+
+  const deleteField = (fieldId: string) => {
+    setFields(current => current.filter(field => field.id !== fieldId));
+  };
+
   const addMcqOption = () => {
     if (mcqOption.trim() && newField.options) {
-      setNewField({ ...newField, options: [...newField.options, mcqOption.trim()] });
+      setNewField(current => ({ ...current, options: [...(current.options || []), mcqOption.trim()] }));
       setMcqOption('');
     }
   };
+
   const removeMcqOption = (index: number) => {
-    if (newField.options) setNewField({ ...newField, options: newField.options.filter((_, i) => i !== index) });
+    setNewField(current => ({
+      ...current,
+      options: current.options?.filter((_, optionIndex) => optionIndex !== index) || [],
+    }));
+  };
+
+  const closeEditFieldDialog = () => {
+    setIsEditFieldOpen(false);
+    setEditingField(null);
+    setEditOption('');
+  };
+
+  const openFieldEditor = (field: FormField) => {
+    setEditingField({
+      ...field,
+      options: field.options ? [...field.options] : undefined,
+    });
+    setEditOption('');
+    setIsEditFieldOpen(true);
+  };
+
+  const updateEditingField = (updates: Partial<FormField>) => {
+    setEditingField(current => current ? { ...current, ...updates } : current);
+  };
+
+  const addEditOption = () => {
+    if (!editOption.trim() || !editingField) return;
+
+    updateEditingField({
+      options: [...(editingField.options || []), editOption.trim()],
+    });
+    setEditOption('');
+  };
+
+  const updateEditOption = (index: number, value: string) => {
+    if (!editingField?.options) return;
+
+    const nextOptions = [...editingField.options];
+    nextOptions[index] = value;
+    updateEditingField({ options: nextOptions });
+  };
+
+  const removeEditOption = (index: number) => {
+    if (!editingField?.options) return;
+
+    updateEditingField({
+      options: editingField.options.filter((_, optionIndex) => optionIndex !== index),
+    });
+  };
+
+  const saveEditedField = () => {
+    if (!editingField) return;
+
+    const sanitizedField: FormField = {
+      ...editingField,
+      label: editingField.label.trim(),
+      description: editingField.description?.trim() || undefined,
+      placeholder: editingField.placeholder?.trim() || undefined,
+      acceptedFileTypes: editingField.acceptedFileTypes?.trim() || undefined,
+      options: editingField.options?.map(option => option.trim()).filter(Boolean),
+    };
+
+    if (!sanitizedField.label) {
+      toast.error('Please enter a question label');
+      return;
+    }
+
+    if ((sanitizedField.type === 'mcq' || sanitizedField.type === 'select') && (sanitizedField.options?.length || 0) < 2) {
+      toast.error('Please keep at least 2 options');
+      return;
+    }
+
+    setFields(current => current.map(field => field.id === sanitizedField.id ? sanitizedField : field));
+    toast.success('Question updated');
+    closeEditFieldDialog();
   };
 
   const addCustomField = () => {
-    if (!newField.label?.trim()) { toast.error('Please enter a field label'); return; }
-    if (newField.type === 'mcq' && (!newField.options || newField.options.length < 2)) {
-      toast.error('Please add at least 2 options for multiple choice'); return;
+    if (!newField.label?.trim()) {
+      toast.error('Please enter a field label');
+      return;
     }
+
+    if (newField.type === 'mcq' && (!newField.options || newField.options.length < 2)) {
+      toast.error('Please add at least 2 options for multiple choice');
+      return;
+    }
+
     const field: FormField = {
       id: `custom_${Date.now()}`,
       name: `custom_${newField.label?.toLowerCase().replace(/\s+/g, '_')}`,
@@ -283,15 +377,17 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
       acceptedFileTypes: newField.acceptedFileTypes,
       maxFileSize: newField.maxFileSize,
     };
-    setFields([...fields, field]);
-    setNewField({ label: '', type: 'short_answer', required: false, options: [], description: '', acceptedFileTypes: '.pdf,.jpg,.png', maxFileSize: 5 });
+
+    setFields(current => [...current, field]);
+    setNewField(getEmptyNewField());
+    setMcqOption('');
     setIsAddFieldOpen(false);
     toast.success('Custom field added');
   };
 
-  const enabledCount = fields.filter(f => f.enabled).length;
-  const requiredCount = fields.filter(f => f.required && f.enabled).length;
-  const customCount = fields.filter(f => f.isCustom).length;
+  const enabledCount = fields.filter(field => field.enabled).length;
+  const requiredCount = fields.filter(field => field.required && field.enabled).length;
+  const customCount = fields.filter(field => field.isCustom).length;
 
   const copyLink = () => {
     const url = `${window.location.origin}${onboardingUrl || '/onboarding'}`;
@@ -301,7 +397,10 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
 
   const getFieldTypeIcon = (type: FieldType) => {
     const config = FIELD_TYPE_CONFIG[type as keyof typeof FIELD_TYPE_CONFIG];
-    if (config) { const Icon = config.icon; return <Icon className="h-3.5 w-3.5" />; }
+    if (config) {
+      const Icon = config.icon;
+      return <Icon className="h-3.5 w-3.5" />;
+    }
     return <Type className="h-3.5 w-3.5" />;
   };
 
@@ -314,20 +413,19 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
   }
 
   const fieldsBySection = {
-    personal: fields.filter(f => f.section === 'personal'),
-    bank: fields.filter(f => f.section === 'bank'),
-    documents: fields.filter(f => f.section === 'documents'),
-    agency: fields.filter(f => f.section === 'agency'),
-    p45: fields.filter(f => f.section === 'p45'),
-    eligibility: fields.filter(f => f.section === 'eligibility'),
-    control: fields.filter(f => f.section === 'control'),
-    declaration: fields.filter(f => f.section === 'declaration'),
-    custom: fields.filter(f => f.section === 'custom'),
+    personal: fields.filter(field => field.section === 'personal'),
+    bank: fields.filter(field => field.section === 'bank'),
+    documents: fields.filter(field => field.section === 'documents'),
+    agency: fields.filter(field => field.section === 'agency'),
+    p45: fields.filter(field => field.section === 'p45'),
+    eligibility: fields.filter(field => field.section === 'eligibility'),
+    control: fields.filter(field => field.section === 'control'),
+    declaration: fields.filter(field => field.section === 'declaration'),
+    custom: fields.filter(field => field.section === 'custom'),
   };
 
   return (
     <div className="space-y-4">
-      {/* Header stats */}
       <div className="flex flex-wrap items-center gap-3">
         <Badge variant="outline" className="text-xs">{enabledCount} fields enabled</Badge>
         <Badge variant="outline" className="text-xs">{requiredCount} required</Badge>
@@ -349,132 +447,307 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
               <DialogTitle>Configure {title}</DialogTitle>
               <DialogDescription>{description}</DialogDescription>
             </DialogHeader>
-            <div className="flex-1 overflow-y-auto pr-1 space-y-6 py-4">
-              <div className="space-y-2">
-                <Label>Form Title</Label>
-                <Input value={formName} onChange={e => setFormName(e.target.value)} placeholder={title} />
-              </div>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2 text-sm">
-                  <span className="text-muted-foreground">Quick:</span>
-                  <Button variant="ghost" size="sm" onClick={() => setFields(fields.map(f => ({ ...f, enabled: true })))} className="h-7 text-xs">Enable All</Button>
-                  <Button variant="ghost" size="sm" onClick={() => setFields(fields.map(f => ({ ...f, enabled: f.required })))} className="h-7 text-xs">Required Only</Button>
+
+            <div className="flex-1 overflow-y-auto pr-1 py-4">
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <Label>Form Title</Label>
+                  <Input value={formName} onChange={event => setFormName(event.target.value)} placeholder={title} />
                 </div>
-                <Dialog open={isAddFieldOpen} onOpenChange={setIsAddFieldOpen}>
-                  <DialogTrigger asChild>
-                    <Button size="sm" className="gap-2"><Plus className="h-4 w-4" />Add Custom Field</Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-md">
-                    <DialogHeader>
-                      <DialogTitle>Add Custom Field</DialogTitle>
-                      <DialogDescription>Create a new field for your onboarding form</DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-4 py-4">
-                      <div className="space-y-2">
-                        <Label>Field Type</Label>
-                        <div className="grid grid-cols-2 gap-2">
-                          {(Object.entries(FIELD_TYPE_CONFIG) as [keyof typeof FIELD_TYPE_CONFIG, typeof FIELD_TYPE_CONFIG[keyof typeof FIELD_TYPE_CONFIG]][]).map(([type, config]) => {
-                            const Icon = config.icon;
-                            return (
-                              <div key={type} onClick={() => setNewField({ ...newField, type: type as FieldType, options: type === 'mcq' ? [] : undefined })}
-                                className={`flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors ${newField.type === type ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}>
-                                <Icon className="h-4 w-4 text-primary" />
-                                <div>
-                                  <div className="text-sm font-medium">{config.label}</div>
-                                  <div className="text-xs text-muted-foreground">{config.description}</div>
-                                </div>
+
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex flex-wrap items-center gap-2 text-sm">
+                    <span className="text-muted-foreground">Quick:</span>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setFields(current => current.map(field => ({ ...field, enabled: true })))}
+                      className="h-7 text-xs"
+                    >
+                      Enable All
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => setFields(current => current.map(field => ({ ...field, enabled: field.required })))}
+                      className="h-7 text-xs"
+                    >
+                      Required Only
+                    </Button>
+                  </div>
+
+                  <Dialog open={isAddFieldOpen} onOpenChange={setIsAddFieldOpen}>
+                    <DialogTrigger asChild>
+                      <Button size="sm" className="gap-2"><Plus className="h-4 w-4" />Add Custom Field</Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-lg w-[95vw] max-h-[85vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle>Add Custom Field</DialogTitle>
+                        <DialogDescription>Create a new field for your onboarding form</DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4 py-4">
+                        <div className="space-y-2">
+                          <Label>Field Type</Label>
+                          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                            {(Object.entries(FIELD_TYPE_CONFIG) as [keyof typeof FIELD_TYPE_CONFIG, typeof FIELD_TYPE_CONFIG[keyof typeof FIELD_TYPE_CONFIG]][]).map(([type, config]) => {
+                              const Icon = config.icon;
+                              return (
+                                <button
+                                  key={type}
+                                  type="button"
+                                  onClick={() => setNewField(current => ({ ...current, type: type as FieldType, options: type === 'mcq' ? current.options || [] : undefined }))}
+                                  className={`flex items-center gap-3 rounded-lg border p-3 text-left transition-colors ${newField.type === type ? 'border-primary bg-primary/5' : 'border-border hover:border-primary/50'}`}
+                                >
+                                  <Icon className="h-4 w-4 text-primary" />
+                                  <div>
+                                    <div className="text-sm font-medium">{config.label}</div>
+                                    <div className="text-xs text-muted-foreground">{config.description}</div>
+                                  </div>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Question Label *</Label>
+                          <Input value={newField.label || ''} onChange={event => setNewField(current => ({ ...current, label: event.target.value }))} placeholder="e.g., Emergency Contact" />
+                        </div>
+                        <div className="space-y-2">
+                          <Label>Help Text (optional)</Label>
+                          <Input value={newField.description || ''} onChange={event => setNewField(current => ({ ...current, description: event.target.value }))} placeholder="Help text shown below the field" />
+                        </div>
+                        {(newField.type === 'mcq' || newField.type === 'select') && (
+                          <div className="space-y-2">
+                            <Label>Options *</Label>
+                            <div className="flex gap-2">
+                              <Input value={mcqOption} onChange={event => setMcqOption(event.target.value)} placeholder="Add an option" onKeyDown={event => event.key === 'Enter' && (event.preventDefault(), addMcqOption())} />
+                              <Button type="button" size="sm" onClick={addMcqOption}>Add</Button>
+                            </div>
+                            {newField.options && newField.options.length > 0 && (
+                              <div className="flex flex-wrap gap-2 pt-1">
+                                {newField.options.map((option, index) => (
+                                  <Badge key={`${option}-${index}`} variant="secondary" className="gap-1 pr-1">
+                                    {option}
+                                    <button type="button" onClick={() => removeMcqOption(index)} className="rounded-full p-0.5 hover:bg-muted">
+                                      <X className="h-3 w-3" />
+                                    </button>
+                                  </Badge>
+                                ))}
                               </div>
-                            );
-                          })}
+                            )}
+                          </div>
+                        )}
+                        <div className="flex items-center gap-2">
+                          <Switch id="required" checked={newField.required || false} onCheckedChange={checked => setNewField(current => ({ ...current, required: checked }))} />
+                          <Label htmlFor="required" className="text-sm">Required field</Label>
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <Label>Field Label *</Label>
-                        <Input value={newField.label || ''} onChange={e => setNewField({ ...newField, label: e.target.value })} placeholder="e.g., Emergency Contact" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label>Description (optional)</Label>
-                        <Input value={newField.description || ''} onChange={e => setNewField({ ...newField, description: e.target.value })} placeholder="Help text shown below the field" />
-                      </div>
-                      {newField.type === 'mcq' && (
+                      <DialogFooter>
+                        <Button variant="outline" onClick={() => setIsAddFieldOpen(false)}>Cancel</Button>
+                        <Button onClick={addCustomField}>Add Field</Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
+                </div>
+
+                <Dialog
+                  open={isEditFieldOpen}
+                  onOpenChange={open => {
+                    if (!open) closeEditFieldDialog();
+                    else setIsEditFieldOpen(true);
+                  }}
+                >
+                  <DialogContent className="max-w-xl w-[95vw] max-h-[85vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle>Edit Question</DialogTitle>
+                      <DialogDescription>
+                        Update the text candidates see for this field and adjust its settings.
+                      </DialogDescription>
+                    </DialogHeader>
+
+                    {editingField && (
+                      <div className="space-y-4 py-4">
+                        <div className="rounded-lg border border-border/60 bg-muted/30 p-3 text-xs text-muted-foreground">
+                          <p>Section: <span className="font-medium text-foreground">{SECTIONS[editingField.section].label}</span></p>
+                          <p className="mt-1">You can edit the visible question, help text, placeholder and options here.</p>
+                        </div>
+
                         <div className="space-y-2">
-                          <Label>Options *</Label>
-                          <div className="flex gap-2">
-                            <Input value={mcqOption} onChange={e => setMcqOption(e.target.value)} placeholder="Add an option" onKeyDown={e => e.key === 'Enter' && (e.preventDefault(), addMcqOption())} />
-                            <Button type="button" size="sm" onClick={addMcqOption}>Add</Button>
+                          <Label>Question Label *</Label>
+                          <Input
+                            value={editingField.label}
+                            onChange={event => updateEditingField({ label: event.target.value })}
+                            placeholder="Question label"
+                          />
+                        </div>
+
+                        <div className="space-y-2">
+                          <Label>Help Text</Label>
+                          <Input
+                            value={editingField.description || ''}
+                            onChange={event => updateEditingField({ description: event.target.value })}
+                            placeholder="Optional help text shown under the question"
+                          />
+                        </div>
+
+                        {(editingField.type === 'text' || editingField.type === 'email' || editingField.type === 'tel' || editingField.type === 'date' || editingField.type === 'short_answer' || editingField.type === 'long_answer') && (
+                          <div className="space-y-2">
+                            <Label>Placeholder</Label>
+                            <Input
+                              value={editingField.placeholder || ''}
+                              onChange={event => updateEditingField({ placeholder: event.target.value })}
+                              placeholder="Optional placeholder text"
+                            />
                           </div>
-                          {newField.options && newField.options.length > 0 && (
-                            <div className="flex flex-wrap gap-2 mt-2">
-                              {newField.options.map((opt, i) => (
-                                <Badge key={i} variant="secondary" className="gap-1 pr-1">
-                                  {opt}
-                                  <button onClick={() => removeMcqOption(i)} className="ml-1 hover:bg-muted rounded-full p-0.5"><X className="h-3 w-3" /></button>
-                                </Badge>
+                        )}
+
+                        {(editingField.type === 'mcq' || editingField.type === 'select') && (
+                          <div className="space-y-3">
+                            <Label>Answer Options *</Label>
+                            <div className="space-y-2">
+                              {(editingField.options || []).map((option, index) => (
+                                <div key={`${editingField.id}-option-${index}`} className="flex items-center gap-2">
+                                  <Input
+                                    value={option}
+                                    onChange={event => updateEditOption(index, event.target.value)}
+                                    placeholder={`Option ${index + 1}`}
+                                  />
+                                  <Button type="button" variant="outline" size="sm" onClick={() => removeEditOption(index)}>
+                                    Remove
+                                  </Button>
+                                </div>
                               ))}
                             </div>
-                          )}
+                            <div className="flex items-center gap-2">
+                              <Input
+                                value={editOption}
+                                onChange={event => setEditOption(event.target.value)}
+                                placeholder="Add another option"
+                                onKeyDown={event => event.key === 'Enter' && (event.preventDefault(), addEditOption())}
+                              />
+                              <Button type="button" size="sm" onClick={addEditOption}>Add</Button>
+                            </div>
+                          </div>
+                        )}
+
+                        {editingField.type === 'file_upload' && (
+                          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div className="space-y-2">
+                              <Label>Accepted File Types</Label>
+                              <Input
+                                value={editingField.acceptedFileTypes || ''}
+                                onChange={event => updateEditingField({ acceptedFileTypes: event.target.value })}
+                                placeholder=".pdf,.jpg,.png"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label>Max File Size (MB)</Label>
+                              <Input
+                                type="number"
+                                min="1"
+                                value={editingField.maxFileSize ?? ''}
+                                onChange={event => updateEditingField({ maxFileSize: event.target.value ? Number(event.target.value) : undefined })}
+                                placeholder="5"
+                              />
+                            </div>
+                          </div>
+                        )}
+
+                        <div className="flex flex-wrap items-center gap-4 rounded-lg border border-border/60 p-3">
+                          <div className="flex items-center gap-2">
+                            <Switch
+                              id={`edit-required-${editingField.id}`}
+                              checked={editingField.required}
+                              onCheckedChange={checked => updateEditingField({ required: checked })}
+                            />
+                            <Label htmlFor={`edit-required-${editingField.id}`}>Required</Label>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <Switch
+                              id={`edit-enabled-${editingField.id}`}
+                              checked={editingField.enabled}
+                              onCheckedChange={checked => updateEditingField({ enabled: checked })}
+                            />
+                            <Label htmlFor={`edit-enabled-${editingField.id}`}>Visible on form</Label>
+                          </div>
                         </div>
-                      )}
-                      <div className="flex items-center gap-2">
-                        <Switch id="required" checked={newField.required || false} onCheckedChange={v => setNewField({ ...newField, required: v })} />
-                        <Label htmlFor="required" className="text-sm">Required field</Label>
                       </div>
-                    </div>
+                    )}
+
                     <DialogFooter>
-                      <Button variant="outline" onClick={() => setIsAddFieldOpen(false)}>Cancel</Button>
-                      <Button onClick={addCustomField}>Add Field</Button>
+                      <Button variant="outline" onClick={closeEditFieldDialog}>Cancel</Button>
+                      <Button onClick={saveEditedField}>Save Question</Button>
                     </DialogFooter>
                   </DialogContent>
                 </Dialog>
-              </div>
 
-              {/* Fields by section */}
-              <Accordion type="multiple" defaultValue={['personal', 'bank', 'documents', 'agency', 'p45', 'eligibility', 'control', 'declaration', 'custom']}>
-                {(Object.entries(fieldsBySection) as [keyof typeof SECTIONS, FormField[]][]).map(([section, sectionFields]) => (
-                  sectionFields.length > 0 && (
-                    <AccordionItem key={section} value={section}>
-                      <AccordionTrigger className="text-sm">
-                        <div className="flex items-center gap-2">
-                          <Badge variant="outline" className={`text-xs ${SECTIONS[section].color}`}>{SECTIONS[section].label}</Badge>
-                          <span className="text-xs text-muted-foreground">{sectionFields.filter(f => f.enabled).length}/{sectionFields.length} enabled</span>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="space-y-2">
-                          {sectionFields.map(field => (
-                            <div key={field.id} className={`flex items-start sm:items-center gap-3 p-3 rounded-lg border transition-colors ${field.enabled ? 'border-border bg-background' : 'border-border/40 bg-muted/30 opacity-60'}`}>
-                              <div className="text-muted-foreground mt-0.5 sm:mt-0 shrink-0">{getFieldTypeIcon(field.type)}</div>
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 flex-wrap">
-                                  <span className="text-sm font-medium break-words">{field.label}</span>
-                                  {field.required && field.enabled && <Badge className="text-[10px] h-4 px-1 shrink-0" variant="destructive">required</Badge>}
-                                  {field.isCustom && <Badge variant="outline" className="text-[10px] h-4 px-1 shrink-0">custom</Badge>}
+                <Accordion type="multiple" defaultValue={['personal', 'bank', 'documents', 'agency', 'p45', 'eligibility', 'control', 'declaration', 'custom']}>
+                  {(Object.entries(fieldsBySection) as [keyof typeof SECTIONS, FormField[]][]).map(([section, sectionFields]) => (
+                    sectionFields.length > 0 && (
+                      <AccordionItem key={section} value={section}>
+                        <AccordionTrigger className="text-sm">
+                          <div className="flex items-center gap-2">
+                            <Badge variant="outline" className={`text-xs ${SECTIONS[section].color}`}>{SECTIONS[section].label}</Badge>
+                            <span className="text-xs text-muted-foreground">{sectionFields.filter(field => field.enabled).length}/{sectionFields.length} enabled</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="space-y-2">
+                            {sectionFields.map(field => (
+                              <div key={field.id} className={`flex items-start gap-3 rounded-lg border p-3 transition-colors sm:items-center ${field.enabled ? 'border-border bg-background' : 'border-border/40 bg-muted/30 opacity-60'}`}>
+                                <div className="mt-0.5 shrink-0 text-muted-foreground sm:mt-0">{getFieldTypeIcon(field.type)}</div>
+                                <button
+                                  type="button"
+                                  onClick={() => openFieldEditor(field)}
+                                  className="flex-1 min-w-0 rounded-md text-left outline-none transition-colors hover:bg-muted/40 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                                >
+                                  <div className="flex items-center gap-2 flex-wrap">
+                                    <span className="text-sm font-medium break-words">{field.label}</span>
+                                    {field.required && field.enabled && <Badge className="h-4 px-1 text-[10px]" variant="destructive">required</Badge>}
+                                    {field.isCustom && <Badge variant="outline" className="h-4 px-1 text-[10px]">custom</Badge>}
+                                  </div>
+                                  <p className="text-xs text-muted-foreground">{field.type.replace('_', ' ')}</p>
+                                  <p className="mt-1 text-xs text-muted-foreground">Click this question to edit its wording, help text and options.</p>
+                                </button>
+                                <div className="flex shrink-0 items-center gap-2">
+                                  {field.enabled && (
+                                    <button
+                                      type="button"
+                                      onClick={event => {
+                                        event.stopPropagation();
+                                        toggleRequired(field.id);
+                                      }}
+                                      className={`rounded border px-2 py-0.5 text-xs transition-colors whitespace-nowrap ${field.required ? 'border-destructive/30 bg-destructive/10 text-destructive' : 'border-border text-muted-foreground hover:border-primary/50'}`}
+                                    >
+                                      {field.required ? 'Required' : 'Optional'}
+                                    </button>
+                                  )}
+                                  <Switch checked={field.enabled} onCheckedChange={() => toggleField(field.id)} />
+                                  {field.isCustom && (
+                                    <button
+                                      type="button"
+                                      onClick={event => {
+                                        event.stopPropagation();
+                                        deleteField(field.id);
+                                      }}
+                                      className="p-1 text-destructive transition-colors hover:text-destructive/80"
+                                    >
+                                      <Trash2 className="h-3.5 w-3.5" />
+                                    </button>
+                                  )}
                                 </div>
-                                <p className="text-xs text-muted-foreground">{field.type.replace('_', ' ')}</p>
                               </div>
-                              <div className="flex items-center gap-2 shrink-0">
-                                {field.enabled && (
-                                  <button type="button" onClick={(e) => { e.stopPropagation(); toggleRequired(field.id); }} className={`text-xs px-2 py-0.5 rounded border transition-colors whitespace-nowrap ${field.required ? 'bg-red-500/10 text-red-600 border-red-200' : 'text-muted-foreground border-border hover:border-primary/50'}`}>
-                                    {field.required ? 'Required' : 'Optional'}
-                                  </button>
-                                )}
-                                <Switch checked={field.enabled} onCheckedChange={() => toggleField(field.id)} />
-                                {field.isCustom && (
-                                  <button type="button" onClick={(e) => { e.stopPropagation(); deleteField(field.id); }} className="text-destructive hover:text-destructive/80 p-1">
-                                    <Trash2 className="h-3.5 w-3.5" />
-                                  </button>
-                                )}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
-                  )
-                ))}
-              </Accordion>
+                            ))}
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    )
+                  ))}
+                </Accordion>
+              </div>
             </div>
-            <DialogFooter>
+
+            <DialogFooter className="shrink-0 border-t pt-4">
               <Button variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</Button>
               <Button onClick={saveConfig} disabled={isSaving}>
                 {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
@@ -485,18 +758,17 @@ export function SingleFormBuilder({ formType, title, description, defaultFields,
         </Dialog>
       </div>
 
-      {/* Preview of enabled fields */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-        {fields.filter(f => f.enabled).slice(0, 6).map(f => (
-          <div key={f.id} className="flex items-center gap-1.5 p-2 rounded-md border border-border/50 bg-muted/20 text-xs">
-            {getFieldTypeIcon(f.type)}
-            <span className="truncate">{f.label}</span>
-            {f.required && <span className="text-destructive ml-auto">*</span>}
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+        {fields.filter(field => field.enabled).slice(0, 6).map(field => (
+          <div key={field.id} className="flex items-center gap-1.5 rounded-md border border-border/50 bg-muted/20 p-2 text-xs">
+            {getFieldTypeIcon(field.type)}
+            <span className="truncate">{field.label}</span>
+            {field.required && <span className="ml-auto text-destructive">*</span>}
           </div>
         ))}
-        {fields.filter(f => f.enabled).length > 6 && (
-          <div className="flex items-center justify-center p-2 rounded-md border border-dashed border-border text-xs text-muted-foreground">
-            +{fields.filter(f => f.enabled).length - 6} more
+        {fields.filter(field => field.enabled).length > 6 && (
+          <div className="flex items-center justify-center rounded-md border border-dashed border-border p-2 text-xs text-muted-foreground">
+            +{fields.filter(field => field.enabled).length - 6} more
           </div>
         )}
       </div>
