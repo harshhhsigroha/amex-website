@@ -953,6 +953,12 @@ export default function PortalDashboard() {
               {renderContent()}
             </div>
           </PullToRefresh>
+
+          <footer className="border-t border-border/20 bg-background/50 backdrop-blur-sm">
+            <div className="px-6 py-3 flex items-center justify-center">
+              <p className="text-[11px] text-muted-foreground">Powered by Oak Technologies</p>
+            </div>
+          </footer>
         </SidebarInset>
       </div>
     </SidebarProvider>
