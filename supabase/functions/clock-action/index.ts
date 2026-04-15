@@ -1,5 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { rateLimit, getRateLimitedResponse } from "../_shared/rate-limit.ts";
+import { sanitizeString, isValidUUID } from "../_shared/sanitize.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -12,28 +14,61 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limit: 30 requests per 15 min per IP (clock actions are frequent)
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = rateLimit("clock-action", ip, 30, 15 * 60 * 1000);
+    if (rl.limited) return getRateLimitedResponse(corsHeaders);
+
     const supabaseAdmin = createClient(
       Deno.env.get("SUPABASE_URL")!,
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
       { auth: { autoRefreshToken: false, persistSession: false } }
     );
 
-    const { action, clientId, candidateName, lat, lng, address } = await req.json();
-
-    if (!action || !clientId || !candidateName) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+    let body: Record<string, unknown>;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    const trimmedName = candidateName.trim();
-    if (trimmedName.length < 2 || trimmedName.length > 100) {
+    const { action, clientId, candidateName, lat, lng, address } = body as {
+      action?: string; clientId?: string; candidateName?: string;
+      lat?: number; lng?: number; address?: string;
+    };
+
+    // Validate action
+    if (!action || !["lookup", "clock_in", "clock_out"].includes(String(action))) {
+      return new Response(JSON.stringify({ error: "Invalid action" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Validate clientId is a UUID
+    if (!clientId || !isValidUUID(clientId)) {
+      return new Response(JSON.stringify({ error: "Invalid company link" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Sanitize and validate candidate name
+    const trimmedName = sanitizeString(candidateName, 100);
+    if (!trimmedName || trimmedName.length < 2) {
       return new Response(JSON.stringify({ error: "Name must be between 2 and 100 characters" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+
+    // Sanitize optional fields
+    const safeAddress = address ? sanitizeString(address, 500) : null;
+    const safeLat = typeof lat === "number" && lat >= -90 && lat <= 90 ? lat : null;
+    const safeLng = typeof lng === "number" && lng >= -180 && lng <= 180 ? lng : null;
 
     // Validate client exists
     const { data: client } = await supabaseAdmin
@@ -49,17 +84,15 @@ serve(async (req) => {
       });
     }
 
-    // Find candidate by name — must already be registered
+    // Find candidate by name
     const { data: candidates } = await supabaseAdmin
       .from("candidates")
       .select("id, candidate_name, emp_id")
       .ilike("candidate_name", trimmedName);
 
     if (!candidates || candidates.length === 0) {
-      // Check for partial matches to suggest full name
       const nameParts = trimmedName.split(/\s+/);
       if (nameParts.length === 1) {
-        // Single name entered — check if there are candidates with this as first/last name
         const { data: partialMatches } = await supabaseAdmin
           .from("candidates")
           .select("candidate_name")
@@ -67,8 +100,8 @@ serve(async (req) => {
 
         if (partialMatches && partialMatches.length > 0) {
           const suggestions = partialMatches.slice(0, 3).map(m => m.candidate_name).join(", ");
-          return new Response(JSON.stringify({ 
-            error: `Multiple candidates found. Please enter your full name. Did you mean: ${suggestions}?` 
+          return new Response(JSON.stringify({
+            error: `Multiple candidates found. Please enter your full name. Did you mean: ${suggestions}?`
           }), {
             status: 400,
             headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -76,8 +109,9 @@ serve(async (req) => {
         }
       }
 
-      return new Response(JSON.stringify({ 
-        error: "You are not registered as a candidate. Please contact your employer to register before clocking in." 
+      return new Response(JSON.stringify({
+        error: "You are not registered as a candidate. Please complete the onboarding form to register before clocking in.",
+        notRegistered: true,
       }), {
         status: 404,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -86,8 +120,8 @@ serve(async (req) => {
 
     if (candidates.length > 1) {
       const names = candidates.map(c => c.candidate_name).join(", ");
-      return new Response(JSON.stringify({ 
-        error: `Multiple candidates found matching "${trimmedName}". Please enter your full name to identify yourself. Matches: ${names}` 
+      return new Response(JSON.stringify({
+        error: `Multiple candidates found matching "${trimmedName}". Please enter your full name. Matches: ${names}`
       }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -109,7 +143,7 @@ serve(async (req) => {
     }
     const fyEndYear = fyStartYear + 1;
     const financialYear = `FY ${fyStartYear}–${String(fyEndYear).slice(-2)}`;
-    
+
     const april6 = new Date(fyStartYear, 3, 6);
     const dayOfWeek = april6.getDay();
     const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
@@ -173,9 +207,9 @@ serve(async (req) => {
           candidate_name: candidate.candidate_name,
           emp_id: candidate.emp_id,
           clock_in: now.toISOString(),
-          clock_in_lat: lat || null,
-          clock_in_lng: lng || null,
-          clock_in_address: address || null,
+          clock_in_lat: safeLat,
+          clock_in_lng: safeLng,
+          clock_in_address: safeAddress,
           log_date: today,
           financial_week: financialWeek,
           financial_year: financialYear,
@@ -228,9 +262,9 @@ serve(async (req) => {
         .from("time_logs")
         .update({
           clock_out: now.toISOString(),
-          clock_out_lat: lat || null,
-          clock_out_lng: lng || null,
-          clock_out_address: address || null,
+          clock_out_lat: safeLat,
+          clock_out_lng: safeLng,
+          clock_out_address: safeAddress,
           total_hours: totalHours,
         })
         .eq("id", activeLog.id);
@@ -250,7 +284,7 @@ serve(async (req) => {
         clockIn: activeLog.clock_in,
         clockOut: now.toISOString(),
         totalHours,
-        address,
+        address: safeAddress,
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });

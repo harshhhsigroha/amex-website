@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { decode } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
+import { rateLimit, getRateLimitedResponse } from "../_shared/rate-limit.ts";
+import { sanitizeString, isValidUUID, validatePassword } from "../_shared/sanitize.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -13,6 +15,11 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limit: 10 per 15 min per IP
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = rateLimit("update-client-password", ip, 10, 15 * 60 * 1000);
+    if (rl.limited) return getRateLimitedResponse(corsHeaders);
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
@@ -46,16 +53,13 @@ serve(async (req) => {
       });
     }
 
-    // Allow both super_admin and admin roles (and client users for their own portal users)
+    // Validate caller
     const { data: roleData } = await supabaseAdmin
       .from("user_roles").select("role").eq("user_id", callerId).maybeSingle();
-
     const isAdmin = roleData && ["super_admin", "admin"].includes(roleData.role);
 
-    // Also check if caller is a client user (ops portal)
     const { data: clientUserData } = await supabaseAdmin
       .from("client_users").select("client_id").eq("user_id", callerId).maybeSingle();
-
     const isClientUser = !!clientUserData;
 
     if (!isAdmin && !isClientUser) {
@@ -64,11 +68,20 @@ serve(async (req) => {
       });
     }
 
-    const body = await req.json();
-    const { userId, newPassword, fullName, action = "password" } = body;
+    let body: Record<string, unknown>;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
-    if (!userId) {
-      return new Response(JSON.stringify({ error: "Missing userId" }), {
+    const targetUserId = String(body.userId || "");
+    const action = String(body.action || "password");
+
+    if (!isValidUUID(targetUserId)) {
+      return new Response(JSON.stringify({ error: "Invalid userId" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
@@ -76,9 +89,9 @@ serve(async (req) => {
     // If client user, verify target user belongs to their client
     if (isClientUser && !isAdmin) {
       const { data: targetPortalUser } = await supabaseAdmin
-        .from("portal_users").select("client_id").eq("user_id", userId).maybeSingle();
+        .from("portal_users").select("client_id").eq("user_id", targetUserId).maybeSingle();
       const { data: targetClientUser } = await supabaseAdmin
-        .from("client_users").select("client_id").eq("user_id", userId).maybeSingle();
+        .from("client_users").select("client_id").eq("user_id", targetUserId).maybeSingle();
 
       const targetClientId = targetPortalUser?.client_id || targetClientUser?.client_id;
       if (!targetClientId || targetClientId !== clientUserData.client_id) {
@@ -89,14 +102,13 @@ serve(async (req) => {
     }
 
     if (action === "update_info") {
-      // Update profile name
-      if (fullName) {
+      const fullName = sanitizeString(body.fullName, 200);
+      if (fullName && fullName.length >= 2) {
         const { error: profileError } = await supabaseAdmin
-          .from("profiles").update({ full_name: fullName }).eq("id", userId);
+          .from("profiles").update({ full_name: fullName }).eq("id", targetUserId);
         if (profileError) throw profileError;
 
-        // Also update auth metadata
-        await supabaseAdmin.auth.admin.updateUserById(userId, {
+        await supabaseAdmin.auth.admin.updateUserById(targetUserId, {
           user_metadata: { full_name: fullName }
         });
       }
@@ -106,20 +118,15 @@ serve(async (req) => {
     }
 
     // Default: password update
-    if (!newPassword) {
-      return new Response(JSON.stringify({ error: "Missing newPassword" }), {
+    const passwordCheck = validatePassword(body.newPassword);
+    if (!passwordCheck.valid) {
+      return new Response(JSON.stringify({ error: passwordCheck.error }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    if (newPassword.length < 8) {
-      return new Response(JSON.stringify({ error: "Password must be at least 8 characters" }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(userId, {
-      password: newPassword
+    const { error: updateError } = await supabaseAdmin.auth.admin.updateUserById(targetUserId, {
+      password: body.newPassword as string
     });
 
     if (updateError) {

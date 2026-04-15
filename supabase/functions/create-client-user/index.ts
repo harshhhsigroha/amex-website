@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { decode } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
+import { rateLimit, getRateLimitedResponse } from "../_shared/rate-limit.ts";
+import { sanitizeString, sanitizeEmail, isValidUUID } from "../_shared/sanitize.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -13,6 +15,11 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limit: 10 per 15 min per IP
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = rateLimit("create-client-user", ip, 10, 15 * 60 * 1000);
+    if (rl.limited) return getRateLimitedResponse(corsHeaders);
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
@@ -68,16 +75,54 @@ serve(async (req) => {
       });
     }
 
-    const { email, password, fullName, clientId, userType = 'client', subClientId = null } = await req.json();
+    let body: Record<string, unknown>;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
-    if (!email || !password || !fullName || !clientId) {
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
+    const email = sanitizeEmail(body.email);
+    const password = typeof body.password === "string" ? body.password : "";
+    const fullName = sanitizeString(body.fullName, 200);
+    const clientId = String(body.clientId || "");
+    const userType = String(body.userType || "client");
+    const subClientId = body.subClientId ? String(body.subClientId) : null;
+
+    if (!email) {
+      return new Response(JSON.stringify({ error: "Invalid email address" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (!password || password.length < 8) {
+      return new Response(JSON.stringify({ error: "Password must be at least 8 characters" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (!fullName || fullName.length < 2) {
+      return new Response(JSON.stringify({ error: "Full name is required" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (!isValidUUID(clientId)) {
+      return new Response(JSON.stringify({ error: "Invalid client ID" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
     if (!['client', 'portal'].includes(userType)) {
       return new Response(JSON.stringify({ error: "Invalid userType" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    if (subClientId && !isValidUUID(subClientId)) {
+      return new Response(JSON.stringify({ error: "Invalid sub-client ID" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
@@ -108,34 +153,20 @@ serve(async (req) => {
     });
 
     if (createError) {
-      // If user already exists, look them up and link instead
       const errMsg = createError.message || "";
       const errCode = (createError as any).code || "";
       const isExisting = errMsg.includes("already") || errCode === "email_exists" || (createError as any).status === 422;
-      
+
       if (isExisting) {
-        // Use listUsers with email filter for reliable lookup
-        const { data: listData, error: listError } = await supabaseAdmin.auth.admin.listUsers({ 
-          page: 1, 
-          perPage: 1 
-        });
-        
-        // Find user by iterating (listUsers doesn't filter by email in all versions)
-        let existingUser = listData?.users?.find(u => u.email === email);
-        
-        // If not found in first page, try fetching more pages
-        if (!existingUser) {
-          const { data: allUsers } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
-          existingUser = allUsers?.users?.find(u => u.email === email);
-        }
-        
+        const { data: allUsers } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1000 });
+        const existingUser = allUsers?.users?.find(u => u.email === email);
+
         if (!existingUser) {
           return new Response(JSON.stringify({ error: "User exists but could not be found. Try a different email." }), {
             status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
           });
         }
 
-        // Check if already linked to this client in the target table
         const table = userType === 'portal' ? 'portal_users' : 'client_users';
         const { data: existingLink } = await supabaseAdmin
           .from(table).select("id").eq("user_id", existingUser.id).eq("client_id", clientId).maybeSingle();
@@ -173,7 +204,6 @@ serve(async (req) => {
 
     if (linkError) {
       console.error("Error linking user:", linkError);
-      // Only delete the user if we just created them (not existing)
       if (!createError) {
         await supabaseAdmin.auth.admin.deleteUser(targetUserId);
       }
@@ -182,7 +212,6 @@ serve(async (req) => {
       });
     }
 
-    // Ensure profile exists
     await supabaseAdmin.from("profiles").upsert({
       id: targetUserId,
       email: targetEmail,
