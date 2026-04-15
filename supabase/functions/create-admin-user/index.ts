@@ -1,6 +1,8 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { decode } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
+import { rateLimit, getRateLimitedResponse } from "../_shared/rate-limit.ts";
+import { sanitizeString, sanitizeEmail, validatePassword } from "../_shared/sanitize.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -13,6 +15,11 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limit: 10 per 15 min per IP
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    const rl = rateLimit("create-admin-user", ip, 10, 15 * 60 * 1000);
+    if (rl.limited) return getRateLimitedResponse(corsHeaders);
+
     const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
     const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
 
@@ -58,7 +65,7 @@ serve(async (req) => {
     // CRITICAL: Only super_admin can create admin users
     const { data: roleData } = await supabaseAdmin
       .from("user_roles").select("role").eq("user_id", callerId).maybeSingle();
-    
+
     if (!roleData || roleData.role !== "super_admin") {
       return new Response(JSON.stringify({ error: "Only Super Admins can create admin users" }), {
         status: 403, headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -66,37 +73,39 @@ serve(async (req) => {
     }
 
     // Parse and validate input
-    const { email, password, fullName, role } = await req.json();
+    let body: Record<string, unknown>;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
-    if (!email || typeof email !== 'string' || !email.includes('@')) {
+    const email = sanitizeEmail(body.email);
+    if (!email) {
       return new Response(JSON.stringify({ error: "Invalid email address" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    if (!password || typeof password !== 'string' || password.length < 8) {
-      return new Response(JSON.stringify({ error: "Password must be at least 8 characters" }), {
+    const passwordCheck = validatePassword(body.password);
+    if (!passwordCheck.valid) {
+      return new Response(JSON.stringify({ error: passwordCheck.error }), {
+        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const password = body.password as string;
+
+    const fullName = sanitizeString(body.fullName, 200);
+    if (!fullName || fullName.length < 2) {
+      return new Response(JSON.stringify({ error: "Full name is required (at least 2 characters)" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Validate password strength
-    const hasUppercase = /[A-Z]/.test(password);
-    const hasLowercase = /[a-z]/.test(password);
-    const hasNumber = /[0-9]/.test(password);
-    if (!hasUppercase || !hasLowercase || !hasNumber) {
-      return new Response(JSON.stringify({ error: "Password must contain uppercase, lowercase, and a number" }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    if (!fullName || typeof fullName !== 'string' || fullName.trim().length < 2) {
-      return new Response(JSON.stringify({ error: "Full name is required" }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
-
-    if (!role || !['admin', 'super_admin'].includes(role)) {
+    const role = String(body.role || "");
+    if (!['admin', 'super_admin'].includes(role)) {
       return new Response(JSON.stringify({ error: "Invalid role. Must be 'admin' or 'super_admin'" }), {
         status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
@@ -104,20 +113,18 @@ serve(async (req) => {
 
     // Check if user already exists
     const { data: existingProfile } = await supabaseAdmin
-      .from("profiles").select("id").eq("email", email.toLowerCase()).maybeSingle();
+      .from("profiles").select("id").eq("email", email).maybeSingle();
 
     if (existingProfile) {
-      // User exists — check if they already have a role
       const { data: existingRole } = await supabaseAdmin
         .from("user_roles").select("id").eq("user_id", existingProfile.id).maybeSingle();
-      
+
       if (existingRole) {
         return new Response(JSON.stringify({ error: "This user already has an admin role" }), {
           status: 409, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
 
-      // User exists but no role — add role
       const { error: roleError } = await supabaseAdmin
         .from("user_roles").insert({ user_id: existingProfile.id, role });
 
@@ -135,10 +142,10 @@ serve(async (req) => {
 
     // Create new user
     const { data: newUser, error: createError } = await supabaseAdmin.auth.admin.createUser({
-      email: email.toLowerCase(),
+      email,
       password,
       email_confirm: true,
-      user_metadata: { full_name: fullName.trim() },
+      user_metadata: { full_name: fullName },
     });
 
     if (createError || !newUser.user) {
@@ -150,36 +157,31 @@ serve(async (req) => {
 
     const newUserId = newUser.user.id;
 
-    // Create profile
     const { error: profileError } = await supabaseAdmin.from("profiles").upsert({
       id: newUserId,
-      email: email.toLowerCase(),
-      full_name: fullName.trim(),
+      email,
+      full_name: fullName,
     }, { onConflict: "id" });
 
     if (profileError) {
       console.error("Error creating profile:", profileError);
-      // Cleanup: delete the created user
       await supabaseAdmin.auth.admin.deleteUser(newUserId);
       return new Response(JSON.stringify({ error: "Failed to create profile" }), {
         status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Assign role
     const { error: roleError } = await supabaseAdmin
       .from("user_roles").insert({ user_id: newUserId, role });
 
     if (roleError) {
       console.error("Error assigning role:", roleError);
-      // Cleanup
       await supabaseAdmin.auth.admin.deleteUser(newUserId);
       return new Response(JSON.stringify({ error: "Failed to assign role" }), {
         status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Create default permissions for admin (not super_admin)
     if (role === 'admin') {
       await supabaseAdmin.from("admin_permissions").insert({
         user_id: newUserId,
@@ -195,7 +197,7 @@ serve(async (req) => {
     console.log(`Successfully created admin user: ${email} with role: ${role}`);
 
     return new Response(
-      JSON.stringify({ success: true, userId: newUserId, email: email.toLowerCase(), existingUser: false }),
+      JSON.stringify({ success: true, userId: newUserId, email, existingUser: false }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error) {
