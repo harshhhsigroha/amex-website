@@ -6,7 +6,7 @@ import {
   FileText, BarChart3, Headphones, MapPin, Phone, Mail,
   ChevronRight, ChevronDown, Building2, Scale, Briefcase, ClipboardCheck,
   Shield, Star, TrendingUp, Sparkles, Factory, Truck, Utensils,
-  Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart,
+  Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart, UserCircle2,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
