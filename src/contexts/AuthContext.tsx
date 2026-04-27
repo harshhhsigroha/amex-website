@@ -17,6 +17,8 @@ interface AuthContextType {
   isAdmin: boolean;
   isClient: boolean;
   isPortalUser: boolean;
+  isCandidate: boolean;
+  candidateId: string | null;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signUp: (email: string, password: string, fullName: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
@@ -52,6 +54,15 @@ async function checkIfPortalUser(userId: string) {
   return !!data;
 }
 
+async function checkIfCandidate(userId: string) {
+  const { data } = await supabase
+    .from('candidate_users')
+    .select('candidate_id')
+    .eq('user_id', userId)
+    .maybeSingle();
+  return data?.candidate_id ?? null;
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
@@ -61,18 +72,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [role, setRole] = useState<AppRole | null>(null);
   const [isClientUser, setIsClientUser] = useState(false);
   const [isPortalUserState, setIsPortalUserState] = useState(false);
+  const [candidateIdState, setCandidateIdState] = useState<string | null>(null);
 
-  /** Resolve all three identity checks in parallel, then mark ready */
+  /** Resolve all identity checks in parallel, then mark ready */
   const resolveIdentity = async (userId: string) => {
     setIdentityReady(false);
-    const [userRole, clientStatus, portalStatus] = await Promise.all([
+    const [userRole, clientStatus, portalStatus, candidateLink] = await Promise.all([
       fetchUserRole(userId),
       checkIfClient(userId),
       checkIfPortalUser(userId),
+      checkIfCandidate(userId),
     ]);
     setRole(userRole);
     setIsClientUser(clientStatus);
     setIsPortalUserState(portalStatus);
+    setCandidateIdState(candidateLink);
     setIdentityReady(true);
   };
 
@@ -80,7 +94,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setRole(null);
     setIsClientUser(false);
     setIsPortalUserState(false);
-    setIdentityReady(true); // ready = yes, we know they have no identity
+    setCandidateIdState(null);
+    setIdentityReady(true);
   };
 
   const refreshRole = async () => {
@@ -156,6 +171,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     isAdmin: role === 'super_admin' || role === 'admin',
     isClient: isClientUser,
     isPortalUser: isPortalUserState,
+    isCandidate: candidateIdState !== null,
+    candidateId: candidateIdState,
     signIn,
     signUp,
     signOut,
