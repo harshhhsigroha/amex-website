@@ -18,7 +18,7 @@ const loginSchema = z.object({
 
 export default function PortalAuth() {
   const navigate = useNavigate();
-  const { user, loading, identityReady, signIn, isPortalUser, isClient, isAdmin, isRecovery, signOut } = useAuth();
+  const { user, loading, identityReady, signIn, isPortalUser, isClient, isAdmin, isCandidate, isRecovery, signOut } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -29,18 +29,18 @@ export default function PortalAuth() {
   useEffect(() => {
     if (isRecovery) return;
     if (!loading && identityReady && user) {
-      if (isClient) {
-        // Client users log in here and go to the client dashboard
+      if (isCandidate) {
+        navigate('/candidate');
+      } else if (isClient) {
         navigate('/client');
       } else if (isPortalUser) {
         navigate('/client');
       } else if (isAdmin) {
-        // Admins don't belong here — redirect them
         toast({ variant: 'destructive', title: 'Access Denied', description: 'Admin users should use the Admin Portal.' });
         signOut();
       }
     }
-  }, [user, loading, identityReady, isPortalUser, isClient, isAdmin, isRecovery, navigate]);
+  }, [user, loading, identityReady, isPortalUser, isClient, isAdmin, isCandidate, isRecovery, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
