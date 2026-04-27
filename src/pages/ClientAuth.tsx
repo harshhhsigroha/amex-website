@@ -17,7 +17,7 @@ const loginSchema = z.object({
 
 export default function ClientAuth() {
   const navigate = useNavigate();
-  const { user, loading, identityReady, signIn, isClient, isAdmin, isPortalUser, isRecovery, signOut } = useAuth();
+  const { user, loading, identityReady, signIn, isClient, isAdmin, isPortalUser, isCandidate, isRecovery, signOut } = useAuth();
   const { toast } = useToast();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -30,13 +30,15 @@ export default function ClientAuth() {
     if (user && !loading && identityReady) {
       if (isAdmin) {
         navigate('/dashboard');
+      } else if (isCandidate) {
+        navigate('/candidate');
       } else if (isClient || isPortalUser) {
         // Clients and portal users don't belong here — redirect or block
         toast({ variant: 'destructive', title: 'Access Denied', description: 'This portal is for the AMEX admin team only. Please use the Client Portal.' });
         signOut();
       }
     }
-  }, [user, loading, identityReady, isClient, isAdmin, isPortalUser, isRecovery, navigate]);
+  }, [user, loading, identityReady, isClient, isAdmin, isPortalUser, isCandidate, isRecovery, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();

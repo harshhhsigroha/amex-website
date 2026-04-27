@@ -8,6 +8,8 @@ import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import ClientAuth from "./pages/ClientAuth";
 import PortalAuth from "./pages/PortalAuth";
+import CandidateAuth from "./pages/CandidateAuth";
+import CandidateDashboard from "./pages/CandidateDashboard";
 
 import PortalDashboard from "./pages/PortalDashboard";
 import ResetPassword from "./pages/ResetPassword";
@@ -45,6 +47,8 @@ const App = () => (
             <Route path="/auth/admin" element={<ClientAuth />} />
             <Route path="/auth/client" element={<PortalAuth />} />
             <Route path="/auth/portal" element={<PortalAuth />} />
+            <Route path="/auth/candidate" element={<CandidateAuth />} />
+            <Route path="/candidate" element={<CandidateDashboard />} />
             <Route path="/auth" element={<PortalAuth />} />
             <Route path="/auth/reset-password" element={<ResetPassword />} />
             <Route path="/clock/:clientId" element={<ClockInOut />} />

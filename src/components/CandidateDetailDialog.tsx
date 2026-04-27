@@ -21,8 +21,10 @@ import {
   Loader2,
   CheckCircle,
   XCircle,
+  KeyRound,
 } from 'lucide-react';
 import jsPDF from 'jspdf';
+import { CreateCandidateLoginDialog } from './CreateCandidateLoginDialog';
 
 interface CandidateDetailDialogProps {
   candidate: Candidate | null;
@@ -65,6 +67,7 @@ export function CandidateDetailDialog({ candidate, open, onOpenChange }: Candida
   const [formFields, setFormFields] = useState<FormField[]>(DEFAULT_FIELDS);
   const [isLoadingConfig, setIsLoadingConfig] = useState(true);
   const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [showLoginDialog, setShowLoginDialog] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -212,20 +215,31 @@ export function CandidateDetailDialog({ candidate, open, onOpenChange }: Candida
                 EMP ID: <span className="font-mono">{candidate.emp_id}</span> • Registered: {new Date(candidate.created_at).toLocaleDateString('en-GB')}
               </p>
             </div>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={generatePdf}
-              disabled={isGeneratingPdf}
-              className="gap-2"
-            >
-              {isGeneratingPdf ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
-              ) : (
-                <Download className="h-4 w-4" />
-              )}
-              Download PDF
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowLoginDialog(true)}
+                className="gap-2"
+              >
+                <KeyRound className="h-4 w-4" />
+                Candidate Login
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={generatePdf}
+                disabled={isGeneratingPdf}
+                className="gap-2"
+              >
+                {isGeneratingPdf ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Download className="h-4 w-4" />
+                )}
+                Download PDF
+              </Button>
+            </div>
           </div>
         </DialogHeader>
 
@@ -282,6 +296,14 @@ export function CandidateDetailDialog({ candidate, open, onOpenChange }: Candida
           )}
         </ScrollArea>
       </DialogContent>
+
+      <CreateCandidateLoginDialog
+        open={showLoginDialog}
+        onOpenChange={setShowLoginDialog}
+        candidateId={candidate.id}
+        candidateName={candidate.candidate_name}
+        candidateEmail={candidate.email}
+      />
     </Dialog>
   );
 }

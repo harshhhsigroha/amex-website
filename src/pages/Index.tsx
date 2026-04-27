@@ -61,7 +61,7 @@ const generateInvoiceNumber = () => {
 
 const Index = () => {
   const navigate = useNavigate();
-  const { user, loading, identityReady, isAdmin, isSuperAdmin, isClient } = useAuth();
+  const { user, loading, identityReady, isAdmin, isSuperAdmin, isClient, isCandidate } = useAuth();
   const { hasPermission, loading: permissionsLoading } = useAdminPermissions();
   
   // Invoice state
@@ -118,10 +118,11 @@ const Index = () => {
   useEffect(() => {
     if (!loading && identityReady) {
       if (!user) navigate('/auth/admin');
+      else if (isCandidate && !isAdmin) navigate('/candidate');
       else if (isClient && !isAdmin) navigate('/client');
       else if (!isAdmin) navigate('/auth/admin');
     }
-  }, [user, loading, identityReady, isAdmin, isClient, navigate]);
+  }, [user, loading, identityReady, isAdmin, isClient, isCandidate, navigate]);
 
   // Handlers
   const handleFileSelect = useCallback(async (file: File) => {

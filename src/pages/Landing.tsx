@@ -6,7 +6,7 @@ import {
   FileText, BarChart3, Headphones, MapPin, Phone, Mail,
   ChevronRight, ChevronDown, Building2, Scale, Briefcase, ClipboardCheck,
   Shield, Star, TrendingUp, Sparkles, Factory, Truck, Utensils,
-  Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart,
+  Hammer, HeartPulse, GraduationCap, Landmark, ShoppingCart, UserCircle2,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
@@ -301,6 +301,7 @@ export default function Landing() {
               {[
                 { label: 'Admin Portal', route: '/auth/admin' },
                 { label: 'Client Portal', route: '/auth/client' },
+                { label: 'Candidate Portal', route: '/auth/candidate' },
               ].map((item, i) => (
                 <motion.button key={item.label} initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 + i * 0.05 }}
@@ -845,6 +846,10 @@ export default function Landing() {
                 <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
                   className="w-full justify-start gap-2 rounded-xl text-sm">
                   <Users className="w-4 h-4 text-primary" /> Client Portal
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => navigate('/auth/candidate')}
+                  className="w-full justify-start gap-2 rounded-xl text-sm">
+                  <UserCircle2 className="w-4 h-4 text-primary" /> Candidate Portal
                 </Button>
               </div>
               <div className="mt-5 space-y-1.5">

@@ -128,6 +128,30 @@ export type Database = {
         }
         Relationships: []
       }
+      candidate_users: {
+        Row: {
+          candidate_id: string
+          created_at: string
+          emp_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          candidate_id: string
+          created_at?: string
+          emp_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          candidate_id?: string
+          created_at?: string
+          emp_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       candidates: {
         Row: {
           account_number: string | null
@@ -1251,6 +1275,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      get_candidate_emp_id: { Args: { _user_id: string }; Returns: string }
+      get_candidate_id: { Args: { _user_id: string }; Returns: string }
       get_client_id: { Args: { _user_id: string }; Returns: string }
       get_portal_client_id: { Args: { _user_id: string }; Returns: string }
       has_permission: {
@@ -1265,6 +1291,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      is_candidate: { Args: { _user_id: string }; Returns: boolean }
       is_client: { Args: { _user_id: string }; Returns: boolean }
       is_portal_user: { Args: { _user_id: string }; Returns: boolean }
     }
