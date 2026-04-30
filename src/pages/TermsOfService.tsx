@@ -98,7 +98,7 @@ const TermsOfService = () => {
             <p>For questions regarding these Terms, please contact:</p>
             <div className="mt-3 p-4 rounded-lg bg-muted/50 border border-border/50">
               <p className="text-foreground font-medium">AMEX Outsourcing Ltd</p>
-              <p>Email: legal@amexoutsourcing.co.uk</p>
+              <p>Email: hello@amexoutsourcing.com</p>
               <p>Address: United Kingdom</p>
             </div>
           </section>
