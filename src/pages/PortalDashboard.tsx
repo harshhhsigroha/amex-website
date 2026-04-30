@@ -76,8 +76,8 @@ interface SupportMessage {
 
 const allNavItems = [
   { id: 'dashboard', label: 'Dashboard', icon: BarChart3, group: 'Workspace', permKey: 'can_view_dashboard' as const },
-  { id: 'invoices',  label: 'Invoices',  icon: FileText,  group: 'Workspace', permKey: 'can_view_invoices' as const },
-  { id: 'contractors', label: 'Contractors', icon: Users, group: 'Workspace', permKey: 'can_view_contractors' as const },
+  { id: 'invoices',  label: 'Payslips',  icon: FileText,  group: 'Workspace', permKey: 'can_view_invoices' as const },
+  { id: 'contractors', label: 'Candidates', icon: Users, group: 'Workspace', permKey: 'can_view_contractors' as const },
   { id: 'support',   label: 'Support',   icon: Headphones, group: 'Support', permKey: 'can_view_support' as const },
   { id: 'guide',     label: 'Guide',     icon: HelpCircle, group: 'Support', permKey: null },
 ] as const;
@@ -256,10 +256,10 @@ function DashboardTab({ invoices, contractors }: { invoices: PortalInvoice[]; co
   const recentInvoices = invoices.slice(0, 5);
 
   const kpis = [
-    { label: 'Total Invoices', value: String(invoices.length), icon: FileText, accent: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/20' },
+    { label: 'Total Payslips', value: String(invoices.length), icon: FileText, accent: 'text-primary', bg: 'bg-primary/10', border: 'border-primary/20' },
     { label: 'Total Spend', value: fmt(totalSpend), icon: TrendingUp, accent: 'text-emerald-500', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
     { label: 'Gross Labour', value: fmt(totalGross), icon: BarChart3, accent: 'text-violet-500', bg: 'bg-violet-500/10', border: 'border-violet-500/20' },
-    { label: 'Contractors', value: String(contractors.length), icon: Users, accent: 'text-amber-500', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
+    { label: 'Candidates', value: String(contractors.length), icon: Users, accent: 'text-amber-500', bg: 'bg-amber-500/10', border: 'border-amber-500/20' },
   ];
 
   return (
@@ -290,12 +290,12 @@ function DashboardTab({ invoices, contractors }: { invoices: PortalInvoice[]; co
         <CardHeader className="pb-3">
           <CardTitle className="text-sm font-semibold text-muted-foreground flex items-center gap-2">
             <FileText className="h-4 w-4" />
-            Recent Invoices
+            Recent Payslips
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {recentInvoices.length === 0 ? (
-            <div className="text-center py-10 text-muted-foreground text-sm">No invoices yet</div>
+            <div className="text-center py-10 text-muted-foreground text-sm">No payslips yet</div>
           ) : (
             <div className="divide-y divide-border">
               {recentInvoices.map(inv => (
@@ -305,7 +305,7 @@ function DashboardTab({ invoices, contractors }: { invoices: PortalInvoice[]; co
                     <p className="text-xs text-muted-foreground">{formatDate(inv.invoice_date)} · Week {inv.financial_week}</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <Badge variant="outline" className="text-[10px]">{inv.total_contractors} contractors</Badge>
+                    <Badge variant="outline" className="text-[10px]">{inv.total_contractors} candidates</Badge>
                     <span className="font-semibold text-sm">{fmt(Number(inv.grand_total))}</span>
                   </div>
                 </div>
@@ -318,7 +318,7 @@ function DashboardTab({ invoices, contractors }: { invoices: PortalInvoice[]; co
   );
 }
 
-// ── Invoices Tab ──────────────────────────────────────────────────────────────
+// ── Payslips Tab ──────────────────────────────────────────────────────────────
 
 function InvoicesTab({ invoices, clientId }: { invoices: PortalInvoice[]; clientId: string }) {
   const [search, setSearch] = useState('');
@@ -357,13 +357,13 @@ function InvoicesTab({ invoices, clientId }: { invoices: PortalInvoice[]; client
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-foreground tracking-tight">Invoices</h2>
-        <p className="text-sm text-muted-foreground mt-1">All invoices raised against your company</p>
+        <h2 className="text-2xl font-bold text-foreground tracking-tight">Payslips</h2>
+        <p className="text-sm text-muted-foreground mt-1">All payslips raised against your company</p>
       </div>
 
       <div className="flex gap-3 flex-wrap">
         <Input
-          placeholder="Search invoice number..."
+          placeholder="Search payslip number..."
           value={search}
           onChange={e => setSearch(e.target.value)}
           className="max-w-xs h-9 text-sm"
@@ -377,13 +377,13 @@ function InvoicesTab({ invoices, clientId }: { invoices: PortalInvoice[]; client
             {years.map(y => <SelectItem key={y} value={y}>{y}</SelectItem>)}
           </SelectContent>
         </Select>
-        <span className="text-xs text-muted-foreground self-center">{filtered.length} invoices</span>
+        <span className="text-xs text-muted-foreground self-center">{filtered.length} payslips</span>
       </div>
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3 text-muted-foreground">
           <FileText className="h-10 w-10 opacity-30" />
-          <p className="text-sm">No invoices found</p>
+          <p className="text-sm">No payslips found</p>
         </div>
       ) : (
         <Card className="border-border/50">
@@ -408,7 +408,7 @@ function InvoicesTab({ invoices, clientId }: { invoices: PortalInvoice[]; client
                   <div className="flex items-center gap-4">
                     <div className="text-right hidden sm:block">
                       <p className="font-bold text-sm">{fmt(Number(inv.grand_total))}</p>
-                      <p className="text-xs text-muted-foreground">{inv.total_contractors} contractors</p>
+                      <p className="text-xs text-muted-foreground">{inv.total_contractors} candidates</p>
                     </div>
                     <Button size="sm" variant="outline" className="gap-1.5 text-xs h-8" onClick={() => handleDownload(inv)}>
                       <Download className="h-3.5 w-3.5" />Download
@@ -424,7 +424,7 @@ function InvoicesTab({ invoices, clientId }: { invoices: PortalInvoice[]; client
   );
 }
 
-// ── Contractors Tab ───────────────────────────────────────────────────────────
+// ── Candidates Tab ────────────────────────────────────────────────────────────
 
 function ContractorsTab({ contractors }: { contractors: PortalContractor[] }) {
   const [search, setSearch] = useState('');
@@ -436,8 +436,8 @@ function ContractorsTab({ contractors }: { contractors: PortalContractor[] }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-foreground tracking-tight">Contractors</h2>
-        <p className="text-sm text-muted-foreground mt-1">Workers placed at your company</p>
+        <h2 className="text-2xl font-bold text-foreground tracking-tight">Candidates</h2>
+        <p className="text-sm text-muted-foreground mt-1">Candidates placed at your company</p>
       </div>
 
       <Input
@@ -450,7 +450,7 @@ function ContractorsTab({ contractors }: { contractors: PortalContractor[] }) {
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 gap-3 text-muted-foreground">
           <Users className="h-10 w-10 opacity-30" />
-          <p className="text-sm">No contractors found</p>
+          <p className="text-sm">No candidates found</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -466,7 +466,7 @@ function ContractorsTab({ contractors }: { contractors: PortalContractor[] }) {
                   <div>
                     <p className="font-semibold text-sm">{c.firstname} {c.surname}</p>
                     <p className="text-xs text-muted-foreground font-mono">{c.emp_id}</p>
-                    <p className="text-xs text-muted-foreground">{c.invoice_count} invoice{c.invoice_count !== 1 ? 's' : ''}</p>
+                    <p className="text-xs text-muted-foreground">{c.invoice_count} payslip{c.invoice_count !== 1 ? 's' : ''}</p>
                   </div>
                 </div>
               </CardContent>
