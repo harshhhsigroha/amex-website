@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import {
   FileText, Users, Receipt, BarChart3, MessageSquare, UserCog,
   CheckCircle2, AlertTriangle, ChevronRight, BookOpen,
-  Upload, Download, Settings2, Clock,
+  Upload, Download, Settings2, Clock, ListChecks,
 } from 'lucide-react';
 
 const sections = [
@@ -238,6 +238,88 @@ const sections = [
         title: 'Security reminder',
         content: 'Each team member should have their own account. Avoid sharing passwords — contact AMEX Outsourcing support if you need to reset access.',
         tip: 'Team member accounts can be removed at any time if someone leaves.',
+      },
+    ],
+  },
+  {
+    id: 'playbook',
+    title: 'Playbook',
+    icon: ListChecks,
+    color: 'text-rose-600',
+    bg: 'bg-rose-500/10',
+    border: 'border-rose-200',
+    steps: [
+      {
+        title: 'Weekly payroll run — full workflow',
+        content: 'A complete end-to-end run for one financial week. Follow each step in order; the whole cycle typically takes 30–60 minutes depending on candidate volume.',
+        list: [
+          { label: '1. Verify clock data', desc: 'Open Timesheets → Time Logs. Filter by the current financial week. Confirm every candidate has both clock-in and clock-out entries; chase anyone missing data.' },
+          { label: '2. Approve daily timesheets', desc: 'Switch to the Timesheets tab. Review hours and rates per candidate per day. Click Approve on each correct row; reject and notify the candidate for any disputed entries.' },
+          { label: '3. Generate Master Invoices', desc: 'From Timesheets, click Generate Invoices. Pick the bill-to client. The system creates one master invoice per client containing all approved hours, with VAT at 20% applied automatically.' },
+          { label: '4. Generate Self-Bills', desc: 'From Timesheets, click Generate Self-Bills. The system matches each candidate by Employee ID and produces one remittance PDF per candidate, including bank details from the Candidate Master.' },
+          { label: '5. Review history & files', desc: 'Open Invoice History and Self-Bill History to confirm all PDFs were created. All files are auto-saved to Files under the correct financial week.' },
+          { label: '6. Send remittances', desc: 'Download the self-bill PDFs from Files and email them to candidates, or share via your usual distribution channel.' },
+          { label: '7. Send invoices to clients', desc: 'Download master invoices from Invoice History and email them to the relevant client AP contact, copying any internal stakeholders.' },
+        ],
+        tip: 'Run the workflow on the same day each week (typically Monday for the prior Sun-Sat period) to keep the cadence predictable for clients and candidates.',
+      },
+      {
+        title: 'Onboarding a new client — first 14 days',
+        content: 'A repeatable checklist for taking a new client live. Each item maps directly to a portal action.',
+        list: [
+          { label: 'Day 1 — Create the client record', desc: 'Clients → Add Client. Enter company name, registered address, postcode, country. This becomes the bill-to entity on master invoices.' },
+          { label: 'Day 1 — Configure portal permissions', desc: 'Open the client and go to Portal Permissions. Toggle which modules they can see (Dashboard, Payslips, Candidates, Files, Support).' },
+          { label: 'Day 2 — Invite the portal user', desc: 'Client Users → Invite. The end-user receives a sign-in link and password reset email. They land on /portal with read-only access.' },
+          { label: 'Day 3 — Customise their onboarding form', desc: 'Settings → Onboarding Form. Add or hide fields specific to this client (e.g. site induction questions, PPE confirmation).' },
+          { label: 'Day 5 — Pre-load candidates', desc: 'Candidates → Add Candidate, or share the self-service onboarding URL with the client to collect candidate details directly.' },
+          { label: 'Day 7 — Test the clock flow', desc: 'Generate clock-in/out URLs for at least one candidate and verify GPS capture and name matching work on a mobile device.' },
+          { label: 'Day 14 — First payroll run', desc: 'Run the full Weekly Payroll workflow above. Confirm both the client and the candidates receive their PDFs without issue.' },
+        ],
+        tip: 'Document any client-specific quirks (preferred invoice email, custom PO references, approval thresholds) in the Support tab so the whole team has visibility.',
+      },
+      {
+        title: 'Onboarding a new candidate',
+        content: 'Two routes — admin-led or self-service. Choose based on the client\'s preference.',
+        list: [
+          { label: 'Route A — Admin-led', desc: 'Candidates → Add Candidate. Enter all 9 sections (personal, contact, bank, NI, RTW, etc.). Upload identity documents to the private bucket. Save.' },
+          { label: 'Route A continued — Send credentials', desc: 'Open the candidate, click Create Login. The candidate receives an email to set their password and access /candidate.' },
+          { label: 'Route B — Self-service', desc: 'Share the client-specific onboarding URL with the candidate. They complete the form themselves; the record is created in Candidates with all uploaded documents attached.' },
+          { label: 'Verify compliance', desc: 'Tick Right to Work, Proof of Address, and Application checkboxes once you have reviewed the documents. These flags appear on candidate lists.' },
+          { label: 'Assign hourly rate & client', desc: 'Set the candidate\'s default hourly rate and bill-to client. These pre-populate timesheet rows automatically.' },
+        ],
+      },
+      {
+        title: 'Handling a payroll exception',
+        content: 'When something goes wrong mid-cycle, follow this triage flow.',
+        list: [
+          { label: 'Missing clock-out', desc: 'Time Logs → Edit the entry. Manually enter the clock-out time based on the candidate\'s confirmation (record the source in the notes).' },
+          { label: 'Disputed hours', desc: 'Reject the timesheet. Open a Support ticket on the client\'s behalf with the candidate\'s explanation. Re-approve only after written agreement.' },
+          { label: 'Wrong hourly rate on invoice', desc: 'You cannot edit a generated invoice. Have a Super Admin delete it from Invoice History, correct the rate on the candidate, then regenerate.' },
+          { label: 'Bank details rejected by BACS', desc: 'Update the candidate\'s bank details in Candidates. Regenerate only that candidate\'s self-bill from Self-Billed Invoices.' },
+          { label: 'Candidate missing from self-bill batch', desc: 'Check the Candidate Master upload — the Employee ID on the timesheet must exactly match the candidate record. Fix the mismatch and re-run.' },
+        ],
+        tip: 'Every exception should result in either a Support ticket or an Audit Log entry. Never resolve issues by-pass — traceability is required for HMRC and GDPR.',
+      },
+      {
+        title: 'Month-end close',
+        content: 'Run on the first working day after each calendar month ends.',
+        list: [
+          { label: 'Reconcile invoices vs timesheets', desc: 'Filter Invoice History by month. Cross-check the total against the sum of approved hours × rates from Timesheets.' },
+          { label: 'Chase unpaid invoices', desc: 'Use Client Billing Records to identify invoices past their due date. Send a polite reminder via Support or email.' },
+          { label: 'Archive backups', desc: 'Files are retained automatically for 6 years (HMRC). Confirm no manual deletions occurred in the Audit Log.' },
+          { label: 'Review portal activity', desc: 'Dashboard → check active candidate count, total spend, and VAT trends. Flag anomalies for management review.' },
+          { label: 'Update Candidate Master', desc: 'Remove leavers, add joiners, refresh any expiring RTW documents.' },
+        ],
+      },
+      {
+        title: 'Quarterly compliance review',
+        content: 'Required to maintain UK GDPR and HMRC standing.',
+        list: [
+          { label: 'Audit Log review', desc: 'Open the Audit Log and scan for unusual activity — bulk deletes, off-hours logins, repeated failed auth.' },
+          { label: 'RTW expiry sweep', desc: 'Filter candidates by Right to Work expiry. Request renewed documents from anyone within 60 days of expiry.' },
+          { label: 'Permissions audit', desc: 'Review all team members in Team and all portal users in Client Users. Remove anyone who has left.' },
+          { label: 'Retention check', desc: 'Confirm leavers from 6+ years ago have had their personal data anonymised in line with GDPR retention policy.' },
+        ],
       },
     ],
   },
