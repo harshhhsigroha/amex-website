@@ -170,6 +170,7 @@ const sections = [
       },
     ],
   },
+];
 
 export function PortalGuide() {
   return (
