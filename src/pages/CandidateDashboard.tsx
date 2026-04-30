@@ -15,9 +15,10 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { toast } from 'sonner';
 import {
   LogOut, FileText, Headphones, Clock, UserCircle2, Send, Plus,
-  Download, AlertCircle, CheckCircle2, HelpCircle, MapPin,
+  Download, AlertCircle, CheckCircle2, HelpCircle, MapPin, BookOpen,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { CandidateGuide } from '@/components/guides/CandidateGuide';
 import type { SelfBilledInvoice } from '@/types/candidate';
 
 interface CandidateRow {
@@ -247,11 +248,12 @@ export default function CandidateDashboard() {
 
       <main className="max-w-6xl mx-auto px-4 py-6">
         <Tabs defaultValue="self-bills">
-          <TabsList className="grid grid-cols-4 max-w-2xl">
+          <TabsList className="grid grid-cols-5 max-w-3xl">
             <TabsTrigger value="self-bills" className="gap-2"><FileText className="h-4 w-4" />Self-Bills</TabsTrigger>
             <TabsTrigger value="time-logs" className="gap-2"><Clock className="h-4 w-4" />Time Logs</TabsTrigger>
             <TabsTrigger value="profile" className="gap-2"><UserCircle2 className="h-4 w-4" />Profile</TabsTrigger>
             <TabsTrigger value="support" className="gap-2"><Headphones className="h-4 w-4" />Support</TabsTrigger>
+            <TabsTrigger value="guide" className="gap-2"><BookOpen className="h-4 w-4" />Guide</TabsTrigger>
           </TabsList>
 
           {/* Self-bills */}
