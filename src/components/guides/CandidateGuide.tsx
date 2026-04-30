@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   FileText, Clock, UserCircle2, Headphones,
-  CheckCircle2, AlertTriangle, BookOpen, ListChecks,
+  CheckCircle2, AlertTriangle, BookOpen,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -95,67 +95,6 @@ const sections = [
           { label: 'In Progress', desc: 'AMEX is working on your query' },
           { label: 'Resolved', desc: 'Your query has been resolved — reply if you need to reopen' },
           { label: 'Closed', desc: 'No further action — ticket archived' },
-        ],
-      },
-    ],
-  },
-  {
-    icon: ListChecks,
-    color: 'text-rose-600',
-    bg: 'bg-rose-500/10',
-    border: 'border-rose-200',
-    title: 'Playbook',
-    steps: [
-      {
-        title: 'Your daily routine',
-        content: 'Two clicks a day keeps your pay on track.',
-        list: [
-          { label: 'Start of shift', desc: 'Open your clock-in URL the moment you arrive on site. Wait for the GPS confirmation before walking away.' },
-          { label: 'During the day', desc: 'No action needed — your time is being tracked.' },
-          { label: 'End of shift', desc: 'Open the same URL again to clock out before you leave site. Confirm the elapsed time looks correct.' },
-          { label: 'Weekend', desc: 'On Sunday, open Time Logs and review the week. Raise Support tickets for any missing entries before payroll runs on Monday.' },
-        ],
-        tip: 'If your phone runs out of battery, ask a colleague to log a Support ticket on your behalf at the end of shift — never wait until next week.',
-      },
-      {
-        title: 'Weekly pay routine',
-        content: 'Your self-bill arrives within a few working days of the week ending.',
-        list: [
-          { label: 'Monday — payroll runs', desc: 'AMEX processes the prior week\'s timesheets and generates self-bills.' },
-          { label: 'Tuesday/Wednesday — review', desc: 'Open Self-Bills in your portal. Verify hours, rate, and totals against your own log.' },
-          { label: 'Wednesday/Thursday — payment', desc: 'Funds typically arrive in the bank account on file. Check your statement.' },
-          { label: 'If anything is wrong', desc: 'Raise a Support ticket the same day. The faster you raise it, the faster it\'s resolved.' },
-        ],
-      },
-      {
-        title: 'Updating your details',
-        content: 'When something changes in your personal life, do this immediately.',
-        list: [
-          { label: 'New phone number or email', desc: 'Profile → update. AMEX uses these for urgent contact.' },
-          { label: 'New address', desc: 'Profile → update. Some clients also require a new Proof of Address — AMEX will let you know.' },
-          { label: 'New bank account', desc: 'Profile → update bank details. Then raise a Support ticket confirming the change so AMEX can verify before the next BACS run.' },
-          { label: 'New Right to Work documents', desc: 'Raise a Support ticket and attach the new share code or visa. Do not let RTW lapse — AMEX must legally pause work otherwise.' },
-        ],
-        tip: 'Bank changes take effect from the next payroll run, not retrospectively. Past self-bills will still show your old details.',
-      },
-      {
-        title: 'Year-end (April)',
-        content: 'Before the UK financial year ends on 5 April:',
-        list: [
-          { label: 'Download every self-bill', desc: 'Filter Self-Bills by the closing financial year and save each PDF locally — you\'ll need them for self-assessment.' },
-          { label: 'Confirm bank totals', desc: 'Add up the net totals and reconcile against your bank statements.' },
-          { label: 'Check your details', desc: 'Visit Profile and confirm your name, address, NI number, and bank details are current — these flow into the new tax year.' },
-          { label: 'Speak to your accountant', desc: 'Self-bills are accepted by HMRC as evidence of self-employed earnings. Share PDFs directly.' },
-        ],
-      },
-      {
-        title: 'When something feels off',
-        content: 'If anything looks wrong, follow this escalation path.',
-        list: [
-          { label: 'First — check yourself', desc: 'Open Time Logs and Self-Bills. Compare against your personal records. Many issues are typos or memory mismatches.' },
-          { label: 'Second — raise a ticket', desc: 'Use Support with priority Medium and a clear subject. Include dates, times, and amounts.' },
-          { label: 'Third — wait for SLA', desc: 'AMEX responds within their stated SLA. You\'ll see status updates in the ticket.' },
-          { label: 'Fourth — escalate', desc: 'If the ticket is unresolved past SLA, reply to the ticket asking for escalation. A senior team member will pick it up.' },
         ],
       },
     ],
