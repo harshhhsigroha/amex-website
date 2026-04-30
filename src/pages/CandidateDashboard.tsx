@@ -533,6 +533,10 @@ export default function CandidateDashboard() {
               </Card>
             </div>
           </TabsContent>
+
+          <TabsContent value="guide" className="mt-6">
+            <CandidateGuide />
+          </TabsContent>
         </Tabs>
       </main>
 
