@@ -15,11 +15,11 @@ const sections = [
     steps: [
       {
         title: 'Your financial overview',
-        content: 'The Dashboard shows a summary of all invoices your agency has raised against your company — total spend, gross labour costs, VAT charged, and the number of contractors working for you.',
+        content: 'The Dashboard shows a summary of all payslips your agency has raised against your company — total spend, gross labour costs, VAT charged, and the number of candidates working for you.',
       },
       {
-        title: 'Recent invoices',
-        content: 'The bottom of the dashboard shows your most recent invoices at a glance. Click on any invoice to see more details or download the PDF.',
+        title: 'Recent payslips',
+        content: 'The bottom of the dashboard shows your most recent payslips at a glance. Click on any payslip to see more details or download the PDF.',
       },
     ],
   },
@@ -28,20 +28,20 @@ const sections = [
     color: 'text-violet-600',
     bg: 'bg-violet-500/10',
     border: 'border-violet-200',
-    title: 'Invoices',
+    title: 'Payslips',
     steps: [
       {
-        title: 'Viewing your invoices',
-        content: 'The Invoices tab shows all invoices raised against your company. You can filter by financial year and search by invoice number.',
+        title: 'Viewing your payslips',
+        content: 'The Payslips tab shows all payslips raised against your company. You can filter by financial year and search by payslip number.',
       },
       {
         title: 'Downloading a PDF',
-        content: 'Click the Download button on any invoice to download the original PDF. The file is retrieved directly from secure storage.',
+        content: 'Click the Download button on any payslip to download the original PDF. The file is retrieved directly from secure storage.',
         tip: 'If a download fails, contact your agency — the PDF may not have been uploaded to the system yet.',
       },
       {
-        title: 'Invoice details',
-        content: 'Each invoice shows: invoice number, date, financial year/week, billing period, number of contractors, gross labour total, VAT, and grand total.',
+        title: 'Payslip details',
+        content: 'Each payslip shows: payslip number, date, financial year/week, billing period, number of candidates, gross labour total, VAT, and grand total.',
       },
     ],
   },
@@ -50,15 +50,15 @@ const sections = [
     color: 'text-emerald-600',
     bg: 'bg-emerald-500/10',
     border: 'border-emerald-200',
-    title: 'Contractors',
+    title: 'Candidates',
     steps: [
       {
-        title: 'Viewing your contractors',
-        content: "The Contractors tab shows a list of all workers who have appeared on at least one invoice for your company. You can see how many invoices each contractor has been included in.",
+        title: 'Viewing your candidates',
+        content: "The Candidates tab shows a list of all candidates who have appeared on at least one payslip for your company. You can see how many payslips each candidate has been included in.",
       },
       {
-        title: 'Contractor privacy',
-        content: 'You can see contractor names and Employee IDs. Sensitive personal data such as bank details, NI numbers, and addresses are not visible in this portal — they are controlled by your agency.',
+        title: 'Candidate privacy',
+        content: 'You can see candidate names and Employee IDs. Sensitive personal data such as bank details, NI numbers, and addresses are not visible in this portal — they are controlled by your agency.',
       },
     ],
   },
@@ -71,7 +71,7 @@ const sections = [
     steps: [
       {
         title: 'Browsing your files',
-        content: 'The Files tab provides access to all documents stored by your agency for your company — including invoices, self-billed remittances, and timesheet reports. Files are organised by financial week.',
+        content: 'The Files tab provides access to all documents stored by your agency for your company — including payslips, self-billed remittances, and timesheet reports. Files are organised by financial week.',
       },
       {
         title: 'Downloading files',
@@ -88,7 +88,7 @@ const sections = [
     steps: [
       {
         title: 'Raising a ticket',
-        content: "If you have a query about an invoice, a contractor, or anything else, use the Support tab to raise a ticket. Click 'New Ticket', choose a priority, write your subject and description, then submit.",
+        content: "If you have a query about a payslip, a candidate, or anything else, use the Support tab to raise a ticket. Click 'New Ticket', choose a priority, write your subject and description, then submit.",
       },
       {
         title: 'Tracking your ticket',
@@ -116,7 +116,7 @@ export function PortalGuide() {
           <BookOpen className="h-5 w-5 text-primary" />
           <h2 className="text-2xl font-bold text-foreground tracking-tight">Portal Guide</h2>
         </div>
-        <p className="text-sm text-muted-foreground">How to use your company's invoice portal</p>
+        <p className="text-sm text-muted-foreground">How to use your company's payslip portal</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
