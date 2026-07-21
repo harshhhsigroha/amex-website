@@ -21,7 +21,7 @@ export default function Healthcare() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            AMEX Outsourcing specialises in delivering tailored Employment Status, Payroll, HR and compliance services for healthcare organisations of any size. In a highly regulated industry where accurate worker classification and payroll management are critical, our services are customised to meet the unique needs of the healthcare sector, ensuring full compliance with the complex regulatory environment.
+            AMEX Outsourcing specialises in delivering tailored Employment Status, Payroll, HR and compliance services for healthcare organisations of any size. In a highly regulated industry where accurate worker classification and payroll management are critical, our services are customised to meet the unique needs of the healthcare sector, supporting compliance with the complex regulatory environment.
           </motion.p>
         </div>
         <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
@@ -67,7 +67,7 @@ export default function Healthcare() {
           </motion.h2>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm text-muted-foreground text-center leading-relaxed max-w-3xl mx-auto">
-            Healthcare never stops, and neither do we. AMEX Outsourcing offers 24/7 support to ensure that your employment status, payroll, HR, and compliance needs are met at any time. Whether you need assistance with an urgent payroll issue, compliance question, or employment contract review, our dedicated teams are always available to provide expert guidance. Our services are delivered transparently, with no hidden fees or extra costs, ensuring that you can rely on us for consistent, high-quality support whenever you need it.
+            Healthcare operates around the clock, and neither do we. AMEX Outsourcing offers 24/7 support to help that your employment status, payroll, HR, and compliance needs are met at any time. Whether you need assistance with an urgent payroll issue, compliance question, or employment contract review, our dedicated teams are readily available to provide expert guidance. Our services are delivered transparently, with no hidden fees or extra costs, helping that you can rely on us for consistent, high-quality support whenever you need it.
           </motion.p>
         </div>
       </section>
@@ -90,7 +90,7 @@ export default function Healthcare() {
               The healthcare industry often relies on a mix of full-time employees, part-time workers, and self-employed contractors, such as locum doctors, agency nurses, and temporary healthcare professionals. With increasing HMRC scrutiny on employment status, particularly for contractors, healthcare providers are at risk of misclassification, which could lead to severe financial penalties, back taxes, and damage to reputations. Missteps in worker classification can also lead to legal disputes and operational disruptions that may affect patient care.
             </p>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              AMEX Outsourcing ensures that your workforce is accurately classified in line with current HMRC guidelines, including the IR35 legislation. We offer precise, expert assessments of employment status to safeguard your organisation from compliance risks. Whether dealing with temporary staff, consultants, or permanent employees, we provide the right legal framework to avoid costly mistakes. Our employment status services ensure that your contractors, locum workers, and agency staff are properly documented, preventing misclassification errors that could lead to fines or legal challenges.
+              AMEX Outsourcing helps that your workforce is accurately classified in line with current HMRC guidelines, including the IR35 legislation. We offer precise, expert assessments of employment status to safeguard your organisation from compliance risks. Whether dealing with temporary staff, consultants, or permanent employees, we provide the right legal framework to avoid costly mistakes. Our employment status services help that your contractors, locum workers, and agency staff are properly documented, preventing misclassification errors that could lead to fines or legal challenges.
             </p>
           </motion.div>
 

@@ -9,9 +9,9 @@ const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, tr
 const services = [
   {
     title: 'Full-Service Payroll Processing',
-    overview: "We manage every step of payroll processing, ensuring that employees are paid accurately and on schedule. This service includes calculation of wages, tax deductions, and statutory payments like National Insurance and pensions.",
+    overview: "We manage every step of payroll processing, helping that employees are paid accurately and on schedule. This service includes calculation of wages, tax deductions, and statutory payments like National Insurance and pensions.",
     audience: [
-      { label: 'For Employers', text: 'Streamlines payroll, reduces administrative burden, and ensures accuracy in all salary-related calculations.' },
+      { label: 'For Employers', text: 'Streamlines payroll, reduces administrative burden, and helps accuracy in all salary-related calculations.' },
     ],
     features: [
       'Regular payroll runs (weekly, fortnightly, or monthly). Calculation of regular and overtime wages.',
@@ -32,7 +32,7 @@ const services = [
   },
   {
     title: 'Auto-Enrolment and Pension Management',
-    overview: "Managing workplace pensions under the auto-enrolment legislation is a responsibility for all UK employers. We take care of all aspects of pension management, ensuring employees are enrolled automatically, contributions are calculated, and records are kept.",
+    overview: "Managing workplace pensions under the auto-enrolment legislation is a responsibility for all UK employers. We take care of all aspects of pension management, helping employees are enrolled automatically, contributions are calculated, and records are kept.",
     audience: [
       { label: 'For Employers', text: 'Reduces the burden of pension compliance and helps employees stay informed about their pension status.' },
     ],
@@ -44,9 +44,9 @@ const services = [
   },
   {
     title: 'Payroll Tax Advisory and Deductions',
-    overview: "With a detailed understanding of UK tax codes, we ensure that employees' tax is calculated accurately, accounting for personal allowances, student loans, and other deductions.",
+    overview: "With a detailed understanding of UK tax codes, we help that employees' tax is calculated accurately, accounting for personal allowances, student loans, and other deductions.",
     audience: [
-      { label: 'For Employers and Employees', text: 'Helps both parties ensure accurate tax management, reducing the risk of underpayments or overpayments.' },
+      { label: 'For Employers and Employees', text: 'Helps both parties help accurate tax management, reducing the risk of underpayments or overpayments.' },
     ],
     features: [
       'Personalised tax code assessments.',
@@ -56,7 +56,7 @@ const services = [
   },
   {
     title: 'Employee Benefits Administration',
-    overview: "Administering benefits like sick pay, maternity leave, paternity pay, and holiday pay can be complex. Our services ensure that all employee benefits are calculated and managed in compliance with employment law.",
+    overview: "Administering benefits like sick pay, maternity leave, paternity pay, and holiday pay can be complex. Our services help that all employee benefits are calculated and managed in compliance with employment law.",
     audience: [
       { label: 'For Employers', text: 'Provides peace of mind that all employee benefits are managed fairly and accurately.' },
     ],
@@ -93,7 +93,7 @@ export default function PayrollServices() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            Efficient, accurate, and compliant payroll services. We handle all necessary deductions including taxes, National Insurance, pension contributions, and applicable levies - ensuring you are paid correctly and promptly.
+            Efficient, accurate, and compliant payroll services. We handle all necessary deductions including taxes, National Insurance, pension contributions, and applicable levies - helping you are paid correctly and promptly.
           </motion.p>
         </div>
       </section>
@@ -104,10 +104,10 @@ export default function PayrollServices() {
             <div>
               <h2 className="text-2xl font-medium text-foreground mb-4">How it works</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                At AMEX Outsourcing, we prioritise efficiency in everything we do, ensuring that your timesheet submissions and payment processes are as streamlined as possible. Our user-friendly system works whether you're on a weekly or monthly schedule.
+                At AMEX Outsourcing, we prioritise efficiency in everything we do, helping that your timesheet submissions and payment processes are as streamlined as possible. Our user-friendly system works whether you're on a weekly or monthly schedule.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Once your timesheets are approved, we handle all invoicing on your behalf, ensuring your agency or end client receives a clear and accurate breakdown of the services you've provided. Our team manages the entire invoicing process, from generating and submitting invoices to following up on payments.
+                Once your timesheets are approved, we handle all invoicing on your behalf, helping your agency or end client receives a clear and accurate breakdown of the services you've provided. Our team manages the entire invoicing process, from generating and submitting invoices to following up on payments.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Your net pay, along with a detailed breakdown of all deductions, will be clearly outlined in your payslip. We aim to provide full transparency so that you understand exactly what is being deducted and why.

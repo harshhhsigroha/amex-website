@@ -35,7 +35,7 @@ export default function HRServices() {
                 Our services encompass a wide range of areas, including resolving delicate issues, addressing absenteeism, expanding or streamlining your team, handling performance matters, and comprehending your legal responsibilities as an employer.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Let us navigate you through the intricate landscape of employment law, ensuring you avoid any possible challenges that may arise during recruitment, redundancy, and all other aspects in between.
+                Let us navigate you through the intricate landscape of employment law, helping you avoid any possible challenges that may arise during recruitment, redundancy, and all other aspects in between.
               </p>
             </div>
             <div className="space-y-4">

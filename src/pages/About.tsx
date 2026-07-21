@@ -18,7 +18,7 @@ export default function About() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            We have achieved our success through endeavours to provide a compliant and customer-focused service that benefits both businesses and contractors. Our tailored approach ensures every client receives personalised solutions.
+            We have achieved our success through endeavours to provide a compliant and customer-focused service that benefits both businesses and contractors. Our tailored approach helps every client receives personalised solutions.
           </motion.p>
         </div>
       </section>
@@ -29,10 +29,10 @@ export default function About() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
             {[
               { icon: Sparkles, title: 'Discover the Difference', desc: 'A compliant and customer-focused service that benefits both businesses and contractors, tailored to your specific industry needs.' },
-              { icon: Headphones, title: '24/7 Customer Support', desc: 'Round-the-clock support means you are being looked after wherever you are in the world. Always available when you need us.' },
+              { icon: Headphones, title: '24/7 Customer Support', desc: 'Round-the-clock support means you are being looked after wherever you are in the world. Readily available when you need us.' },
               { icon: ShieldCheck, title: 'Compliance First', desc: 'Comprehensive compliance audits conducted every quarter, keeping organisations updated with regulatory requirements and prepared for changes.' },
               { icon: Users, title: 'Workforce Stability', desc: 'Our HR process improvements lead to higher employee retention, creating a stable workforce that supports long-term organisational growth.' },
-              { icon: Scale, title: 'Legal Expertise', desc: 'Navigate the intricate landscape of employment law, ensuring you avoid possible challenges during recruitment, redundancy, and beyond.' },
+              { icon: Scale, title: 'Legal Expertise', desc: 'Navigate the intricate landscape of employment law, helping you avoid possible challenges during recruitment, redundancy, and beyond.' },
               { icon: Building2, title: 'Bespoke Solutions', desc: 'Whether hiring your first staff member or managing hundreds, our extensive expertise allows us to provide innovative, tailored solutions.' },
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
@@ -54,7 +54,7 @@ export default function About() {
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { value: '100%', label: 'Quality Assured' },
+              { value: 'High', label: 'Quality Focused' },
               { value: '90+', label: 'Clientele' },
               { value: '45+', label: 'Business Advices' },
               { value: '98%', label: 'Employee Satisfaction' },

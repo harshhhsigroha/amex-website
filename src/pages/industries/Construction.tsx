@@ -21,7 +21,7 @@ export default function Construction() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            AMEX Outsourcing specialises in Employment Status, Payroll, and HR services, offering your company tailored services that ensure both protection and full compliance with legal and regulatory requirements. Our in-house team of experts brings a deep understanding of the complexities involved in managing employment relationships, particularly within industries like construction, where HMRC's enforcement efforts are becoming increasingly stringent.
+            AMEX Outsourcing specialises in Employment Status, Payroll, and HR services, offering your company tailored services that help both protection and full compliance with legal and regulatory requirements. Our in-house team of experts brings a deep understanding of the complexities involved in managing employment relationships, particularly within industries like construction, where HMRC's enforcement efforts are becoming increasingly stringent.
           </motion.p>
         </div>
         <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
@@ -65,7 +65,7 @@ export default function Construction() {
           </motion.h2>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm text-muted-foreground text-center leading-relaxed max-w-3xl mx-auto">
-            AMEX Outsourcing specialises in employment status, payroll, and HR services tailored to help companies manage compliance and mitigate risks. With expertise in industries such as construction, AMEX ensures businesses meet legal standards, reduce penalties, and stay ahead of regulatory changes. From worker classification and payroll management to HR strategy and contract support, AMEX provides comprehensive solutions that enable companies to focus on growth while maintaining compliance and protection.
+            AMEX Outsourcing specialises in employment status, payroll, and HR services tailored to help companies manage compliance and mitigate risks. With expertise in industries such as construction, AMEX helps businesses meet legal standards, reduce penalties, and stay ahead of regulatory changes. From worker classification and payroll management to HR strategy and contract support, AMEX provides comprehensive solutions that enable companies to focus on growth while maintaining compliance and protection.
           </motion.p>
         </div>
       </section>
