@@ -215,7 +215,7 @@ export default function CandidateDashboard() {
           return;
         }
       }
-      toast.error('PDF not available — please contact AMEX');
+      toast.error('PDF not available - please contact AMEX');
     } catch { toast.error('Download failed'); }
   };
 
@@ -269,7 +269,7 @@ export default function CandidateDashboard() {
               </CardContent></Card>
               <Card className="hidden md:block"><CardContent className="p-4">
                 <p className="text-xs text-muted-foreground">Hourly Rate</p>
-                <p className="text-2xl font-bold mt-1">{candidate?.hourly_rate ? fmtMoney(Number(candidate.hourly_rate)) : '—'}</p>
+                <p className="text-2xl font-bold mt-1">{candidate?.hourly_rate ? fmtMoney(Number(candidate.hourly_rate)) : '-'}</p>
               </CardContent></Card>
             </div>
 
@@ -330,7 +330,7 @@ export default function CandidateDashboard() {
                             </p>
                           </div>
                           <Badge variant="outline" className="text-xs">
-                            {log.total_hours != null ? `${Number(log.total_hours).toFixed(2)} hrs` : '—'}
+                            {log.total_hours != null ? `${Number(log.total_hours).toFixed(2)} hrs` : '-'}
                           </Badge>
                         </div>
                         {(log.clock_in_address || log.clock_out_address) && (

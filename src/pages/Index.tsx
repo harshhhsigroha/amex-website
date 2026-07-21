@@ -113,8 +113,8 @@ const Index = () => {
     }
   }, [permissionsLoading, isSuperAdmin, isClient, hasPermission, activeTab]);
 
-  // Auth redirect — wait for identityReady to avoid race condition
-  // ── Auth redirect — send unauthenticated or unauthorized users away ──
+  // Auth redirect - wait for identityReady to avoid race condition
+  // ── Auth redirect - send unauthenticated or unauthorized users away ──
   useEffect(() => {
     if (!loading && identityReady) {
       if (!user) navigate('/auth/admin');
@@ -478,7 +478,7 @@ const Index = () => {
             <div className="px-6 py-3 flex items-center justify-between">
               <p className="text-[11px] text-muted-foreground">AMEX Outsourcing</p>
               <p className="text-[11px] text-muted-foreground text-center">Powered by Oak Technologies</p>
-              <p className="text-[11px] text-muted-foreground ml-auto">UK Financial Year: 6 Apr – 5 Apr</p>
+              <p className="text-[11px] text-muted-foreground ml-auto">UK Financial Year: 6 Apr - 5 Apr</p>
             </div>
           </footer>
         </SidebarInset>

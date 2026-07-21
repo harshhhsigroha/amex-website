@@ -102,7 +102,7 @@ export default function Landing() {
 
   const services = [
     { n: '01', icon: Scale, title: 'Employment Status', desc: 'Guidance on employment classification for contractors and employees, supporting compliance with UK legislation and helping to mitigate the risk of reclassification.', tags: ['IR35', 'HMRC', 'Classification'], href: '/services/employment-status' },
-    { n: '02', icon: FileText, title: 'Payroll Services', desc: 'End-to-end payroll management including wage calculations, tax deductions, National Insurance, pension contributions, and payslip generation — accurate and on time.', tags: ['PAYE', 'NI', 'Pensions'], href: '/services/payroll-services' },
+    { n: '02', icon: FileText, title: 'Payroll Services', desc: 'End-to-end payroll management including wage calculations, tax deductions, National Insurance, pension contributions, and payslip generation - accurate and on time.', tags: ['PAYE', 'NI', 'Pensions'], href: '/services/payroll-services' },
     { n: '03', icon: Briefcase, title: 'HR Services', desc: 'Comprehensive human resources support covering recruitment, onboarding, performance management, employee engagement, and employment law guidance.', tags: ['Recruitment', 'Compliance', 'Engagement'], href: '/services/hr-services' },
   ];
 
@@ -384,7 +384,7 @@ export default function Landing() {
               Our <span className="text-primary">services.</span>
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
-              From employment status determination to full payroll management — we support you at every stage.
+              From employment status determination to full payroll management - we support you at every stage.
             </p>
           </Reveal>
 
@@ -461,7 +461,7 @@ export default function Landing() {
                 Accurate payroll, <span className="text-primary">on time.</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                End-to-end payroll processing — from gross pay calculations and deductions to payslip generation and HMRC submissions. Weekly or monthly, we handle the complexity.
+                End-to-end payroll processing - from gross pay calculations and deductions to payslip generation and HMRC submissions. Weekly or monthly, we handle the complexity.
               </p>
               <Button variant="ghost" onClick={() => navigate('/services/payroll-services')}
                 className="p-0 h-auto gap-2 text-primary hover:text-primary hover:bg-transparent text-sm font-medium">
@@ -482,7 +482,7 @@ export default function Landing() {
                 People-focused <span className="text-primary">HR support.</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                Practical, tailored HR support across the full employee lifecycle — recruitment, onboarding, performance, and exits — with clear guidance on employment law.
+                Practical, tailored HR support across the full employee lifecycle - recruitment, onboarding, performance, and exits - with clear guidance on employment law.
               </p>
               <Button variant="ghost" onClick={() => navigate('/services/hr-services')}
                 className="p-0 h-auto gap-2 text-primary hover:text-primary hover:bg-transparent text-sm font-medium">
@@ -609,7 +609,7 @@ export default function Landing() {
               Take your business <span className="text-primary">further.</span>
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed max-w-lg mx-auto mb-8">
-              Employment status, payroll, and HR services — all under one roof.
+              Employment status, payroll, and HR services - all under one roof.
             </p>
             <Button onClick={() => navigate('/contact')} size="lg"
               className="rounded-full h-12 px-8 gap-2 text-sm font-medium">

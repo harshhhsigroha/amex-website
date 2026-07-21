@@ -89,7 +89,7 @@ export function useInvoiceSettings() {
     }
   }, [settings]);
 
-  // Effective settings — falls back to defaults if DB not loaded yet
+  // Effective settings - falls back to defaults if DB not loaded yet
   const effectiveSettings: Omit<InvoiceSettings, 'id'> = settings
     ? {
         bank_name: settings.bank_name,

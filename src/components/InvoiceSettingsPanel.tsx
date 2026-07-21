@@ -64,7 +64,7 @@ export function InvoiceSettingsPanel() {
           <div className="flex items-center gap-2">
             <CreditCard className="h-4 w-4 text-muted-foreground" />
             <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">
-              Master Invoice — Payment Details
+              Master Invoice - Payment Details
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -124,7 +124,7 @@ export function InvoiceSettingsPanel() {
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 text-muted-foreground" />
             <h3 className="font-semibold text-sm uppercase tracking-wide text-muted-foreground">
-              Self-Bill Invoice — "Invoice To" Address
+              Self-Bill Invoice - "Invoice To" Address
             </h3>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

@@ -401,7 +401,7 @@ function InvoicesTab({ invoices, clientId }: { invoices: PortalInvoice[]; client
                         {formatDate(inv.invoice_date)} · {inv.financial_year} · Week {inv.financial_week}
                       </p>
                       <p className="text-xs text-muted-foreground">
-                        {formatDate(inv.period_start)} – {formatDate(inv.period_end)}
+                        {formatDate(inv.period_start)} - {formatDate(inv.period_end)}
                       </p>
                     </div>
                   </div>
@@ -795,7 +795,7 @@ export default function PortalDashboard() {
     let parentId: string | null = null;
 
     if (isPortalUser) {
-      // Portal user — get client from portal_users
+      // Portal user - get client from portal_users
       const { data: link } = await supabase
         .from('portal_users')
         .select('client_id, sub_client_id')
@@ -805,7 +805,7 @@ export default function PortalDashboard() {
       effectiveClientId = link.sub_client_id || link.client_id;
       parentId = link.client_id;
     } else if (isClient) {
-      // Client user — get client from client_users
+      // Client user - get client from client_users
       const { data: link } = await supabase
         .from('client_users')
         .select('client_id')

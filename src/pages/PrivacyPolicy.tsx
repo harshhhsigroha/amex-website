@@ -63,11 +63,11 @@ const PrivacyPolicy = () => {
           <div className="glass-premium rounded-xl p-5 space-y-3 mb-4">
             <div>
               <p className="text-sm font-medium text-foreground">Creditsafe Business Solutions Limited</p>
-              <p className="text-xs text-muted-foreground">Authorised and regulated by the Financial Conduct Authority — FCA Firm Reference Number: 742313</p>
+              <p className="text-xs text-muted-foreground">Authorised and regulated by the Financial Conduct Authority - FCA Firm Reference Number: 742313</p>
             </div>
             <div>
               <p className="text-sm font-medium text-foreground">TransUnion International UK Limited</p>
-              <p className="text-xs text-muted-foreground">Authorised and regulated by the Financial Conduct Authority — FCA Firm Reference Number: 805757</p>
+              <p className="text-xs text-muted-foreground">Authorised and regulated by the Financial Conduct Authority - FCA Firm Reference Number: 805757</p>
             </div>
           </div>
           <p className="text-sm text-muted-foreground leading-relaxed mb-4">The information we receive may include data relating to your identity, credit commitments, payment history, and public record information. This data is used solely for legitimate business purposes, including creditworthiness assessment, identity verification, and fraud prevention, in accordance with applicable data protection laws.</p>
@@ -81,10 +81,10 @@ const PrivacyPolicy = () => {
           <h2 className="text-lg font-medium text-foreground mb-4">4. Legal Basis for Processing Personal Data</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-2">We process personal data under the following lawful bases:</p>
           <ul className="list-disc pl-5 space-y-1 mb-4">
-            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Performance of a contract</span> — to provide services and meet contractual obligations</li>
-            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Legal obligation</span> — to comply with regulatory and legal requirements</li>
-            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Legitimate interests</span> — for business operations, fraud prevention, compliance, and security</li>
-            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Consent</span> — where required, with the ability to withdraw at any time</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Performance of a contract</span> - to provide services and meet contractual obligations</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Legal obligation</span> - to comply with regulatory and legal requirements</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Legitimate interests</span> - for business operations, fraud prevention, compliance, and security</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Consent</span> - where required, with the ability to withdraw at any time</li>
           </ul>
           <p className="text-sm text-muted-foreground leading-relaxed mb-10">Where we rely on legitimate interests, we ensure appropriate safeguards are in place.</p>
 
@@ -151,8 +151,8 @@ const PrivacyPolicy = () => {
           <h2 className="text-lg font-medium text-foreground mb-4">13. Provision of Personal Data</h2>
           <p className="text-sm text-muted-foreground leading-relaxed mb-2">Providing personal data is:</p>
           <ul className="list-disc pl-5 space-y-1 mb-4">
-            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Contractual</span> — required to deliver services</li>
-            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Sometimes legal</span> — required for compliance</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Contractual</span> - required to deliver services</li>
+            <li className="text-sm text-muted-foreground"><span className="font-medium text-foreground">Sometimes legal</span> - required for compliance</li>
           </ul>
           <p className="text-sm text-muted-foreground leading-relaxed mb-2">If you do not provide required data:</p>
           <ul className="list-disc pl-5 space-y-1 mb-4">

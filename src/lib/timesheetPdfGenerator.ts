@@ -64,7 +64,7 @@ export function generateTimesheetPdf(opts: TimesheetPdfOptions): void {
   doc.setFont('times', 'normal');
   doc.text(`Emp ID: ${opts.empId}`, margin, y + 6);
   doc.text(
-    `${opts.financialYear} — ${opts.financialWeek === 'all' ? 'All Weeks' : `Week ${opts.financialWeek}`}`,
+    `${opts.financialYear} - ${opts.financialWeek === 'all' ? 'All Weeks' : `Week ${opts.financialWeek}`}`,
     margin,
     y + 12
   );
@@ -114,7 +114,7 @@ export function generateTimesheetPdf(opts: TimesheetPdfOptions): void {
     doc.text(log.clock_out ? formatTime(log.clock_out) : 'Active', cols[2], y);
     const hrs = log.total_hours ?? 0;
     totalHours += hrs;
-    doc.text(hrs ? `${hrs}h` : '—', cols[3], y);
+    doc.text(hrs ? `${hrs}h` : '-', cols[3], y);
     const inAddr = (log.clock_in_address || '').substring(0, 28);
     const outAddr = (log.clock_out_address || '').substring(0, 28);
     doc.text(inAddr, cols[4], y);

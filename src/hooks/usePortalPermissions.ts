@@ -61,7 +61,7 @@ export function usePortalPermissions(clientId: string | null) {
         can_view_files: data.can_view_files,
       });
     } else {
-      // No record exists — use defaults
+      // No record exists - use defaults
       setPermissions(DEFAULT_PERMISSIONS);
     }
 
