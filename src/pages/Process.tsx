@@ -8,17 +8,17 @@ export default function Process() {
   const steps = [
     {
       n: '01', icon: Scale, title: 'Employment Status Determination',
-      desc: 'We provide guidance and tools to determine correct employment classification. Our experts clarify tax obligations, National Insurance contributions, benefits entitlements, and legal rights - ensuring full compliance with UK labour laws.',
+      desc: 'We provide guidance and tools to determine correct employment classification. Our experts clarify tax obligations, National Insurance contributions, benefits entitlements, and legal rights - supporting compliance with UK labour laws.',
       details: ['IR35 status assessment', 'HMRC compliance checks', 'Worker classification analysis', 'Tax obligation guidance', 'Legal rights clarification'],
     },
     {
       n: '02', icon: ShieldCheck, title: 'Worry-Free Compliance',
-      desc: 'We ensure your organisation or individual consistently follows the latest laws, regulations, and standards relevant to your industry. Quarterly audits keep you prepared for any regulatory changes.',
+      desc: 'We help your organisation or individual consistently follows the latest laws, regulations, and standards relevant to your industry. Quarterly audits keep you prepared for any regulatory changes.',
       details: ['Quarterly compliance audits', 'Regulatory updates monitoring', 'Industry-specific standards', 'Risk assessment reports', 'Corrective action plans'],
     },
     {
       n: '03', icon: FileText, title: 'Quality Payroll Outsourcing',
-      desc: 'End-to-end payroll processing including calculating wages, taxes, and deductions, ensuring compliance with all regulations, and handling employee payments - freeing your business to focus on core activities.',
+      desc: 'End-to-end payroll processing including calculating wages, taxes, and deductions, helping compliance with all regulations, and handling employee payments - freeing your business to focus on core activities.',
       details: ['Wage & salary calculations', 'Tax & NI deductions', 'Pension contributions', 'Payslip generation', 'HMRC submissions'],
     },
   ];
@@ -35,7 +35,7 @@ export default function Process() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            A streamlined three-step process that ensures compliance, accuracy, and peace of mind for your organisation.
+            A streamlined three-step process that helps compliance, accuracy, and peace of mind for your organisation.
           </motion.p>
         </div>
       </section>
@@ -79,7 +79,7 @@ export default function Process() {
             {[
               { icon: Clock, title: 'Save Time', desc: 'Streamlined workflows eliminate hours of manual processing each week.' },
               { icon: ShieldCheck, title: 'Stay Compliant', desc: 'Every step is designed around UK regulations and HMRC requirements.' },
-              { icon: BarChart3, title: 'Full Visibility', desc: 'Transparent reporting at every stage so you always know where things stand.' },
+              { icon: BarChart3, title: 'Full Visibility', desc: 'Transparent reporting at every stage so you can see where things stand.' },
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}

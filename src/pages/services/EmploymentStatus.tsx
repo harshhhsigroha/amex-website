@@ -154,7 +154,7 @@ export default function EmploymentStatus() {
                 Recently, there has been a noticeable increase in individuals seeking greater autonomy and adaptability in their professional endeavours. This shift has led to a significant rise in the UK's self-employed population, now totalling 4.3 million.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Our expert team ensures you are correctly classified and compliant with UK laws, so you can focus on your work with peace of mind. We provide support for contractors, freelancers, and temporary workers.
+                Our expert team helps you are correctly classified and compliant with UK laws, so you can focus on your work with peace of mind. We provide support for contractors, freelancers, and temporary workers.
               </p>
             </div>
             <div className="space-y-4">
