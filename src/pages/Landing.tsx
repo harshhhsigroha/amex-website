@@ -604,54 +604,37 @@ export default function Landing() {
       </section>
 
       {/* ── CTA ─────────────────────────────────────────────── */}
-      <section className="border-b border-border">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-16 md:py-20">
-          <div className="relative overflow-hidden border border-border">
-            <img src={ctaHandshakeImg} alt="Business partnership"
-              className="absolute inset-0 w-full h-full object-cover opacity-20 grayscale"
-              loading="lazy" width={1280} height={640} />
-            <div className="relative px-8 md:px-16 py-16 md:py-24 grid lg:grid-cols-12 gap-8 items-end bg-background/60 backdrop-blur-sm">
-              <Reveal className="lg:col-span-8">
-                <Eyebrow>Ready?</Eyebrow>
-                <h2 className="text-[clamp(2rem,5vw,4rem)] font-bold text-foreground leading-[1.02] tracking-tight">
-                  Take your business<br /><span className="text-primary">further.</span>
-                </h2>
-                <p className="text-muted-foreground max-w-lg text-base md:text-lg leading-relaxed mt-6">
-                  Employment status, payroll, and HR services — all under one roof. Let us handle the complexity so you can focus on growth.
-                </p>
-              </Reveal>
-              <Reveal delay={0.1} className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3">
-                <Button onClick={() => navigate('/contact')} size="lg"
-                  className="rounded-none px-8 h-12 gap-2 w-full text-[13px] uppercase tracking-widest font-semibold">
-                  Get in Touch <ArrowRight className="w-4 h-4" />
-                </Button>
-                <Button onClick={() => navigate('/about')} variant="outline" size="lg"
-                  className="rounded-none px-8 h-12 gap-2 w-full text-[13px] uppercase tracking-widest font-semibold border-foreground/20 hover:border-primary hover:text-primary">
-                  Learn More
-                </Button>
-              </Reveal>
-            </div>
-          </div>
+      <section className="py-24 md:py-32 border-t border-border/60">
+        <div className="max-w-3xl mx-auto px-6 text-center">
+          <Reveal>
+            <h2 className="text-[clamp(1.875rem,4vw,3rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
+              Take your business <span className="text-primary">further.</span>
+            </h2>
+            <p className="text-muted-foreground text-base leading-relaxed max-w-lg mx-auto mb-8">
+              Employment status, payroll, and HR services — all under one roof.
+            </p>
+            <Button onClick={() => navigate('/contact')} size="lg"
+              className="rounded-full h-12 px-8 gap-2 text-sm font-medium">
+              Get in Touch <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Reveal>
         </div>
       </section>
 
       {/* ── FOOTER ──────────────────────────────────────────── */}
-      <footer className="bg-background">
-        <div className="max-w-[1400px] mx-auto px-6 lg:px-10 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            <div>
-              <img src="/logo.png" alt="AMEX Outsourcing" className="h-8 object-contain mb-5" />
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                Employment status, payroll, HR, and compliance services for businesses across the UK.
-              </p>
-              <p className="text-xs text-muted-foreground">
-                Pemberton House, Stafford Park 1, TF3 3BD
+      <footer className="border-t border-border/60 bg-background">
+        <div className="max-w-5xl mx-auto px-6 py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+            <div className="col-span-2 md:col-span-1">
+              <img src="/logo.png" alt="AMEX Outsourcing" className="h-7 object-contain mb-4" />
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Employment status, payroll, and HR services for UK businesses.
               </p>
             </div>
 
             <div>
-              <p className="text-[11px] font-bold text-foreground uppercase tracking-[0.2em] mb-5">Quick Links</p>
-              <div className="space-y-3">
+              <p className="text-[10px] font-semibold text-foreground uppercase tracking-[0.2em] mb-4">Company</p>
+              <div className="space-y-2.5">
                 {[{ label: 'About', href: '/about' }, { label: 'Process', href: '/process' }, { label: 'Contact', href: '/contact' }].map(l => (
                   <button key={l.label} onClick={() => navigate(l.href)}
                     className="block text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -662,8 +645,8 @@ export default function Landing() {
             </div>
 
             <div>
-              <p className="text-[11px] font-bold text-foreground uppercase tracking-[0.2em] mb-5">Services</p>
-              <div className="space-y-3">
+              <p className="text-[10px] font-semibold text-foreground uppercase tracking-[0.2em] mb-4">Services</p>
+              <div className="space-y-2.5">
                 {serviceLinks.map(s => (
                   <button key={s.label} onClick={() => navigate(s.href)}
                     className="block text-sm text-muted-foreground hover:text-primary transition-colors">
@@ -674,44 +657,28 @@ export default function Landing() {
             </div>
 
             <div>
-              <p className="text-[11px] font-bold text-foreground uppercase tracking-[0.2em] mb-5">Portal Login</p>
-              <div className="space-y-2">
-                <Button variant="outline" size="sm" onClick={() => navigate('/auth/admin')}
-                  className="w-full justify-start gap-2 rounded-none text-sm border-border hover:border-primary hover:text-primary">
-                  <Building2 className="w-4 h-4 text-primary" /> Admin Portal
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => navigate('/auth/client')}
-                  className="w-full justify-start gap-2 rounded-none text-sm border-border hover:border-primary hover:text-primary">
-                  <Users className="w-4 h-4 text-primary" /> Client Portal
-                </Button>
-                <Button variant="outline" size="sm" onClick={() => navigate('/auth/candidate')}
-                  className="w-full justify-start gap-2 rounded-none text-sm border-border hover:border-primary hover:text-primary">
-                  <UserCircle2 className="w-4 h-4 text-primary" /> Candidate Portal
-                </Button>
-              </div>
-              <div className="mt-5 space-y-2">
-                <a href="tel:+01952973737" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
-                  <Phone className="w-3.5 h-3.5" /> 01952 973737
-                </a>
-                <a href="mailto:info@amexoutsourcing.com" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
-                  <Mail className="w-3.5 h-3.5" /> info@amexoutsourcing.com
-                </a>
+              <p className="text-[10px] font-semibold text-foreground uppercase tracking-[0.2em] mb-4">Portals</p>
+              <div className="space-y-2.5">
+                <button onClick={() => navigate('/auth/admin')} className="block text-sm text-muted-foreground hover:text-primary transition-colors">Admin Portal</button>
+                <button onClick={() => navigate('/auth/client')} className="block text-sm text-muted-foreground hover:text-primary transition-colors">Client Portal</button>
+                <button onClick={() => navigate('/auth/candidate')} className="block text-sm text-muted-foreground hover:text-primary transition-colors">Candidate Portal</button>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-border pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-6 text-xs text-muted-foreground">
-              <a href="/privacy" className="hover:text-primary transition-colors">Privacy Policy</a>
-              <a href="/terms" className="hover:text-primary transition-colors">Terms of Service</a>
+          <div className="border-t border-border/60 pt-8 flex flex-col md:flex-row items-center justify-between gap-3">
+            <div className="flex items-center gap-5 text-xs text-muted-foreground">
+              <a href="/privacy" className="hover:text-primary transition-colors">Privacy</a>
+              <a href="/terms" className="hover:text-primary transition-colors">Terms</a>
             </div>
-            <div className="flex flex-col md:flex-row items-center gap-2 md:gap-6 text-xs text-muted-foreground text-center md:text-right">
-              <span>© {new Date().getFullYear()} AMEX Outsourcing Ltd. All Rights Reserved.</span>
-              <span className="text-muted-foreground/60">Powered by Oak Technologies</span>
+            <div className="flex flex-col md:flex-row items-center gap-1 md:gap-5 text-xs text-muted-foreground text-center">
+              <span>© {new Date().getFullYear()} AMEX Outsourcing Ltd.</span>
+              <span className="text-muted-foreground/70">Powered by Oak Technologies</span>
             </div>
           </div>
         </div>
       </footer>
+
     </div>
   );
 }
