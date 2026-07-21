@@ -2,16 +2,14 @@ import { useNavigate } from 'react-router-dom';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
-  ArrowRight, CheckCircle2, ShieldCheck, Clock, Users,
-  FileText, BarChart3, Headphones, MapPin, Phone, Mail,
+  ArrowRight, CheckCircle2, ShieldCheck, Users,
+  FileText, Headphones, MapPin, Phone, Mail,
   ChevronRight, ChevronDown, Building2, Scale, Briefcase,
-  Shield, Star, TrendingUp, Sparkles, Utensils,
-  Hammer, HeartPulse, UserCircle2,
+  Star, Sparkles, Utensils,
+  Hammer, HeartPulse,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
-import aboutConsultantImg from '@/assets/about-consultant.jpg';
-import ctaHandshakeImg from '@/assets/cta-handshake.jpg';
 
 /* ── Reveal ──────────────────────────────────────────────── */
 function Reveal({ children, delay = 0, className = '' }: {
