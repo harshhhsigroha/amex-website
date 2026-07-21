@@ -72,7 +72,7 @@ export function useSupportTickets() {
 
       if (error) throw error;
 
-      // Batch fetch client names (no profile lookups — RLS blocks cross-user reads)
+      // Batch fetch client names (no profile lookups - RLS blocks cross-user reads)
       const clientIds = [...new Set((data || []).map(t => t.client_id).filter(Boolean))];
       let clientMap: Record<string, string> = {};
       if (clientIds.length > 0) {

@@ -15,7 +15,7 @@ const sections = [
     steps: [
       {
         title: 'Your financial overview',
-        content: 'The Dashboard shows a summary of all payslips your agency has raised against your company — total spend, gross labour costs, VAT charged, and the number of candidates working for you.',
+        content: 'The Dashboard shows a summary of all payslips your agency has raised against your company - total spend, gross labour costs, VAT charged, and the number of candidates working for you.',
       },
       {
         title: 'Recent payslips',
@@ -37,7 +37,7 @@ const sections = [
       {
         title: 'Downloading a PDF',
         content: 'Click the Download button on any payslip to download the original PDF. The file is retrieved directly from secure storage.',
-        tip: 'If a download fails, contact your agency — the PDF may not have been uploaded to the system yet.',
+        tip: 'If a download fails, contact your agency - the PDF may not have been uploaded to the system yet.',
       },
       {
         title: 'Payslip details',
@@ -58,7 +58,7 @@ const sections = [
       },
       {
         title: 'Candidate privacy',
-        content: 'You can see candidate names and Employee IDs. Sensitive personal data such as bank details, NI numbers, and addresses are not visible in this portal — they are controlled by your agency.',
+        content: 'You can see candidate names and Employee IDs. Sensitive personal data such as bank details, NI numbers, and addresses are not visible in this portal - they are controlled by your agency.',
       },
     ],
   },
@@ -71,7 +71,7 @@ const sections = [
     steps: [
       {
         title: 'Browsing your files',
-        content: 'The Files tab provides access to all documents stored by your agency for your company — including payslips, self-billed remittances, and timesheet reports. Files are organised by financial week.',
+        content: 'The Files tab provides access to all documents stored by your agency for your company - including payslips, self-billed remittances, and timesheet reports. Files are organised by financial week.',
       },
       {
         title: 'Downloading files',

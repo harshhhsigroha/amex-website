@@ -3,7 +3,7 @@
  * ClientUserManagement
  * ============================================================================
  * Used in: AdminPanel (super-admin facing)
- * Purpose: Lets super-admins manage client portal logins — create new logins
+ * Purpose: Lets super-admins manage client portal logins - create new logins
  *          tied to a company, change passwords, remove access, and manage
  *          per-client portal permissions.
  *

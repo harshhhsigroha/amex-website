@@ -93,7 +93,7 @@ export default function PayrollServices() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            Efficient, accurate, and compliant payroll services. We handle all necessary deductions including taxes, National Insurance, pension contributions, and applicable levies — ensuring you are paid correctly and promptly.
+            Efficient, accurate, and compliant payroll services. We handle all necessary deductions including taxes, National Insurance, pension contributions, and applicable levies - ensuring you are paid correctly and promptly.
           </motion.p>
         </div>
       </section>
@@ -137,7 +137,7 @@ export default function PayrollServices() {
         </div>
       </section>
 
-      {/* Our Payroll Services — Accordion */}
+      {/* Our Payroll Services - Accordion */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl font-medium text-foreground text-center mb-10">Our Payroll Services</h2>

@@ -48,7 +48,7 @@ export function ClockLinksManager({ clients }: ClockLinksManagerProps) {
             Per-Client Links
           </CardTitle>
           <CardDescription>
-            Each client gets a unique clock-in link. Workers just need to enter their full name — if they're new, they'll be auto-registered.
+            Each client gets a unique clock-in link. Workers just need to enter their full name - if they're new, they'll be auto-registered.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -116,7 +116,7 @@ export function ClockLinksManager({ clients }: ClockLinksManagerProps) {
             <li>Share the link with your workers (or print it as a QR code)</li>
             <li>The worker opens the link and types their full name</li>
             <li>If they're a new worker, they're auto-registered as a candidate</li>
-            <li>They tap <strong>Clock In</strong> — GPS location is captured</li>
+            <li>They tap <strong>Clock In</strong> - GPS location is captured</li>
             <li>When their shift ends, they tap <strong>Clock Out</strong></li>
             <li>All hours appear in your <strong>Timesheets</strong> tab automatically</li>
           </ol>

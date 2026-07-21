@@ -7,7 +7,7 @@
 import { format, startOfWeek, endOfWeek, addDays, eachDayOfInterval, getDay } from 'date-fns';
 
 export interface FinancialYearInfo {
-  label: string; // e.g., "FY 2024–25"
+  label: string; // e.g., "FY 2024-25"
   startDate: Date;
   endDate: Date;
   startYear: number;
@@ -16,14 +16,14 @@ export interface FinancialYearInfo {
 
 export interface FinancialWeekInfo {
   weekNumber: number;
-  label: string; // e.g., "Week 1 (01 Apr 2024 – 07 Apr 2024)"
+  label: string; // e.g., "Week 1 (01 Apr 2024 - 07 Apr 2024)"
   startDate: Date;
   endDate: Date;
 }
 
 export interface FinancialDayInfo {
   date: Date;
-  label: string; // e.g., "Saturday – 06 Apr 2024"
+  label: string; // e.g., "Saturday - 06 Apr 2024"
   dayOfWeek: string;
   isWithinFY: boolean;
 }
@@ -56,7 +56,7 @@ export function getFinancialYearForDate(date: Date): FinancialYearInfo {
   const endDate = new Date(endYear, 3, 5); // April 5th next year
 
   return {
-    label: `FY ${startYear}–${String(endYear).slice(-2)}`,
+    label: `FY ${startYear}-${String(endYear).slice(-2)}`,
     startDate,
     endDate,
     startYear,
@@ -118,7 +118,7 @@ export function getFinancialWeeksForYear(fy: FinancialYearInfo): FinancialWeekIn
     
     weeks.push({
       weekNumber,
-      label: `Week ${weekNumber} (${format(currentWeekStart, 'dd MMM yyyy')} – ${format(currentWeekEnd, 'dd MMM yyyy')})`,
+      label: `Week ${weekNumber} (${format(currentWeekStart, 'dd MMM yyyy')} - ${format(currentWeekEnd, 'dd MMM yyyy')})`,
       startDate: currentWeekStart,
       endDate: currentWeekEnd,
     });
@@ -170,7 +170,7 @@ export function getDaysForWeek(week: FinancialWeekInfo, fy: FinancialYearInfo): 
 
     return {
       date,
-      label: `${dayOfWeek} – ${format(date, 'dd MMM yyyy')}`,
+      label: `${dayOfWeek} - ${format(date, 'dd MMM yyyy')}`,
       dayOfWeek,
       isWithinFY,
     };

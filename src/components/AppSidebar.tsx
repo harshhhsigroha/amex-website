@@ -180,7 +180,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
     );
   };
 
-  // Build nav groups in order — admin sees full set, clients see a subset
+  // Build nav groups in order - admin sees full set, clients see a subset
   return (
     <Sidebar collapsible="icon" className="border-r border-sidebar-border glass-sidebar">
       {/* Header */}

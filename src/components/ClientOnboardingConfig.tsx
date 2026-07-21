@@ -66,7 +66,7 @@ function QrCodeModal({
             {logoUrl && (
               <img src={logoUrl} alt={brandName} className="h-6 w-6 rounded object-contain" />
             )}
-            <DialogTitle className="text-sm">{brandName} — Onboarding QR Code</DialogTitle>
+            <DialogTitle className="text-sm">{brandName} - Onboarding QR Code</DialogTitle>
           </div>
           <DialogDescription className="text-xs">Scan to open your candidate onboarding form</DialogDescription>
         </DialogHeader>
@@ -245,7 +245,7 @@ export function ClientOnboardingConfig() {
         </CardContent>
       </Card>
 
-      {/* Full form builder — saves as candidate_<clientId> so it's isolated per client */}
+      {/* Full form builder - saves as candidate_<clientId> so it's isolated per client */}
       <SingleFormBuilder
         formType={`candidate_${clientId}`}
         title="Candidate Registration"

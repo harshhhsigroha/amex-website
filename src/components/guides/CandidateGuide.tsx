@@ -15,7 +15,7 @@ const sections = [
     steps: [
       {
         title: 'What you see here',
-        content: 'The Self-Bills tab shows every remittance AMEX has produced for you — one per pay period. Each line shows the period covered, hours worked, hourly rate, gross pay, deductions, and net total.',
+        content: 'The Self-Bills tab shows every remittance AMEX has produced for you - one per pay period. Each line shows the period covered, hours worked, hourly rate, gross pay, deductions, and net total.',
       },
       {
         title: 'Downloading a PDF',
@@ -24,7 +24,7 @@ const sections = [
       },
       {
         title: 'Querying a payment',
-        content: 'If a self-bill looks wrong — incorrect hours, missing days, wrong rate — raise a Support ticket immediately and quote the remittance number.',
+        content: 'If a self-bill looks wrong - incorrect hours, missing days, wrong rate - raise a Support ticket immediately and quote the remittance number.',
       },
     ],
   },
@@ -59,16 +59,16 @@ const sections = [
     steps: [
       {
         title: 'Your details',
-        content: 'The Profile tab shows your registered information — name, contact details, NI number, bank details. Keep these accurate to avoid pay delays.',
+        content: 'The Profile tab shows your registered information - name, contact details, NI number, bank details. Keep these accurate to avoid pay delays.',
       },
       {
         title: 'Updating bank details',
         content: 'Bank details flow into your next self-bill. If you change account, update them at least 3 days before the next payroll run.',
-        tip: 'After updating, double-check the sort code and account number — typos cause BACS rejections and delay payment.',
+        tip: 'After updating, double-check the sort code and account number - typos cause BACS rejections and delay payment.',
       },
       {
         title: 'Right to Work',
-        content: 'Your RTW status is visible here. If your visa or share code is approaching expiry, AMEX will contact you — please respond promptly with renewed documents.',
+        content: 'Your RTW status is visible here. If your visa or share code is approaching expiry, AMEX will contact you - please respond promptly with renewed documents.',
       },
     ],
   },
@@ -85,7 +85,7 @@ const sections = [
       },
       {
         title: 'Chatting with AMEX',
-        content: 'Open any ticket to see the full conversation. AMEX replies appear inline — you don\'t need to refresh.',
+        content: 'Open any ticket to see the full conversation. AMEX replies appear inline - you don\'t need to refresh.',
       },
       {
         title: 'Ticket statuses',
@@ -93,8 +93,8 @@ const sections = [
         list: [
           { label: 'Open', desc: 'Submitted and waiting for first response' },
           { label: 'In Progress', desc: 'AMEX is working on your query' },
-          { label: 'Resolved', desc: 'Your query has been resolved — reply if you need to reopen' },
-          { label: 'Closed', desc: 'No further action — ticket archived' },
+          { label: 'Resolved', desc: 'Your query has been resolved - reply if you need to reopen' },
+          { label: 'Closed', desc: 'No further action - ticket archived' },
         ],
       },
     ],

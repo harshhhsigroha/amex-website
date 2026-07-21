@@ -90,10 +90,10 @@ export const DEFAULT_FIELDS: FormField[] = [
   // ── 3. Documents / P45 ──
   { id: '24', name: 'p45_status', label: 'P45 Status', type: 'mcq', required: true, enabled: true, section: 'p45', options: ['I have enclosed form P45', 'I do not have a P45', 'Not able to enclose form P45'] },
   { id: '25', name: 'tax_statement', label: 'Tax Statement', type: 'mcq', required: true, enabled: true, section: 'p45', description: 'Read the following statements and select the ONE that applies to you', options: [
-    'A – This is my first job since last 6 April (no Jobseeker\'s Allowance, ESA, or pension received)',
-    'B – This is now my only job but I have had another since last 6 April',
-    'C – I have another job or receive a State/Occupational Pension',
-    'D – Student Loan applies'
+    'A - This is my first job since last 6 April (no Jobseeker\'s Allowance, ESA, or pension received)',
+    'B - This is now my only job but I have had another since last 6 April',
+    'C - I have another job or receive a State/Occupational Pension',
+    'D - Student Loan applies'
   ] },
 
   // ── 4. Agency Details ──
@@ -133,7 +133,7 @@ export const DEFAULT_FIELDS: FormField[] = [
   { id: '53', name: 'declaration_signature', label: 'Signature', type: 'signature', required: true, enabled: true, section: 'declaration', description: 'In the event of an incorrect or overpayment, you are required to return the excess amount within 48 hours of receiving written notification.' },
 ];
 
-// Company onboarding default fields (simpler — business details)
+// Company onboarding default fields (simpler - business details)
 const DEFAULT_COMPANY_FIELDS: FormField[] = [
   { id: 'c1', name: 'candidate_name', label: 'Contact Full Name', type: 'text', required: true, enabled: true, section: 'personal' },
   { id: 'c2', name: 'email', label: 'Business Email', type: 'email', required: true, enabled: true, section: 'personal' },

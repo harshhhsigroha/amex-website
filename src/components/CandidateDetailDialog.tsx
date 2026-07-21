@@ -109,7 +109,7 @@ export function CandidateDetailDialog({ candidate, open, onOpenChange }: Candida
   };
 
   const formatValue = (field: FormField, value: string | boolean | null): string => {
-    if (value === null || value === undefined || value === '') return '—';
+    if (value === null || value === undefined || value === '') return '-';
     if (typeof value === 'boolean') return value ? '✓ Yes' : '✗ No';
     if (field.type === 'signature' && typeof value === 'string' && value.startsWith('data:')) return '✓ Signed';
     if (field.type === 'file_upload' && typeof value === 'string' && value.startsWith('http')) return '✓ Uploaded';

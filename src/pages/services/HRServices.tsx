@@ -18,7 +18,7 @@ export default function HRServices() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            Professional HR support for thriving workplaces. From recruitment and onboarding to performance management and legal risk mitigation — we handle the people side of your business.
+            Professional HR support for thriving workplaces. From recruitment and onboarding to performance management and legal risk mitigation - we handle the people side of your business.
           </motion.p>
         </div>
       </section>

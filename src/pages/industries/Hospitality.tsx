@@ -25,7 +25,7 @@ export default function Hospitality() {
           </motion.p>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.3 }}
             className="text-muted-foreground max-w-2xl mx-auto text-sm leading-relaxed mt-4">
-            In an increasingly regulated environment, HMRC has intensified its focus on contractor employment, particularly within sectors like hospitality, where the use of temporary, seasonal, or freelance workers is widespread. Misclassifying these workers—whether they are kitchen staff, bartenders, or front-of-house employees—can result in severe financial penalties, backdated tax liabilities, and potential reputational damage. At AMEX Outsourcing, we help hospitality businesses avoid these costly mistakes by providing expert guidance on employment status, ensuring that workers are correctly classified, whether they are permanent staff, freelancers, or contractors.
+            In an increasingly regulated environment, HMRC has intensified its focus on contractor employment, particularly within sectors like hospitality, where the use of temporary, seasonal, or freelance workers is widespread. Misclassifying these workers-whether they are kitchen staff, bartenders, or front-of-house employees-can result in severe financial penalties, backdated tax liabilities, and potential reputational damage. At AMEX Outsourcing, we help hospitality businesses avoid these costly mistakes by providing expert guidance on employment status, ensuring that workers are correctly classified, whether they are permanent staff, freelancers, or contractors.
           </motion.p>
         </div>
         <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}
@@ -91,7 +91,7 @@ export default function Hospitality() {
               <h3 className="text-base font-medium text-foreground">Customised Payroll Solutions for Hospitality</h3>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Payroll management in the hospitality sector can be challenging, with fluctuating staff numbers due to seasonal demand, varied shift patterns, and diverse employment statuses. At AMEX, we offer comprehensive payroll services that are specifically designed to handle these complexities. Our payroll system ensures that all staff members—from full-time employees to part-time, casual, or zero-hour contract workers—are paid accurately and on time, while meeting all tax and National Insurance obligations. We take care of every aspect, from calculating wages and overtime to managing pensions, holiday pay, and statutory deductions, allowing you to focus on delivering exceptional guest experiences.
+              Payroll management in the hospitality sector can be challenging, with fluctuating staff numbers due to seasonal demand, varied shift patterns, and diverse employment statuses. At AMEX, we offer comprehensive payroll services that are specifically designed to handle these complexities. Our payroll system ensures that all staff members-from full-time employees to part-time, casual, or zero-hour contract workers-are paid accurately and on time, while meeting all tax and National Insurance obligations. We take care of every aspect, from calculating wages and overtime to managing pensions, holiday pay, and statutory deductions, allowing you to focus on delivering exceptional guest experiences.
             </p>
           </motion.div>
 
@@ -101,7 +101,7 @@ export default function Hospitality() {
               { icon: Users, title: 'HR Services Tailored to the Hospitality Sector', desc: 'Comprehensive HR support covering recruitment, onboarding, staff retention strategies, and workforce management tailored to the fast-paced hospitality environment.' },
               { icon: Scale, title: 'Navigating HMRC Scrutiny and Employment Status Compliance', desc: 'Expert guidance on worker classification, IR35, and employment status to protect your business from HMRC enquiries, penalties, and backdated tax liabilities.' },
               { icon: ShieldCheck, title: 'Minimising Legal Risks and Optimising HR Processes', desc: 'Proactive risk management and streamlined HR processes to reduce legal exposure while improving operational efficiency across your hospitality business.' },
-              { icon: HeadphonesIcon, title: 'Round-the-Clock Support and Transparent Services', desc: 'Always-available expert support with full transparency — no hidden fees, no surprises — so you can focus on delivering exceptional guest experiences.' },
+              { icon: HeadphonesIcon, title: 'Round-the-Clock Support and Transparent Services', desc: 'Always-available expert support with full transparency - no hidden fees, no surprises - so you can focus on delivering exceptional guest experiences.' },
               { icon: BookOpen, title: 'Expert Guidance and Industry Insights', desc: 'Stay ahead of regulatory changes with expert guidance on employment law, HMRC updates, and hospitality-specific compliance requirements.' },
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}

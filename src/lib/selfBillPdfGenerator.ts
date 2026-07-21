@@ -67,7 +67,7 @@ export function generateSelfBillPDF(
   const lightGray: [number, number, number] = [245, 245, 245];
   const formatDate = formatDateStr;
 
-  // Resolve "Invoice To" address — prefer live settings, fall back to defaults
+  // Resolve "Invoice To" address - prefer live settings, fall back to defaults
   const invoiceTo = {
     companyName: invoiceSettings?.self_bill_company_name ?? 'AMEX Outsourcing',
     addressLine1: invoiceSettings?.self_bill_address_line1 ?? 'Suite 8 Pemberton House',

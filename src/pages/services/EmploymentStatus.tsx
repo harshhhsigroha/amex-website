@@ -105,7 +105,7 @@ const services = [
     content: (
       <>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">Service Overview:</strong> Navigating transitions between different employment statuses—such as moving from employee to contractor, or from full-time to part-time—can be complex. Our Transition Assistance service provides the guidance and documentation support needed to manage these changes smoothly.
+          <strong className="text-foreground">Service Overview:</strong> Navigating transitions between different employment statuses-such as moving from employee to contractor, or from full-time to part-time-can be complex. Our Transition Assistance service provides the guidance and documentation support needed to manage these changes smoothly.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
           <strong className="text-foreground">For Individuals:</strong> We help you understand new tax obligations, rights, and potential impacts on benefits during employment changes.
@@ -148,7 +148,7 @@ export default function EmploymentStatus() {
             <div>
               <h2 className="text-2xl font-medium text-foreground mb-4">What is Employment Status?</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Employment status determines how you are classified for tax purposes — whether as an employee, worker, or self-employed. This classification affects your tax obligations, National Insurance contributions, employment rights, and benefit entitlements.
+                Employment status determines how you are classified for tax purposes - whether as an employee, worker, or self-employed. This classification affects your tax obligations, National Insurance contributions, employment rights, and benefit entitlements.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                 Recently, there has been a noticeable increase in individuals seeking greater autonomy and adaptability in their professional endeavours. This shift has led to a significant rise in the UK's self-employed population, now totalling 4.3 million.

@@ -109,7 +109,7 @@ export function TimesheetManager() {
   useEffect(() => {
     if (!user) return;
     if (isAdmin) {
-      // Admins see all — use a sentinel value
+      // Admins see all - use a sentinel value
       setClientId('__admin__');
       setClientName('All Clients');
       return;
@@ -261,7 +261,7 @@ export function TimesheetManager() {
     } catch (e) { console.warn('Failed to save PDF to files:', e); }
   };
 
-  // Generate Master Invoice from approved timesheets — billed to a selected sub-client
+  // Generate Master Invoice from approved timesheets - billed to a selected sub-client
   const handleGenerateMasterInvoice = async () => {
     if (!clientId || approvedTimesheets.length === 0 || !selectedBillToClient) return;
     setIsGeneratingInvoice(true);
@@ -572,7 +572,7 @@ export function TimesheetManager() {
                             )}
                           </TableCell>
                           <TableCell className="font-mono text-sm font-semibold">
-                            {log.total_hours != null ? `${log.total_hours}h` : '—'}
+                            {log.total_hours != null ? `${log.total_hours}h` : '-'}
                           </TableCell>
                           <TableCell className="text-sm">W{log.financial_week}</TableCell>
                           <TableCell>
@@ -653,7 +653,7 @@ export function TimesheetManager() {
                               <p className="text-xs text-muted-foreground font-mono">{ts.emp_id}</p>
                             </div>
                           </TableCell>
-                          <TableCell className="text-sm">{ts.log_date ? formatDate(ts.log_date) : '—'}</TableCell>
+                          <TableCell className="text-sm">{ts.log_date ? formatDate(ts.log_date) : '-'}</TableCell>
                           <TableCell className="text-sm">W{ts.financial_week}</TableCell>
                           <TableCell className="font-mono text-sm font-semibold">{ts.total_hours}h</TableCell>
                           <TableCell className="font-mono text-sm">£{ts.hourly_rate.toFixed(2)}</TableCell>
@@ -697,7 +697,7 @@ export function TimesheetManager() {
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Time Log Details</DialogTitle>
-            <DialogDescription>{selectedLog?.candidate_name} — {selectedLog?.log_date}</DialogDescription>
+            <DialogDescription>{selectedLog?.candidate_name} - {selectedLog?.log_date}</DialogDescription>
           </DialogHeader>
           {selectedLog && (
             <div className="space-y-4">
@@ -712,7 +712,7 @@ export function TimesheetManager() {
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs text-muted-foreground">Total Hours</p>
-                  <p className="font-mono font-semibold">{selectedLog.total_hours ?? '—'}</p>
+                  <p className="font-mono font-semibold">{selectedLog.total_hours ?? '-'}</p>
                 </div>
                 <div className="space-y-1">
                   <p className="text-xs text-muted-foreground">Financial Week</p>

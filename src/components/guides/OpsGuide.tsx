@@ -18,15 +18,15 @@ const sections = [
     steps: [
       {
         title: 'Your Operations Portal',
-        content: 'Welcome to your Operations Portal — your central hub for managing timesheets, generating invoices, managing candidates, producing self-billed remittances, and communicating with AMEX Outsourcing. Everything you need is in the left sidebar.',
+        content: 'Welcome to your Operations Portal - your central hub for managing timesheets, generating invoices, managing candidates, producing self-billed remittances, and communicating with AMEX Outsourcing. Everything you need is in the left sidebar.',
       },
       {
         title: 'Dashboard overview',
-        content: "The Dashboard gives you a live snapshot of this financial year's activity — total invoices generated, gross labour costs, VAT billed, and number of active contractors. Use it to monitor your weekly activity at a glance.",
+        content: "The Dashboard gives you a live snapshot of this financial year's activity - total invoices generated, gross labour costs, VAT billed, and number of active contractors. Use it to monitor your weekly activity at a glance.",
       },
       {
         title: 'UK financial year',
-        content: 'All invoices, timesheets, and self-bills follow the UK financial year (6 April – 5 April) and are tagged with the correct Financial Week number. You can filter all history views by financial year and week.',
+        content: 'All invoices, timesheets, and self-bills follow the UK financial year (6 April - 5 April) and are tagged with the correct Financial Week number. You can filter all history views by financial year and week.',
       },
     ],
   },
@@ -44,7 +44,7 @@ const sections = [
       },
       {
         title: 'Time Logs tab',
-        content: 'The Time Logs tab shows all raw clock-in and clock-out records. You can filter by financial week and download individual candidate timesheets as PDF reports — including clock times, GPS addresses, and daily totals.',
+        content: 'The Time Logs tab shows all raw clock-in and clock-out records. You can filter by financial week and download individual candidate timesheets as PDF reports - including clock times, GPS addresses, and daily totals.',
         tip: 'Use the download dropdown to export per-person timesheet PDFs for any candidate in the selected week.',
       },
       {
@@ -58,7 +58,7 @@ const sections = [
       },
       {
         title: 'Files & storage',
-        content: 'Every PDF generated — whether a timesheet report, master invoice, or self-bill — is automatically saved to the Files tab under the correct financial week for easy retrieval.',
+        content: 'Every PDF generated - whether a timesheet report, master invoice, or self-bill - is automatically saved to the Files tab under the correct financial week for easy retrieval.',
       },
     ],
   },
@@ -76,7 +76,7 @@ const sections = [
       },
       {
         title: 'Upload & process (Excel method)',
-        content: 'Go to Master Invoice in the sidebar → click "Upload Timesheet". Drag and drop your Excel file or click to browse. The system validates and parses the file automatically — any errors will be shown with the row number.',
+        content: 'Go to Master Invoice in the sidebar → click "Upload Timesheet". Drag and drop your Excel file or click to browse. The system validates and parses the file automatically - any errors will be shown with the row number.',
         tip: 'Make sure all dates are in DD/MM/YYYY format and numeric columns have no currency symbols.',
       },
       {
@@ -90,7 +90,7 @@ const sections = [
       {
         title: 'Generating the PDF',
         content: 'Enter or confirm the invoice number, then click "Generate PDF". The invoice is: downloaded to your browser, saved to Files, and recorded in Invoice History. The PDF is branded with your company name and colours.',
-        tip: 'Invoice numbers must be unique. The system suggests one for you — you can edit it if needed.',
+        tip: 'Invoice numbers must be unique. The system suggests one for you - you can edit it if needed.',
       },
     ],
   },
@@ -112,7 +112,7 @@ const sections = [
       },
       {
         title: 'Upload the candidate master',
-        content: 'Before generating self-bills, you need to upload the Candidate Master file — an Excel file with all candidate bank details and personal info. This is used to enrich each self-bill with the contractor\'s bank details and NI number.',
+        content: 'Before generating self-bills, you need to upload the Candidate Master file - an Excel file with all candidate bank details and personal info. This is used to enrich each self-bill with the contractor\'s bank details and NI number.',
         tip: 'Keep the Candidate Master file up to date. Any missing candidates will cause their self-bill to be skipped.',
       },
       {
@@ -140,7 +140,7 @@ const sections = [
       },
       {
         title: 'Your self-service onboarding link',
-        content: "Your account has a unique onboarding URL. Share it with candidates — it's pre-configured with your custom form fields. The link is shown in the Onboard Candidate section.",
+        content: "Your account has a unique onboarding URL. Share it with candidates - it's pre-configured with your custom form fields. The link is shown in the Onboard Candidate section.",
       },
       {
         title: 'Custom onboarding form',
@@ -166,7 +166,7 @@ const sections = [
       },
       {
         title: 'Files browser',
-        content: 'The Files tab is your central document store. Every generated PDF — master invoices, self-bills, and timesheet reports — is automatically filed here under the correct financial year and week. You can also manually upload files.',
+        content: 'The Files tab is your central document store. Every generated PDF - master invoices, self-bills, and timesheet reports - is automatically filed here under the correct financial year and week. You can also manually upload files.',
         tip: 'Use the financial year and week filters to quickly locate documents from a specific period. Files are always sorted by financial week.',
       },
     ],
@@ -181,7 +181,7 @@ const sections = [
     steps: [
       {
         title: 'Invoice payment details',
-        content: 'Go to Invoice Settings to configure the bank details that appear on your master invoices — bank name, sort code, account number, and VAT number. These are printed on every PDF you generate.',
+        content: 'Go to Invoice Settings to configure the bank details that appear on your master invoices - bank name, sort code, account number, and VAT number. These are printed on every PDF you generate.',
       },
       {
         title: 'Self-bill address',
@@ -236,7 +236,7 @@ const sections = [
       },
       {
         title: 'Security reminder',
-        content: 'Each team member should have their own account. Avoid sharing passwords — contact AMEX Outsourcing support if you need to reset access.',
+        content: 'Each team member should have their own account. Avoid sharing passwords - contact AMEX Outsourcing support if you need to reset access.',
         tip: 'Team member accounts can be removed at any time if someone leaves.',
       },
     ],
@@ -260,7 +260,7 @@ export function OpsGuide() {
       </div>
 
       <div className="flex gap-6">
-        {/* Section nav — desktop */}
+        {/* Section nav - desktop */}
         <aside className="hidden lg:flex flex-col gap-1 w-52 shrink-0">
           {sections.map(s => (
             <button

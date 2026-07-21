@@ -33,7 +33,7 @@ export default function ClientAuth() {
       } else if (isCandidate) {
         navigate('/candidate');
       } else if (isClient || isPortalUser) {
-        // Clients and portal users don't belong here — redirect or block
+        // Clients and portal users don't belong here - redirect or block
         toast({ variant: 'destructive', title: 'Access Denied', description: 'This portal is for the AMEX admin team only. Please use the Client Portal.' });
         signOut();
       }

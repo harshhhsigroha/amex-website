@@ -56,7 +56,7 @@ export default function Contact() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            Whether you need employment status guidance, payroll support, or HR services — our team is here to help.
+            Whether you need employment status guidance, payroll support, or HR services - our team is here to help.
           </motion.p>
         </div>
       </section>
@@ -68,7 +68,7 @@ export default function Contact() {
             { icon: MapPin, label: 'Visit Us', value: 'Pemberton House, Stafford Park 1, TF3 3BD', href: 'https://maps.google.com/?q=Pemberton+House+Stafford+Park+1+TF3+3BD' },
             { icon: Phone, label: 'Call Us', value: '01952 973737', href: 'tel:+01952973737' },
             { icon: Mail, label: 'Email Us', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
-            { icon: Clock, label: 'Office Hours', value: 'Mon – Fri, 9:00 – 17:30', href: undefined },
+            { icon: Clock, label: 'Office Hours', value: 'Mon - Fri, 9:00 - 17:30', href: undefined },
           ].map((item, i) => (
             <motion.a key={item.label} href={item.href} target={item.href?.startsWith('http') ? '_blank' : undefined}
               rel="noopener noreferrer" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
@@ -156,7 +156,7 @@ export default function Contact() {
                   <select value={formData.contractors} onChange={e => setFormData(f => ({ ...f, contractors: e.target.value }))}
                     className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all text-muted-foreground appearance-none cursor-pointer">
                     <option value="">Select a range...</option>
-                    <option>1 – 50</option><option>51 – 200</option><option>201 – 500</option><option>501 – 1,000</option><option>1,000+</option>
+                    <option>1 - 50</option><option>51 - 200</option><option>201 - 500</option><option>501 - 1,000</option><option>1,000+</option>
                   </select>
                 </div>
               </div>

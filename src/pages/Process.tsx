@@ -8,7 +8,7 @@ export default function Process() {
   const steps = [
     {
       n: '01', icon: Scale, title: 'Employment Status Determination',
-      desc: 'We provide guidance and tools to determine correct employment classification. Our experts clarify tax obligations, National Insurance contributions, benefits entitlements, and legal rights — ensuring full compliance with UK labour laws.',
+      desc: 'We provide guidance and tools to determine correct employment classification. Our experts clarify tax obligations, National Insurance contributions, benefits entitlements, and legal rights - ensuring full compliance with UK labour laws.',
       details: ['IR35 status assessment', 'HMRC compliance checks', 'Worker classification analysis', 'Tax obligation guidance', 'Legal rights clarification'],
     },
     {
@@ -18,7 +18,7 @@ export default function Process() {
     },
     {
       n: '03', icon: FileText, title: 'Quality Payroll Outsourcing',
-      desc: 'End-to-end payroll processing including calculating wages, taxes, and deductions, ensuring compliance with all regulations, and handling employee payments — freeing your business to focus on core activities.',
+      desc: 'End-to-end payroll processing including calculating wages, taxes, and deductions, ensuring compliance with all regulations, and handling employee payments - freeing your business to focus on core activities.',
       details: ['Wage & salary calculations', 'Tax & NI deductions', 'Pension contributions', 'Payslip generation', 'HMRC submissions'],
     },
   ];
