@@ -18,7 +18,7 @@ export default function HRServices() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            Professional HR support for thriving workplaces. From recruitment and onboarding to performance management and legal risk mitigation - we handle the people side of your business.
+            Professional HR support to help workplaces thrive. From recruitment and onboarding through to performance management and legal risk support, we take care of the people side of your business.
           </motion.p>
         </div>
       </section>
@@ -29,21 +29,21 @@ export default function HRServices() {
             <div>
               <h2 className="text-2xl font-medium text-foreground mb-4">Comprehensive HR support</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Whether you're preparing to hire your initial staff member or managing a workforce of several hundred individuals, our extensive expertise allows us to provide innovative solutions tailored to your business needs.
+                Whether you're about to take on your first member of staff or you're managing a workforce of several hundred people, our broad experience lets us offer solutions shaped to your business needs.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Our services encompass a wide range of areas, including resolving delicate issues, addressing absenteeism, expanding or streamlining your team, handling performance matters, and comprehending your legal responsibilities as an employer.
+                Our services cover a wide range of areas, including working through sensitive issues, managing absence, growing or reshaping your team, handling performance matters, and understanding your legal responsibilities as an employer.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Let us navigate you through the intricate landscape of employment law, helping you avoid any possible challenges that may arise during recruitment, redundancy, and all other aspects in between.
+                Let us guide you through the detail of employment law, helping you steer clear of possible challenges that can arise during recruitment, redundancy, and everything in between.
               </p>
             </div>
             <div className="space-y-4">
               {[
-                { icon: Users, title: 'Employee Engagement', desc: 'Build a positive workplace culture that attracts and retains top talent.' },
-                { icon: Shield, title: 'Legal Risk Mitigation', desc: 'Proactive legal protection allowing you to operate with confidence.' },
-                { icon: TrendingUp, title: 'Performance Management', desc: 'Structured processes to develop your team and drive business results.' },
-                { icon: Heart, title: 'Workforce Stability', desc: 'HR improvements that lead to higher retention and reduced recruitment costs.' },
+                { icon: Users, title: 'Employee Engagement', desc: 'Build a positive workplace culture that attracts and helps retain top talent.' },
+                { icon: Shield, title: 'Legal Risk Mitigation', desc: 'Proactive legal support so you can operate with greater confidence.' },
+                { icon: TrendingUp, title: 'Performance Management', desc: 'Structured processes to develop your team and support business results.' },
+                { icon: Heart, title: 'Workforce Stability', desc: 'HR improvements aimed at higher retention and lower recruitment costs.' },
               ].map((item, i) => (
                 <motion.div key={item.title} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
@@ -92,7 +92,7 @@ export default function HRServices() {
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-medium text-foreground mb-4">Need HR support?</h2>
-          <p className="text-muted-foreground mb-8">Our team is ready to help you build and manage a thriving workplace.</p>
+          <p className="text-muted-foreground mb-8">Our team is on hand to help you build and run a thriving workplace.</p>
           <a href="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-medium shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
             Get in Touch <ArrowRight className="w-4 h-4" />
           </a>

@@ -13,19 +13,19 @@ const services = [
     content: (
       <>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">Service Overview:</strong> Our Employment Status Assessment examines the nature of your job, tasks, level of control, and relationship with the organisation. We compare these factors against industry standards and legal criteria to determine the accurate employment classification.
+          <strong className="text-foreground">Service Overview:</strong> Our Employment Status Assessment looks at the nature of your role, the tasks involved, the degree of control exercised, and your relationship with the organisation. We weigh these factors against industry norms and legal tests to arrive at an accurate classification.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Employers:</strong> Ensures all workers are classified accurately to avoid penalties and optimise workforce structure. This service also includes audits for employers looking to confirm their current classifications.
+          <strong className="text-foreground">For Employers:</strong> Helps make sure every worker is classified correctly, reducing the risk of penalties and supporting a well-structured workforce. This service also includes reviews for employers wanting to confirm existing classifications.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Workers:</strong> Clarifies your status to help you claim the rights and benefits you're entitled to and safeguard against any potential misclassification.
+          <strong className="text-foreground">For Workers:</strong> Clarifies your status so you can claim the rights and benefits you are entitled to and reduces the chance of misclassification going unnoticed.
         </p>
         <p className="text-sm font-medium text-foreground mb-2">Key Benefits:</p>
         <ul className="space-y-1.5 text-sm text-muted-foreground">
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Avoidance of legal disputes and penalties.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Clear communication of roles and responsibilities.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Assurance of compliance with employment regulations.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Lower likelihood of legal disputes and penalties.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Clearer understanding of roles and responsibilities.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Greater confidence in meeting employment regulations.</li>
         </ul>
       </>
     ),
@@ -36,19 +36,19 @@ const services = [
     content: (
       <>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">Service Overview:</strong> We provide consultations tailored to your employment status, helping you understand your specific rights and protections. This includes pay entitlements, working hour limitations, leave policies, and more.
+          <strong className="text-foreground">Service Overview:</strong> We offer consultations shaped around your employment status, helping you understand the rights and protections that apply to you, including pay entitlements, working hour limits, and leave arrangements.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Employees and Workers:</strong> Discover your rights to minimum wage, paid leave, sick pay, and other benefits specific to employees or workers.
+          <strong className="text-foreground">For Employees and Workers:</strong> Find out about your entitlement to minimum wage, paid leave, sick pay, and other benefits specific to employees or workers.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Contractors and Freelancers:</strong> Learn about your rights to contract terms, negotiation options, and protections for timely payment and fair working conditions.
+          <strong className="text-foreground">For Contractors and Freelancers:</strong> Learn about your rights regarding contract terms, negotiation options, and protections around timely payment and fair working conditions.
         </p>
         <p className="text-sm font-medium text-foreground mb-2">Key Benefits:</p>
         <ul className="space-y-1.5 text-sm text-muted-foreground">
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Confidence in understanding your rights and obligations.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Assurance that you are not missing out on benefits or protections.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Enhanced ability to advocate for fair treatment within your role.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Greater clarity around your rights and obligations.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Peace of mind that you are not missing out on benefits or protections.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> A stronger position to advocate for fair treatment in your role.</li>
         </ul>
       </>
     ),
@@ -59,19 +59,19 @@ const services = [
     content: (
       <>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">Service Overview:</strong> Our Dispute Resolution Support guides both individuals and employers in addressing conflicts related to employment status or rights. We provide mediation, negotiation, and documentation to help resolve conflicts efficiently and respectfully.
+          <strong className="text-foreground">Service Overview:</strong> Our Dispute Resolution Support helps individuals and employers work through disagreements related to employment status or rights, offering mediation, negotiation, and documentation to help resolve matters efficiently and respectfully.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Employers:</strong> Resolve disputes effectively, maintaining workplace morale and avoiding potential legal action.
+          <strong className="text-foreground">For Employers:</strong> Work through disputes effectively while maintaining workplace morale and reducing the chance of legal action.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Workers:</strong> Protect your rights and receive assistance in handling disagreements over classification, benefits eligibility, and contract disputes.
+          <strong className="text-foreground">For Workers:</strong> Protect your rights and get support handling disagreements over classification, benefits eligibility, and contract disputes.
         </p>
         <p className="text-sm font-medium text-foreground mb-2">Key Benefits:</p>
         <ul className="space-y-1.5 text-sm text-muted-foreground">
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Reduced risk of costly legal proceedings.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Professional support in achieving mutually agreeable solutions.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Preservation of working relationships through fair and clear communication.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Lower chance of costly legal proceedings.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Professional support in reaching solutions that work for everyone.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Working relationships preserved through fair, clear communication.</li>
         </ul>
       </>
     ),
@@ -82,19 +82,19 @@ const services = [
     content: (
       <>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">Service Overview:</strong> We provide tailored documentation support, helping you develop contracts, job descriptions, and other essential documents that accurately reflect employment status. This includes templates for employment contracts, contractor agreements, and verification letters.
+          <strong className="text-foreground">Service Overview:</strong> We offer tailored documentation support, helping you put together contracts, job descriptions, and other essential paperwork that accurately reflects employment status, including templates for employment contracts, contractor agreements, and verification letters.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Employers:</strong> Gain confidence that all employment paperwork is legally compliant and reflective of each worker's classification.
+          <strong className="text-foreground">For Employers:</strong> Gain confidence that employment paperwork reflects each worker's classification and current legal requirements.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Workers:</strong> Obtain proof of employment status and receive assistance in preparing documentation to formalise your role and clarify your position.
+          <strong className="text-foreground">For Workers:</strong> Obtain proof of employment status and get support preparing documentation to formalise your role and clarify your position.
         </p>
         <p className="text-sm font-medium text-foreground mb-2">Key Benefits:</p>
         <ul className="space-y-1.5 text-sm text-muted-foreground">
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Clear communication of employment terms.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Clearer communication of employment terms.</li>
           <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Legal protection for both parties.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Confidence in compliance with relevant employment laws.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Greater confidence in meeting relevant employment laws.</li>
         </ul>
       </>
     ),
@@ -105,19 +105,19 @@ const services = [
     content: (
       <>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">Service Overview:</strong> Navigating transitions between different employment statuses-such as moving from employee to contractor, or from full-time to part-time-can be complex. Our Transition Assistance service provides the guidance and documentation support needed to manage these changes smoothly.
+          <strong className="text-foreground">Service Overview:</strong> Moving between different employment statuses, such as shifting from employee to contractor or from full-time to part-time, can be complicated. Our Transition Assistance service offers the guidance and documentation support needed to manage these changes smoothly.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Individuals:</strong> We help you understand new tax obligations, rights, and potential impacts on benefits during employment changes.
+          <strong className="text-foreground">For Individuals:</strong> We help you understand new tax obligations, rights, and possible effects on benefits during employment changes.
         </p>
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-          <strong className="text-foreground">For Employers:</strong> Receive support in revising contracts, updating employee handbooks, and restructuring workforce plans.
+          <strong className="text-foreground">For Employers:</strong> Get support revising contracts, updating employee handbooks, and restructuring workforce plans.
         </p>
         <p className="text-sm font-medium text-foreground mb-2">Key Benefits:</p>
         <ul className="space-y-1.5 text-sm text-muted-foreground">
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Smooth transition with clear understanding of new roles and obligations.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Reduced risk of misclassification and related penalties.</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Legal clarity for both parties throughout the change process.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> A smoother transition with a clear understanding of new roles and obligations.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Lower risk of misclassification and related penalties.</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" /> Legal clarity for both parties throughout the process of change.</li>
         </ul>
       </>
     ),
@@ -137,7 +137,7 @@ export default function EmploymentStatus() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            At AMEX Outsourcing, we help you manage your employment status seamlessly. Whether you're a self-employed contractor, agency worker, or PAYE employee, understanding your employment status is crucial for determining your tax obligations, legal rights, and the benefits you are entitled to.
+            At AMEX Outsourcing, we help you manage your employment status with ease. Whether you're a self-employed contractor, agency worker, or PAYE employee, understanding your employment status matters for working out your tax obligations, legal rights, and the benefits available to you.
           </motion.p>
         </div>
       </section>
@@ -148,20 +148,20 @@ export default function EmploymentStatus() {
             <div>
               <h2 className="text-2xl font-medium text-foreground mb-4">What is Employment Status?</h2>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Employment status determines how you are classified for tax purposes - whether as an employee, worker, or self-employed. This classification affects your tax obligations, National Insurance contributions, employment rights, and benefit entitlements.
+                Employment status determines how you are classified for tax purposes, whether as an employee, worker, or self-employed. This classification shapes your tax obligations, National Insurance contributions, employment rights, and benefit entitlements.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Recently, there has been a noticeable increase in individuals seeking greater autonomy and adaptability in their professional endeavours. This shift has led to a significant rise in the UK's self-employed population, now totalling 4.3 million.
+                In recent years, more people have been looking for greater autonomy and flexibility in how they work. This shift has contributed to a marked rise in the UK's self-employed population, now standing at around 4.3 million.
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Our expert team helps you are correctly classified and compliant with UK laws, so you can focus on your work with peace of mind. We provide support for contractors, freelancers, and temporary workers.
+                Our expert team helps you stay correctly classified and aligned with UK law, so you can focus on your work with peace of mind. We support contractors, freelancers, and temporary workers alike.
               </p>
             </div>
             <div className="space-y-4">
               {[
-                { icon: Scale, title: 'IR35 Assessments', desc: 'Precise assessments to confirm correct classification status aligned with industry-specific requirements.' },
-                { icon: ShieldCheck, title: 'HMRC Compliance', desc: 'Prevent future issues with reclassification, back taxes, or legal challenges.' },
-                { icon: FileText, title: 'Documentation', desc: 'Full documentation trail for audit readiness and regulatory compliance.' },
+                { icon: Scale, title: 'IR35 Assessments', desc: 'Careful assessments to confirm correct classification status in line with industry-specific requirements.' },
+                { icon: ShieldCheck, title: 'HMRC Compliance', desc: 'Helps guard against future issues with reclassification, back taxes, or legal challenges.' },
+                { icon: FileText, title: 'Documentation', desc: 'A complete documentation trail to support audit readiness and regulatory compliance.' },
                 { icon: Users, title: 'Contractor Support', desc: 'Guidance for contractors, freelancers, and temporary workers on their status.' },
               ].map((item, i) => (
                 <motion.div key={item.title} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}
@@ -208,8 +208,8 @@ export default function EmploymentStatus() {
           <h2 className="text-2xl font-medium text-foreground text-center mb-10">What's included</h2>
           <div className="grid sm:grid-cols-2 gap-3">
             {[
-              'Self-employed classification accuracy assessments',
-              'Quarterly compliance audits',
+              'Accuracy checks for self-employed classification',
+              'Quarterly compliance reviews',
               'IR35 status determinations',
               'Worker classification analysis',
               'Tax obligation guidance',
@@ -233,7 +233,7 @@ export default function EmploymentStatus() {
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-2xl font-medium text-foreground mb-4">Need employment status guidance?</h2>
-          <p className="text-muted-foreground mb-8">Our experts are ready to help you navigate the complexities of employment classification.</p>
+          <p className="text-muted-foreground mb-8">Our experts are on hand to help you work through the complexities of employment classification.</p>
           <a href="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-medium shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
             Get in Touch <ArrowRight className="w-4 h-4" />
           </a>
