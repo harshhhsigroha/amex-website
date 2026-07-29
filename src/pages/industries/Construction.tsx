@@ -21,7 +21,7 @@ export default function Construction() {
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            AMEX Outsourcing specialises in Employment Status, Payroll, and HR services, offering your company tailored services that help both protection and full compliance with legal and regulatory requirements. Our in-house team of experts brings a deep understanding of the complexities involved in managing employment relationships, particularly within industries like construction, where HMRC's enforcement efforts are becoming increasingly stringent.
+            AMEX Outsourcing focuses on Employment Status, Payroll, and HR services, offering your company bespoke support designed to help with protection and alignment with legal and regulatory requirements. Our in-house team brings a strong understanding of the complexities involved in managing employment relationships, particularly within sectors like construction, where HMRC's enforcement activity continues to increase.
           </motion.p>
         </div>
         <motion.div initial={{ opacity: 0, y: 32 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.3 }}
@@ -61,11 +61,11 @@ export default function Construction() {
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto">
           <motion.h2 {...fade} className="text-2xl font-medium text-foreground text-center mb-4">
-            How can AMEX help your company stay compliant?
+            How can AMEX support your company's compliance?
           </motion.h2>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.1 }}
             className="text-sm text-muted-foreground text-center leading-relaxed max-w-3xl mx-auto">
-            AMEX Outsourcing specialises in employment status, payroll, and HR services tailored to help companies manage compliance and mitigate risks. With expertise in industries such as construction, AMEX helps businesses meet legal standards, reduce penalties, and stay ahead of regulatory changes. From worker classification and payroll management to HR strategy and contract support, AMEX provides comprehensive solutions that enable companies to focus on growth while maintaining compliance and protection.
+            AMEX Outsourcing focuses on employment status, payroll, and HR services tailored to help companies manage compliance and reduce risk. With experience across sectors such as construction, AMEX supports businesses in meeting legal standards, lowering the chance of penalties, and keeping pace with regulatory change. From worker classification and payroll management to HR strategy and contract support, AMEX offers rounded solutions that help companies focus on growth while maintaining compliance and protection.
           </motion.p>
         </div>
       </section>
@@ -76,11 +76,11 @@ export default function Construction() {
           <motion.h2 {...fade} className="text-2xl font-medium text-foreground text-center mb-10">Construction Services</motion.h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              { icon: Scale, title: 'Employment Status', desc: 'Accurate worker classification aligned with HMRC guidelines, IR35 regulations, and CIS requirements to protect your business.' },
-              { icon: FileText, title: 'Payroll Services', desc: 'Comprehensive payroll processing for site operatives and subcontractors, including CIS deductions, holiday pay, and payslip generation.' },
+              { icon: Scale, title: 'Employment Status', desc: 'Careful worker classification in line with HMRC guidance, IR35 regulations, and CIS requirements to help protect your business.' },
+              { icon: FileText, title: 'Payroll Services', desc: 'Rounded payroll processing for site operatives and subcontractors, including CIS deductions, holiday pay, and payslip generation.' },
               { icon: Users, title: 'HR Services', desc: 'End-to-end HR support covering recruitment, onboarding, right-to-work checks, and ongoing workforce management across multiple sites.' },
-              { icon: ShieldCheck, title: 'Navigating HMRC Scrutiny and Risk Mitigation', desc: 'Proactive compliance strategies and audit-ready documentation to prepare your business for HMRC enquiries and reduce exposure to penalties.' },
-              { icon: Briefcase, title: 'Expertly Crafted Contracts and Dedicated Support', desc: 'Bespoke contracts tailored to the construction sector with ongoing expert guidance to adapt to regulatory changes.' },
+              { icon: ShieldCheck, title: 'Navigating HMRC Scrutiny and Risk Mitigation', desc: 'Proactive compliance approaches and audit-ready documentation to help prepare your business for HMRC enquiries and reduce exposure to penalties.' },
+              { icon: Briefcase, title: 'Expertly Crafted Contracts and Dedicated Support', desc: 'Bespoke contracts suited to the construction sector, backed by ongoing expert guidance to adapt to regulatory change.' },
               { icon: HeadphonesIcon, title: 'Guiding You Through Every Step', desc: 'A dedicated account team that works alongside your business from initial assessment through to ongoing compliance management.' },
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
@@ -100,8 +100,8 @@ export default function Construction() {
       {/* CTA */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-medium text-foreground mb-4">Ready to simplify your construction workforce?</h2>
-          <p className="text-muted-foreground mb-8">Speak to our team about how we can support your business with compliant, reliable services.</p>
+          <h2 className="text-2xl font-medium text-foreground mb-4">Ready to make your construction workforce easier to manage?</h2>
+          <p className="text-muted-foreground mb-8">Talk to our team about how we can support your business with compliant, dependable services.</p>
           <a href="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-medium shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
             Get in Touch <ArrowRight className="w-4 h-4" />
           </a>
