@@ -14,9 +14,9 @@ export default function IndustriesSection() {
   return (
     <section className="py-20 px-6 bg-background border-t border-border/20">
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-medium text-foreground text-center mb-4">Industries we support</h2>
+        <h2 className="text-2xl font-medium text-foreground text-center mb-4">Sectors we work with</h2>
         <p className="text-sm text-muted-foreground text-center mb-10 max-w-lg mx-auto">
-          We work with organisations across a range of sectors, tailoring our services to meet industry-specific requirements.
+          We support organisations across various sectors, shaping our services around the needs of each industry.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {industries.map((ind, i) => (

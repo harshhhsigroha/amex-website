@@ -101,15 +101,15 @@ export default function Landing() {
   ];
 
   const services = [
-    { n: '01', icon: Scale, title: 'Employment Status', desc: 'Guidance on employment classification for contractors and employees, supporting compliance with UK legislation and helping to mitigate the risk of reclassification.', tags: ['IR35', 'HMRC', 'Classification'], href: '/services/employment-status' },
-    { n: '02', icon: FileText, title: 'Payroll Services', desc: 'End-to-end payroll management including wage calculations, tax deductions, National Insurance, pension contributions, and payslip generation - accurate and on time.', tags: ['PAYE', 'NI', 'Pensions'], href: '/services/payroll-services' },
-    { n: '03', icon: Briefcase, title: 'HR Services', desc: 'Comprehensive human resources support covering recruitment, onboarding, performance management, employee engagement, and employment law guidance.', tags: ['Recruitment', 'Compliance', 'Engagement'], href: '/services/hr-services' },
+    { n: '01', icon: Scale, title: 'Employment Status', desc: 'Advice on classifying contractors and employees correctly, helping your organisation align with UK legislation and reduce the risk of misclassification.', tags: ['IR35', 'HMRC', 'Classification'], href: '/services/employment-status' },
+    { n: '02', icon: FileText, title: 'Payroll Services', desc: 'Complete payroll handling, from wage calculations and tax deductions to National Insurance, pension contributions and payslip production, delivered accurately and punctually.', tags: ['PAYE', 'NI', 'Pensions'], href: '/services/payroll-services' },
+    { n: '03', icon: Briefcase, title: 'HR Services', desc: 'Wide-ranging HR support spanning recruitment, onboarding, performance management, staff engagement and employment law advice.', tags: ['Recruitment', 'Compliance', 'Engagement'], href: '/services/hr-services' },
   ];
 
   const processSteps = [
-    { n: '01', icon: Scale, title: 'Employment Status', desc: 'Determine correct employment classification with guidance on tax, National Insurance, benefits, and legal rights.' },
-    { n: '02', icon: ShieldCheck, title: 'Compliance', desc: 'Ongoing compliance support to help your organisation follow the latest laws, regulations, and industry standards.' },
-    { n: '03', icon: FileText, title: 'Quality Payroll', desc: 'Calculating wages, taxes, and deductions with full regulatory compliance, so you can focus on core activities.' },
+    { n: '01', icon: Scale, title: 'Employment Status', desc: 'Work out the appropriate employment classification, with advice on tax, National Insurance, benefits and legal entitlements.' },
+    { n: '02', icon: ShieldCheck, title: 'Compliance', desc: 'Continuing compliance assistance to help your organisation keep pace with current laws, regulations and sector standards.' },
+    { n: '03', icon: FileText, title: 'Quality Payroll', desc: 'Wage, tax and deduction calculations handled in line with regulatory requirements, freeing you to focus on your core activities.' },
   ];
 
   const industries = [
@@ -289,7 +289,7 @@ export default function Landing() {
             className="mb-10 flex items-center justify-center gap-3">
             <span className="h-px w-8 bg-primary" />
             <span className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary">
-              Employment Status · Payroll · HR
+              Employment Status, Payroll and HR Services
             </span>
             <span className="h-px w-8 bg-primary" />
           </motion.div>
@@ -297,14 +297,14 @@ export default function Landing() {
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             className="text-[clamp(2.75rem,6.5vw,5.5rem)] font-semibold text-foreground leading-[1.02] tracking-[-0.02em] mb-8">
-            Take your business{' '}
-            <span className="text-primary">further.</span>
+            Helping your business{' '}
+            <span className="text-primary">move forward.</span>
           </motion.h1>
 
           <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.35 }}
             className="text-base md:text-lg text-muted-foreground leading-relaxed max-w-xl mx-auto mb-10">
-            Employment status, payroll management, and HR support for businesses across the UK.
+            Support with employment status, payroll and HR for businesses throughout the UK.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
@@ -312,7 +312,7 @@ export default function Landing() {
             className="flex flex-col sm:flex-row justify-center gap-3">
             <Button size="lg" onClick={() => navigate('/contact')}
               className="rounded-full h-12 px-8 gap-2 text-sm font-medium">
-              Get Started <ArrowRight className="w-4 h-4" />
+              Contact Us <ArrowRight className="w-4 h-4" />
             </Button>
             <Button size="lg" variant="outline" onClick={() => navigate('/about')}
               className="rounded-full h-12 px-8 text-sm font-medium border-border hover:border-primary hover:text-primary">
@@ -327,10 +327,10 @@ export default function Landing() {
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
             {[
-              { to: 5, suffix: '+', label: 'Years Experience' },
-              { to: 90, suffix: '+', label: 'Clients Served' },
-              { to: 1000, suffix: 's', label: 'Payrolls Processed' },
-              { to: 24, suffix: '/7', label: 'Support Available' },
+              { to: 5, suffix: '+', label: 'Years in Operation' },
+              { to: 90, suffix: '+', label: 'Clients Supported' },
+              { to: 1000, suffix: 's', label: 'Payroll Runs Completed' },
+              { to: 24, suffix: '/7', label: 'Support Access' },
             ].map((s, i) => (
               <Reveal key={s.label} delay={i * 0.05} className="text-center">
                 <p className="text-3xl md:text-4xl font-semibold text-foreground tabular-nums tracking-tight mb-2">
@@ -349,21 +349,21 @@ export default function Landing() {
           <Reveal className="text-center max-w-2xl mx-auto mb-20">
             <Eyebrow>About Us</Eyebrow>
             <h2 className="text-[clamp(1.875rem,3.5vw,3rem)] font-semibold text-foreground leading-tight tracking-tight mb-6 inline-flex flex-wrap justify-center gap-x-3">
-              Supporting your workforce <span className="text-primary">needs.</span>
+              Meeting your workforce <span className="text-primary">requirements.</span>
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
-              We work closely with businesses and contractors to provide a compliant and personalised service, tailored to your organisation.
+              We collaborate closely with businesses and contractors to offer a compliant, personalised service shaped around your organisation.
             </p>
           </Reveal>
 
           <div className="grid md:grid-cols-3 gap-x-10 gap-y-12">
             {[
-              { icon: Sparkles, title: 'Tailored Approach', desc: 'A client-focused service designed around your specific industry and workforce structure.' },
-              { icon: Headphones, title: 'Dedicated Support', desc: 'Our team is available around the clock, whenever you need assistance.' },
-              { icon: ShieldCheck, title: 'Compliance Reviews', desc: 'Regular reviews keep your organisation aligned with regulatory requirements.' },
-              { icon: Users, title: 'Workforce Stability', desc: 'HR support designed to improve employee retention and productivity.' },
-              { icon: Scale, title: 'Employment Law', desc: 'Clear guidance on recruitment, redundancy, and related challenges.' },
-              { icon: Building2, title: 'Scalable Solutions', desc: 'Solutions that scale from your first hire to a workforce of hundreds.' },
+              { icon: Sparkles, title: 'Tailored Approach', desc: 'A client-centred service shaped around your particular industry and workforce structure.' },
+              { icon: Headphones, title: 'Dedicated Support', desc: 'Our team can be reached around the clock whenever you need assistance.' },
+              { icon: ShieldCheck, title: 'Compliance Reviews', desc: 'Periodic reviews help keep your organisation in step with regulatory requirements.' },
+              { icon: Users, title: 'Workforce Stability', desc: 'HR support aimed at supporting staff retention and productivity.' },
+              { icon: Scale, title: 'Employment Law', desc: 'Straightforward advice on recruitment, redundancy and related matters.' },
+              { icon: Building2, title: 'Scalable Solutions', desc: 'Support that can grow with you, from your first hire through to a workforce of hundreds.' },
             ].map((item, i) => (
               <Reveal key={item.title} delay={i * 0.04}>
                 <item.icon className="w-5 h-5 text-primary mb-4" strokeWidth={1.5} />
@@ -381,10 +381,10 @@ export default function Landing() {
           <Reveal className="text-center max-w-2xl mx-auto mb-20">
             <Eyebrow>What We Do</Eyebrow>
             <h2 className="text-[clamp(1.875rem,3.5vw,3rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-              Our <span className="text-primary">services.</span>
+              Our <span className="text-primary">offering.</span>
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
-              From employment status determination to full payroll management - we support you at every stage.
+              From assessing employment status through to complete payroll management, we support you at each stage.
             </p>
           </Reveal>
 
@@ -417,10 +417,10 @@ export default function Landing() {
             <Reveal>
               <Eyebrow>Employment Status</Eyebrow>
               <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-                Correct classification, <span className="text-primary">reduced risk.</span>
+                Accurate classification, <span className="text-primary">lower risk.</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                Our team provides detailed assessments aligned with HMRC guidelines and IR35 legislation, helping you classify workers correctly and maintain full compliance with UK employment law.
+                Our team carries out thorough assessments in line with HMRC guidance and IR35 legislation, helping you classify workers appropriately and support compliance with UK employment law.
               </p>
               <Button variant="ghost" onClick={() => navigate('/services/employment-status')}
                 className="p-0 h-auto gap-2 text-primary hover:text-primary hover:bg-transparent text-sm font-medium">
@@ -429,7 +429,7 @@ export default function Landing() {
             </Reveal>
             <Reveal delay={0.1}>
               <ul className="space-y-4">
-                {['IR35 assessments aligned with current HMRC guidance', 'Full worker classification and status determination', 'Audit-ready documentation and evidence packs', 'Ongoing regulatory alignment and risk review'].map(item => (
+                {['IR35 assessments carried out in line with current HMRC guidance', 'Complete worker classification and status determination', 'Documentation and evidence packs prepared for audit purposes', 'Continued regulatory alignment and risk review'].map(item => (
                   <li key={item} className="flex items-start gap-3 text-sm text-foreground">
                     <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" strokeWidth={2} />
                     <span className="leading-relaxed">{item}</span>
@@ -447,7 +447,7 @@ export default function Landing() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <Reveal className="order-2 lg:order-1">
               <ul className="space-y-4">
-                {['Accurate tax, NI, and pension deductions', 'Timely payslip generation and delivery', 'Self-billed invoicing and VAT handling', 'HMRC RTI submissions on every run'].map(item => (
+                {['Careful handling of tax, NI and pension deductions', 'Prompt payslip production and delivery', 'Self-billed invoicing and VAT management', 'HMRC RTI submissions with each payroll run'].map(item => (
                   <li key={item} className="flex items-start gap-3 text-sm text-foreground">
                     <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" strokeWidth={2} />
                     <span className="leading-relaxed">{item}</span>
@@ -458,10 +458,10 @@ export default function Landing() {
             <Reveal delay={0.1} className="order-1 lg:order-2">
               <Eyebrow>Payroll Services</Eyebrow>
               <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-                Accurate payroll, <span className="text-primary">on time.</span>
+                Reliable payroll, <span className="text-primary">delivered on time.</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                End-to-end payroll processing - from gross pay calculations and deductions to payslip generation and HMRC submissions. Weekly or monthly, we handle the complexity.
+                Complete payroll processing, covering gross pay calculations, deductions, payslip production and HMRC submissions. Whether weekly or monthly, we manage the detail on your behalf.
               </p>
               <Button variant="ghost" onClick={() => navigate('/services/payroll-services')}
                 className="p-0 h-auto gap-2 text-primary hover:text-primary hover:bg-transparent text-sm font-medium">
@@ -479,10 +479,10 @@ export default function Landing() {
             <Reveal>
               <Eyebrow>HR Services</Eyebrow>
               <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-                People-focused <span className="text-primary">HR support.</span>
+                People-centred <span className="text-primary">HR support.</span>
               </h2>
               <p className="text-sm md:text-base text-muted-foreground leading-relaxed mb-6">
-                Practical, tailored HR support across the full employee lifecycle - recruitment, onboarding, performance, and exits - with clear guidance on employment law.
+                Practical, tailored HR support throughout the employee lifecycle, covering recruitment, onboarding, performance and exits, alongside clear employment law advice.
               </p>
               <Button variant="ghost" onClick={() => navigate('/services/hr-services')}
                 className="p-0 h-auto gap-2 text-primary hover:text-primary hover:bg-transparent text-sm font-medium">
@@ -491,7 +491,7 @@ export default function Landing() {
             </Reveal>
             <Reveal delay={0.1}>
               <ul className="space-y-4">
-                {['Recruitment and onboarding support', 'Performance and absence management', 'Employment law and compliance guidance', 'Engagement and workforce planning'].map(item => (
+                {['Support with recruitment and onboarding', 'Performance and absence management', 'Employment law and compliance advice', 'Engagement and workforce planning'].map(item => (
                   <li key={item} className="flex items-start gap-3 text-sm text-foreground">
                     <CheckCircle2 className="w-4 h-4 text-primary shrink-0 mt-0.5" strokeWidth={2} />
                     <span className="leading-relaxed">{item}</span>
@@ -509,10 +509,10 @@ export default function Landing() {
           <Reveal className="text-center max-w-2xl mx-auto mb-16">
             <Eyebrow>Industries</Eyebrow>
             <h2 className="text-[clamp(1.875rem,3.5vw,3rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-              Sectors we <span className="text-primary">support.</span>
+              Sectors we <span className="text-primary">work with.</span>
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Tailored employment and payroll solutions built for the realities of each sector.
+              Employment and payroll solutions shaped around the practical needs of each sector.
             </p>
           </Reveal>
 
@@ -539,7 +539,7 @@ export default function Landing() {
           <Reveal className="text-center max-w-2xl mx-auto mb-20">
             <Eyebrow>Our Process</Eyebrow>
             <h2 className="text-[clamp(1.875rem,3.5vw,3rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-              A simple <span className="text-primary">three-step</span> approach.
+              An easy-to-follow <span className="text-primary">three-step</span> approach.
             </h2>
           </Reveal>
 
@@ -560,7 +560,7 @@ export default function Landing() {
                 {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 text-primary fill-primary" />)}
               </div>
               <p className="text-lg md:text-xl text-foreground leading-relaxed mb-6 font-normal">
-                "The user-friendly interface and accessibility of payroll data have made the entire process transparent and hassle-free. AMEX has consistently demonstrated professionalism, responsiveness, and adaptability."
+                "The easy-to-use interface and accessible payroll data have made the whole process clear and straightforward. AMEX has consistently shown professionalism, responsiveness and adaptability."
               </p>
               <p className="text-sm font-medium text-foreground">Jane Jordan</p>
               <p className="text-xs text-muted-foreground">Client</p>
@@ -575,10 +575,10 @@ export default function Landing() {
           <Reveal className="text-center max-w-2xl mx-auto mb-16">
             <Eyebrow>Contact</Eyebrow>
             <h2 className="text-[clamp(1.875rem,3.5vw,3rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-              Get in <span className="text-primary">touch.</span>
+              Reach out to <span className="text-primary">us.</span>
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed">
-              Speak to our team about how we can support your organisation.
+              Contact our team to discuss how we can support your organisation.
             </p>
           </Reveal>
 
@@ -606,14 +606,14 @@ export default function Landing() {
         <div className="max-w-3xl mx-auto px-6 text-center">
           <Reveal>
             <h2 className="text-[clamp(1.875rem,4vw,3rem)] font-semibold text-foreground leading-tight tracking-tight mb-6">
-              Take your business <span className="text-primary">further.</span>
+              Help your business <span className="text-primary">move forward.</span>
             </h2>
             <p className="text-muted-foreground text-base leading-relaxed max-w-lg mx-auto mb-8">
-              Employment status, payroll, and HR services - all under one roof.
+              Employment status, payroll and HR support, all provided together.
             </p>
             <Button onClick={() => navigate('/contact')} size="lg"
               className="rounded-full h-12 px-8 gap-2 text-sm font-medium">
-              Get in Touch <ArrowRight className="w-4 h-4" />
+              Contact Us <ArrowRight className="w-4 h-4" />
             </Button>
           </Reveal>
         </div>
@@ -626,7 +626,7 @@ export default function Landing() {
             <div className="col-span-2 md:col-span-1">
               <img src="/logo.png" alt="AMEX Outsourcing" className="h-7 object-contain mb-4" />
               <p className="text-xs text-muted-foreground leading-relaxed">
-                Employment status, payroll, and HR services for UK businesses.
+                Employment status, payroll and HR support for businesses across the UK.
               </p>
             </div>
 
