@@ -8,17 +8,17 @@ export default function Process() {
   const steps = [
     {
       n: '01', icon: Scale, title: 'Employment Status Determination',
-      desc: 'We provide guidance and tools to determine correct employment classification. Our experts clarify tax obligations, National Insurance contributions, benefits entitlements, and legal rights - supporting compliance with UK labour laws.',
+      desc: 'We offer guidance and tools to help establish the right employment classification. Our specialists explain tax obligations, National Insurance contributions, benefit entitlements, and legal rights, supporting compliance with UK labour laws.',
       details: ['IR35 status assessment', 'HMRC compliance checks', 'Worker classification analysis', 'Tax obligation guidance', 'Legal rights clarification'],
     },
     {
-      n: '02', icon: ShieldCheck, title: 'Worry-Free Compliance',
-      desc: 'We help your organisation or individual consistently follows the latest laws, regulations, and standards relevant to your industry. Quarterly audits keep you prepared for any regulatory changes.',
+      n: '02', icon: ShieldCheck, title: 'Straightforward Compliance',
+      desc: 'We help your organisation or you as an individual keep pace with the latest laws, regulations, and standards relevant to your sector. Quarterly audits help keep you ready for any regulatory changes.',
       details: ['Quarterly compliance audits', 'Regulatory updates monitoring', 'Industry-specific standards', 'Risk assessment reports', 'Corrective action plans'],
     },
     {
-      n: '03', icon: FileText, title: 'Quality Payroll Outsourcing',
-      desc: 'End-to-end payroll processing including calculating wages, taxes, and deductions, helping compliance with all regulations, and handling employee payments - freeing your business to focus on core activities.',
+      n: '03', icon: FileText, title: 'Reliable Payroll Outsourcing',
+      desc: 'Complete payroll processing covering wage, tax, and deduction calculations, support with regulatory compliance, and management of employee payments, freeing your business to focus on its core activities.',
       details: ['Wage & salary calculations', 'Tax & NI deductions', 'Pension contributions', 'Payslip generation', 'HMRC submissions'],
     },
   ];
@@ -31,11 +31,11 @@ export default function Process() {
           <motion.p {...fade} className="text-[10px] font-semibold text-primary uppercase tracking-[0.2em] mb-4">Our Process</motion.p>
           <motion.h1 {...fade} transition={{ duration: 0.5, delay: 0.1 }}
             className="text-[clamp(2.5rem,5vw,4rem)] font-medium text-foreground leading-tight tracking-tight mb-6">
-            Employment Status, Payroll & HR
+            Employment Status, Payroll and HR
           </motion.h1>
           <motion.p {...fade} transition={{ duration: 0.5, delay: 0.2 }}
             className="text-muted-foreground max-w-2xl mx-auto text-base leading-relaxed">
-            A streamlined three-step process that helps compliance, accuracy, and peace of mind for your organisation.
+            A simplified three-step process designed to support compliance, accuracy, and peace of mind for your organisation.
           </motion.p>
         </div>
       </section>
@@ -74,12 +74,12 @@ export default function Process() {
       {/* Benefits */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-medium text-foreground text-center mb-12">Why choose our process?</h2>
+          <h2 className="text-2xl font-medium text-foreground text-center mb-12">Why choose our approach?</h2>
           <div className="grid md:grid-cols-3 gap-5">
             {[
-              { icon: Clock, title: 'Save Time', desc: 'Streamlined workflows eliminate hours of manual processing each week.' },
-              { icon: ShieldCheck, title: 'Stay Compliant', desc: 'Every step is designed around UK regulations and HMRC requirements.' },
-              { icon: BarChart3, title: 'Full Visibility', desc: 'Transparent reporting at every stage so you can see where things stand.' },
+              { icon: Clock, title: 'Save Time', desc: 'Simplified workflows can cut out hours of manual processing every week.' },
+              { icon: ShieldCheck, title: 'Stay Compliant', desc: 'Each step is built around UK regulations and HMRC requirements.' },
+              { icon: BarChart3, title: 'Clear Visibility', desc: 'Clear reporting throughout the process so you can see where things stand.' },
             ].map((item, i) => (
               <motion.div key={item.title} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
@@ -98,8 +98,8 @@ export default function Process() {
       {/* CTA */}
       <section className="py-20 px-6 bg-background border-t border-border/20">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl font-medium text-foreground mb-4">Ready to get started?</h2>
-          <p className="text-muted-foreground mb-8">Let us handle the complexity of employment status, payroll, and compliance.</p>
+          <h2 className="text-2xl font-medium text-foreground mb-4">Ready to begin?</h2>
+          <p className="text-muted-foreground mb-8">Let us take care of the complexities around employment status, payroll, and compliance.</p>
           <a href="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-3 rounded-full text-sm font-medium shadow-lg shadow-primary/20 hover:bg-primary/90 transition-colors">
             Contact Us <ArrowRight className="w-4 h-4" />
           </a>
