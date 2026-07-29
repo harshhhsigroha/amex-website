@@ -96,7 +96,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="font-medium text-foreground text-sm">Send us a message</p>
-                <p className="text-xs text-muted-foreground">We reply within 1 business hour</p>
+                <p className="text-xs text-muted-foreground">We aim to respond within one business hour</p>
               </div>
             </div>
             <div className="space-y-4">
@@ -178,7 +178,7 @@ export default function Contact() {
                   {formSubmitting ? 'Sending...' : <><Send className="w-4 h-4" /> Send Message</>}
                 </Button>
               )}
-              <p className="text-[10px] text-muted-foreground text-center">No commitment. We reply within 1 business hour.</p>
+              <p className="text-[10px] text-muted-foreground text-center">No obligation, we aim to reply within one business hour.</p>
             </div>
           </motion.div>
 
