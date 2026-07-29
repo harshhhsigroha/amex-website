@@ -1,6 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { decode } from "https://deno.land/x/djwt@v3.0.2/mod.ts";
 import { rateLimit, getRateLimitedResponse } from "../_shared/rate-limit.ts";
 import { sanitizeEmail, sanitizeString, isValidUUID, validatePassword } from "../_shared/sanitize.ts";
 
@@ -37,20 +36,14 @@ serve(async (req) => {
 
     const token = authHeader.replace("Bearer ", "");
     let callerId: string;
-    try {
-      const [_h, payload] = decode(token);
-      const claims = payload as { sub?: string; exp?: number };
-      if (!claims.sub) throw new Error("missing sub");
-      if (claims.exp && claims.exp * 1000 < Date.now()) {
-        return new Response(JSON.stringify({ error: "Token expired" }), {
+    {
+      const { data: authData, error: authError } = await admin.auth.getUser(token);
+      if (authError || !authData?.user) {
+        return new Response(JSON.stringify({ error: "Invalid token" }), {
           status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
         });
       }
-      callerId = claims.sub;
-    } catch {
-      return new Response(JSON.stringify({ error: "Invalid token" }), {
-        status: 401, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      callerId = authData.user.id;
     }
 
     // Verify admin
