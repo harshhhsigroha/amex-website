@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Phone, Mail, Scale, FileText, Briefcase, Hammer, HeartPulse, Utensils } from 'lucide-react';
+import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Phone, Mail, Scale, FileText, Briefcase, Hammer, HeartPulse, Utensils, Truck } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 
@@ -20,6 +20,7 @@ const industryLinks = [
   { icon: Hammer, label: 'Construction', href: '/industries/construction' },
   { icon: HeartPulse, label: 'Healthcare', href: '/industries/healthcare' },
   { icon: Utensils, label: 'Hospitality', href: '/industries/hospitality' },
+  { icon: Truck, label: 'Logistics', href: '/industries/logistics' },
 ];
 
 export default function PageLayout({ children }: { children: React.ReactNode }) {
