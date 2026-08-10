@@ -63,10 +63,9 @@ export default function Contact() {
 
       {/* Contact cards */}
       <section className="py-12 px-6 bg-background">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             { icon: MapPin, label: 'Visit Us', value: '545 Northumberland Avenue, Reading, England, RG2 8NU', href: 'https://maps.google.com/?q=545+Northumberland+Avenue+Reading+England+RG2+8NU' },
-            { icon: Phone, label: 'Call Us', value: '01952 973737', href: 'tel:+01952973737' },
             { icon: Mail, label: 'Email Us', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
             { icon: Clock, label: 'Office Hours', value: 'Mon - Fri, 9:00 - 17:30', href: undefined },
           ].map((item, i) => (
@@ -116,21 +115,12 @@ export default function Contact() {
                     className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-foreground mb-1.5 block">Work Email *</label>
-                  <input type="email" placeholder="jane@company.co.uk" value={formData.email}
-                    onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
-                    maxLength={255}
-                    className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-foreground mb-1.5 block">Phone Number</label>
-                  <input type="tel" placeholder="01234 567890" value={formData.phone}
-                    onChange={e => setFormData(f => ({ ...f, phone: e.target.value }))}
-                    maxLength={20}
-                    className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
-                </div>
+              <div>
+                <label className="text-xs font-medium text-foreground mb-1.5 block">Work Email *</label>
+                <input type="email" placeholder="jane@company.co.uk" value={formData.email}
+                  onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
+                  maxLength={255}
+                  className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
               </div>
               <div>
                 <label className="text-xs font-medium text-foreground mb-1.5 block">Company Name *</label>
@@ -204,10 +194,7 @@ export default function Contact() {
                   <p className="text-xs text-muted-foreground">545 Northumberland Avenue, Reading, England, RG2 8NU</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <a href="tel:+01952973737" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
-                  <Phone className="w-3.5 h-3.5 text-primary" /> 01952 973737
-                </a>
+              <div className="grid grid-cols-1 gap-3">
                 <a href="mailto:info@amexoutsourcing.com" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
                   <Mail className="w-3.5 h-3.5 text-primary" /> info@amexoutsourcing.com
                 </a>
