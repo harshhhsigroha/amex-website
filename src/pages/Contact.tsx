@@ -188,7 +188,7 @@ export default function Contact() {
             <div className="glass-premium rounded-3xl overflow-hidden flex-1 min-h-[400px]">
               <iframe
                 title="AMEX Outsourcing Office Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2420.5!2d-2.4647!3d52.6862!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487a5d4c57e5ff01%3A0x1b7f1f3e9c5e7a0!2sStafford+Park+1%2C+Telford!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2484.1!2d-0.9500!3d51.4400!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48769b7b9e0a6f0d%3A0x5c8e5f2b1a3d4e6f!2s545+Northumberland+Avenue%2C+Reading+RG2+8NU!5e0!3m2!1sen!2suk!4v1700000000000!5m2!1sen!2suk"
                 width="100%" height="100%" style={{ border: 0, minHeight: 400 }}
                 allowFullScreen loading="lazy" referrerPolicy="no-referrer-when-downgrade"
                 className="w-full h-full"
