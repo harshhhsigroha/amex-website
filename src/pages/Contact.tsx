@@ -1,13 +1,13 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
+import { MapPin, Mail, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', lastName: '', email: '', phone: '', company: '', contractors: '', service: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', lastName: '', email: '', company: '', contractors: '', service: '', message: '' });
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState('');
@@ -33,11 +33,11 @@ export default function Contact() {
           email: formData.email,
           company: formData.company,
           contractors: formData.contractors,
-          message: `Service: ${formData.service || 'Not specified'}\nPhone: ${formData.phone || 'Not provided'}\n\n${formData.message}`,
+          message: `Service: ${formData.service || 'Not specified'}\n\n${formData.message}`,
         }),
       });
       const data = await res.json();
-      if (res.ok) { setFormSuccess(true); setFormData({ name: '', lastName: '', email: '', phone: '', company: '', contractors: '', service: '', message: '' }); }
+      if (res.ok) { setFormSuccess(true); setFormData({ name: '', lastName: '', email: '', company: '', contractors: '', service: '', message: '' }); }
       else setFormError(data.error || 'Something went wrong.');
     } catch { setFormError('Network error. Please try again.'); }
     finally { setFormSubmitting(false); }
@@ -63,10 +63,9 @@ export default function Contact() {
 
       {/* Contact cards */}
       <section className="py-12 px-6 bg-background">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             { icon: MapPin, label: 'Visit Us', value: '545 Northumberland Avenue, Reading, England, RG2 8NU', href: 'https://maps.google.com/?q=545+Northumberland+Avenue+Reading+England+RG2+8NU' },
-            { icon: Phone, label: 'Call Us', value: '01952 973737', href: 'tel:+01952973737' },
             { icon: Mail, label: 'Email Us', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
             { icon: Clock, label: 'Office Hours', value: 'Mon - Fri, 9:00 - 17:30', href: undefined },
           ].map((item, i) => (
@@ -116,21 +115,12 @@ export default function Contact() {
                     className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-medium text-foreground mb-1.5 block">Work Email *</label>
-                  <input type="email" placeholder="jane@company.co.uk" value={formData.email}
-                    onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
-                    maxLength={255}
-                    className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
-                </div>
-                <div>
-                  <label className="text-xs font-medium text-foreground mb-1.5 block">Phone Number</label>
-                  <input type="tel" placeholder="01234 567890" value={formData.phone}
-                    onChange={e => setFormData(f => ({ ...f, phone: e.target.value }))}
-                    maxLength={20}
-                    className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
-                </div>
+              <div>
+                <label className="text-xs font-medium text-foreground mb-1.5 block">Work Email *</label>
+                <input type="email" placeholder="jane@company.co.uk" value={formData.email}
+                  onChange={e => setFormData(f => ({ ...f, email: e.target.value }))}
+                  maxLength={255}
+                  className="w-full h-10 px-4 text-sm rounded-xl glass-input focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all placeholder:text-muted-foreground/50" />
               </div>
               <div>
                 <label className="text-xs font-medium text-foreground mb-1.5 block">Company Name *</label>
@@ -204,10 +194,7 @@ export default function Contact() {
                   <p className="text-xs text-muted-foreground">545 Northumberland Avenue, Reading, England, RG2 8NU</p>
                 </div>
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <a href="tel:+01952973737" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
-                  <Phone className="w-3.5 h-3.5 text-primary" /> 01952 973737
-                </a>
+              <div className="grid grid-cols-1 gap-3">
                 <a href="mailto:info@amexoutsourcing.com" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
                   <Mail className="w-3.5 h-3.5 text-primary" /> info@amexoutsourcing.com
                 </a>
