@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
-import { Utensils, Hammer, HeartPulse } from 'lucide-react';
+import { Utensils, Hammer, HeartPulse, Truck } from 'lucide-react';
 import constructionImg from '@/assets/industry-construction.jpg';
 import healthcareImg from '@/assets/industry-healthcare.jpg';
 import hospitalityImg from '@/assets/industry-hospitality.jpg';
+import logisticsImg from '@/assets/industry-logistics.jpg';
 
 const industries = [
   { icon: Hammer, title: 'Construction', img: constructionImg, href: '/industries/construction' },
   { icon: HeartPulse, title: 'Healthcare', img: healthcareImg, href: '/industries/healthcare' },
   { icon: Utensils, title: 'Hospitality', img: hospitalityImg, href: '/industries/hospitality' },
+  { icon: Truck, title: 'Logistics', img: logisticsImg, href: '/industries/logistics' },
 ];
 
 export default function IndustriesSection() {
@@ -18,7 +20,7 @@ export default function IndustriesSection() {
         <p className="text-sm text-muted-foreground text-center mb-10 max-w-lg mx-auto">
           We support organisations across various sectors, shaping our services around the needs of each industry.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {industries.map((ind, i) => (
             <motion.a key={ind.title} href={ind.href}
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}

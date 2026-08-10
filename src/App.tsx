@@ -23,6 +23,7 @@ import HRServices from "./pages/services/HRServices";
 import Construction from "./pages/industries/Construction";
 import Healthcare from "./pages/industries/Healthcare";
 import Hospitality from "./pages/industries/Hospitality";
+import Logistics from "./pages/industries/Logistics";
 
 import ClockInOut from "./pages/ClockInOut";
 import NotFound from "./pages/NotFound";
@@ -63,6 +64,7 @@ const App = () => (
             <Route path="/industries/construction" element={<Construction />} />
             <Route path="/industries/healthcare" element={<Healthcare />} />
             <Route path="/industries/hospitality" element={<Hospitality />} />
+            <Route path="/industries/logistics" element={<Logistics />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<TermsOfService />} />
             <Route path="*" element={<NotFound />} />

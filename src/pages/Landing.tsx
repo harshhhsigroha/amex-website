@@ -6,7 +6,7 @@ import {
   FileText, Headphones, MapPin, Phone, Mail,
   ChevronRight, ChevronDown, Building2, Scale, Briefcase,
   Star, Sparkles, Utensils,
-  Hammer, HeartPulse,
+  Hammer, HeartPulse, Truck,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
@@ -98,6 +98,7 @@ export default function Landing() {
     { icon: Hammer, label: 'Construction', href: '/industries/construction' },
     { icon: HeartPulse, label: 'Healthcare', href: '/industries/healthcare' },
     { icon: Utensils, label: 'Hospitality', href: '/industries/hospitality' },
+    { icon: Truck, label: 'Logistics', href: '/industries/logistics' },
   ];
 
   const services = [
@@ -116,6 +117,7 @@ export default function Landing() {
     { icon: Hammer, title: 'Construction', href: '/industries/construction' },
     { icon: HeartPulse, title: 'Healthcare', href: '/industries/healthcare' },
     { icon: Utensils, title: 'Hospitality', href: '/industries/hospitality' },
+    { icon: Truck, title: 'Logistics', href: '/industries/logistics' },
   ];
 
   return (
@@ -516,7 +518,7 @@ export default function Landing() {
             </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {industries.map((ind, i) => (
               <Reveal key={ind.title} delay={i * 0.06}>
                 <button onClick={() => navigate(ind.href)}
