@@ -1,13 +1,15 @@
 import { motion } from 'framer-motion';
-import { Utensils, Hammer, HeartPulse } from 'lucide-react';
+import { Utensils, Hammer, HeartPulse, Truck } from 'lucide-react';
 import constructionImg from '@/assets/industry-construction.jpg';
 import healthcareImg from '@/assets/industry-healthcare.jpg';
 import hospitalityImg from '@/assets/industry-hospitality.jpg';
+import logisticsImg from '@/assets/industry-logistics.jpg';
 
 const industries = [
   { icon: Hammer, title: 'Construction', img: constructionImg, href: '/industries/construction' },
   { icon: HeartPulse, title: 'Healthcare', img: healthcareImg, href: '/industries/healthcare' },
   { icon: Utensils, title: 'Hospitality', img: hospitalityImg, href: '/industries/hospitality' },
+  { icon: Truck, title: 'Logistics', img: logisticsImg, href: '/industries/logistics' },
 ];
 
 export default function IndustriesSection() {

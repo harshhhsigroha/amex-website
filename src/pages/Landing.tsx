@@ -6,7 +6,7 @@ import {
   FileText, Headphones, MapPin, Phone, Mail,
   ChevronRight, ChevronDown, Building2, Scale, Briefcase,
   Star, Sparkles, Utensils,
-  Hammer, HeartPulse,
+  Hammer, HeartPulse, Truck,
 } from 'lucide-react';
 import { useRef, useState, useEffect } from 'react';
 
@@ -98,6 +98,7 @@ export default function Landing() {
     { icon: Hammer, label: 'Construction', href: '/industries/construction' },
     { icon: HeartPulse, label: 'Healthcare', href: '/industries/healthcare' },
     { icon: Utensils, label: 'Hospitality', href: '/industries/hospitality' },
+    { icon: Truck, label: 'Logistics', href: '/industries/logistics' },
   ];
 
   const services = [
@@ -116,6 +117,7 @@ export default function Landing() {
     { icon: Hammer, title: 'Construction', href: '/industries/construction' },
     { icon: HeartPulse, title: 'Healthcare', href: '/industries/healthcare' },
     { icon: Utensils, title: 'Hospitality', href: '/industries/hospitality' },
+    { icon: Truck, title: 'Logistics', href: '/industries/logistics' },
   ];
 
   return (
