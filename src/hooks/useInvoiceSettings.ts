@@ -25,10 +25,10 @@ export const DEFAULT_INVOICE_SETTINGS: Omit<InvoiceSettings, 'id'> = {
   remittance_email: 'accounts@amexoutsourcing.com',
   vat_number: 'GB 123456789',
   self_bill_company_name: 'AMEX Outsourcing',
-  self_bill_address_line1: 'Suite 8 Pemberton House',
-  self_bill_address_line2: 'Stafford Park 1',
-  self_bill_city: 'Telford',
-  self_bill_postcode: 'TF3 3BD',
+  self_bill_address_line1: '545 Northumberland Avenue',
+  self_bill_address_line2: 'Reading, England',
+  self_bill_city: '',
+  self_bill_postcode: 'RG2 8NU',
 };
 
 export function useInvoiceSettings() {
