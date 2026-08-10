@@ -187,7 +187,7 @@ export function AppSidebar({ activeTab, onTabChange }: AppSidebarProps) {
       <SidebarHeader className="p-4 pb-3">
         <div className="flex items-center gap-3">
           <div className="relative shrink-0">
-            <img src="/logo.png" alt="AMEX Outsourcing" className="h-9 w-9 rounded-xl object-contain" />
+            <img src="/pwa-192.png" alt="AMEX Outsourcing" className="h-9 w-9 rounded-xl object-cover" />
             <div className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-emerald-500 border-2 border-sidebar" />
           </div>
           {!isCollapsed && (
