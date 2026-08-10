@@ -518,7 +518,7 @@ export default function Landing() {
             </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {industries.map((ind, i) => (
               <Reveal key={ind.title} delay={i * 0.06}>
                 <button onClick={() => navigate(ind.href)}
