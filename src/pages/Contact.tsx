@@ -1,13 +1,13 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
+import { MapPin, Mail, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
 const fade = { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.5 } };
 
 export default function Contact() {
-  const [formData, setFormData] = useState({ name: '', lastName: '', email: '', phone: '', company: '', contractors: '', service: '', message: '' });
+  const [formData, setFormData] = useState({ name: '', lastName: '', email: '', company: '', contractors: '', service: '', message: '' });
   const [formSubmitting, setFormSubmitting] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [formError, setFormError] = useState('');
@@ -33,11 +33,11 @@ export default function Contact() {
           email: formData.email,
           company: formData.company,
           contractors: formData.contractors,
-          message: `Service: ${formData.service || 'Not specified'}\nPhone: ${formData.phone || 'Not provided'}\n\n${formData.message}`,
+          message: `Service: ${formData.service || 'Not specified'}\n\n${formData.message}`,
         }),
       });
       const data = await res.json();
-      if (res.ok) { setFormSuccess(true); setFormData({ name: '', lastName: '', email: '', phone: '', company: '', contractors: '', service: '', message: '' }); }
+      if (res.ok) { setFormSuccess(true); setFormData({ name: '', lastName: '', email: '', company: '', contractors: '', service: '', message: '' }); }
       else setFormError(data.error || 'Something went wrong.');
     } catch { setFormError('Network error. Please try again.'); }
     finally { setFormSubmitting(false); }
