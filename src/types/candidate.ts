@@ -80,10 +80,10 @@ export interface SelfBillException {
 // Self-billing fixed address
 export const SELF_BILL_TO_ADDRESS = {
   companyName: 'AMEX Outsourcing',
-  addressLine1: 'Suite 8 Pemberton House',
-  addressLine2: 'Stafford Park 1',
-  city: 'Telford',
-  postcode: 'TF3 3BD',
+  addressLine1: '545 Northumberland Avenue',
+  addressLine2: 'Reading, England',
+  city: '',
+  postcode: 'RG2 8NU',
 } as const;
 
 // Required fields for payment (NOT required to save candidate)

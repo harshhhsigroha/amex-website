@@ -227,7 +227,7 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               <p className="text-xs text-muted-foreground leading-relaxed mb-4">
                 Employment status, payroll, HR, and compliance services for businesses across the UK.
               </p>
-              <p className="text-xs text-muted-foreground">Pemberton House, Stafford Park 1, TF3 3BD</p>
+              <p className="text-xs text-muted-foreground">545 Northumberland Avenue, Reading, England, RG2 8NU</p>
             </div>
             <div>
               <p className="text-xs font-medium text-foreground uppercase tracking-widest mb-4">Quick Links</p>

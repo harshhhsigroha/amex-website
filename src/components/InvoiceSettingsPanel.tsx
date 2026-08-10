@@ -143,7 +143,7 @@ export function InvoiceSettingsPanel() {
                 id="self_bill_address_line1"
                 value={form.self_bill_address_line1}
                 onChange={e => update('self_bill_address_line1', e.target.value)}
-                placeholder="Suite 8 Pemberton House"
+                placeholder="545 Northumberland Avenue"
               />
             </div>
             <div className="space-y-2 md:col-span-2">
@@ -152,7 +152,7 @@ export function InvoiceSettingsPanel() {
                 id="self_bill_address_line2"
                 value={form.self_bill_address_line2}
                 onChange={e => update('self_bill_address_line2', e.target.value)}
-                placeholder="Stafford Park 1"
+                placeholder="Reading, England"
               />
             </div>
             <div className="space-y-2">
@@ -161,7 +161,7 @@ export function InvoiceSettingsPanel() {
                 id="self_bill_city"
                 value={form.self_bill_city}
                 onChange={e => update('self_bill_city', e.target.value)}
-                placeholder="Telford"
+                placeholder=""
               />
             </div>
             <div className="space-y-2">
@@ -170,7 +170,7 @@ export function InvoiceSettingsPanel() {
                 id="self_bill_postcode"
                 value={form.self_bill_postcode}
                 onChange={e => update('self_bill_postcode', e.target.value)}
-                placeholder="TF3 3BD"
+                placeholder="RG2 8NU"
               />
             </div>
           </div>

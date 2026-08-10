@@ -584,7 +584,7 @@ export default function Landing() {
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             {[
-              { icon: MapPin, label: 'Visit', value: 'Pemberton House, Stafford Park 1, TF3 3BD', href: 'https://maps.google.com/?q=Pemberton+House+Stafford+Park+1+TF3+3BD' },
+              { icon: MapPin, label: 'Visit', value: '545 Northumberland Avenue, Reading, England, RG2 8NU', href: 'https://maps.google.com/?q=545+Northumberland+Avenue+Reading+England+RG2+8NU' },
               { icon: Phone, label: 'Call', value: '01952 973737', href: 'tel:+01952973737' },
               { icon: Mail, label: 'Email', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
             ].map((item, i) => (

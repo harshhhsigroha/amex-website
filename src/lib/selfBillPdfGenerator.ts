@@ -70,10 +70,10 @@ export function generateSelfBillPDF(
   // Resolve "Invoice To" address - prefer live settings, fall back to defaults
   const invoiceTo = {
     companyName: invoiceSettings?.self_bill_company_name ?? 'AMEX Outsourcing',
-    addressLine1: invoiceSettings?.self_bill_address_line1 ?? 'Suite 8 Pemberton House',
-    addressLine2: invoiceSettings?.self_bill_address_line2 ?? 'Stafford Park 1',
-    city: invoiceSettings?.self_bill_city ?? 'Telford',
-    postcode: invoiceSettings?.self_bill_postcode ?? 'TF3 3BD',
+    addressLine1: invoiceSettings?.self_bill_address_line1 ?? '545 Northumberland Avenue',
+    addressLine2: invoiceSettings?.self_bill_address_line2 ?? 'Reading, England',
+    city: invoiceSettings?.self_bill_city ?? '',
+    postcode: invoiceSettings?.self_bill_postcode ?? 'RG2 8NU',
   };
 
   // Header
@@ -297,10 +297,10 @@ export function regenerateSelfBillPDF(
 
   const invoiceTo = {
     companyName: invoiceSettings?.self_bill_company_name ?? 'AMEX Outsourcing',
-    addressLine1: invoiceSettings?.self_bill_address_line1 ?? 'Suite 8 Pemberton House',
-    addressLine2: invoiceSettings?.self_bill_address_line2 ?? 'Stafford Park 1',
-    city: invoiceSettings?.self_bill_city ?? 'Telford',
-    postcode: invoiceSettings?.self_bill_postcode ?? 'TF3 3BD',
+    addressLine1: invoiceSettings?.self_bill_address_line1 ?? '545 Northumberland Avenue',
+    addressLine2: invoiceSettings?.self_bill_address_line2 ?? 'Reading, England',
+    city: invoiceSettings?.self_bill_city ?? '',
+    postcode: invoiceSettings?.self_bill_postcode ?? 'RG2 8NU',
   };
 
   // Header
