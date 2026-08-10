@@ -65,7 +65,7 @@ export default function Contact() {
       <section className="py-12 px-6 bg-background">
         <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: MapPin, label: 'Visit Us', value: 'Pemberton House, Stafford Park 1, TF3 3BD', href: 'https://maps.google.com/?q=Pemberton+House+Stafford+Park+1+TF3+3BD' },
+            { icon: MapPin, label: 'Visit Us', value: '545 Northumberland Avenue, Reading, England, RG2 8NU', href: 'https://maps.google.com/?q=545+Northumberland+Avenue+Reading+England+RG2+8NU' },
             { icon: Phone, label: 'Call Us', value: '01952 973737', href: 'tel:+01952973737' },
             { icon: Mail, label: 'Email Us', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
             { icon: Clock, label: 'Office Hours', value: 'Mon - Fri, 9:00 - 17:30', href: undefined },
@@ -201,7 +201,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <p className="font-medium text-foreground text-sm">AMEX Outsourcing Ltd</p>
-                  <p className="text-xs text-muted-foreground">Pemberton House, Stafford Park 1, Telford, TF3 3BD</p>
+                  <p className="text-xs text-muted-foreground">545 Northumberland Avenue, Reading, England, RG2 8NU</p>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-3">
