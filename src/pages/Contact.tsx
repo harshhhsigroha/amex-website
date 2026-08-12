@@ -63,10 +63,11 @@ export default function Contact() {
 
       {/* Contact cards */}
       <section className="py-12 px-6 bg-background">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { icon: MapPin, label: 'Visit Us', value: '545 Northumberland Avenue, Reading, England, RG2 8NU', href: 'https://maps.google.com/?q=545+Northumberland+Avenue+Reading+England+RG2+8NU' },
             { icon: Mail, label: 'Email Us', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
+            { icon: Phone, label: 'Call Us', value: '020 4569 1168', href: 'tel:02045691168' },
             { icon: Clock, label: 'Office Hours', value: 'Mon - Fri, 9:00 - 17:30', href: undefined },
           ].map((item, i) => (
             <motion.a key={item.label} href={item.href} target={item.href?.startsWith('http') ? '_blank' : undefined}
