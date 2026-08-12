@@ -199,6 +199,9 @@ export default function Contact() {
                 <a href="mailto:info@amexoutsourcing.com" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
                   <Mail className="w-3.5 h-3.5 text-primary" /> info@amexoutsourcing.com
                 </a>
+                <a href="tel:02045691168" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
+                  <Phone className="w-3.5 h-3.5 text-primary" /> 020 4569 1168
+                </a>
               </div>
             </div>
           </motion.div>
