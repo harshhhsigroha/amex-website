@@ -1,6 +1,6 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
-import { MapPin, Mail, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
+import { MapPin, Mail, Phone, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
@@ -63,10 +63,11 @@ export default function Contact() {
 
       {/* Contact cards */}
       <section className="py-12 px-6 bg-background">
-        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
             { icon: MapPin, label: 'Visit Us', value: '545 Northumberland Avenue, Reading, England, RG2 8NU', href: 'https://maps.google.com/?q=545+Northumberland+Avenue+Reading+England+RG2+8NU' },
             { icon: Mail, label: 'Email Us', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
+            { icon: Phone, label: 'Call Us', value: '020 4569 1168', href: 'tel:02045691168' },
             { icon: Clock, label: 'Office Hours', value: 'Mon - Fri, 9:00 - 17:30', href: undefined },
           ].map((item, i) => (
             <motion.a key={item.label} href={item.href} target={item.href?.startsWith('http') ? '_blank' : undefined}
@@ -197,6 +198,9 @@ export default function Contact() {
               <div className="grid grid-cols-1 gap-3">
                 <a href="mailto:info@amexoutsourcing.com" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
                   <Mail className="w-3.5 h-3.5 text-primary" /> info@amexoutsourcing.com
+                </a>
+                <a href="tel:02045691168" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
+                  <Phone className="w-3.5 h-3.5 text-primary" /> 020 4569 1168
                 </a>
               </div>
             </div>

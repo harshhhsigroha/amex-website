@@ -177,6 +177,7 @@ const PrivacyPolicy = () => {
           <div className="glass-premium rounded-xl p-5 space-y-2 mb-10">
             <p className="text-sm font-medium text-foreground">AMEX Outsourcing</p>
             <p className="text-sm text-muted-foreground">Email: <a href="mailto:hello@amexoutsourcing.com" className="text-primary hover:underline">hello@amexoutsourcing.com</a></p>
+            <p className="text-sm text-muted-foreground">Telephone: <a href="tel:02045691168" className="text-primary hover:underline">020 4569 1168</a></p>
             <p className="text-sm text-muted-foreground">Address: 545 Northumberland Avenue, Reading, England, RG2 8NU</p>
           </div>
 

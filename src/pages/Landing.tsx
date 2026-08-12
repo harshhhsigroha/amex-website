@@ -3,7 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight, CheckCircle2, ShieldCheck, Users,
-  FileText, Headphones, MapPin, Mail,
+  FileText, Headphones, MapPin, Mail, Phone,
   ChevronRight, ChevronDown, Building2, Scale, Briefcase,
   Star, Sparkles, Utensils,
   Hammer, HeartPulse, Truck,
@@ -584,10 +584,11 @@ export default function Landing() {
             </p>
           </Reveal>
 
-          <div className="grid md:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto">
             {[
               { icon: MapPin, label: 'Visit', value: '545 Northumberland Avenue, Reading, England, RG2 8NU', href: 'https://maps.google.com/?q=545+Northumberland+Avenue+Reading+England+RG2+8NU' },
               { icon: Mail, label: 'Email', value: 'info@amexoutsourcing.com', href: 'mailto:info@amexoutsourcing.com' },
+              { icon: Phone, label: 'Call', value: '020 4569 1168', href: 'tel:02045691168' },
             ].map((item, i) => (
               <Reveal key={item.label} delay={i * 0.06}>
                 <a href={item.href} target={item.href.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer"

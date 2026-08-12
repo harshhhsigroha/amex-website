@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Mail, Scale, FileText, Briefcase, Hammer, HeartPulse, Utensils, Truck } from 'lucide-react';
+import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Mail, Scale, FileText, Briefcase, Hammer, HeartPulse, Utensils, Truck, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 
@@ -263,6 +263,9 @@ export default function PageLayout({ children }: { children: React.ReactNode }) 
               <div className="mt-5 space-y-1.5">
                 <a href="mailto:info@amexoutsourcing.com" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
                   <Mail className="w-3.5 h-3.5" /> info@amexoutsourcing.com
+                </a>
+                <a href="tel:02045691168" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground transition-colors">
+                  <Phone className="w-3.5 h-3.5" /> 020 4569 1168
                 </a>
               </div>
             </div>
