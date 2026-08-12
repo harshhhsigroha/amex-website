@@ -1,6 +1,6 @@
 import PageLayout from '@/components/layout/PageLayout';
 import { motion } from 'framer-motion';
-import { MapPin, Mail, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
+import { MapPin, Mail, Phone, Send, CheckCircle2, Clock, Building2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
 
