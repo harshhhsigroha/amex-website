@@ -3,7 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import {
   ArrowRight, CheckCircle2, ShieldCheck, Users,
-  FileText, Headphones, MapPin, Mail,
+  FileText, Headphones, MapPin, Mail, Phone,
   ChevronRight, ChevronDown, Building2, Scale, Briefcase,
   Star, Sparkles, Utensils,
   Hammer, HeartPulse, Truck,

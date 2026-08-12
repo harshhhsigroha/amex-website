@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Mail, Scale, FileText, Briefcase, Hammer, HeartPulse, Utensils, Truck } from 'lucide-react';
+import { ArrowRight, ChevronRight, ChevronDown, Building2, Users, Mail, Scale, FileText, Briefcase, Hammer, HeartPulse, Utensils, Truck, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 
