@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs';
+import { readSpreadsheetRows } from '@/lib/workbookReader';
 import { TimesheetEntry, MasterInvoice, REQUIRED_COLUMNS } from '@/types/timesheet';
 
 export interface ParseResult {
@@ -81,17 +82,16 @@ function worksheetToJson(worksheet: ExcelJS.Worksheet): Record<string, unknown>[
 
 export async function parseExcelFile(file: File): Promise<ParseResult> {
   try {
-    const arrayBuffer = await file.arrayBuffer();
-    const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.load(arrayBuffer);
-    
-    const worksheet = workbook.worksheets[0];
-    if (!worksheet) {
-      return { success: false, error: 'The uploaded file contains no worksheets.' };
+    let jsonData: Record<string, unknown>[];
+    try {
+      jsonData = await readSpreadsheetRows(file);
+    } catch (readErr) {
+      return {
+        success: false,
+        error: readErr instanceof Error ? readErr.message : 'Failed to read the uploaded file.',
+      };
     }
-    
-    const jsonData = worksheetToJson(worksheet);
-    
+
     if (jsonData.length === 0) {
       return { success: false, error: 'The uploaded file contains no data.' };
     }

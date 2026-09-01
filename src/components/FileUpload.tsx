@@ -32,12 +32,7 @@ export function FileUpload({ onFileSelect, isProcessing, error }: FileUploadProp
       const files = e.dataTransfer.files;
       if (files && files.length > 0) {
         const file = files[0];
-        if (
-          file.name.endsWith('.xlsx') ||
-          file.name.endsWith('.xls') ||
-          file.type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' ||
-          file.type === 'application/vnd.ms-excel'
-        ) {
+        if (/\.(xlsx|xlsm|xlsb|xls|csv)$/i.test(file.name)) {
           setSelectedFile(file);
           onFileSelect(file);
         }
@@ -76,7 +71,7 @@ export function FileUpload({ onFileSelect, isProcessing, error }: FileUploadProp
       >
         <input
           type="file"
-          accept=".xlsx,.xls"
+          accept=".xlsx,.xlsm,.xlsb,.xls,.csv"
           onChange={handleFileInput}
           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           disabled={isProcessing}
@@ -119,7 +114,7 @@ export function FileUpload({ onFileSelect, isProcessing, error }: FileUploadProp
                   Drop your Excel file here
                 </p>
                 <p className="text-sm text-muted-foreground">
-                  or click to browse (.xlsx, .xls)
+                  or click to browse (.xlsx, .xls, .csv)
                 </p>
               </div>
             </>
