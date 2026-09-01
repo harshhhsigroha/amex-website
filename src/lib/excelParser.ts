@@ -1,4 +1,5 @@
 import ExcelJS from 'exceljs';
+import { readSpreadsheetRows } from '@/lib/workbookReader';
 import { TimesheetEntry, MasterInvoice, REQUIRED_COLUMNS } from '@/types/timesheet';
 
 export interface ParseResult {
@@ -45,53 +46,18 @@ function parseNumber(value: unknown): number {
   return 0;
 }
 
-function worksheetToJson(worksheet: ExcelJS.Worksheet): Record<string, unknown>[] {
-  const rows: Record<string, unknown>[] = [];
-  const headers: string[] = [];
-  
-  worksheet.eachRow((row, rowNumber) => {
-    if (rowNumber === 1) {
-      // First row is headers
-      row.eachCell((cell, colNumber) => {
-        headers[colNumber] = String(cell.value ?? '').trim();
-      });
-    } else {
-      const rowData: Record<string, unknown> = {};
-      row.eachCell((cell, colNumber) => {
-        const header = headers[colNumber];
-        if (header) {
-          rowData[header] = cell.value;
-        }
-      });
-      // Only add rows that have at least one value
-      if (Object.keys(rowData).length > 0) {
-        // Fill in missing headers with empty string
-        headers.forEach(h => {
-          if (h && !(h in rowData)) {
-            rowData[h] = '';
-          }
-        });
-        rows.push(rowData);
-      }
-    }
-  });
-  
-  return rows;
-}
-
 export async function parseExcelFile(file: File): Promise<ParseResult> {
   try {
-    const arrayBuffer = await file.arrayBuffer();
-    const workbook = new ExcelJS.Workbook();
-    await workbook.xlsx.load(arrayBuffer);
-    
-    const worksheet = workbook.worksheets[0];
-    if (!worksheet) {
-      return { success: false, error: 'The uploaded file contains no worksheets.' };
+    let jsonData: Record<string, unknown>[];
+    try {
+      jsonData = await readSpreadsheetRows(file);
+    } catch (readErr) {
+      return {
+        success: false,
+        error: readErr instanceof Error ? readErr.message : 'Failed to read the uploaded file.',
+      };
     }
-    
-    const jsonData = worksheetToJson(worksheet);
-    
+
     if (jsonData.length === 0) {
       return { success: false, error: 'The uploaded file contains no data.' };
     }

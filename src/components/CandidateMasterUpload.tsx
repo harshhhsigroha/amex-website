@@ -72,7 +72,7 @@ export function CandidateMasterUpload({ onUpload, candidateCount, isLoading }: C
         <div className="text-center p-4 border-2 border-dashed border-border rounded-lg">
           <input
             type="file"
-            accept=".xlsx,.xls,.csv"
+            accept=".xlsx,.xlsm,.xlsb,.xls,.csv"
             onChange={handleFileSelect}
             className="hidden"
             id="candidate-master-upload"
