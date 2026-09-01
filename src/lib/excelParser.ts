@@ -46,40 +46,6 @@ function parseNumber(value: unknown): number {
   return 0;
 }
 
-function worksheetToJson(worksheet: ExcelJS.Worksheet): Record<string, unknown>[] {
-  const rows: Record<string, unknown>[] = [];
-  const headers: string[] = [];
-  
-  worksheet.eachRow((row, rowNumber) => {
-    if (rowNumber === 1) {
-      // First row is headers
-      row.eachCell((cell, colNumber) => {
-        headers[colNumber] = String(cell.value ?? '').trim();
-      });
-    } else {
-      const rowData: Record<string, unknown> = {};
-      row.eachCell((cell, colNumber) => {
-        const header = headers[colNumber];
-        if (header) {
-          rowData[header] = cell.value;
-        }
-      });
-      // Only add rows that have at least one value
-      if (Object.keys(rowData).length > 0) {
-        // Fill in missing headers with empty string
-        headers.forEach(h => {
-          if (h && !(h in rowData)) {
-            rowData[h] = '';
-          }
-        });
-        rows.push(rowData);
-      }
-    }
-  });
-  
-  return rows;
-}
-
 export async function parseExcelFile(file: File): Promise<ParseResult> {
   try {
     let jsonData: Record<string, unknown>[];
